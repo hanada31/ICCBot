@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <singleMethod source="&lt;com.example.intentFlowBench.AbstractActivity: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="AbstractActivity onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.AbstractActivity: void setContentView(int)&gt;(2130903040)">
+        <nodeInfo nodeId="1043689174" predsStr="1889298280" succsStr="" context=""/>
+        <baseNodePointTo value="1043689174" context=""/>
+        <nodeSetPointToMe value="1043689174," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity10: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity10 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity10: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1326045592" predsStr="31234171" succsStr="" context=""/>
+        <baseNodePointTo value="1326045592" context=""/>
+        <nodeSetPointToMe value="1326045592," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity12: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity12 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity12: void setContentView(int)&gt;(2130903043)">
+        <nodeInfo nodeId="1492905182" predsStr="357350214" succsStr="" context=""/>
+        <baseNodePointTo value="1492905182" context=""/>
+        <nodeSetPointToMe value="1492905182," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.intentFlowBench.SubActivity10 dummyMainMethod_com_example_intentFlowBench_SubActivity10(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity10 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity10: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1326045592" predsStr="31234171" succsStr="" context=""/>
+        <baseNodePointTo value="1326045592" context=""/>
+        <nodeSetPointToMe value="1326045592," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity5: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity5 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1122694271" predsStr="2132909700" succsStr="1553338212, 988557145" context=""/>
+        <baseNodePointTo value="1122694271" context=""/>
+        <nodeSetPointToMe value="1122694271," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.intentFlowBench.SubActivity12 dummyMainMethod_com_example_intentFlowBench_SubActivity12(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity12 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity12: void setContentView(int)&gt;(2130903043)">
+        <nodeInfo nodeId="1492905182" predsStr="357350214" succsStr="" context=""/>
+        <baseNodePointTo value="1492905182" context=""/>
+        <nodeSetPointToMe value="1492905182," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity7: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity7 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity7: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1784116580" predsStr="1600366322" succsStr="" context=""/>
+        <baseNodePointTo value="1784116580" context=""/>
+        <nodeSetPointToMe value="1784116580," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity8: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity8 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity8: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="541390600" predsStr="1266968258" succsStr="" context=""/>
+        <baseNodePointTo value="541390600" context=""/>
+        <nodeSetPointToMe value="541390600," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.intentFlowBench.SubActivity7 dummyMainMethod_com_example_intentFlowBench_SubActivity7(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity7 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity7: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1784116580" predsStr="1600366322" succsStr="" context=""/>
+        <baseNodePointTo value="1784116580" context=""/>
+        <nodeSetPointToMe value="1784116580," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.intentFlowBench.SubActivity8 dummyMainMethod_com_example_intentFlowBench_SubActivity8(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity8 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity8: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="541390600" predsStr="1266968258" succsStr="" context=""/>
+        <baseNodePointTo value="541390600" context=""/>
+        <nodeSetPointToMe value="541390600," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.intentFlowBench.SubActivity5 dummyMainMethod_com_example_intentFlowBench_SubActivity5(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity5 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1122694271" predsStr="2132909700" succsStr="1553338212, 988557145" context=""/>
+        <baseNodePointTo value="1122694271" context=""/>
+        <nodeSetPointToMe value="1122694271," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity2: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity2 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity2: void setContentView(int)&gt;(2130903044)">
+        <nodeInfo nodeId="906244819" predsStr="1823075447" succsStr="" context=""/>
+        <baseNodePointTo value="906244819" context=""/>
+        <nodeSetPointToMe value="906244819," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_2: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity9_2 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_2: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1491251091" predsStr="85284187" succsStr="" context=""/>
+        <baseNodePointTo value="1491251091" context=""/>
+        <nodeSetPointToMe value="1491251091," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity4 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity4: void setContentView(int)&gt;(2130903046)">
+        <nodeInfo nodeId="342576236" predsStr="126560570" succsStr="" context=""/>
+        <baseNodePointTo value="342576236" context=""/>
+        <nodeSetPointToMe value="342576236," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.intentFlowBench.SubActivity2 dummyMainMethod_com_example_intentFlowBench_SubActivity2(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity2 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity2: void setContentView(int)&gt;(2130903044)">
+        <nodeInfo nodeId="906244819" predsStr="1823075447" succsStr="" context=""/>
+        <baseNodePointTo value="906244819" context=""/>
+        <nodeSetPointToMe value="906244819," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_1: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity9_1 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_1: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="122360746" predsStr="1036971139" succsStr="" context=""/>
+        <baseNodePointTo value="122360746" context=""/>
+        <nodeSetPointToMe value="122360746," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity3: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity3 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity3: void setContentView(int)&gt;(2130903045)">
+        <nodeInfo nodeId="944560186" predsStr="1600154294" succsStr="" context=""/>
+        <baseNodePointTo value="944560186" context=""/>
+        <nodeSetPointToMe value="944560186," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity11: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity11 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity11: void setContentView(int)&gt;(2130903041)">
+        <nodeInfo nodeId="1374887853" predsStr="1172991012" succsStr="" context=""/>
+        <baseNodePointTo value="1374887853" context=""/>
+        <nodeSetPointToMe value="1374887853," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity1: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity1 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity1: void setContentView(int)&gt;(2130903041)">
+        <nodeInfo nodeId="615535250" predsStr="1577643304" succsStr="" context=""/>
+        <baseNodePointTo value="615535250" context=""/>
+        <nodeSetPointToMe value="615535250," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity6: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity6 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1215109224" predsStr="1345177914" succsStr="" context=""/>
+        <baseNodePointTo value="1215109224" context=""/>
+        <nodeSetPointToMe value="1215109224," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.intentFlowBench.SubActivity9_2 dummyMainMethod_com_example_intentFlowBench_SubActivity9__2(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity9_2 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_2: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1491251091" predsStr="85284187" succsStr="" context=""/>
+        <baseNodePointTo value="1491251091" context=""/>
+        <nodeSetPointToMe value="1491251091," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.MainActivity: void setContentView(int)&gt;(2130903040)">
+        <nodeInfo nodeId="2055269325" predsStr="451809097" succsStr="" context=""/>
+        <baseNodePointTo value="2055269325" context=""/>
+        <nodeSetPointToMe value="2055269325," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: void dummyMainMethod(java.lang.String[])&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity9_2 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_2: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1491251091" predsStr="85284187" succsStr="" context=""/>
+        <baseNodePointTo value="1491251091" context=""/>
+        <nodeSetPointToMe value="1491251091," context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity12 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity12: void setContentView(int)&gt;(2130903043)">
+        <nodeInfo nodeId="1492905182" predsStr="357350214" succsStr="" context=""/>
+        <baseNodePointTo value="1492905182" context=""/>
+        <nodeSetPointToMe value="1492905182," context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity7 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity7: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1784116580" predsStr="1600366322" succsStr="" context=""/>
+        <baseNodePointTo value="1784116580" context=""/>
+        <nodeSetPointToMe value="1784116580," context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity8 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity8: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="541390600" predsStr="1266968258" succsStr="" context=""/>
+        <baseNodePointTo value="541390600" context=""/>
+        <nodeSetPointToMe value="541390600," context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity2 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity2: void setContentView(int)&gt;(2130903044)">
+        <nodeInfo nodeId="906244819" predsStr="1823075447" succsStr="" context=""/>
+        <baseNodePointTo value="906244819" context=""/>
+        <nodeSetPointToMe value="906244819," context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity10 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity10: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1326045592" predsStr="31234171" succsStr="" context=""/>
+        <baseNodePointTo value="1326045592" context=""/>
+        <nodeSetPointToMe value="1326045592," context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SubActivity5 onCreate" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void setContentView(int)&gt;(2130903047)">
+        <nodeInfo nodeId="1122694271" predsStr="2132909700" succsStr="1553338212, 988557145" context=""/>
+        <baseNodePointTo value="1122694271" context=""/>
+        <nodeSetPointToMe value="1122694271," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+</root>

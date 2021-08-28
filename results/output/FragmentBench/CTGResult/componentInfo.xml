@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <component name="com.example.fragmentbench.MainActivity" type="Activity">
+    <manifest>
+      <intent_filter action="android.intent.action.MAIN" category="android.intent.category.LAUNCHER"/>
+    </manifest>
+    <sender destination="com.example.fragmentbench.ui.notifications.NotificationsFragment, com.example.fragmentbench.ui.dashboard.DashboardFragment, com.example.fragmentbench.ui.home.HomeFragment"/>
+  </component>
+</root>
