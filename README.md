@@ -31,7 +31,7 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-outputDir][-client]
                         [IROutputClient: Output soot IR files.
                         ManifestClient: Output manifest.xml file.
                         CallGraphClient: Output call graph files.
-                        ICTGClient: Analyze Intents.]
+                       	MainClient: Resolve ICC Links.]
                         
  -androidJar <arg>      -androidJar: Set the path of android.jar.                
  -version <arg>         -version [default:23]: Version of Android SDK.

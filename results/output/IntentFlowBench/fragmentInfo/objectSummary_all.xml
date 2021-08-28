@@ -1,48 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <root>
-  <Component source="com.example.intentFlowBench.AbstractActivity">
-    <SingleFragment>
-      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.AbstractActivity"/>
-      <nodes>
-        <node method="AbstractActivity onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.AbstractActivity: void setContentView(int)&gt;(2130903040)"/>
-      </nodes>
-    </SingleFragment>
-  </Component>
   <Component source="com.example.intentFlowBench.SubActivity10">
     <SingleFragment>
       <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
       <source name="com.example.intentFlowBench.SubActivity10"/>
       <nodes>
         <node method="SubActivity10 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity10: void setContentView(int)&gt;(2130903047)"/>
-      </nodes>
-    </SingleFragment>
-  </Component>
-  <Component source="com.example.intentFlowBench.SubActivity12">
-    <SingleFragment>
-      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity12"/>
-      <nodes>
-        <node method="SubActivity12 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity12: void setContentView(int)&gt;(2130903043)"/>
-      </nodes>
-    </SingleFragment>
-  </Component>
-  <Component source="com.example.intentFlowBench.SubActivity5">
-    <SingleFragment>
-      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity5"/>
-      <nodes>
-        <node method="SubActivity5 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void setContentView(int)&gt;(2130903047)"/>
-      </nodes>
-    </SingleFragment>
-  </Component>
-  <Component source="com.example.intentFlowBench.SubActivity7">
-    <SingleFragment>
-      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity7"/>
-      <nodes>
-        <node method="SubActivity7 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity7: void setContentView(int)&gt;(2130903047)"/>
       </nodes>
     </SingleFragment>
   </Component>
@@ -55,57 +19,39 @@
       </nodes>
     </SingleFragment>
   </Component>
-  <Component source="com.example.intentFlowBench.SubActivity2">
+  <Component source="com.example.intentFlowBench.AbstractActivity">
     <SingleFragment>
       <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity2"/>
+      <source name="com.example.intentFlowBench.AbstractActivity"/>
       <nodes>
-        <node method="SubActivity2 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity2: void setContentView(int)&gt;(2130903044)"/>
+        <node method="AbstractActivity onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.AbstractActivity: void setContentView(int)&gt;(2130903040)"/>
       </nodes>
     </SingleFragment>
   </Component>
-  <Component source="com.example.intentFlowBench.SubActivity9_2">
+  <Component source="com.example.intentFlowBench.SubActivity12">
     <SingleFragment>
       <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity9_2"/>
+      <source name="com.example.intentFlowBench.SubActivity12"/>
       <nodes>
-        <node method="SubActivity9_2 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_2: void setContentView(int)&gt;(2130903047)"/>
+        <node method="SubActivity12 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity12: void setContentView(int)&gt;(2130903043)"/>
       </nodes>
     </SingleFragment>
   </Component>
-  <Component source="com.example.intentFlowBench.SubActivity4">
+  <Component source="com.example.intentFlowBench.SubActivity7">
     <SingleFragment>
       <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity4"/>
+      <source name="com.example.intentFlowBench.SubActivity7"/>
       <nodes>
-        <node method="SubActivity4 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity4: void setContentView(int)&gt;(2130903046)"/>
+        <node method="SubActivity7 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity7: void setContentView(int)&gt;(2130903047)"/>
       </nodes>
     </SingleFragment>
   </Component>
-  <Component source="com.example.intentFlowBench.SubActivity9_1">
+  <Component source="com.example.intentFlowBench.SubActivity5">
     <SingleFragment>
       <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity9_1"/>
+      <source name="com.example.intentFlowBench.SubActivity5"/>
       <nodes>
-        <node method="SubActivity9_1 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_1: void setContentView(int)&gt;(2130903047)"/>
-      </nodes>
-    </SingleFragment>
-  </Component>
-  <Component source="com.example.intentFlowBench.SubActivity3">
-    <SingleFragment>
-      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity3"/>
-      <nodes>
-        <node method="SubActivity3 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity3: void setContentView(int)&gt;(2130903045)"/>
-      </nodes>
-    </SingleFragment>
-  </Component>
-  <Component source="com.example.intentFlowBench.SubActivity11">
-    <SingleFragment>
-      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
-      <source name="com.example.intentFlowBench.SubActivity11"/>
-      <nodes>
-        <node method="SubActivity11 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity11: void setContentView(int)&gt;(2130903041)"/>
+        <node method="SubActivity5 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void setContentView(int)&gt;(2130903047)"/>
       </nodes>
     </SingleFragment>
   </Component>
@@ -118,12 +64,66 @@
       </nodes>
     </SingleFragment>
   </Component>
+  <Component source="com.example.intentFlowBench.SubActivity9_2">
+    <SingleFragment>
+      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
+      <source name="com.example.intentFlowBench.SubActivity9_2"/>
+      <nodes>
+        <node method="SubActivity9_2 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_2: void setContentView(int)&gt;(2130903047)"/>
+      </nodes>
+    </SingleFragment>
+  </Component>
   <Component source="com.example.intentFlowBench.SubActivity6">
     <SingleFragment>
       <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
       <source name="com.example.intentFlowBench.SubActivity6"/>
       <nodes>
         <node method="SubActivity6 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void setContentView(int)&gt;(2130903047)"/>
+      </nodes>
+    </SingleFragment>
+  </Component>
+  <Component source="com.example.intentFlowBench.SubActivity9_1">
+    <SingleFragment>
+      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
+      <source name="com.example.intentFlowBench.SubActivity9_1"/>
+      <nodes>
+        <node method="SubActivity9_1 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity9_1: void setContentView(int)&gt;(2130903047)"/>
+      </nodes>
+    </SingleFragment>
+  </Component>
+  <Component source="com.example.intentFlowBench.SubActivity4">
+    <SingleFragment>
+      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
+      <source name="com.example.intentFlowBench.SubActivity4"/>
+      <nodes>
+        <node method="SubActivity4 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity4: void setContentView(int)&gt;(2130903046)"/>
+      </nodes>
+    </SingleFragment>
+  </Component>
+  <Component source="com.example.intentFlowBench.SubActivity2">
+    <SingleFragment>
+      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
+      <source name="com.example.intentFlowBench.SubActivity2"/>
+      <nodes>
+        <node method="SubActivity2 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity2: void setContentView(int)&gt;(2130903044)"/>
+      </nodes>
+    </SingleFragment>
+  </Component>
+  <Component source="com.example.intentFlowBench.SubActivity11">
+    <SingleFragment>
+      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
+      <source name="com.example.intentFlowBench.SubActivity11"/>
+      <nodes>
+        <node method="SubActivity11 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity11: void setContentView(int)&gt;(2130903041)"/>
+      </nodes>
+    </SingleFragment>
+  </Component>
+  <Component source="com.example.intentFlowBench.SubActivity3">
+    <SingleFragment>
+      <method method="void onCreate(android.os.Bundle)" methodtrace="void onCreate(android.os.Bundle)"/>
+      <source name="com.example.intentFlowBench.SubActivity3"/>
+      <nodes>
+        <node method="SubActivity3 onCreate" type="setContentView" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity3: void setContentView(int)&gt;(2130903045)"/>
       </nodes>
     </SingleFragment>
   </Component>

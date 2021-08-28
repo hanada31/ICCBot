@@ -14,7 +14,7 @@ MainActivity[style=filled, fillcolor=orange, color = red];
 NotificationsFragment[color = teal];
 DashboardFragment[color = teal];
 HomeFragment[color = teal];
-MainActivity->HomeFragment[style = dashed];
 MainActivity->DashboardFragment[style = dashed];
+MainActivity->HomeFragment[style = dashed];
 MainActivity->NotificationsFragment[style = dashed];
 }
