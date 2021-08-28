@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.microsoft.z3.Model;
-
 import main.java.Global;
 import main.java.analyze.model.labeledOracleModel.IccTag;
 import main.java.analyze.model.labeledOracleModel.IccTagCount;

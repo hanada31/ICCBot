@@ -1,351 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <root>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity11: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity11 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="1473375728" predsStr="937513045" succsStr="967701734" context=""/>
-        <baseNodePointTo value="1473375728" context=""/>
-        <nodeSetPointToMe value="1473375728,967701734," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity11 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity11: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="967701734" predsStr="1473375728" succsStr="" context=""/>
-        <baseNodePointTo value="967701734" context=""/>
-        <nodeSetPointToMe value="967701734," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity3$2: void onClick(android.view.View)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4$1: void onClick(android.view.View)&gt;">
     <singlePath>
       <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="SubActivity3$2 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="182130143" predsStr="456872530" succsStr="1866841666" context=""/>
-        <baseNodePointTo value="182130143" context=""/>
-        <nodeSetPointToMe value="182130143,1866841666,1551398625,495982334,1329040766," context=""/>
+      <node type="CreateMethod" method="SubActivity4$1 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="1324815455" predsStr="1932104087" succsStr="370265628" context=""/>
+        <baseNodePointTo value="1324815455" context=""/>
+        <nodeSetPointToMe value="1324815455,370265628,1087177468,2144835163,158605330," context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity3$2 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity4;&quot;)">
-        <nodeInfo nodeId="1866841666" predsStr="182130143" succsStr="1551398625" context=""/>
-        <baseNodePointTo value="182130143" context=""/>
+      <node type="SetAttribute" method="SubActivity4$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity2;&quot;)">
+        <nodeInfo nodeId="370265628" predsStr="1324815455" succsStr="1087177468" context=""/>
+        <baseNodePointTo value="1324815455" context=""/>
       </node>
-      <node type="SetIntentExtra" method="SubActivity3$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity3&quot;)">
-        <nodeInfo nodeId="1551398625" predsStr="1866841666" succsStr="495982334" context=""/>
-        <baseNodePointTo value="182130143" context=""/>
+      <node type="SetIntentExtra" method="SubActivity4$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity4&quot;)">
+        <nodeInfo nodeId="1087177468" predsStr="370265628" succsStr="2144835163" context=""/>
+        <baseNodePointTo value="1324815455" context=""/>
       </node>
-      <node type="SetIntentExtra" method="SubActivity3$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,boolean)&gt;(&quot;Sub3&quot;, 0)">
-        <nodeInfo nodeId="495982334" predsStr="1551398625" succsStr="1329040766" context=""/>
-        <baseNodePointTo value="182130143" context=""/>
+      <node type="SetIntentExtra" method="SubActivity4$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;Sub4&quot;, &quot;opq&quot;)">
+        <nodeInfo nodeId="2144835163" predsStr="1087177468" succsStr="158605330" context=""/>
+        <baseNodePointTo value="1324815455" context=""/>
       </node>
-      <node type="SendIntent2ICC" method="SubActivity3$2 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity3: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1329040766" predsStr="495982334" succsStr="" context=""/>
-        <baseNodePointTo value="182130143" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity5: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity5 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="1371345136" predsStr="424181011" succsStr="1205332149" context=""/>
-        <baseNodePointTo value="1371345136" context=""/>
-        <nodeSetPointToMe value="1371345136,1205332149," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity5 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity5: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1205332149" predsStr="1371345136" succsStr="" context=""/>
-        <baseNodePointTo value="1205332149" context=""/>
-        <nodeSetPointToMe value="1205332149," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4$2: void onClick(android.view.View)&gt;">
-    <singlePath>
-      <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="SubActivity4$2 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1724549250" predsStr="240897678" succsStr="1275693559" context=""/>
-        <baseNodePointTo value="1724549250" context=""/>
-        <nodeSetPointToMe value="1724549250,1275693559,944468364,1756686261," context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity4$2 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity5;&quot;)">
-        <nodeInfo nodeId="1275693559" predsStr="1724549250" succsStr="944468364" context=""/>
-        <baseNodePointTo value="1724549250" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity4$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity4&quot;)">
-        <nodeInfo nodeId="944468364" predsStr="1275693559" succsStr="1756686261" context=""/>
-        <baseNodePointTo value="1724549250" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity4$2 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity4: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1756686261" predsStr="944468364" succsStr="" context=""/>
-        <baseNodePointTo value="1724549250" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.AbstractActivity: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="AbstractActivity setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="787865487" predsStr="534493709" succsStr="1888428943" context=""/>
-        <baseNodePointTo value="787865487" context=""/>
-        <nodeSetPointToMe value="787865487,1888428943," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="AbstractActivity setResult" unit="this.&lt;com.example.intentFlowBench.AbstractActivity: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1888428943" predsStr="787865487" succsStr="" context=""/>
-        <baseNodePointTo value="1888428943" context=""/>
-        <nodeSetPointToMe value="1888428943," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity2$1: void onClick(android.view.View)&gt;">
-    <singlePath>
-      <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="SubActivity2$1 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="2075760352" predsStr="1870552593" succsStr="228732988" context=""/>
-        <baseNodePointTo value="2075760352" context=""/>
-        <nodeSetPointToMe value="2075760352,228732988,1924533224,1864715641,1486670059," context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity2$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity3;&quot;)">
-        <nodeInfo nodeId="228732988" predsStr="2075760352" succsStr="1924533224" context=""/>
-        <baseNodePointTo value="2075760352" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity2$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity2&quot;)">
-        <nodeInfo nodeId="1924533224" predsStr="228732988" succsStr="1864715641" context=""/>
-        <baseNodePointTo value="2075760352" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity2$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,int)&gt;(&quot;Sub2&quot;, 200)">
-        <nodeInfo nodeId="1864715641" predsStr="1924533224" succsStr="1486670059" context=""/>
-        <baseNodePointTo value="2075760352" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity2$1 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity2: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1486670059" predsStr="1864715641" succsStr="" context=""/>
-        <baseNodePointTo value="2075760352" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity$3: void onClick(android.view.View)&gt;">
-    <singlePath>
-      <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="MainActivity$3 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="326791409" predsStr="887000223" succsStr="1595659891" context=""/>
-        <baseNodePointTo value="326791409" context=""/>
-        <nodeSetPointToMe value="326791409,1595659891,1412764055,340772346,1416807034," context=""/>
-      </node>
-      <node type="SetAttribute" method="MainActivity$3 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity3;&quot;)">
-        <nodeInfo nodeId="1595659891" predsStr="326791409" succsStr="1412764055" context=""/>
-        <baseNodePointTo value="326791409" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="MainActivity$3 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;MainActivity&quot;)">
-        <nodeInfo nodeId="1412764055" predsStr="1595659891" succsStr="340772346" context=""/>
-        <baseNodePointTo value="326791409" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="MainActivity$3 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,int)&gt;(&quot;Main&quot;, 100)">
-        <nodeInfo nodeId="340772346" predsStr="1412764055" succsStr="1416807034" context=""/>
-        <baseNodePointTo value="326791409" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="MainActivity$3 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.MainActivity: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1416807034" predsStr="340772346" succsStr="" context=""/>
-        <baseNodePointTo value="326791409" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity12: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity12 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="1553206824" predsStr="2005320416" succsStr="1455659337" context=""/>
-        <baseNodePointTo value="1553206824" context=""/>
-        <nodeSetPointToMe value="1553206824,1455659337," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity12 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity12: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1455659337" predsStr="1553206824" succsStr="" context=""/>
-        <baseNodePointTo value="1455659337" context=""/>
-        <nodeSetPointToMe value="1455659337," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_1: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity9_1 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="1627520381" predsStr="221850042" succsStr="186826428" context=""/>
-        <baseNodePointTo value="1627520381" context=""/>
-        <nodeSetPointToMe value="1627520381,186826428," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity9_1 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity9_1: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="186826428" predsStr="1627520381" succsStr="" context=""/>
-        <baseNodePointTo value="186826428" context=""/>
-        <nodeSetPointToMe value="186826428," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity7: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity7 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="112667746" predsStr="1792030422" succsStr="1561855528" context=""/>
-        <baseNodePointTo value="112667746" context=""/>
-        <nodeSetPointToMe value="112667746,1561855528," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity7 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity7: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1561855528" predsStr="112667746" succsStr="" context=""/>
-        <baseNodePointTo value="1561855528" context=""/>
-        <nodeSetPointToMe value="1561855528," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="MainActivity setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="778306577" predsStr="907656350" succsStr="1583389506" context=""/>
-        <baseNodePointTo value="778306577" context=""/>
-        <nodeSetPointToMe value="778306577,1583389506," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="MainActivity setResult" unit="this.&lt;com.example.intentFlowBench.MainActivity: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1583389506" predsStr="778306577" succsStr="" context=""/>
-        <baseNodePointTo value="1583389506" context=""/>
-        <nodeSetPointToMe value="1583389506," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity1: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity1 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="656847603" predsStr="2024041851" succsStr="889844525" context=""/>
-        <baseNodePointTo value="656847603" context=""/>
-        <nodeSetPointToMe value="656847603,889844525," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity1 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity1: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="889844525" predsStr="656847603" succsStr="" context=""/>
-        <baseNodePointTo value="889844525" context=""/>
-        <nodeSetPointToMe value="889844525," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;">
-    <singlePath>
-      <method methodtrace="void analyzeIntent(java.lang.String)"/>
-      <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context=""/>
-        <baseNodePointTo value="1439915898" context=""/>
-        <nodeSetPointToMe value="1439915898,317685173,208821754,982302873," context=""/>
-      </node>
-      <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context=""/>
-        <baseNodePointTo value="1439915898" context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context=""/>
-        <baseNodePointTo value="1439915898" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context=""/>
-        <baseNodePointTo value="1439915898" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity10: void launchStaticIntent()&gt;">
-    <singlePath>
-      <method methodtrace="void launchStaticIntent()"/>
-      <node type="StaticCreateMethod" method="SubActivity10 launchStaticIntent" unit="$r1 = r0.&lt;com.example.intentFlowBench.SubActivity10: android.content.Intent mIntent&gt;">
-        <nodeInfo nodeId="1213062781" predsStr="1758228388" succsStr="1567791862" context=""/>
-        <baseNodePointTo value="1213062781" context=""/>
-        <nodeSetPointToMe value="1213062781,1567791862," context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity10 launchStaticIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity10: void startActivity(android.content.Intent)&gt;($r1)">
-        <nodeInfo nodeId="1567791862" predsStr="1213062781" succsStr="" context=""/>
-        <baseNodePointTo value="1213062781" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity10: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity10 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="948005484" predsStr="1372916575" succsStr="1953660481" context=""/>
-        <baseNodePointTo value="948005484" context=""/>
-        <nodeSetPointToMe value="948005484,1953660481," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity10 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity10: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1953660481" predsStr="948005484" succsStr="" context=""/>
-        <baseNodePointTo value="1953660481" context=""/>
-        <nodeSetPointToMe value="1953660481," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity$1: void onClick(android.view.View)&gt;">
-    <singlePath>
-      <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="MainActivity$1 onClick" unit="r4 = new android.content.Intent">
-        <nodeInfo nodeId="1264165313" predsStr="298021609" succsStr="1933672516" context=""/>
-        <baseNodePointTo value="1264165313" context=""/>
-        <nodeSetPointToMe value="1264165313,1933672516,1491862772,1387426106,1424200964," context=""/>
-      </node>
-      <node type="SetAttribute" method="MainActivity$1 onClick" unit="specialinvoke r4.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r5, class &quot;Lcom/example/intentFlowBench/SubActivity1;&quot;)">
-        <nodeInfo nodeId="1933672516" predsStr="1264165313" succsStr="1491862772" context=""/>
-        <baseNodePointTo value="1264165313" context=""/>
-      </node>
-      <node type="SetAttribute" method="MainActivity$1 onClick" unit="virtualinvoke r4.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;(&quot;mainAction&quot;)">
-        <nodeInfo nodeId="1491862772" predsStr="1933672516" succsStr="1387426106" context=""/>
-        <baseNodePointTo value="1264165313" context=""/>
-      </node>
-      <node type="SetAttribute" method="MainActivity$1 onClick" unit="virtualinvoke r4.&lt;android.content.Intent: android.content.Intent addCategory(java.lang.String)&gt;(&quot;mainCategory&quot;)">
-        <nodeInfo nodeId="1387426106" predsStr="1491862772" succsStr="1424200964" context=""/>
-        <baseNodePointTo value="1264165313" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="MainActivity$1 onClick" unit="virtualinvoke r4.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;MainActivity&quot;)">
-        <nodeInfo nodeId="1424200964" predsStr="1387426106" succsStr="" context=""/>
-        <baseNodePointTo value="1264165313" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity1: void analyzeIntent()&gt;">
-    <singlePath>
-      <method methodtrace="void analyzeIntent()"/>
-      <node type="ReceiveIntentFromOutMethod" method="SubActivity1 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity1: android.content.Intent getIntent()&gt;()">
-        <nodeInfo nodeId="1190383863" predsStr="239171112" succsStr="" context=""/>
-        <baseNodePointTo value="1190383863" context=""/>
-        <nodeSetPointToMe value="1190383863," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity$2: void onClick(android.view.View)&gt;">
-    <singlePath>
-      <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="MainActivity$2 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1360502701" predsStr="305799597" succsStr="721034010" context=""/>
-        <baseNodePointTo value="1360502701" context=""/>
-        <nodeSetPointToMe value="1360502701,721034010,822082387,1938527144,512528515," context=""/>
-      </node>
-      <node type="SetAttribute" method="MainActivity$2 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity2;&quot;)">
-        <nodeInfo nodeId="721034010" predsStr="1360502701" succsStr="822082387" context=""/>
-        <baseNodePointTo value="1360502701" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="MainActivity$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;MainActivity&quot;)">
-        <nodeInfo nodeId="822082387" predsStr="721034010" succsStr="1938527144" context=""/>
-        <baseNodePointTo value="1360502701" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="MainActivity$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;Main&quot;, &quot;abc&quot;)">
-        <nodeInfo nodeId="1938527144" predsStr="822082387" succsStr="512528515" context=""/>
-        <baseNodePointTo value="1360502701" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="MainActivity$2 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.MainActivity: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="512528515" predsStr="1938527144" succsStr="" context=""/>
-        <baseNodePointTo value="1360502701" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity3: void setResult(int,android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity3 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="2035940323" predsStr="549207679" succsStr="1975576254" context=""/>
-        <baseNodePointTo value="2035940323" context=""/>
-        <nodeSetPointToMe value="2035940323,1975576254," context=""/>
-      </node>
-      <node type="StaticCreateMethod" method="SubActivity3 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity3: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1975576254" predsStr="2035940323" succsStr="" context=""/>
-        <baseNodePointTo value="1975576254" context=""/>
-        <nodeSetPointToMe value="1975576254," context=""/>
+      <node type="SendIntent2ICC" method="SubActivity4$1 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity4: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="158605330" predsStr="2144835163" succsStr="" context=""/>
+        <baseNodePointTo value="1324815455" context=""/>
       </node>
     </singlePath>
   </singleMethod>
@@ -353,81 +31,73 @@
     <singlePath>
       <method methodtrace="void secondLevel()"/>
       <node type="CreateMethod" method="SubActivity7 secondLevel" unit="r1 = new android.content.Intent">
-        <nodeInfo nodeId="1880646506" predsStr="1322769266" succsStr="1048994595" context=""/>
-        <baseNodePointTo value="1880646506" context=""/>
-        <nodeSetPointToMe value="1880646506,1048994595,1935820073,52305020," context=""/>
+        <nodeInfo nodeId="1716257894" predsStr="1698120998" succsStr="786196112" context=""/>
+        <baseNodePointTo value="1716257894" context=""/>
+        <nodeSetPointToMe value="1716257894,786196112,1827583378,858768220," context=""/>
       </node>
       <node type="SetAttribute" method="SubActivity7 secondLevel" unit="specialinvoke r1.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;(&quot;intent_sub1&quot;)">
-        <nodeInfo nodeId="1048994595" predsStr="1880646506" succsStr="1935820073" context=""/>
-        <baseNodePointTo value="1880646506" context=""/>
+        <nodeInfo nodeId="786196112" predsStr="1716257894" succsStr="1827583378" context=""/>
+        <baseNodePointTo value="1716257894" context=""/>
       </node>
       <node type="SetIntentExtra" method="SubActivity7 secondLevel" unit="virtualinvoke r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_1&quot;, &quot;call_1&quot;)">
-        <nodeInfo nodeId="1935820073" predsStr="1048994595" succsStr="52305020" context=""/>
-        <baseNodePointTo value="1880646506" context=""/>
+        <nodeInfo nodeId="1827583378" predsStr="786196112" succsStr="858768220" context=""/>
+        <baseNodePointTo value="1716257894" context=""/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity7 secondLevel" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity7: void startActivity(android.content.Intent)&gt;(r1)">
-        <nodeInfo nodeId="52305020" predsStr="1935820073" succsStr="" context=""/>
-        <baseNodePointTo value="1880646506" context=""/>
+        <nodeInfo nodeId="858768220" predsStr="1827583378" succsStr="" context=""/>
+        <baseNodePointTo value="1716257894" context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity8: void firstLevel()&gt;">
-    <singlePath>
-      <method methodtrace="void firstLevel()"/>
-      <node type="CreateMethod" method="SubActivity8 firstLevel" unit="r1 = new android.content.Intent">
-        <nodeInfo nodeId="1560290331" predsStr="897714044" succsStr="912252532" context=""/>
-        <baseNodePointTo value="1560290331" context=""/>
-        <nodeSetPointToMe value="1560290331,912252532,1980470340,1402459166,258675339,1192214892," context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity8 firstLevel" unit="specialinvoke r1.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;(&quot;intent_sub1&quot;)">
-        <nodeInfo nodeId="912252532" predsStr="1560290331" succsStr="1980470340" context=""/>
-        <baseNodePointTo value="1560290331" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity8 firstLevel" unit="virtualinvoke r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_1&quot;, &quot;call_1&quot;)">
-        <nodeInfo nodeId="1980470340" predsStr="912252532" succsStr="1402459166" context=""/>
-        <baseNodePointTo value="1560290331" context=""/>
-      </node>
-      <node type="pendingIntentCreation" method="SubActivity8 firstLevel" unit="$r2 = staticinvoke &lt;android.app.PendingIntent: android.app.PendingIntent getActivity(android.content.Context,int,android.content.Intent,int)&gt;(r0, -1, r1, 0)">
-        <nodeInfo nodeId="1402459166" predsStr="1980470340" succsStr="258675339" context=""/>
-        <baseNodePointTo value="1560290331" context=""/>
-      </node>
-      <node type="PassOutIntent" method="SubActivity8 firstLevel" unit="virtualinvoke r4.&lt;android.app.AlarmManager: void cancel(android.app.PendingIntent)&gt;($r2)">
-        <nodeInfo nodeId="258675339" predsStr="1402459166" succsStr="1192214892" context=""/>
-        <baseNodePointTo value="1560290331" context=""/>
-      </node>
-      <node type="sendOutWrapperredIntent" method="SubActivity8 firstLevel" unit="virtualinvoke r4.&lt;android.app.AlarmManager: void setRepeating(int,long,long,android.app.PendingIntent)&gt;(1, 1L, 1L, $r2)">
-        <nodeInfo nodeId="1192214892" predsStr="258675339" succsStr="" context=""/>
-        <baseNodePointTo value="1560290331" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_2: void setResult(int,android.content.Intent)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity: void setResult(int,android.content.Intent)&gt;">
     <singlePath>
       <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity9_2 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="570578020" predsStr="1653433120" succsStr="2011893319" context=""/>
-        <baseNodePointTo value="570578020" context=""/>
-        <nodeSetPointToMe value="570578020,2011893319," context=""/>
+      <node type="ReceiveIntentFromParatMethod" method="MainActivity setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1155636121" predsStr="1864933502" succsStr="1233911532" context=""/>
+        <baseNodePointTo value="1155636121" context=""/>
+        <nodeSetPointToMe value="1155636121,1233911532," context=""/>
       </node>
-      <node type="StaticCreateMethod" method="SubActivity9_2 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity9_2: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="2011893319" predsStr="570578020" succsStr="" context=""/>
-        <baseNodePointTo value="2011893319" context=""/>
-        <nodeSetPointToMe value="2011893319," context=""/>
+      <node type="StaticCreateMethod" method="MainActivity setResult" unit="this.&lt;com.example.intentFlowBench.MainActivity: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="1233911532" predsStr="1155636121" succsStr="" context=""/>
+        <baseNodePointTo value="1233911532" context=""/>
+        <nodeSetPointToMe value="1233911532," context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4: void setResult(int,android.content.Intent)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_1: void setResult(int,android.content.Intent)&gt;">
     <singlePath>
       <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity4 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="391010601" predsStr="24300138" succsStr="1969863839" context=""/>
-        <baseNodePointTo value="391010601" context=""/>
-        <nodeSetPointToMe value="391010601,1969863839," context=""/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity9_1 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="131646052" predsStr="789925275" succsStr="26842093" context=""/>
+        <baseNodePointTo value="131646052" context=""/>
+        <nodeSetPointToMe value="131646052,26842093," context=""/>
       </node>
-      <node type="StaticCreateMethod" method="SubActivity4 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity4: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1969863839" predsStr="391010601" succsStr="" context=""/>
-        <baseNodePointTo value="1969863839" context=""/>
-        <nodeSetPointToMe value="1969863839," context=""/>
+      <node type="StaticCreateMethod" method="SubActivity9_1 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity9_1: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="26842093" predsStr="131646052" succsStr="" context=""/>
+        <baseNodePointTo value="26842093" context=""/>
+        <nodeSetPointToMe value="26842093," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;">
+    <singlePath>
+      <method methodtrace="void analyzeIntent(java.lang.String)"/>
+      <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context=""/>
+        <baseNodePointTo value="396156751" context=""/>
+        <nodeSetPointToMe value="396156751,1779255272,1208826944,1063891302," context=""/>
+      </node>
+      <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context=""/>
+        <baseNodePointTo value="396156751" context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context=""/>
+        <baseNodePointTo value="396156751" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context=""/>
+        <baseNodePointTo value="396156751" context=""/>
       </node>
     </singlePath>
   </singleMethod>
@@ -435,191 +105,206 @@
     <singlePath>
       <method methodtrace="void setResult(int,android.content.Intent)"/>
       <node type="ReceiveIntentFromParatMethod" method="SubActivity6 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="1273385754" predsStr="18696010" succsStr="559234106" context=""/>
-        <baseNodePointTo value="1273385754" context=""/>
-        <nodeSetPointToMe value="1273385754,559234106," context=""/>
+        <nodeInfo nodeId="2007411359" predsStr="206608194" succsStr="2101456637" context=""/>
+        <baseNodePointTo value="2007411359" context=""/>
+        <nodeSetPointToMe value="2007411359,2101456637," context=""/>
       </node>
       <node type="StaticCreateMethod" method="SubActivity6 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity6: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="559234106" predsStr="1273385754" succsStr="" context=""/>
-        <baseNodePointTo value="559234106" context=""/>
-        <nodeSetPointToMe value="559234106," context=""/>
+        <nodeInfo nodeId="2101456637" predsStr="2007411359" succsStr="" context=""/>
+        <baseNodePointTo value="2101456637" context=""/>
+        <nodeSetPointToMe value="2101456637," context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity8: void setResult(int,android.content.Intent)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity3: void setResult(int,android.content.Intent)&gt;">
     <singlePath>
       <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity8 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="1626789513" predsStr="246761244" succsStr="1787868648" context=""/>
-        <baseNodePointTo value="1626789513" context=""/>
-        <nodeSetPointToMe value="1626789513,1787868648," context=""/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity3 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1644425487" predsStr="538459693" succsStr="1003603952" context=""/>
+        <baseNodePointTo value="1644425487" context=""/>
+        <nodeSetPointToMe value="1644425487,1003603952," context=""/>
       </node>
-      <node type="StaticCreateMethod" method="SubActivity8 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity8: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1787868648" predsStr="1626789513" succsStr="" context=""/>
-        <baseNodePointTo value="1787868648" context=""/>
-        <nodeSetPointToMe value="1787868648," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity12: void button1Click(android.view.View)&gt;">
-    <singlePath>
-      <method methodtrace="void button1Click(android.view.View)"/>
-      <node type="CreateMethod" method="SubActivity12 button1Click" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="2065412124" predsStr="1146652797" succsStr="1278626461" context=""/>
-        <baseNodePointTo value="2065412124" context=""/>
-        <nodeSetPointToMe value="2065412124,1278626461,1500546231," context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity12 button1Click" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;(r0, class &quot;Lcom/example/intentFlowBench/SubActivity10;&quot;)">
-        <nodeInfo nodeId="1278626461" predsStr="2065412124" succsStr="1500546231" context=""/>
-        <baseNodePointTo value="2065412124" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity12 button1Click" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity12: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1500546231" predsStr="1278626461" succsStr="" context=""/>
-        <baseNodePointTo value="2065412124" context=""/>
+      <node type="StaticCreateMethod" method="SubActivity3 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity3: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="1003603952" predsStr="1644425487" succsStr="" context=""/>
+        <baseNodePointTo value="1003603952" context=""/>
+        <nodeSetPointToMe value="1003603952," context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity1$1: void onClick(android.view.View)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity$1: void onClick(android.view.View)&gt;">
     <singlePath>
       <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="SubActivity1$1 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="2086269717" predsStr="943533613" succsStr="1815621869" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
-        <nodeSetPointToMe value="2086269717,1815621869,1673026967,1355471790,1701351424,1142767071,1108121945,1594964071,1926174111,1420795086,1748113608,1052170153," context=""/>
+      <node type="CreateMethod" method="MainActivity$1 onClick" unit="r4 = new android.content.Intent">
+        <nodeInfo nodeId="698229852" predsStr="1432043209" succsStr="1133794432" context=""/>
+        <baseNodePointTo value="698229852" context=""/>
+        <nodeSetPointToMe value="698229852,1133794432,28782490,227996691,1441963321," context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r4, class &quot;Lcom/example/intentFlowBench/SubActivity4;&quot;)">
-        <nodeInfo nodeId="1815621869" predsStr="2086269717" succsStr="1594964071, 1673026967" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SetAttribute" method="MainActivity$1 onClick" unit="specialinvoke r4.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r5, class &quot;Lcom/example/intentFlowBench/SubActivity1;&quot;)">
+        <nodeInfo nodeId="1133794432" predsStr="698229852" succsStr="28782490" context=""/>
+        <baseNodePointTo value="698229852" context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;(&quot;sub1Action_left&quot;)">
-        <nodeInfo nodeId="1673026967" predsStr="1815621869" succsStr="1355471790" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SetAttribute" method="MainActivity$1 onClick" unit="virtualinvoke r4.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;(&quot;mainAction&quot;)">
+        <nodeInfo nodeId="28782490" predsStr="1133794432" succsStr="227996691" context=""/>
+        <baseNodePointTo value="698229852" context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent addCategory(java.lang.String)&gt;(&quot;sub1Category_left&quot;)">
-        <nodeInfo nodeId="1355471790" predsStr="1673026967" succsStr="1701351424" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SetAttribute" method="MainActivity$1 onClick" unit="virtualinvoke r4.&lt;android.content.Intent: android.content.Intent addCategory(java.lang.String)&gt;(&quot;mainCategory&quot;)">
+        <nodeInfo nodeId="227996691" predsStr="28782490" succsStr="1441963321" context=""/>
+        <baseNodePointTo value="698229852" context=""/>
       </node>
-      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity1&quot;)">
-        <nodeInfo nodeId="1701351424" predsStr="1355471790" succsStr="1142767071" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,boolean)&gt;(&quot;Sub1&quot;, 1)">
-        <nodeInfo nodeId="1142767071" predsStr="1701351424" succsStr="1108121945" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity1$1 onClick" unit="virtualinvoke $r4.&lt;com.example.intentFlowBench.SubActivity1: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1108121945" predsStr="1142767071" succsStr="" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SetIntentExtra" method="MainActivity$1 onClick" unit="virtualinvoke r4.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;MainActivity&quot;)">
+        <nodeInfo nodeId="1441963321" predsStr="227996691" succsStr="" context=""/>
+        <baseNodePointTo value="698229852" context=""/>
       </node>
     </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity2: void analyzeIntent()&gt;">
+    <singlePath>
+      <method methodtrace="void analyzeIntent()"/>
+      <node type="ReceiveIntentFromOutMethod" method="SubActivity2 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity2: android.content.Intent getIntent()&gt;()">
+        <nodeInfo nodeId="216800482" predsStr="381892750" succsStr="1300422354, 1700296123" context=""/>
+        <baseNodePointTo value="216800482" context=""/>
+        <nodeSetPointToMe value="216800482," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity2$1: void onClick(android.view.View)&gt;">
     <singlePath>
       <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="SubActivity1$1 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="2086269717" predsStr="943533613" succsStr="1815621869" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
-        <nodeSetPointToMe value="2086269717,1815621869,1673026967,1355471790,1701351424,1142767071,1108121945,1594964071,1926174111,1420795086,1748113608,1052170153," context=""/>
+      <node type="CreateMethod" method="SubActivity2$1 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="1186712450" predsStr="210908320" succsStr="194109476" context=""/>
+        <baseNodePointTo value="1186712450" context=""/>
+        <nodeSetPointToMe value="1186712450,194109476,815450270,766565657,894432502," context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r4, class &quot;Lcom/example/intentFlowBench/SubActivity4;&quot;)">
-        <nodeInfo nodeId="1815621869" predsStr="2086269717" succsStr="1594964071, 1673026967" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SetAttribute" method="SubActivity2$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity3;&quot;)">
+        <nodeInfo nodeId="194109476" predsStr="1186712450" succsStr="815450270" context=""/>
+        <baseNodePointTo value="1186712450" context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;(&quot;sub1Action_right&quot;)">
-        <nodeInfo nodeId="1594964071" predsStr="1815621869" succsStr="1926174111" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SetIntentExtra" method="SubActivity2$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity2&quot;)">
+        <nodeInfo nodeId="815450270" predsStr="194109476" succsStr="766565657" context=""/>
+        <baseNodePointTo value="1186712450" context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent addCategory(java.lang.String)&gt;(&quot;sub1Category_right&quot;)">
-        <nodeInfo nodeId="1926174111" predsStr="1594964071" succsStr="1420795086" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SetIntentExtra" method="SubActivity2$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,int)&gt;(&quot;Sub2&quot;, 200)">
+        <nodeInfo nodeId="766565657" predsStr="815450270" succsStr="894432502" context=""/>
+        <baseNodePointTo value="1186712450" context=""/>
       </node>
-      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity1&quot;)">
-        <nodeInfo nodeId="1420795086" predsStr="1926174111" succsStr="1748113608" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,boolean)&gt;(&quot;Sub1&quot;, 1)">
-        <nodeInfo nodeId="1748113608" predsStr="1420795086" succsStr="1052170153" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity1$1 onClick" unit="virtualinvoke $r4.&lt;com.example.intentFlowBench.SubActivity1: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1052170153" predsStr="1748113608" succsStr="" context=""/>
-        <baseNodePointTo value="2086269717" context=""/>
+      <node type="SendIntent2ICC" method="SubActivity2$1 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity2: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="894432502" predsStr="766565657" succsStr="" context=""/>
+        <baseNodePointTo value="1186712450" context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity8: void firstLevel()&gt;">
     <singlePath>
-      <method methodtrace="void analyzeIntentSub2(android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub2" unit="$r1 := @parameter0: android.content.Intent">
-        <nodeInfo nodeId="1151955636" predsStr="421953644" succsStr="1212704797" context=""/>
-        <baseNodePointTo value="1151955636" context=""/>
-        <nodeSetPointToMe value="1151955636,1212704797,1997718293," context=""/>
+      <method methodtrace="void firstLevel()"/>
+      <node type="CreateMethod" method="SubActivity8 firstLevel" unit="r1 = new android.content.Intent">
+        <nodeInfo nodeId="316486913" predsStr="218388141" succsStr="1286661022" context=""/>
+        <baseNodePointTo value="316486913" context=""/>
+        <nodeSetPointToMe value="316486913,1286661022,1695442281,1242621531,824096549,2054758027," context=""/>
       </node>
-      <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_22&quot;, &quot;call_22&quot;)">
-        <nodeInfo nodeId="1212704797" predsStr="1151955636" succsStr="1997718293" context=""/>
-        <baseNodePointTo value="1151955636" context=""/>
+      <node type="SetAttribute" method="SubActivity8 firstLevel" unit="specialinvoke r1.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;(&quot;intent_sub1&quot;)">
+        <nodeInfo nodeId="1286661022" predsStr="316486913" succsStr="1695442281" context=""/>
+        <baseNodePointTo value="316486913" context=""/>
       </node>
-      <node type="SendIntent2ICC" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)&gt;($r1)">
-        <nodeInfo nodeId="1997718293" predsStr="1212704797" succsStr="" context=""/>
-        <baseNodePointTo value="1151955636" context=""/>
+      <node type="SetIntentExtra" method="SubActivity8 firstLevel" unit="virtualinvoke r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_1&quot;, &quot;call_1&quot;)">
+        <nodeInfo nodeId="1695442281" predsStr="1286661022" succsStr="1242621531" context=""/>
+        <baseNodePointTo value="316486913" context=""/>
+      </node>
+      <node type="pendingIntentCreation" method="SubActivity8 firstLevel" unit="$r2 = staticinvoke &lt;android.app.PendingIntent: android.app.PendingIntent getActivity(android.content.Context,int,android.content.Intent,int)&gt;(r0, -1, r1, 0)">
+        <nodeInfo nodeId="1242621531" predsStr="1695442281" succsStr="824096549" context=""/>
+        <baseNodePointTo value="316486913" context=""/>
+      </node>
+      <node type="PassOutIntent" method="SubActivity8 firstLevel" unit="virtualinvoke r4.&lt;android.app.AlarmManager: void cancel(android.app.PendingIntent)&gt;($r2)">
+        <nodeInfo nodeId="824096549" predsStr="1242621531" succsStr="2054758027" context=""/>
+        <baseNodePointTo value="316486913" context=""/>
+      </node>
+      <node type="sendOutWrapperredIntent" method="SubActivity8 firstLevel" unit="virtualinvoke r4.&lt;android.app.AlarmManager: void setRepeating(int,long,long,android.app.PendingIntent)&gt;(1, 1L, 1L, $r2)">
+        <nodeInfo nodeId="2054758027" predsStr="824096549" succsStr="" context=""/>
+        <baseNodePointTo value="316486913" context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity2: void setResult(int,android.content.Intent)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity11: void setResult(int,android.content.Intent)&gt;">
     <singlePath>
       <method methodtrace="void setResult(int,android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity2 setResult" unit="parameter1 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="646901735" predsStr="1132088929" succsStr="1884072104" context=""/>
-        <baseNodePointTo value="646901735" context=""/>
-        <nodeSetPointToMe value="646901735,1884072104," context=""/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity11 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1242207182" predsStr="1497170291" succsStr="1681935798" context=""/>
+        <baseNodePointTo value="1242207182" context=""/>
+        <nodeSetPointToMe value="1242207182,1681935798," context=""/>
       </node>
-      <node type="StaticCreateMethod" method="SubActivity2 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity2: android.content.Intent ipcResultIntent&gt; = parameter1">
-        <nodeInfo nodeId="1884072104" predsStr="646901735" succsStr="" context=""/>
-        <baseNodePointTo value="1884072104" context=""/>
-        <nodeSetPointToMe value="1884072104," context=""/>
+      <node type="StaticCreateMethod" method="SubActivity11 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity11: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="1681935798" predsStr="1242207182" succsStr="" context=""/>
+        <baseNodePointTo value="1681935798" context=""/>
+        <nodeSetPointToMe value="1681935798," context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4$1: void onClick(android.view.View)&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity12: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity12 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context=""/>
+        <baseNodePointTo value="1439915898" context=""/>
+        <nodeSetPointToMe value="1439915898,317685173," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity12 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity12: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="" context=""/>
+        <baseNodePointTo value="317685173" context=""/>
+        <nodeSetPointToMe value="317685173," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity$2: void onClick(android.view.View)&gt;">
     <singlePath>
       <method methodtrace="void onClick(android.view.View)"/>
-      <node type="CreateMethod" method="SubActivity4$1 onClick" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="684896216" predsStr="1288603806" succsStr="2007194415" context=""/>
-        <baseNodePointTo value="684896216" context=""/>
-        <nodeSetPointToMe value="684896216,2007194415,1968199623,1298316171,1895002512," context=""/>
+      <node type="CreateMethod" method="MainActivity$2 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="282017359" predsStr="414033121" succsStr="899625985" context=""/>
+        <baseNodePointTo value="282017359" context=""/>
+        <nodeSetPointToMe value="282017359,899625985,606747031,1372916575,948005484," context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity4$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity2;&quot;)">
-        <nodeInfo nodeId="2007194415" predsStr="684896216" succsStr="1968199623" context=""/>
-        <baseNodePointTo value="684896216" context=""/>
+      <node type="SetAttribute" method="MainActivity$2 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity2;&quot;)">
+        <nodeInfo nodeId="899625985" predsStr="282017359" succsStr="606747031" context=""/>
+        <baseNodePointTo value="282017359" context=""/>
       </node>
-      <node type="SetIntentExtra" method="SubActivity4$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity4&quot;)">
-        <nodeInfo nodeId="1968199623" predsStr="2007194415" succsStr="1298316171" context=""/>
-        <baseNodePointTo value="684896216" context=""/>
+      <node type="SetIntentExtra" method="MainActivity$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;MainActivity&quot;)">
+        <nodeInfo nodeId="606747031" predsStr="899625985" succsStr="1372916575" context=""/>
+        <baseNodePointTo value="282017359" context=""/>
       </node>
-      <node type="SetIntentExtra" method="SubActivity4$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;Sub4&quot;, &quot;opq&quot;)">
-        <nodeInfo nodeId="1298316171" predsStr="1968199623" succsStr="1895002512" context=""/>
-        <baseNodePointTo value="684896216" context=""/>
+      <node type="SetIntentExtra" method="MainActivity$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;Main&quot;, &quot;abc&quot;)">
+        <nodeInfo nodeId="1372916575" predsStr="606747031" succsStr="948005484" context=""/>
+        <baseNodePointTo value="282017359" context=""/>
       </node>
-      <node type="SendIntent2ICC" method="SubActivity4$1 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity4: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="1895002512" predsStr="1298316171" succsStr="" context=""/>
-        <baseNodePointTo value="684896216" context=""/>
+      <node type="SendIntent2ICC" method="MainActivity$2 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.MainActivity: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="948005484" predsStr="1372916575" succsStr="" context=""/>
+        <baseNodePointTo value="282017359" context=""/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity10: void &lt;init&gt;()&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_2: void setResult(int,android.content.Intent)&gt;">
     <singlePath>
-      <method methodtrace="void &lt;init&gt;()"/>
-      <node type="CreateMethod" method="SubActivity10 &lt;init&gt;" unit="$r1 = new android.content.Intent">
-        <nodeInfo nodeId="757534888" predsStr="267263538" succsStr="1353834411" context=""/>
-        <baseNodePointTo value="757534888" context=""/>
-        <nodeSetPointToMe value="757534888,1353834411,1552280837," context=""/>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity9_2 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1264165313" predsStr="298021609" succsStr="1933672516" context=""/>
+        <baseNodePointTo value="1264165313" context=""/>
+        <nodeSetPointToMe value="1264165313,1933672516," context=""/>
       </node>
-      <node type="SetAttribute" method="SubActivity10 &lt;init&gt;" unit="specialinvoke $r1.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;(&quot;intent_sub8&quot;)">
-        <nodeInfo nodeId="1353834411" predsStr="757534888" succsStr="1552280837" context=""/>
-        <baseNodePointTo value="757534888" context=""/>
+      <node type="StaticCreateMethod" method="SubActivity9_2 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity9_2: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="1933672516" predsStr="1264165313" succsStr="" context=""/>
+        <baseNodePointTo value="1933672516" context=""/>
+        <nodeSetPointToMe value="1933672516," context=""/>
       </node>
-      <node type="StaticCreateMethod" method="SubActivity10 &lt;init&gt;" unit="r0.&lt;com.example.intentFlowBench.SubActivity10: android.content.Intent mIntent&gt; = $r1">
-        <nodeInfo nodeId="1552280837" predsStr="1353834411" succsStr="" context=""/>
-        <baseNodePointTo value="1552280837" context=""/>
-        <nodeSetPointToMe value="1552280837," context=""/>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity10: void launchStaticIntent()&gt;">
+    <singlePath>
+      <method methodtrace="void launchStaticIntent()"/>
+      <node type="StaticCreateMethod" method="SubActivity10 launchStaticIntent" unit="$r1 = r0.&lt;com.example.intentFlowBench.SubActivity10: android.content.Intent mIntent&gt;">
+        <nodeInfo nodeId="1880726960" predsStr="1850803964" succsStr="659229738" context=""/>
+        <baseNodePointTo value="1880726960" context=""/>
+        <nodeSetPointToMe value="1880726960,659229738," context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity10 launchStaticIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity10: void startActivity(android.content.Intent)&gt;($r1)">
+        <nodeInfo nodeId="659229738" predsStr="1880726960" succsStr="" context=""/>
+        <baseNodePointTo value="1880726960" context=""/>
       </node>
     </singlePath>
   </singleMethod>
@@ -627,17 +312,17 @@
     <singlePath>
       <method methodtrace="void onMyStartListentCallBack()"/>
       <node type="CreateMethod" method="SubActivity11$1 onMyStartListentCallBack" unit="r1 = new android.content.Intent">
-        <nodeInfo nodeId="2078890030" predsStr="106773123" succsStr="1940682518" context=""/>
-        <baseNodePointTo value="2078890030" context=""/>
-        <nodeSetPointToMe value="2078890030,1940682518,307940896," context=""/>
+        <nodeInfo nodeId="1938527144" predsStr="822082387" succsStr="512528515" context=""/>
+        <baseNodePointTo value="1938527144" context=""/>
+        <nodeSetPointToMe value="1938527144,512528515,1683257987," context=""/>
       </node>
       <node type="SetAttribute" method="SubActivity11$1 onMyStartListentCallBack" unit="specialinvoke r1.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r2, class &quot;Lcom/example/intentFlowBench/SubActivity4;&quot;)">
-        <nodeInfo nodeId="1940682518" predsStr="2078890030" succsStr="307940896" context=""/>
-        <baseNodePointTo value="2078890030" context=""/>
+        <nodeInfo nodeId="512528515" predsStr="1938527144" succsStr="1683257987" context=""/>
+        <baseNodePointTo value="1938527144" context=""/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity11$1 onMyStartListentCallBack" unit="virtualinvoke $r2.&lt;com.example.intentFlowBench.SubActivity11: void startActivity(android.content.Intent)&gt;(r1)">
-        <nodeInfo nodeId="307940896" predsStr="1940682518" succsStr="" context=""/>
-        <baseNodePointTo value="2078890030" context=""/>
+        <nodeInfo nodeId="1683257987" predsStr="512528515" succsStr="" context=""/>
+        <baseNodePointTo value="1938527144" context=""/>
       </node>
     </singlePath>
   </singleMethod>
@@ -647,25 +332,410 @@
 &lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)
 void analyzeIntent(java.lang.String)"/>
       <node method="SubActivity5 warpper" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="1332146909" predsStr="1517552713" succsStr="" context=""/>
-        <baseNodePointTo value="1332146909" context=""/>
-        <nodeSetPointToMe value="1332146909,1439915898,317685173,208821754,982302873," context=""/>
+        <nodeInfo nodeId="549207679" predsStr="231695570" succsStr="" context=""/>
+        <baseNodePointTo value="549207679" context=""/>
+        <nodeSetPointToMe value="549207679,396156751,1779255272,1208826944,1063891302," context=""/>
       </node>
       <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity1$1: void onClick(android.view.View)&gt;">
+    <singlePath>
+      <method methodtrace="void onClick(android.view.View)"/>
+      <node type="CreateMethod" method="SubActivity1$1 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="2062352261" predsStr="115797148" succsStr="865315398" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+        <nodeSetPointToMe value="2062352261,865315398,2125465277,1664994873,512521244,1626803358,1840663231,1235287572,300648514,1322769266,1880646506,1048994595," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r4, class &quot;Lcom/example/intentFlowBench/SubActivity4;&quot;)">
+        <nodeInfo nodeId="865315398" predsStr="2062352261" succsStr="1235287572, 2125465277" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;(&quot;sub1Action_right&quot;)">
+        <nodeInfo nodeId="1235287572" predsStr="865315398" succsStr="300648514" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent addCategory(java.lang.String)&gt;(&quot;sub1Category_right&quot;)">
+        <nodeInfo nodeId="300648514" predsStr="1235287572" succsStr="1322769266" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity1&quot;)">
+        <nodeInfo nodeId="1322769266" predsStr="300648514" succsStr="1880646506" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,boolean)&gt;(&quot;Sub1&quot;, 1)">
+        <nodeInfo nodeId="1880646506" predsStr="1322769266" succsStr="1048994595" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity1$1 onClick" unit="virtualinvoke $r4.&lt;com.example.intentFlowBench.SubActivity1: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="1048994595" predsStr="1880646506" succsStr="" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onClick(android.view.View)"/>
+      <node type="CreateMethod" method="SubActivity1$1 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="2062352261" predsStr="115797148" succsStr="865315398" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+        <nodeSetPointToMe value="2062352261,865315398,2125465277,1664994873,512521244,1626803358,1840663231,1235287572,300648514,1322769266,1880646506,1048994595," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r4, class &quot;Lcom/example/intentFlowBench/SubActivity4;&quot;)">
+        <nodeInfo nodeId="865315398" predsStr="2062352261" succsStr="1235287572, 2125465277" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;(&quot;sub1Action_left&quot;)">
+        <nodeInfo nodeId="2125465277" predsStr="865315398" succsStr="1664994873" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent addCategory(java.lang.String)&gt;(&quot;sub1Category_left&quot;)">
+        <nodeInfo nodeId="1664994873" predsStr="2125465277" succsStr="512521244" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity1&quot;)">
+        <nodeInfo nodeId="512521244" predsStr="1664994873" succsStr="1626803358" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity1$1 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,boolean)&gt;(&quot;Sub1&quot;, 1)">
+        <nodeInfo nodeId="1626803358" predsStr="512521244" succsStr="1840663231" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity1$1 onClick" unit="virtualinvoke $r4.&lt;com.example.intentFlowBench.SubActivity1: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="1840663231" predsStr="1626803358" succsStr="" context=""/>
+        <baseNodePointTo value="2062352261" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity10: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity10 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1980470340" predsStr="912252532" succsStr="1402459166" context=""/>
+        <baseNodePointTo value="1980470340" context=""/>
+        <nodeSetPointToMe value="1980470340,1402459166," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity10 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity10: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="1402459166" predsStr="1980470340" succsStr="" context=""/>
+        <baseNodePointTo value="1402459166" context=""/>
+        <nodeSetPointToMe value="1402459166," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity1: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity1 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="130041519" predsStr="2004034406" succsStr="1552431935" context=""/>
+        <baseNodePointTo value="130041519" context=""/>
+        <nodeSetPointToMe value="130041519,1552431935," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity1 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity1: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="1552431935" predsStr="130041519" succsStr="" context=""/>
+        <baseNodePointTo value="1552431935" context=""/>
+        <nodeSetPointToMe value="1552431935," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity10: void &lt;init&gt;()&gt;">
+    <singlePath>
+      <method methodtrace="void &lt;init&gt;()"/>
+      <node type="CreateMethod" method="SubActivity10 &lt;init&gt;" unit="$r1 = new android.content.Intent">
+        <nodeInfo nodeId="1671191220" predsStr="438138930" succsStr="657255537" context=""/>
+        <baseNodePointTo value="1671191220" context=""/>
+        <nodeSetPointToMe value="1671191220,657255537,317254273," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity10 &lt;init&gt;" unit="specialinvoke $r1.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;(&quot;intent_sub8&quot;)">
+        <nodeInfo nodeId="657255537" predsStr="1671191220" succsStr="317254273" context=""/>
+        <baseNodePointTo value="1671191220" context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity10 &lt;init&gt;" unit="r0.&lt;com.example.intentFlowBench.SubActivity10: android.content.Intent mIntent&gt; = $r1">
+        <nodeInfo nodeId="317254273" predsStr="657255537" succsStr="" context=""/>
+        <baseNodePointTo value="317254273" context=""/>
+        <nodeSetPointToMe value="317254273," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void analyzeIntentSub2(android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub2" unit="$r1 := @parameter0: android.content.Intent">
+        <nodeInfo nodeId="1343642221" predsStr="845449668" succsStr="1590239729" context=""/>
+        <baseNodePointTo value="1343642221" context=""/>
+        <nodeSetPointToMe value="1343642221,1590239729,24300138," context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_22&quot;, &quot;call_22&quot;)">
+        <nodeInfo nodeId="1590239729" predsStr="1343642221" succsStr="24300138" context=""/>
+        <baseNodePointTo value="1343642221" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)&gt;($r1)">
+        <nodeInfo nodeId="24300138" predsStr="1590239729" succsStr="" context=""/>
+        <baseNodePointTo value="1343642221" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.MainActivity$3: void onClick(android.view.View)&gt;">
+    <singlePath>
+      <method methodtrace="void onClick(android.view.View)"/>
+      <node type="CreateMethod" method="MainActivity$3 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="676931970" predsStr="283963972" succsStr="212787822" context=""/>
+        <baseNodePointTo value="676931970" context=""/>
+        <nodeSetPointToMe value="676931970,212787822,175126836,2113508588,479045608," context=""/>
+      </node>
+      <node type="SetAttribute" method="MainActivity$3 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity3;&quot;)">
+        <nodeInfo nodeId="212787822" predsStr="676931970" succsStr="175126836" context=""/>
+        <baseNodePointTo value="676931970" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="MainActivity$3 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;MainActivity&quot;)">
+        <nodeInfo nodeId="175126836" predsStr="212787822" succsStr="2113508588" context=""/>
+        <baseNodePointTo value="676931970" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="MainActivity$3 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,int)&gt;(&quot;Main&quot;, 100)">
+        <nodeInfo nodeId="2113508588" predsStr="175126836" succsStr="479045608" context=""/>
+        <baseNodePointTo value="676931970" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="MainActivity$3 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.MainActivity: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="479045608" predsStr="2113508588" succsStr="" context=""/>
+        <baseNodePointTo value="676931970" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity3$2: void onClick(android.view.View)&gt;">
+    <singlePath>
+      <method methodtrace="void onClick(android.view.View)"/>
+      <node type="CreateMethod" method="SubActivity3$2 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="1273385754" predsStr="18696010" succsStr="559234106" context=""/>
+        <baseNodePointTo value="1273385754" context=""/>
+        <nodeSetPointToMe value="1273385754,559234106,1813849594,122751012,2128012631," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity3$2 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity4;&quot;)">
+        <nodeInfo nodeId="559234106" predsStr="1273385754" succsStr="1813849594" context=""/>
+        <baseNodePointTo value="1273385754" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity3$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity3&quot;)">
+        <nodeInfo nodeId="1813849594" predsStr="559234106" succsStr="122751012" context=""/>
+        <baseNodePointTo value="1273385754" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity3$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,boolean)&gt;(&quot;Sub3&quot;, 0)">
+        <nodeInfo nodeId="122751012" predsStr="1813849594" succsStr="2128012631" context=""/>
+        <baseNodePointTo value="1273385754" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity3$2 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity3: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="2128012631" predsStr="122751012" succsStr="" context=""/>
+        <baseNodePointTo value="1273385754" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity8: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity8 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1787868648" predsStr="1626789513" succsStr="536237094" context=""/>
+        <baseNodePointTo value="1787868648" context=""/>
+        <nodeSetPointToMe value="1787868648,536237094," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity8 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity8: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="536237094" predsStr="1787868648" succsStr="" context=""/>
+        <baseNodePointTo value="536237094" context=""/>
+        <nodeSetPointToMe value="536237094," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity12: void button1Click(android.view.View)&gt;">
+    <singlePath>
+      <method methodtrace="void button1Click(android.view.View)"/>
+      <node type="CreateMethod" method="SubActivity12 button1Click" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="2144740597" predsStr="1508631684" succsStr="30079792" context=""/>
+        <baseNodePointTo value="2144740597" context=""/>
+        <nodeSetPointToMe value="2144740597,30079792,1556251266," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity12 button1Click" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;(r0, class &quot;Lcom/example/intentFlowBench/SubActivity10;&quot;)">
+        <nodeInfo nodeId="30079792" predsStr="2144740597" succsStr="1556251266" context=""/>
+        <baseNodePointTo value="2144740597" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity12 button1Click" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity12: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="1556251266" predsStr="30079792" succsStr="" context=""/>
+        <baseNodePointTo value="2144740597" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity4 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="162250297" predsStr="85074823" succsStr="296891562" context=""/>
+        <baseNodePointTo value="162250297" context=""/>
+        <nodeSetPointToMe value="162250297,296891562," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity4 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity4: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="296891562" predsStr="162250297" succsStr="" context=""/>
+        <baseNodePointTo value="296891562" context=""/>
+        <nodeSetPointToMe value="296891562," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4$2: void onClick(android.view.View)&gt;">
+    <singlePath>
+      <method methodtrace="void onClick(android.view.View)"/>
+      <node type="CreateMethod" method="SubActivity4$2 onClick" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="1748113608" predsStr="1420795086" succsStr="1052170153" context=""/>
+        <baseNodePointTo value="1748113608" context=""/>
+        <nodeSetPointToMe value="1748113608,1052170153,878661133,473886116," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity4$2 onClick" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(android.content.Context,java.lang.Class)&gt;($r3, class &quot;Lcom/example/intentFlowBench/SubActivity5;&quot;)">
+        <nodeInfo nodeId="1052170153" predsStr="1748113608" succsStr="878661133" context=""/>
+        <baseNodePointTo value="1748113608" context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity4$2 onClick" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;source&quot;, &quot;SubActivity4&quot;)">
+        <nodeInfo nodeId="878661133" predsStr="1052170153" succsStr="473886116" context=""/>
+        <baseNodePointTo value="1748113608" context=""/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity4$2 onClick" unit="virtualinvoke $r3.&lt;com.example.intentFlowBench.SubActivity4: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="473886116" predsStr="878661133" succsStr="" context=""/>
+        <baseNodePointTo value="1748113608" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity5: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity5 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="321068667" predsStr="1857451279" succsStr="89882381" context=""/>
+        <baseNodePointTo value="321068667" context=""/>
+        <nodeSetPointToMe value="321068667,89882381," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity5 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity5: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="89882381" predsStr="321068667" succsStr="" context=""/>
+        <baseNodePointTo value="89882381" context=""/>
+        <nodeSetPointToMe value="89882381," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity2: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity2 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1895002512" predsStr="1298316171" succsStr="493102722" context=""/>
+        <baseNodePointTo value="1895002512" context=""/>
+        <nodeSetPointToMe value="1895002512,493102722," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity2 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity2: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="493102722" predsStr="1895002512" succsStr="" context=""/>
+        <baseNodePointTo value="493102722" context=""/>
+        <nodeSetPointToMe value="493102722," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.AbstractActivity: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="AbstractActivity setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1552280837" predsStr="1353834411" succsStr="593852201" context=""/>
+        <baseNodePointTo value="1552280837" context=""/>
+        <nodeSetPointToMe value="1552280837,593852201," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="AbstractActivity setResult" unit="this.&lt;com.example.intentFlowBench.AbstractActivity: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="593852201" predsStr="1552280837" succsStr="" context=""/>
+        <baseNodePointTo value="593852201" context=""/>
+        <nodeSetPointToMe value="593852201," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity1: void analyzeIntent()&gt;">
+    <singlePath>
+      <method methodtrace="void analyzeIntent()"/>
+      <node type="ReceiveIntentFromOutMethod" method="SubActivity1 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity1: android.content.Intent getIntent()&gt;()">
+        <nodeInfo nodeId="2094152182" predsStr="1950830528" succsStr="" context=""/>
+        <baseNodePointTo value="2094152182" context=""/>
+        <nodeSetPointToMe value="2094152182," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity7: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity7 setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1573457383" predsStr="268416168" succsStr="812765318" context=""/>
+        <baseNodePointTo value="1573457383" context=""/>
+        <nodeSetPointToMe value="1573457383,812765318," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="SubActivity7 setResult" unit="this.&lt;com.example.intentFlowBench.SubActivity7: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="812765318" predsStr="1573457383" succsStr="" context=""/>
+        <baseNodePointTo value="812765318" context=""/>
+        <nodeSetPointToMe value="812765318," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;">
+    <singlePath>
+      <method methodtrace="void warpper3(java.lang.String,java.lang.String)
+&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)
+void analyzeIntent(java.lang.String)"/>
+      <node method="SubActivity5 warpper3" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)">
+        <nodeInfo nodeId="439639148" predsStr="779263978" succsStr="" context=""/>
+        <baseNodePointTo value="439639148" context=""/>
+        <nodeSetPointToMe value="439639148,396156751,1779255272,1208826944,1063891302," context=""/>
+      </node>
+      <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+      </node>
+      <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+      </node>
+      <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void analyzeIntentSub1(android.content.Intent)
+&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)
+void analyzeIntentSub2(android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub1" unit="$r1 := @parameter0: android.content.Intent">
+        <nodeInfo nodeId="553209498" predsStr="1244383007" succsStr="1059143319" context=""/>
+        <baseNodePointTo value="553209498" context=""/>
+        <nodeSetPointToMe value="553209498,1059143319,1765570369,1343642221,1590239729,24300138," context=""/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub1" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_11&quot;, &quot;call_11&quot;)">
+        <nodeInfo nodeId="1059143319" predsStr="553209498" succsStr="1765570369" context=""/>
+        <baseNodePointTo value="553209498" context=""/>
+      </node>
+      <node type="PassOutIntent" method="SubActivity6 analyzeIntentSub1" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)">
+        <nodeInfo nodeId="1765570369" predsStr="1059143319" succsStr="" context=""/>
+        <baseNodePointTo value="553209498" context=""/>
+      </node>
+      <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub2" unit="$r1 := @parameter0: android.content.Intent">
+        <nodeInfo nodeId="1343642221" predsStr="845449668" succsStr="1590239729" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
+        <baseNodePointTo value="1343642221" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
+      </node>
+      <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_22&quot;, &quot;call_22&quot;)">
+        <nodeInfo nodeId="1590239729" predsStr="1343642221" succsStr="24300138" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
+        <baseNodePointTo value="1343642221" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
+      </node>
+      <node type="SendIntent2ICC" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)&gt;($r1)">
+        <nodeInfo nodeId="24300138" predsStr="1590239729" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
+        <baseNodePointTo value="1343642221" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
       </node>
     </singlePath>
   </singleMethod>
@@ -675,25 +745,25 @@ void analyzeIntent(java.lang.String)"/>
 &lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)
 void analyzeIntent(java.lang.String)"/>
       <node method="SubActivity5 onCreate" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)">
-        <nodeInfo nodeId="1389994320" predsStr="544283394" succsStr="" context=""/>
-        <baseNodePointTo value="1389994320" context=""/>
-        <nodeSetPointToMe value="1389994320,1439915898,317685173,208821754,982302873," context=""/>
+        <nodeInfo nodeId="528690672" predsStr="765712339" succsStr="" context=""/>
+        <baseNodePointTo value="528690672" context=""/>
+        <nodeSetPointToMe value="528690672,396156751,1779255272,1208826944,1063891302," context=""/>
       </node>
       <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
       </node>
       <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
       </node>
       <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)1389994320"/>
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
+        <baseNodePointTo value="396156751" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;(&quot;intent_sub1&quot;)528690672"/>
       </node>
     </singlePath>
     <singlePath>
@@ -703,25 +773,25 @@ void warpper(java.lang.String)
 &lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)
 void analyzeIntent(java.lang.String)"/>
       <node method="SubActivity5 onCreate" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)">
-        <nodeInfo nodeId="2040603986" predsStr="544283394" succsStr="" context=""/>
-        <baseNodePointTo value="2040603986" context=""/>
-        <nodeSetPointToMe value="2040603986,1332146909," context=""/>
+        <nodeInfo nodeId="578294406" predsStr="765712339" succsStr="" context=""/>
+        <baseNodePointTo value="578294406" context=""/>
+        <nodeSetPointToMe value="578294406,549207679," context=""/>
       </node>
       <node method="SubActivity5 warpper" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="1332146909" predsStr="1517552713" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)2040603986"/>
-        <baseNodePointTo value="1332146909" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)2040603986"/>
+        <nodeInfo nodeId="549207679" predsStr="231695570" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)578294406"/>
+        <baseNodePointTo value="549207679" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)578294406"/>
       </node>
       <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)2040603986, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)578294406, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)2040603986, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)578294406, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)2040603986, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)578294406, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)2040603986, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;(&quot;intent_sub2&quot;)578294406, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
     </singlePath>
   </singleMethod>
@@ -733,95 +803,25 @@ void warpper(java.lang.String)
 &lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)
 void analyzeIntent(java.lang.String)"/>
       <node method="SubActivity5 warpper2" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="307418240" predsStr="1962233742" succsStr="" context=""/>
-        <baseNodePointTo value="307418240" context=""/>
-        <nodeSetPointToMe value="307418240,1332146909," context=""/>
+        <nodeInfo nodeId="1792199533" predsStr="1916160576" succsStr="" context=""/>
+        <baseNodePointTo value="1792199533" context=""/>
+        <nodeSetPointToMe value="1792199533,549207679," context=""/>
       </node>
       <node method="SubActivity5 warpper" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="1332146909" predsStr="1517552713" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240"/>
-        <baseNodePointTo value="1332146909" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240"/>
+        <nodeInfo nodeId="549207679" predsStr="231695570" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533"/>
+        <baseNodePointTo value="549207679" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533"/>
       </node>
       <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;">
-    <singlePath>
-      <method methodtrace="void warpper3(java.lang.String,java.lang.String)
-&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)
-void analyzeIntent(java.lang.String)"/>
-      <node method="SubActivity5 warpper3" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)">
-        <nodeInfo nodeId="1554552495" predsStr="968689662" succsStr="" context=""/>
-        <baseNodePointTo value="1554552495" context=""/>
-        <nodeSetPointToMe value="1554552495,1439915898,317685173,208821754,982302873," context=""/>
-      </node>
-      <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-      </node>
-      <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-      </node>
-      <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-        <baseNodePointTo value="1439915898" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;">
-    <singlePath>
-      <method methodtrace="void analyzeIntentSub1(android.content.Intent)
-&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)
-void analyzeIntentSub2(android.content.Intent)"/>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub1" unit="$r1 := @parameter0: android.content.Intent">
-        <nodeInfo nodeId="451433836" predsStr="1602076154" succsStr="360583019" context=""/>
-        <baseNodePointTo value="451433836" context=""/>
-        <nodeSetPointToMe value="451433836,360583019,765712339,1151955636,1212704797,1997718293," context=""/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub1" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_11&quot;, &quot;call_11&quot;)">
-        <nodeInfo nodeId="360583019" predsStr="451433836" succsStr="765712339" context=""/>
-        <baseNodePointTo value="451433836" context=""/>
-      </node>
-      <node type="PassOutIntent" method="SubActivity6 analyzeIntentSub1" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)">
-        <nodeInfo nodeId="765712339" predsStr="360583019" succsStr="" context=""/>
-        <baseNodePointTo value="451433836" context=""/>
-      </node>
-      <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub2" unit="$r1 := @parameter0: android.content.Intent">
-        <nodeInfo nodeId="1151955636" predsStr="421953644" succsStr="1212704797" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
-        <baseNodePointTo value="1151955636" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
-      </node>
-      <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_22&quot;, &quot;call_22&quot;)">
-        <nodeInfo nodeId="1212704797" predsStr="1151955636" succsStr="1997718293" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
-        <baseNodePointTo value="1151955636" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
-      </node>
-      <node type="SendIntent2ICC" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)&gt;($r1)">
-        <nodeInfo nodeId="1997718293" predsStr="1212704797" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
-        <baseNodePointTo value="1151955636" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity2: void analyzeIntent()&gt;">
-    <singlePath>
-      <method methodtrace="void analyzeIntent()"/>
-      <node type="ReceiveIntentFromOutMethod" method="SubActivity2 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity2: android.content.Intent getIntent()&gt;()">
-        <nodeInfo nodeId="1474482524" predsStr="925006503" succsStr="109118565, 434123672" context=""/>
-        <baseNodePointTo value="1474482524" context=""/>
-        <nodeSetPointToMe value="1474482524," context=""/>
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
     </singlePath>
   </singleMethod>
@@ -833,25 +833,25 @@ void warpper3(java.lang.String,java.lang.String)
 &lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)
 void analyzeIntent(java.lang.String)"/>
       <node method="SubActivity5 onStart" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)">
-        <nodeInfo nodeId="766291229" predsStr="560147448" succsStr="" context=""/>
-        <baseNodePointTo value="766291229" context=""/>
-        <nodeSetPointToMe value="766291229,1554552495," context=""/>
+        <nodeInfo nodeId="363364283" predsStr="1082591393" succsStr="" context=""/>
+        <baseNodePointTo value="363364283" context=""/>
+        <nodeSetPointToMe value="363364283,439639148," context=""/>
       </node>
       <node method="SubActivity5 warpper3" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)">
-        <nodeInfo nodeId="1554552495" predsStr="968689662" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)766291229"/>
-        <baseNodePointTo value="1554552495" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)766291229"/>
+        <nodeInfo nodeId="439639148" predsStr="779263978" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)363364283"/>
+        <baseNodePointTo value="439639148" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)363364283"/>
       </node>
       <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)766291229, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)363364283, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
       </node>
       <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)766291229, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)363364283, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
       </node>
       <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)766291229, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)363364283, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)766291229, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)1554552495"/>
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper3(java.lang.String,java.lang.String)&gt;(&quot;sorry&quot;, &quot;intent_sub4&quot;)363364283, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r2)439639148"/>
       </node>
     </singlePath>
     <singlePath>
@@ -863,38 +863,56 @@ void warpper(java.lang.String)
 &lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)
 void analyzeIntent(java.lang.String)"/>
       <node method="SubActivity5 onStart" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)">
-        <nodeInfo nodeId="1082591393" predsStr="560147448" succsStr="" context=""/>
-        <baseNodePointTo value="1082591393" context=""/>
-        <nodeSetPointToMe value="1082591393,307418240," context=""/>
+        <nodeInfo nodeId="1065031099" predsStr="1082591393" succsStr="" context=""/>
+        <baseNodePointTo value="1065031099" context=""/>
+        <nodeSetPointToMe value="1065031099,1792199533," context=""/>
       </node>
       <node method="SubActivity5 warpper2" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="307418240" predsStr="1962233742" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1082591393"/>
-        <baseNodePointTo value="307418240" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1082591393"/>
+        <nodeInfo nodeId="1792199533" predsStr="1916160576" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1065031099"/>
+        <baseNodePointTo value="1792199533" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1065031099"/>
       </node>
       <node method="SubActivity5 warpper" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="1332146909" predsStr="1517552713" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1082591393, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240"/>
+        <nodeInfo nodeId="549207679" predsStr="231695570" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1065031099, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533"/>
       </node>
       <node type="CreateMethod" method="SubActivity5 analyzeIntent" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1439915898" predsStr="2125012025" succsStr="317685173" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1082591393, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="396156751" predsStr="665454368" succsStr="1779255272" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1065031099, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="InitIntent" method="SubActivity5 analyzeIntent" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="317685173" predsStr="1439915898" succsStr="208821754" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1082591393, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1779255272" predsStr="396156751" succsStr="1208826944" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1065031099, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SetAttribute" method="SubActivity5 analyzeIntent" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setAction(java.lang.String)&gt;($r1)">
-        <nodeInfo nodeId="208821754" predsStr="317685173" succsStr="982302873" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1082591393, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1208826944" predsStr="1779255272" succsStr="1063891302" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1065031099, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity5 analyzeIntent" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="982302873" predsStr="208821754" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1082591393, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)307418240, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)1332146909"/>
+        <nodeInfo nodeId="1063891302" predsStr="1208826944" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper2(java.lang.String)&gt;(&quot;intent_sub3&quot;)1065031099, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void warpper(java.lang.String)&gt;($r1)1792199533, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)&gt;($r1)549207679"/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity3: void analyzeIntent()&gt;">
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_2: void onCreate(android.os.Bundle)&gt;">
     <singlePath>
-      <method methodtrace="void analyzeIntent()"/>
-      <node type="ReceiveIntentFromOutMethod" method="SubActivity3 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity3: android.content.Intent getIntent()&gt;()">
-        <nodeInfo nodeId="839690620" predsStr="183209698" succsStr="1012476940" context=""/>
-        <baseNodePointTo value="839690620" context=""/>
-        <nodeSetPointToMe value="839690620," context=""/>
+      <method methodtrace="void onCreate(android.os.Bundle)
+&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt; --- virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)
+void analyzeIntent(android.content.Context,android.content.Intent)"/>
+      <node type="CreateMethod" method="SubActivity9_2 onCreate" unit="r3 = new android.content.Intent">
+        <nodeInfo nodeId="1169387523" predsStr="1491136633" succsStr="1046527560" context=""/>
+        <baseNodePointTo value="1169387523" context=""/>
+        <nodeSetPointToMe value="1169387523,1046527560,34231099,1864715641,1486670059," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity9_2 onCreate" unit="specialinvoke r3.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;($r5)">
+        <nodeInfo nodeId="1046527560" predsStr="1169387523" succsStr="34231099" context=""/>
+        <baseNodePointTo value="1169387523" context=""/>
+      </node>
+      <node type="PassOutIntent" method="SubActivity9_2 onCreate" unit="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)">
+        <nodeInfo nodeId="34231099" predsStr="1046527560" succsStr="" context=""/>
+        <baseNodePointTo value="1169387523" context=""/>
+      </node>
+      <node type="ReceiveIntentFromParatMethod" method="ContextSensi analyzeIntent" unit="$r2 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1864715641" predsStr="1924533224" succsStr="1486670059" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)34231099"/>
+        <baseNodePointTo value="1864715641" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)34231099"/>
+      </node>
+      <node type="SendIntent2ICC" method="ContextSensi analyzeIntent" unit="virtualinvoke $r1.&lt;android.content.Context: void startActivity(android.content.Intent)&gt;($r2)">
+        <nodeInfo nodeId="1486670059" predsStr="1864715641" succsStr="" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)34231099"/>
+        <baseNodePointTo value="1864715641" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)34231099"/>
       </node>
     </singlePath>
   </singleMethod>
@@ -916,94 +934,6 @@ void analyzeIntent(java.lang.String)"/>
       </node>
     </singlePath>
   </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_2: void onCreate(android.os.Bundle)&gt;">
-    <singlePath>
-      <method methodtrace="void onCreate(android.os.Bundle)
-&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt; --- virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)
-void analyzeIntent(android.content.Context,android.content.Intent)"/>
-      <node type="CreateMethod" method="SubActivity9_2 onCreate" unit="r3 = new android.content.Intent">
-        <nodeInfo nodeId="1069573323" predsStr="1151491527" succsStr="1269607364" context=""/>
-        <baseNodePointTo value="1069573323" context=""/>
-        <nodeSetPointToMe value="1069573323,1269607364,1351476516,487780337,543835743," context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity9_2 onCreate" unit="specialinvoke r3.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;($r5)">
-        <nodeInfo nodeId="1269607364" predsStr="1069573323" succsStr="1351476516" context=""/>
-        <baseNodePointTo value="1069573323" context=""/>
-      </node>
-      <node type="PassOutIntent" method="SubActivity9_2 onCreate" unit="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)">
-        <nodeInfo nodeId="1351476516" predsStr="1269607364" succsStr="" context=""/>
-        <baseNodePointTo value="1069573323" context=""/>
-      </node>
-      <node type="ReceiveIntentFromParatMethod" method="ContextSensi analyzeIntent" unit="$r2 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="487780337" predsStr="1870823910" succsStr="543835743" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)1351476516"/>
-        <baseNodePointTo value="487780337" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)1351476516"/>
-      </node>
-      <node type="SendIntent2ICC" method="ContextSensi analyzeIntent" unit="virtualinvoke $r1.&lt;android.content.Context: void startActivity(android.content.Intent)&gt;($r2)">
-        <nodeInfo nodeId="543835743" predsStr="487780337" succsStr="" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)1351476516"/>
-        <baseNodePointTo value="487780337" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)1351476516"/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4: void analyzeIntent()&gt;">
-    <singlePath>
-      <method methodtrace="void analyzeIntent()"/>
-      <node type="ReceiveIntentFromOutMethod" method="SubActivity4 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity4: android.content.Intent getIntent()&gt;()">
-        <nodeInfo nodeId="192620230" predsStr="358414838" succsStr="766539345" context=""/>
-        <baseNodePointTo value="192620230" context=""/>
-        <nodeSetPointToMe value="192620230," context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4: void onCreate(android.os.Bundle)&gt;">
-    <singlePath>
-      <method methodtrace="void onCreate(android.os.Bundle)"/>
-      <node type="CreateMethod" method="SubActivity4 onCreate" unit="r3 = new android.content.Intent">
-        <nodeInfo nodeId="1151836977" predsStr="645766336" succsStr="1928797858" context=""/>
-        <baseNodePointTo value="1151836977" context=""/>
-        <nodeSetPointToMe value="1151836977,1928797858,1510570627,282621598," context=""/>
-      </node>
-      <node type="InitIntent" method="SubActivity4 onCreate" unit="specialinvoke r3.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="1928797858" predsStr="1151836977" succsStr="1510570627" context=""/>
-        <baseNodePointTo value="1151836977" context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity4 onCreate" unit="virtualinvoke r3.&lt;android.content.Intent: android.content.Intent setFlags(int)&gt;(268435456)">
-        <nodeInfo nodeId="1510570627" predsStr="1928797858" succsStr="282621598" context=""/>
-        <baseNodePointTo value="1151836977" context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity4 onCreate" unit="virtualinvoke r3.&lt;android.content.Intent: android.content.Intent setComponent(android.content.ComponentName)&gt;(r2)">
-        <nodeInfo nodeId="282621598" predsStr="1510570627" succsStr="1772085663" context=""/>
-        <baseNodePointTo value="1151836977" context=""/>
-      </node>
-    </singlePath>
-  </singleMethod>
-  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_1: void onCreate(android.os.Bundle)&gt;">
-    <singlePath>
-      <method methodtrace="void onCreate(android.os.Bundle)
-&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt; --- virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)
-void analyzeIntent(android.content.Context,android.content.Intent)"/>
-      <node type="CreateMethod" method="SubActivity9_1 onCreate" unit="r3 = new android.content.Intent">
-        <nodeInfo nodeId="483657770" predsStr="1898885237" succsStr="2026062163" context=""/>
-        <baseNodePointTo value="483657770" context=""/>
-        <nodeSetPointToMe value="483657770,2026062163,453484161,487780337,543835743," context=""/>
-      </node>
-      <node type="SetAttribute" method="SubActivity9_1 onCreate" unit="specialinvoke r3.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;($r5)">
-        <nodeInfo nodeId="2026062163" predsStr="483657770" succsStr="453484161" context=""/>
-        <baseNodePointTo value="483657770" context=""/>
-      </node>
-      <node type="PassOutIntent" method="SubActivity9_1 onCreate" unit="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)">
-        <nodeInfo nodeId="453484161" predsStr="2026062163" succsStr="" context=""/>
-        <baseNodePointTo value="483657770" context=""/>
-      </node>
-      <node type="ReceiveIntentFromParatMethod" method="ContextSensi analyzeIntent" unit="$r2 := @parameter1: android.content.Intent">
-        <nodeInfo nodeId="487780337" predsStr="1870823910" succsStr="543835743" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)453484161"/>
-        <baseNodePointTo value="487780337" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)453484161"/>
-      </node>
-      <node type="SendIntent2ICC" method="ContextSensi analyzeIntent" unit="virtualinvoke $r1.&lt;android.content.Context: void startActivity(android.content.Intent)&gt;($r2)">
-        <nodeInfo nodeId="543835743" predsStr="487780337" succsStr="" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)453484161"/>
-        <baseNodePointTo value="487780337" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)453484161"/>
-      </node>
-    </singlePath>
-  </singleMethod>
   <singleMethod source="&lt;com.example.intentFlowBench.SubActivity6: void onCreate(android.os.Bundle)&gt;">
     <singlePath>
       <method methodtrace="void onCreate(android.os.Bundle)
@@ -1013,63 +943,133 @@ void analyzeIntentSub1(android.content.Intent)
 void analyzeIntentSub2(android.content.Intent)
 &lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt; --- specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)"/>
       <node type="CreateMethod" method="SubActivity6 onCreate" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="121764047" predsStr="1970306821" succsStr="690361423" context=""/>
-        <baseNodePointTo value="121764047" context=""/>
-        <nodeSetPointToMe value="121764047,690361423,502852148,451433836,360583019,765712339," context=""/>
+        <nodeInfo nodeId="202501275" predsStr="1278388862" succsStr="265834811" context=""/>
+        <baseNodePointTo value="202501275" context=""/>
+        <nodeSetPointToMe value="202501275,265834811,406267653,553209498,1059143319,1765570369," context=""/>
       </node>
       <node type="SetAttribute" method="SubActivity6 onCreate" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;($r4)">
-        <nodeInfo nodeId="690361423" predsStr="121764047" succsStr="502852148" context=""/>
-        <baseNodePointTo value="121764047" context=""/>
+        <nodeInfo nodeId="265834811" predsStr="202501275" succsStr="406267653" context=""/>
+        <baseNodePointTo value="202501275" context=""/>
       </node>
       <node type="PassOutIntent" method="SubActivity6 onCreate" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="502852148" predsStr="690361423" succsStr="1795569369" context=""/>
-        <baseNodePointTo value="121764047" context=""/>
+        <nodeInfo nodeId="406267653" predsStr="265834811" succsStr="1099894567" context=""/>
+        <baseNodePointTo value="202501275" context=""/>
       </node>
       <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub1" unit="$r1 := @parameter0: android.content.Intent">
-        <nodeInfo nodeId="451433836" predsStr="1602076154" succsStr="360583019" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148"/>
-        <baseNodePointTo value="451433836" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148"/>
+        <nodeInfo nodeId="553209498" predsStr="1244383007" succsStr="1059143319" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653"/>
+        <baseNodePointTo value="553209498" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653"/>
       </node>
       <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub1" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_11&quot;, &quot;call_11&quot;)">
-        <nodeInfo nodeId="360583019" predsStr="451433836" succsStr="765712339" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148"/>
-        <baseNodePointTo value="451433836" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148"/>
+        <nodeInfo nodeId="1059143319" predsStr="553209498" succsStr="1765570369" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653"/>
+        <baseNodePointTo value="553209498" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653"/>
       </node>
       <node type="PassOutIntent" method="SubActivity6 analyzeIntentSub1" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)">
-        <nodeInfo nodeId="765712339" predsStr="360583019" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148"/>
-        <baseNodePointTo value="451433836" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148"/>
+        <nodeInfo nodeId="1765570369" predsStr="1059143319" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653"/>
+        <baseNodePointTo value="553209498" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653"/>
       </node>
       <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub2" unit="$r1 := @parameter0: android.content.Intent">
-        <nodeInfo nodeId="1151955636" predsStr="421953644" succsStr="1212704797" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
+        <nodeInfo nodeId="1343642221" predsStr="845449668" succsStr="1590239729" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
       </node>
       <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_22&quot;, &quot;call_22&quot;)">
-        <nodeInfo nodeId="1212704797" predsStr="1151955636" succsStr="1997718293" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
+        <nodeInfo nodeId="1590239729" predsStr="1343642221" succsStr="24300138" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)&gt;($r1)">
-        <nodeInfo nodeId="1997718293" predsStr="1212704797" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)502852148, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)765712339"/>
+        <nodeInfo nodeId="24300138" predsStr="1590239729" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub1(android.content.Intent)&gt;(r2)406267653, specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;($r1)1765570369"/>
       </node>
       <node type="CreateMethod" method="SubActivity6 onCreate" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="1795569369" predsStr="502852148" succsStr="1669938422" context=""/>
-        <baseNodePointTo value="1795569369" context=""/>
-        <nodeSetPointToMe value="1795569369,1669938422,2048186532,1151955636,1212704797,1997718293," context=""/>
+        <nodeInfo nodeId="1099894567" predsStr="406267653" succsStr="1115244217" context=""/>
+        <baseNodePointTo value="1099894567" context=""/>
+        <nodeSetPointToMe value="1099894567,1115244217,266700356,1343642221,1590239729,24300138," context=""/>
       </node>
       <node type="SetAttribute" method="SubActivity6 onCreate" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;($r4)">
-        <nodeInfo nodeId="1669938422" predsStr="1795569369" succsStr="2048186532" context=""/>
-        <baseNodePointTo value="1795569369" context=""/>
+        <nodeInfo nodeId="1115244217" predsStr="1099894567" succsStr="266700356" context=""/>
+        <baseNodePointTo value="1099894567" context=""/>
       </node>
       <node type="PassOutIntent" method="SubActivity6 onCreate" unit="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)">
-        <nodeInfo nodeId="2048186532" predsStr="1669938422" succsStr="543634584" context=""/>
-        <baseNodePointTo value="1795569369" context=""/>
+        <nodeInfo nodeId="266700356" predsStr="1115244217" succsStr="785090482" context=""/>
+        <baseNodePointTo value="1099894567" context=""/>
       </node>
       <node type="ReceiveIntentFromParatMethod" method="SubActivity6 analyzeIntentSub2" unit="$r1 := @parameter0: android.content.Intent">
-        <nodeInfo nodeId="1151955636" predsStr="421953644" succsStr="1212704797" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)2048186532"/>
-        <baseNodePointTo value="1151955636" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)2048186532"/>
+        <nodeInfo nodeId="1343642221" predsStr="845449668" succsStr="1590239729" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)266700356"/>
+        <baseNodePointTo value="1343642221" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)266700356"/>
       </node>
       <node type="SetIntentExtra" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke $r1.&lt;android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)&gt;(&quot;call_22&quot;, &quot;call_22&quot;)">
-        <nodeInfo nodeId="1212704797" predsStr="1151955636" succsStr="1997718293" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)2048186532"/>
-        <baseNodePointTo value="1151955636" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)2048186532"/>
+        <nodeInfo nodeId="1590239729" predsStr="1343642221" succsStr="24300138" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)266700356"/>
+        <baseNodePointTo value="1343642221" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)266700356"/>
       </node>
       <node type="SendIntent2ICC" method="SubActivity6 analyzeIntentSub2" unit="virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)&gt;($r1)">
-        <nodeInfo nodeId="1997718293" predsStr="1212704797" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)2048186532"/>
-        <baseNodePointTo value="1151955636" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)2048186532"/>
+        <nodeInfo nodeId="24300138" predsStr="1590239729" succsStr="" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)266700356"/>
+        <baseNodePointTo value="1343642221" context="specialinvoke r0.&lt;com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)&gt;(r2)266700356"/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity9_1: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)
+&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt; --- virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)
+void analyzeIntent(android.content.Context,android.content.Intent)"/>
+      <node type="CreateMethod" method="SubActivity9_1 onCreate" unit="r3 = new android.content.Intent">
+        <nodeInfo nodeId="1351476516" predsStr="1269607364" succsStr="102225559" context=""/>
+        <baseNodePointTo value="1351476516" context=""/>
+        <nodeSetPointToMe value="1351476516,102225559,978128034,1864715641,1486670059," context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity9_1 onCreate" unit="specialinvoke r3.&lt;android.content.Intent: void &lt;init&gt;(java.lang.String)&gt;($r5)">
+        <nodeInfo nodeId="102225559" predsStr="1351476516" succsStr="978128034" context=""/>
+        <baseNodePointTo value="1351476516" context=""/>
+      </node>
+      <node type="PassOutIntent" method="SubActivity9_1 onCreate" unit="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)">
+        <nodeInfo nodeId="978128034" predsStr="102225559" succsStr="" context=""/>
+        <baseNodePointTo value="1351476516" context=""/>
+      </node>
+      <node type="ReceiveIntentFromParatMethod" method="ContextSensi analyzeIntent" unit="$r2 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="1864715641" predsStr="1924533224" succsStr="1486670059" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)978128034"/>
+        <baseNodePointTo value="1864715641" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)978128034"/>
+      </node>
+      <node type="SendIntent2ICC" method="ContextSensi analyzeIntent" unit="virtualinvoke $r1.&lt;android.content.Context: void startActivity(android.content.Intent)&gt;($r2)">
+        <nodeInfo nodeId="1486670059" predsStr="1864715641" succsStr="" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)978128034"/>
+        <baseNodePointTo value="1864715641" context="virtualinvoke r2.&lt;com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)&gt;(r0, r3)978128034"/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4: void analyzeIntent()&gt;">
+    <singlePath>
+      <method methodtrace="void analyzeIntent()"/>
+      <node type="ReceiveIntentFromOutMethod" method="SubActivity4 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity4: android.content.Intent getIntent()&gt;()">
+        <nodeInfo nodeId="1704109883" predsStr="200141801" succsStr="351345238" context=""/>
+        <baseNodePointTo value="1704109883" context=""/>
+        <nodeSetPointToMe value="1704109883," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity3: void analyzeIntent()&gt;">
+    <singlePath>
+      <method methodtrace="void analyzeIntent()"/>
+      <node type="ReceiveIntentFromOutMethod" method="SubActivity3 analyzeIntent" unit="$r1 = virtualinvoke r0.&lt;com.example.intentFlowBench.SubActivity3: android.content.Intent getIntent()&gt;()">
+        <nodeInfo nodeId="1928797858" predsStr="1151836977" succsStr="1510570627" context=""/>
+        <baseNodePointTo value="1928797858" context=""/>
+        <nodeSetPointToMe value="1928797858," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;com.example.intentFlowBench.SubActivity4: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="CreateMethod" method="SubActivity4 onCreate" unit="r3 = new android.content.Intent">
+        <nodeInfo nodeId="1842142288" predsStr="1509579321" succsStr="93607649" context=""/>
+        <baseNodePointTo value="1842142288" context=""/>
+        <nodeSetPointToMe value="1842142288,93607649,2056109041,1907170571," context=""/>
+      </node>
+      <node type="InitIntent" method="SubActivity4 onCreate" unit="specialinvoke r3.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
+        <nodeInfo nodeId="93607649" predsStr="1842142288" succsStr="2056109041" context=""/>
+        <baseNodePointTo value="1842142288" context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity4 onCreate" unit="virtualinvoke r3.&lt;android.content.Intent: android.content.Intent setFlags(int)&gt;(268435456)">
+        <nodeInfo nodeId="2056109041" predsStr="93607649" succsStr="1907170571" context=""/>
+        <baseNodePointTo value="1842142288" context=""/>
+      </node>
+      <node type="SetAttribute" method="SubActivity4 onCreate" unit="virtualinvoke r3.&lt;android.content.Intent: android.content.Intent setComponent(android.content.ComponentName)&gt;(r2)">
+        <nodeInfo nodeId="1907170571" predsStr="2056109041" succsStr="2047373618" context=""/>
+        <baseNodePointTo value="1842142288" context=""/>
       </node>
     </singlePath>
   </singleMethod>
@@ -1077,17 +1077,17 @@ void analyzeIntentSub2(android.content.Intent)
     <singlePath>
       <method methodtrace="void onCreate(android.os.Bundle)"/>
       <node type="CreateMethod" method="MainActivity onCreate" unit="r2 = new android.content.Intent">
-        <nodeInfo nodeId="500177014" predsStr="78950445" succsStr="315771971" context=""/>
-        <baseNodePointTo value="500177014" context=""/>
-        <nodeSetPointToMe value="500177014,315771971,1811051537," context=""/>
+        <nodeInfo nodeId="1474835976" predsStr="1248236698" succsStr="1473829090" context=""/>
+        <baseNodePointTo value="1474835976" context=""/>
+        <nodeSetPointToMe value="1474835976,1473829090,796028148," context=""/>
       </node>
       <node type="InitIntent" method="MainActivity onCreate" unit="specialinvoke r2.&lt;android.content.Intent: void &lt;init&gt;()&gt;()">
-        <nodeInfo nodeId="315771971" predsStr="500177014" succsStr="1811051537" context=""/>
-        <baseNodePointTo value="500177014" context=""/>
+        <nodeInfo nodeId="1473829090" predsStr="1474835976" succsStr="796028148" context=""/>
+        <baseNodePointTo value="1474835976" context=""/>
       </node>
       <node type="SetAttribute" method="MainActivity onCreate" unit="virtualinvoke r2.&lt;android.content.Intent: android.content.Intent setFlags(int)&gt;(32768)">
-        <nodeInfo nodeId="1811051537" predsStr="315771971" succsStr="" context=""/>
-        <baseNodePointTo value="500177014" context=""/>
+        <nodeInfo nodeId="796028148" predsStr="1473829090" succsStr="" context=""/>
+        <baseNodePointTo value="1474835976" context=""/>
       </node>
     </singlePath>
   </singleMethod>

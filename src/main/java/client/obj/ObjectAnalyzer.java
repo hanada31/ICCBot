@@ -12,7 +12,6 @@ import java.util.Stack;
 
 import java_cup.internal_error;
 
-import com.microsoft.z3.Model;
 
 import main.java.Analyzer;
 import main.java.Global;
