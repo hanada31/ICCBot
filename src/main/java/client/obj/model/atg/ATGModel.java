@@ -234,7 +234,14 @@ public class ATGModel {
 			counter.isNonActonly += 1;
 		if (iccTag.isNonComponentonly())
 			counter.isNonComponentonly += 1;
-
+		if (iccTag.isFragmentonly())
+			counter.isFragmentonly += 1;
+		if (iccTag.isAdapteronly())
+			counter.isAdapteronly += 1;
+		if (iccTag.isWidgetonly())
+			counter.isWidgetonly += 1;
+		if (iccTag.isOtherClassonly())
+			counter.isOtherClassonly += 1;
 		if (iccTag.isContextSensionly())
 			counter.isContextSensionly += 1;
 		if (iccTag.isLibonly())

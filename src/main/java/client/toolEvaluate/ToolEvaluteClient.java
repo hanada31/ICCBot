@@ -76,7 +76,7 @@ public class ToolEvaluteClient extends BaseClient {
 		oracleEvaluate(sb);
 		ICCBotEvaluate(sb);
 		IC3Evaluate(sb);
-		IC3DailEvaluate(sb);
+		IC3DialEvaluate(sb);
 		WTGEvaluate(sb);
 		
 		FilterAndEnhanceEvaluate(sb);
@@ -107,7 +107,7 @@ public class ToolEvaluteClient extends BaseClient {
 
 		ATGModel optModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
-		ATGModel ic3DailModel = Global.v().getiC3DialDroidModel()
+		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel()
 				.getIC3AtgModel();
 		ATGModel wtgModel = Global.v().getWtgModel().getWTGAtgModel();
 
@@ -130,31 +130,31 @@ public class ToolEvaluteClient extends BaseClient {
 		
 		sb.append(String.format("%.2f", optModel.getCompletenessScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getCompletenessScore()) + "\t");
-		sb.append(String.format("%.2f", ic3DailModel.getCompletenessScore())+ "\t");
+		sb.append(String.format("%.2f", IC3DialModel.getCompletenessScore())+ "\t");
 		sb.append(String.format("%.2f", wtgModel.getCompletenessScore()) + "\t");
 
 		sb.append(String.format("%.2f", optModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getConnectionScore()) + "\t");
-		sb.append(String.format("%.2f", ic3DailModel.getConnectionScore())+ "\t");
+		sb.append(String.format("%.2f", IC3DialModel.getConnectionScore())+ "\t");
 		sb.append(String.format("%.2f", wtgModel.getConnectionScore()) + "\t");
 
 		sb.append(optModel.getConnectionSize() + "\t");
 		sb.append(ic3Model.getConnectionSize() + "\t");
-		sb.append(ic3DailModel.getConnectionSize() + "\t");
+		sb.append(IC3DialModel.getConnectionSize() + "\t");
 		sb.append(wtgModel.getConnectionSize() + "\t");
 
 		sb.append(optModel.getOracleEdgeSize() + "\t");
 
 		sb.append(optModel.getFnEdgeSize() + "\t");
 		sb.append(ic3Model.getFnEdgeSize() + "\t");
-		sb.append(ic3DailModel.getFnEdgeSize() + "\t");
+		sb.append(IC3DialModel.getFnEdgeSize() + "\t");
 		sb.append(wtgModel.getFnEdgeSize() + "\t");
 		
 		sb.append(String.format("%.2f", optModel.getFalsenegativeScore())
 				+ "\t");
 		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore())
 				+ "\t");
-		sb.append(String.format("%.2f", ic3DailModel.getFalsenegativeScore())
+		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore())
 				+ "\t");
 		sb.append(String.format("%.2f", wtgModel.getFalsenegativeScore()));
 
@@ -294,22 +294,22 @@ public class ToolEvaluteClient extends BaseClient {
 	}
 
 	/**
-	 * Evaluate the completeness/connection rate/false nagetive of IC3-daildroid
+	 * Evaluate the completeness/connection rate/false nagetive of IC3-dialdroid
 	 * 
 	 * @param sb
 	 */
-	private void IC3DailEvaluate(StringBuilder sb) {
+	private void IC3DialEvaluate(StringBuilder sb) {
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		ATGModel ic3Model = Global.v().getiC3DialDroidModel().getIC3AtgModel();
-		initStringBuilderComplete("IC3Dail     ", sb);
-		ic3Model.evaluateCompleteness("IC3Dail     ", sb);
+		initStringBuilderComplete("IC3Dial     ", sb);
+		ic3Model.evaluateCompleteness("IC3Dial     ", sb);
 
-		initStringBuilderConnection("IC3Dail     ", sb);
-		ic3Model.evaluateConnectivity("IC3Dail     ", sb);
+		initStringBuilderConnection("IC3Dial     ", sb);
+		ic3Model.evaluateConnectivity("IC3Dial     ", sb);
 
 		if (oracleModel.getAtgEdges().size() > 0) {
-			initStringBuilderFN("IC3Dail     ", sb);
-			ic3Model.evaluateFalseNegative("IC3Dail     ", oracleModel, sb);
+			initStringBuilderFN("IC3Dial     ", sb);
+			ic3Model.evaluateFalseNegative("IC3Dial     ", oracleModel, sb);
 		}
 		System.out.println();
 	}

@@ -21,7 +21,7 @@ run *ICCBot*:
 ```
 java –jar ICCBot.jar –h
 
-usage: java -jar ICCBot.jar [options] [-path] [-name] [-outputDir][-client]
+usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir][-client]
  
  -h                     -h: Show the help information.
  -name <arg>            -name: Set the name of the apk under analysis.
@@ -60,7 +60,7 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-outputDir][-client]
 example:
 
 ```
-java –jar ICCBot.jar -path ..\apk -name IntentFlowBench.apk -outputDir result
+java -jar ICCBot.jar -path apk/ -name IntentFlowBench.apk -outputDir results  -androidJar lib/platforms
 ```
 
 
