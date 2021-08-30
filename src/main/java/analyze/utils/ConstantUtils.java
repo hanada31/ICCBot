@@ -159,7 +159,7 @@ public class ConstantUtils {
 			SERVICE_ONSTART2, SERVICE_ONBIND, SERVICE_ONREBIND, SERVICE_ONUNBIND };
 	private static final String[] fragmentMethods = { FRAGMENT_ONCREATE, FRAGMENT_ONDESTROY, FRAGMENT_ONPAUSE,
 			FRAGMENT_ONATTACH, FRAGMENT_ONDESTROYVIEW, FRAGMENT_ONRESUME, FRAGMENT_ONSTART, FRAGMENT_ONSTOP,
-			FRAGMENT_ONCREATEVIEW, FRAGMENT_ONACTIVITYCREATED, FRAGMENT_ONVIEWSTATERESTORED, FRAGMENT_ONDETACH };
+			FRAGMENT_ONCREATEVIEW, FRAGMENT_ONACTIVITYCREATED, FRAGMENT_ONVIEWSTATERESTORED, FRAGMENT_ONDETACH,FRAGMENT_ONSAVEINSTANCESTATE};
 	private static final String[] broadcastMethods = { BROADCAST_ONRECEIVE };
 	private static final String[] contentproviderMethods = { CONTENTPROVIDER_ONCREATE };
 
@@ -186,7 +186,7 @@ public class ConstantUtils {
 	// send intent method
 	public static final String[] sendIntent2ActivityMethods = { "void startActivities(", "void startActivity(",
 			"void startActivityForResult(", "void startActivityFromChild(", "void startActivityFromFragment(",
-			"void startActivityIfNeeded(", "android.content.pm.ResolveInfo resolveActivity(", "void setIntent(" };
+			"void startActivityIfNeeded(", "android.content.pm.ResolveInfo resolveActivity(" };
 	// send intent method
 	public static final String[] sendIntent2ServiceMethods = { "android.content.ComponentName startService(",
 			"void startForegroundService(", "boolean bindService(", };

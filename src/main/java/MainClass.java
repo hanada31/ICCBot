@@ -283,8 +283,9 @@ public class MainClass {
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
 		MyConfig.getInstance().setMaxPathNumber(100);
-		MyConfig.getInstance().setResultFolder("results" + File.separator + "output-test" + File.separator);
+		MyConfig.getInstance().setResultFolder("results" + File.separator + "results" + File.separator);
 		MyConfig.getInstance().setTimeLimit(50);
+		MyConfig.getInstance().setAndroidJar("lib/platforms");
 	}
 
 	/**
