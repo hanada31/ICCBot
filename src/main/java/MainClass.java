@@ -24,9 +24,9 @@ import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-/**
-import polyglot.main.Main;
-
+/**
+ * import polyglot.main.Main;
+ * 
  * Main Class of ICC Extractor
  * 
  * @author yanjw
@@ -70,76 +70,53 @@ public class MainClass {
 		options.addOption("h", false, "-h: Show the help information.");
 
 		/** input **/
-		options.addOption("name", true,
-				"-name: Set the name of the apk under analysis.");
-		options.addOption("path", true,
-				"-path: Set the path to the apk under analysis.");
-		options.addOption("androidJar", true,
-				"-androidJar: Set the path of android.jar.");
-		options.addOption("version", true,
-				"-version [default:23]: Version of Android SDK.");
+		options.addOption("name", true, "-name: Set the name of the apk under analysis.");
+		options.addOption("path", true, "-path: Set the path to the apk under analysis.");
+		options.addOption("androidJar", true, "-androidJar: Set the path of android.jar.");
+		options.addOption("version", true, "-version [default:23]: Version of Android SDK.");
 
 		/** analysis config **/
-		options.addOption("client", true,
-				"-client [default:ICTGClient]: Set the analyze client.\n"
-						+ "IROutputClient: Output soot IR files.\n"
-						+ "ManifestClient: Output manifest.xml file.\n"
-						+ "CallGraphClient: Output call graph files.\n"
-						+ "ICTGClient: Analyze Intents.\n");
+		options.addOption("client", true, "-client [default:ICTGClient]: Set the analyze client.\n"
+				+ "IROutputClient: Output soot IR files.\n" + "ManifestClient: Output manifest.xml file.\n"
+				+ "CallGraphClient: Output call graph files.\n" + "ICTGClient: Analyze Intents.\n");
 
-		options.addOption("time", true,
-				"-time [default:90]: Set the max running time (min).");
-		options.addOption("maxPathNumber", true,
-				"-maxPathNumber [default:10000]: Set the max number of paths.");
+		options.addOption("time", true, "-time [default:90]: Set the max running time (min).");
+		options.addOption("maxPathNumber", true, "-maxPathNumber [default:10000]: Set the max number of paths.");
 
 		/** output **/
-		options.addOption("outputDir", true,
-				"-outputDir: Set the output folder of the apk.");
+		options.addOption("outputDir", true, "-outputDir: Set the output folder of the apk.");
 
 		/** debug **/
 		options.addOption("debug", false, "-debug: use debug mode.");
 
 		/** Switch **/
 
-		options.addOption("onlyDummyMain", false,
-				"-onlyDummyMain: limit the entry scope");
-		options.addOption("noCallBackEntry", false,
-				"-noCallBackEntry: exclude the call back methods");
-		options.addOption("noFunctionExpand", false,
-				"-noFunctionExpand: do not inline function with useful contexts");
-		options.addOption("noAsyncMethod", false,
-				"-noAsyncMethod: exclude async method call edge");
-		options.addOption("noPolym", false,
-				"-noPolym: exclude polymorphism methods");
-		options.addOption("noAdapter", false,
-				"-noAdapter: exclude super simple adapter model");
-		options.addOption("noStringOp", false,
-				"-noStringOp: exclude string operation model");
-		options.addOption("noStaticField", false,
-				"-noStaticField: exclude string operation model");
-		options.addOption("noFragment", false,
-				"-noFragment: exclude fragment operation model");
-		options.addOption("noLibCode", false,
-				"-noLibCode: exclude the activities not declared in app's package");
-		options.addOption("noWrapperAPI", false,
-				"-noWrapperAPI: exclude RAICC model");
-		options.addOption("noImplicit", false,
-				"-noImplicit: exclude implict matching");
-		options.addOption("noDynamicBC", false,
-				"-noDynamicBC: exclude dynamic broadcast receiver matching");
-//
-//		/** Strategy **/
-//		options.addOption("summaryStrategy", true,
-//				"-summaryStrategy: choose the type of summary model from object/path/none");
-//		options.addOption("noVfgStrategy", false,
-//				"-vfgStrategy: do not use vfg model");
-//		options.addOption("cgAnalyzeGroup", false,
-//				"-cgAnalyzeGroup: group cg edges into several groups");
-//		options.addOption("getAttributeStrategy", false,
-//				"-getAttributeStrategy: include the analyze of intent data receiveing.");
-//
-//		options.addOption("scenarioStack", false,
-//				"-scenarioStack: for stack related bug analysis.");
+		options.addOption("onlyDummyMain", false, "-onlyDummyMain: limit the entry scope");
+		options.addOption("noCallBackEntry", false, "-noCallBackEntry: exclude the call back methods");
+		options.addOption("noFunctionExpand", false, "-noFunctionExpand: do not inline function with useful contexts");
+		options.addOption("noAsyncMethod", false, "-noAsyncMethod: exclude async method call edge");
+		options.addOption("noPolym", false, "-noPolym: exclude polymorphism methods");
+		options.addOption("noAdapter", false, "-noAdapter: exclude super simple adapter model");
+		options.addOption("noStringOp", false, "-noStringOp: exclude string operation model");
+		options.addOption("noStaticField", false, "-noStaticField: exclude string operation model");
+		options.addOption("noFragment", false, "-noFragment: exclude fragment operation model");
+		options.addOption("noLibCode", false, "-noLibCode: exclude the activities not declared in app's package");
+		options.addOption("noWrapperAPI", false, "-noWrapperAPI: exclude RAICC model");
+		options.addOption("noImplicit", false, "-noImplicit: exclude implict matching");
+		options.addOption("noDynamicBC", false, "-noDynamicBC: exclude dynamic broadcast receiver matching");
+		//
+		// /** Strategy **/
+		// options.addOption("summaryStrategy", true,
+		// "-summaryStrategy: choose the type of summary model from object/path/none");
+		// options.addOption("noVfgStrategy", false,
+		// "-vfgStrategy: do not use vfg model");
+		// options.addOption("cgAnalyzeGroup", false,
+		// "-cgAnalyzeGroup: group cg edges into several groups");
+		// options.addOption("getAttributeStrategy", false,
+		// "-getAttributeStrategy: include the analyze of intent data receiveing.");
+		//
+		// options.addOption("scenarioStack", false,
+		// "-scenarioStack: for stack related bug analysis.");
 
 		return options;
 	}
@@ -154,10 +131,8 @@ public class MainClass {
 
 		if (mCmd.hasOption("h")) {
 			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("java -jar ICCBot.jar [options] [-path] [-name] [-outputDir] [-client]",
-					getOptions());
-			System.out
-					.println("E.g., -path apk\\ -name test.apk -outputDir result -client MainClient");
+			formatter.printHelp("java -jar ICCBot.jar [options] [-path] [-name] [-outputDir] [-client]", getOptions());
+			System.out.println("E.g., -path apk\\ -name test.apk -outputDir result -client MainClient");
 			System.exit(0);
 		}
 

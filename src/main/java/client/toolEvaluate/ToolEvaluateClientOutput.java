@@ -19,7 +19,7 @@ import main.java.client.obj.model.atg.AtgNode;
  * @author 79940
  *
  */
-public class ToolEvaluteClientOutput {
+public class ToolEvaluateClientOutput {
 
 	/**
 	 * write Dot File

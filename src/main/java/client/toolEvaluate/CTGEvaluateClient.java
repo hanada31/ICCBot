@@ -114,5 +114,4 @@ public class CTGEvaluateClient extends BaseClient {
 		sb.append("FalseNegativeScore\n");
 	}
 
-
 }

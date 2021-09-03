@@ -42,11 +42,13 @@ public class ManifestClient extends BaseClient {
 
 		/** manifest **/
 		ManifestClientOutput.writeManifest(summary_app_dir + ConstantUtils.MANIFOLDETR, ConstantUtils.MANIFEST);
-//		String content = Global.v().getAppModel().getAppName() + "\t" + Global.v().getAppModel().getPackageName()
-//				+ "\t" + Global.v().getAppModel().getComponentMap().size() + "\t"
-//				+ Global.v().getAppModel().getExportedComponentMap().size() + "\t"
-//				+ Global.v().getAppModel().getActivityMap().size() + "\n";
-//		FileUtils.writeText2File(MyConfig.getInstance().getResultFolder() + "componentNumber.txt", content, true);
+		// String content = Global.v().getAppModel().getAppName() + "\t" +
+		// Global.v().getAppModel().getPackageName()
+		// + "\t" + Global.v().getAppModel().getComponentMap().size() + "\t"
+		// + Global.v().getAppModel().getExportedComponentMap().size() + "\t"
+		// + Global.v().getAppModel().getActivityMap().size() + "\n";
+		// FileUtils.writeText2File(MyConfig.getInstance().getResultFolder() +
+		// "componentNumber.txt", content, true);
 
 	}
 

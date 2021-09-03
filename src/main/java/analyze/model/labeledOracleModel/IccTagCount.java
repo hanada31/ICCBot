@@ -112,7 +112,7 @@ public class IccTagCount {
 		sb.append("isWarrperonly: " + isWarrperonly + "\t");
 		sb.append("isImplicitICConly: " + isImplicitICConly + "\n");
 		sb.append("isNonActonly: " + isNonActonly + "\t");
-		
+
 		sb.append("isFragmentonly: " + isFragmentonly + "\n");
 		sb.append("isAdapteronly: " + isAdapteronly + "\n");
 		sb.append("isWidgetonly: " + isWidgetonly + "\n");

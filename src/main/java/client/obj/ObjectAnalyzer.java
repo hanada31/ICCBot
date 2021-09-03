@@ -12,7 +12,6 @@ import java.util.Stack;
 
 import java_cup.internal_error;
 
-
 import main.java.Analyzer;
 import main.java.Global;
 import main.java.MyConfig;

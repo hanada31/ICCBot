@@ -116,7 +116,8 @@ public class LabeledOracleReader extends Analyzer {
 						iccTag.setContextSensitive(sensitivityScope.attributeValue("context").equals("true"));
 						iccTag.setObjectSensitive(sensitivityScope.attributeValue("object").equals("true"));
 						iccTag.setFieldSensitive(sensitivityScope.attributeValue("field").equals("true"));
-						if (iccTag.isFlowSensitive() || iccTag.isPathSensitive() || iccTag.isContextSensitive() || iccTag.isFieldSensitive() || iccTag.isObjectSensitive()) {
+						if (iccTag.isFlowSensitive() || iccTag.isPathSensitive() || iccTag.isContextSensitive()
+								|| iccTag.isFieldSensitive() || iccTag.isObjectSensitive()) {
 							iccTag.setSomeSensitive(true);
 						}
 					}

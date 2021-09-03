@@ -78,16 +78,16 @@ public class IccTag {
 
 	public void postAnalyzeTags() {
 		if (isStaticCallBack && !isDynamicCallBack && !isImpliciyCallBack && !isWarpperSendICC && !isImplicit
-				&& !isNonActivity && !isNonComponent && !isSomeSensitive && !isLibraryInvocation
-				&& !isAsyncInvocation && !isPolymorphic)
+				&& !isNonActivity && !isNonComponent && !isSomeSensitive && !isLibraryInvocation && !isAsyncInvocation
+				&& !isPolymorphic)
 			isStaticCallBackonly = true;
 		else if (!isStaticCallBack && isDynamicCallBack && !isImpliciyCallBack && !isWarpperSendICC && !isImplicit
-				&& !isNonActivity && !isNonComponent && !isSomeSensitive && !isLibraryInvocation
-				&& !isAsyncInvocation && !isPolymorphic)
+				&& !isNonActivity && !isNonComponent && !isSomeSensitive && !isLibraryInvocation && !isAsyncInvocation
+				&& !isPolymorphic)
 			isDynamicCallBackonly = true;
 		else if (!isStaticCallBack && !isDynamicCallBack && isImpliciyCallBack && !isWarpperSendICC && !isImplicit
-				&& !isNonActivity && !isNonComponent && !isSomeSensitive && !isLibraryInvocation
-				&& !isAsyncInvocation && !isPolymorphic)
+				&& !isNonActivity && !isNonComponent && !isSomeSensitive && !isLibraryInvocation && !isAsyncInvocation
+				&& !isPolymorphic)
 			isImplicitCallBackonly = true;
 		else if (isWarpperSendICC && !isImplicit && !isNonComponent && !isSomeSensitive && !isLibraryInvocation
 				&& !isAsyncInvocation && !isPolymorphic)
@@ -101,7 +101,7 @@ public class IccTag {
 		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && isNonComponent && !isSomeSensitive
 				&& !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isNonComponentonly = true;
-		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isNonComponent && isContextSensitive 
+		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isNonComponent && isContextSensitive
 				&& !isFieldSensitive && !isFlowSensitive && !isPathSensitive && !isObjectSensitive
 				&& !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isContextSensionly = true;
@@ -114,18 +114,18 @@ public class IccTag {
 		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isNonComponent && !isSomeSensitive
 				&& !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
 			isPolymonly = true;
-		
-		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isAdapter && !isWidget && !isOtherClass && !isSomeSensitive
-				&& !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
+
+		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isAdapter && !isWidget && !isOtherClass
+				&& !isSomeSensitive && !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
 			isFragmentonly = true;
-		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isFragment && !isWidget && !isOtherClass && !isSomeSensitive
-				&& !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
+		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isFragment && !isWidget && !isOtherClass
+				&& !isSomeSensitive && !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
 			isAdapteronly = true;
-		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isFragment && !isAdapter && !isOtherClass && !isSomeSensitive
-				&& !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
+		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isFragment && !isAdapter && !isOtherClass
+				&& !isSomeSensitive && !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
 			isWidgetonly = true;
-		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isFragment && !isAdapter && !isWidget && !isSomeSensitive
-				&& !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
+		else if (!isWarpperSendICC && !isImplicit && !isNonActivity && !isFragment && !isAdapter && !isWidget
+				&& !isSomeSensitive && !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
 			isOtherClassonly = true;
 	}
 
@@ -645,7 +645,8 @@ public class IccTag {
 	}
 
 	/**
-	 * @param isFragmentonly the isFragmentonly to set
+	 * @param isFragmentonly
+	 *            the isFragmentonly to set
 	 */
 	public void setFragmentonly(boolean isFragmentonly) {
 		this.isFragmentonly = isFragmentonly;
@@ -659,7 +660,8 @@ public class IccTag {
 	}
 
 	/**
-	 * @param isAdapteronly the isAdapteronly to set
+	 * @param isAdapteronly
+	 *            the isAdapteronly to set
 	 */
 	public void setAdapteronly(boolean isAdapteronly) {
 		this.isAdapteronly = isAdapteronly;
@@ -673,7 +675,8 @@ public class IccTag {
 	}
 
 	/**
-	 * @param isWidgetonly the isWidgetonly to set
+	 * @param isWidgetonly
+	 *            the isWidgetonly to set
 	 */
 	public void setWidgetonly(boolean isWidgetonly) {
 		this.isWidgetonly = isWidgetonly;
@@ -687,7 +690,8 @@ public class IccTag {
 	}
 
 	/**
-	 * @param isOtherClassonly the isOtherClassonly to set
+	 * @param isOtherClassonly
+	 *            the isOtherClassonly to set
 	 */
 	public void setOtherClassonly(boolean isOtherClassonly) {
 		this.isOtherClassonly = isOtherClassonly;
@@ -701,7 +705,8 @@ public class IccTag {
 	}
 
 	/**
-	 * @param isSomeSensitive the isSomeSensitive to set
+	 * @param isSomeSensitive
+	 *            the isSomeSensitive to set
 	 */
 	public void setSomeSensitive(boolean isSomeSensitive) {
 		this.isSomeSensitive = isSomeSensitive;
