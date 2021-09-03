@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<root>
-  <source name="com.example.fragmentbench.MainActivity">
-    <destination name="com.example.fragmentbench.ui.dashboard.DashboardFragment" type="Act2Frag" method="&lt;com.example.fragmentbench.MainActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
-    <destination name="com.example.fragmentbench.ui.home.HomeFragment" type="Act2Frag" method="&lt;com.example.fragmentbench.MainActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
-    <destination name="com.example.fragmentbench.ui.notifications.NotificationsFragment" type="Act2Frag" method="&lt;com.example.fragmentbench.MainActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
-  </source>
-</root>

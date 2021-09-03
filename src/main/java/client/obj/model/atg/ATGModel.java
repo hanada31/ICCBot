@@ -26,6 +26,8 @@ public class ATGModel {
 	private int fnEdgeSize;
 	private int enhancedNum;
 	private int filteredNum;
+	private int filteredServiceNum;
+	private int filteredReceiverNum;
 	private boolean exist = true;
 
 	public int getConnectionSize() {
@@ -93,15 +95,16 @@ public class ATGModel {
 		for (Entry<String, Set<AtgEdge>> entry : atgEdges.entrySet()) {
 			for (AtgEdge myEdge : entry.getValue()) {
 				myEdges.add(myEdge.getDescribtion());
-				// myEdges.add(myEdge.getReverseDescribtion());
 			}
 		}
 		Set<String> oracleEdges = new HashSet<String>();
 		Set<String> fnSet = new HashSet<String>();
 		for (Entry<String, Set<AtgEdge>> entry : oracle.getAtgEdges().entrySet()) {
 			for (AtgEdge oracleEdge : entry.getValue()) {
-				oracleEdges.add(oracleEdge.getDescribtion());
-				System.out.println("- " + oracleEdge.getDescribtion());
+				if (!oracleEdges.contains(oracleEdge.getDescribtion())) {
+					oracleEdges.add(oracleEdge.getDescribtion());
+					// System.out.println("- " +oracleEdge.getDescribtion());
+				}
 				if (!myEdges.contains(oracleEdge.getDescribtion()) && !fnSet.contains(oracleEdge.getDescribtion())) {
 					fnSet.add(oracleEdge.getDescribtion());
 					modifyTagCounter(counter, oracleEdge.getDescribtion());
@@ -230,8 +233,6 @@ public class ATGModel {
 		if (iccTag.isImplicitICConly())
 			counter.isImplicitICConly += 1;
 
-		if (iccTag.isNonActonly())
-			counter.isNonActonly += 1;
 		if (iccTag.isNonComponentonly())
 			counter.isNonComponentonly += 1;
 		if (iccTag.isFragmentonly())
@@ -352,8 +353,6 @@ public class ATGModel {
 
 		score = 1.0 * sizeAfter / wholeSize;
 		sb.append(sizeAfter + "\t");
-		// System.out.println("score: " +sizeAfter +"/" + wholeSize +" = " +
-		// score);
 		return score;
 	}
 
@@ -540,6 +539,36 @@ public class ATGModel {
 	 */
 	public void setExist(boolean exist) {
 		this.exist = exist;
+	}
+
+	/**
+	 * @return the filteredServiceNum
+	 */
+	public int getFilteredServiceNum() {
+		return filteredServiceNum;
+	}
+
+	/**
+	 * @param filteredServiceNum
+	 *            the filteredServiceNum to set
+	 */
+	public void setFilteredServiceNum(int filteredServiceNum) {
+		this.filteredServiceNum = filteredServiceNum;
+	}
+
+	/**
+	 * @return the filteredReceiverNum
+	 */
+	public int getFilteredReceiverNum() {
+		return filteredReceiverNum;
+	}
+
+	/**
+	 * @param filteredReceiverNum
+	 *            the filteredReceiverNum to set
+	 */
+	public void setFilteredReceiverNum(int filteredReceiverNum) {
+		this.filteredReceiverNum = filteredReceiverNum;
 	}
 
 }

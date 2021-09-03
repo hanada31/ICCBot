@@ -32,7 +32,7 @@ import main.java.client.statistic.model.StatisticResult;
  * @author yanjw
  * @version 2.0
  */
-public class ToolEvaluteClient extends BaseClient {
+public class ToolEvaluateClient extends BaseClient {
 
 	@Override
 	protected void clientAnalyze() {
@@ -50,24 +50,22 @@ public class ToolEvaluteClient extends BaseClient {
 		dynamicResultAnalyzer analyzer = new dynamicResultAnalyzer();
 		analyzer.analyze();
 
-		manualICTGAnalyzer analyzer2 = new manualICTGAnalyzer();
+		manualResultAnalyzer analyzer2 = new manualResultAnalyzer();
 		analyzer2.analyze();
 
 		LabeledOracleReader reader = new LabeledOracleReader();
 		reader.analyze();
 
-		System.out.println("Successfully analyze with CTGEvaluateClient.");
+		System.out.println("Successfully analyze with ToolEvaluateClient.");
 
 	}
 
 	@Override
 	public void clientOutput() {
 		String appName = Global.v().getAppModel().getAppName();
-		String summary_app_dir = MyConfig.getInstance().getResultFolder()
-				+ appName + File.separator;
+		String summary_app_dir = MyConfig.getInstance().getResultFolder() + appName + File.separator;
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.ORACLEFOLDETR);
-		StringBuilder sb = new StringBuilder(MyConfig.getInstance()
-				.getMySwithch().toString());
+		StringBuilder sb = new StringBuilder(MyConfig.getInstance().getMySwithch().toString());
 
 		dynamicModelContruction(sb, appName, summary_app_dir);
 		manualModelContruction(sb, appName, summary_app_dir);
@@ -78,26 +76,27 @@ public class ToolEvaluteClient extends BaseClient {
 		IC3Evaluate(sb);
 		IC3DialEvaluate(sb);
 		WTGEvaluate(sb);
-		
+
 		FilterAndEnhanceEvaluate(sb);
 
 		outputForExcel();
 
 		String content = sb.toString();
-		FileUtils.writeText2File(summary_app_dir + ConstantUtils.ORACLEFOLDETR
-				+ appName + ConstantUtils.SCORERECORD, content, true);
+		FileUtils.writeText2File(summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.SCORERECORD,
+				content, true);
 	}
 
 	private void FilterAndEnhanceEvaluate(StringBuilder sb) {
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 		String content = Global.v().getAppModel().getAppName() + "\t";
-		content += "filter\t"+manualModel.getFilteredNum()+"\t";
-		content += "add\t"+manualModel.getEnhancedNum() +"\n";
-		FileUtils.writeText2File("results" + File.separator+ "edgeResult.txt", content
-				, true);
-		System.out.print(manualModel.getFilteredNum()+"\t");
-		System.out.print(manualModel.getEnhancedNum()+"\t");
-		
+		content += "filter\t" + manualModel.getFilteredNum() + "\t";
+		content += "add\t" + manualModel.getEnhancedNum() + "\t";
+		content += "filteredService\t" + manualModel.getFilteredServiceNum() + "\t";
+		content += "filteredReceiver\t" + manualModel.getFilteredReceiverNum() + "\n";
+		FileUtils.writeText2File("results" + File.separator + "edgeResult.txt", content, true);
+		System.out.print(manualModel.getFilteredNum() + "\t");
+		System.out.print(manualModel.getEnhancedNum() + "\t");
+
 	}
 
 	private void outputForExcel() {
@@ -107,35 +106,28 @@ public class ToolEvaluteClient extends BaseClient {
 
 		ATGModel optModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
-		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel()
-				.getIC3AtgModel();
+		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
 		ATGModel wtgModel = Global.v().getWtgModel().getWTGAtgModel();
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(Global.v().getAppModel().getComponentMap().size() + "\t");
 
-		sb.append(String.format("%.2f", dynamicModel.getCompletenessScore())
-				+ "\t");
-		sb.append(String.format("%.2f", manualModel.getCompletenessScore())
-				+ "\t");
-		sb.append(String.format("%.2f", oracleModel.getCompletenessScore())
-				+ "\t");
+		sb.append(String.format("%.2f", dynamicModel.getCompletenessScore()) + "\t");
+		sb.append(String.format("%.2f", manualModel.getCompletenessScore()) + "\t");
+		sb.append(String.format("%.2f", oracleModel.getCompletenessScore()) + "\t");
 
-		sb.append(String.format("%.2f", dynamicModel.getConnectionScore())
-				+ "\t");
-		sb.append(String.format("%.2f", manualModel.getConnectionScore())
-				+ "\t");
-		sb.append(String.format("%.2f", oracleModel.getConnectionScore())
-				+ "\t");
-		
+		sb.append(String.format("%.2f", dynamicModel.getConnectionScore()) + "\t");
+		sb.append(String.format("%.2f", manualModel.getConnectionScore()) + "\t");
+		sb.append(String.format("%.2f", oracleModel.getConnectionScore()) + "\t");
+
 		sb.append(String.format("%.2f", optModel.getCompletenessScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getCompletenessScore()) + "\t");
-		sb.append(String.format("%.2f", IC3DialModel.getCompletenessScore())+ "\t");
+		sb.append(String.format("%.2f", IC3DialModel.getCompletenessScore()) + "\t");
 		sb.append(String.format("%.2f", wtgModel.getCompletenessScore()) + "\t");
 
 		sb.append(String.format("%.2f", optModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getConnectionScore()) + "\t");
-		sb.append(String.format("%.2f", IC3DialModel.getConnectionScore())+ "\t");
+		sb.append(String.format("%.2f", IC3DialModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", wtgModel.getConnectionScore()) + "\t");
 
 		sb.append(optModel.getConnectionSize() + "\t");
@@ -149,18 +141,14 @@ public class ToolEvaluteClient extends BaseClient {
 		sb.append(ic3Model.getFnEdgeSize() + "\t");
 		sb.append(IC3DialModel.getFnEdgeSize() + "\t");
 		sb.append(wtgModel.getFnEdgeSize() + "\t");
-		
-		sb.append(String.format("%.2f", optModel.getFalsenegativeScore())
-				+ "\t");
-		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore())
-				+ "\t");
-		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore())
-				+ "\t");
+
+		sb.append(String.format("%.2f", optModel.getFalsenegativeScore()) + "\t");
+		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore()) + "\t");
+		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", wtgModel.getFalsenegativeScore()));
 
 		System.out.println(sb.toString());
-		FileUtils.writeText2File("results" + File.separator
-				+ "oracleResult.txt", Global.v().getAppModel().getAppName()
+		FileUtils.writeText2File("results" + File.separator + "oracleResult.txt", Global.v().getAppModel().getAppName()
 				+ "\t" + sb.toString() + "\n", true);
 	}
 
@@ -171,17 +159,14 @@ public class ToolEvaluteClient extends BaseClient {
 	 * @param appName
 	 * @param summary_app_dir
 	 */
-	private void dynamicModelContruction(StringBuilder sb, String appName,
-			String summary_app_dir) {
+	private void dynamicModelContruction(StringBuilder sb, String appName, String summary_app_dir) {
 		System.out.println();
 		ATGModel dynamicModel = Global.v().getiCTGModel().getDynamicModel();
 
-		ToolEvaluteClientOutput outer = new ToolEvaluteClientOutput();
+		ToolEvaluateClientOutput outer = new ToolEvaluateClientOutput();
 		String dotname = appName + "_" + ConstantUtils.ICTGDYNAMIC;
-		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR,
-				dotname, dynamicModel, false);
-		GraphUtils.generateDotFile(summary_app_dir
-				+ ConstantUtils.ORACLEFOLDETR + dotname, "pdf");
+		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR, dotname, dynamicModel, false);
+		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR + dotname, "pdf");
 		initStringBuilderComplete("dynamic", sb);
 		dynamicModel.evaluateCompleteness("dynamic oracle", sb);
 
@@ -194,17 +179,14 @@ public class ToolEvaluteClient extends BaseClient {
 	 * @param appName
 	 * @param summary_app_dir
 	 */
-	private void manualModelContruction(StringBuilder sb, String appName,
-			String summary_app_dir) {
+	private void manualModelContruction(StringBuilder sb, String appName, String summary_app_dir) {
 		System.out.println();
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 
-		ToolEvaluteClientOutput outer = new ToolEvaluteClientOutput();
+		ToolEvaluateClientOutput outer = new ToolEvaluateClientOutput();
 		String dotname2 = appName + "_" + ConstantUtils.ICTGDMANUAL;
-		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR,
-				dotname2, manualModel, false);
-		GraphUtils.generateDotFile(summary_app_dir
-				+ ConstantUtils.ORACLEFOLDETR + dotname2, "pdf");
+		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR, dotname2, manualModel, false);
+		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR + dotname2, "pdf");
 		initStringBuilderComplete("manual", sb);
 		manualModel.evaluateCompleteness("manual oracle", sb);
 	}
@@ -216,20 +198,17 @@ public class ToolEvaluteClient extends BaseClient {
 	 * @param appName
 	 * @param summary_app_dir
 	 */
-	private void oracleModelContruction(StringBuilder sb, String appName,
-			String summary_app_dir) {
+	private void oracleModelContruction(StringBuilder sb, String appName, String summary_app_dir) {
 		System.out.println();
 		ATGModel dynamicModel = Global.v().getiCTGModel().getDynamicModel();
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 
-		ToolEvaluteClientOutput outer = new ToolEvaluteClientOutput();
+		ToolEvaluateClientOutput outer = new ToolEvaluateClientOutput();
 		ATGModel.mergeNodels2newOne(dynamicModel, manualModel, oracleModel);
 		String dotname3 = appName + "_" + ConstantUtils.ICTGORACLE;
-		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR,
-				dotname3, oracleModel, false);
-		GraphUtils.generateDotFile(summary_app_dir
-				+ ConstantUtils.ORACLEFOLDETR + dotname3, "pdf");
+		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR, dotname3, oracleModel, false);
+		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR + dotname3, "pdf");
 		initStringBuilderComplete("oracle", sb);
 		writeTagedOracleFile(summary_app_dir, appName);
 		oracleModel.evaluateCompleteness("whole oracle", sb);
@@ -392,14 +371,12 @@ public class ToolEvaluteClient extends BaseClient {
 		// if(FileUtils.isFileExist(oracleFile)) {
 		// return;
 		// }
-		String manualOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR
-				+ appName + ConstantUtils.ORACLEMANU;
-		String dynaOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR
-				+ appName + ConstantUtils.ORACLEDYNA;
+		String manualOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.ORACLEMANU;
+		String dynaOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.ORACLEDYNA;
 
 		List<String> resList = new ArrayList<String>();
 		for (String s : FileUtils.getListFromFile(manualOracle)) {
-			if (s.length()>2 && !resList.contains(s.substring(2)))
+			if (s.length() > 2 && !resList.contains(s.substring(2)))
 				resList.add(s.substring(2));
 		}
 		for (String s : FileUtils.getListFromFile(dynaOracle)) {
@@ -407,8 +384,7 @@ public class ToolEvaluteClient extends BaseClient {
 				resList.add(s);
 		}
 		try {
-			writeOracleModel(summary_app_dir + ConstantUtils.ORACLEFOLDETR,
-					appName + ConstantUtils.ORACLETEXT, resList);
+			writeOracleModel(summary_app_dir + ConstantUtils.ORACLEFOLDETR, appName + ConstantUtils.ORACLETEXT, resList);
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -426,8 +402,7 @@ public class ToolEvaluteClient extends BaseClient {
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
-	public void writeOracleModel(String dir, String file, List<String> resList)
-			throws DocumentException, IOException {
+	public void writeOracleModel(String dir, String file, List<String> resList) throws DocumentException, IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
 		List<Element> eleList = new ArrayList<Element>();
@@ -476,8 +451,7 @@ public class ToolEvaluteClient extends BaseClient {
 			componentScope.addAttribute("isBroadCast", "");
 			componentScope.addAttribute("isDynamicBroadCast", "");
 
-			Element nonComponentScope = analyzeScope
-					.addElement("nonComponentScope");
+			Element nonComponentScope = analyzeScope.addElement("nonComponentScope");
 			nonComponentScope.addAttribute("isFragment", "");
 			nonComponentScope.addAttribute("isAdapter", "");
 			nonComponentScope.addAttribute("isOtherClass", "");

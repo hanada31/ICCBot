@@ -21,14 +21,14 @@ import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.model.atg.AtgEdge;
 import main.java.client.obj.model.atg.AtgNode;
 
-public class manualICTGAnalyzer extends Analyzer {
+public class manualResultAnalyzer extends Analyzer {
 	private String appName;
 	private String oracleFolder;
 	private String oracleLogPath;
 	private String instrumentedLogPath;
 	private String instrumentedFolder;
 
-	public manualICTGAnalyzer() {
+	public manualResultAnalyzer() {
 		super();
 		this.appName = appModel.getAppName();
 		this.oracleFolder = MyConfig.getInstance().getResultFolder() + appName + File.separator
