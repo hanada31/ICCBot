@@ -1,0 +1,22 @@
+manifest
+- package: com.example.fragmentbench
+- platformBuildVersionName: 9
+- versionName: 1.0
+- platformBuildVersionCode: 28
+- versionCode: 1
+	uses-sdk
+	- minSdkVersion: 8
+	- targetSdkVersion: 21
+	application
+	- icon: 2130837555
+	- theme: 2131427564
+	- label: 2131361808
+	- allowBackup: true
+		activity
+		- name: .MainActivity
+		- label: 2131361808
+			intent-filter
+				action
+				- name: android.intent.action.MAIN
+				category
+				- name: android.intent.category.LAUNCHER

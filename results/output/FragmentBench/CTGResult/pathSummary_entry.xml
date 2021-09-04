@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <singleMethod source="&lt;com.example.fragmentbench.MainActivity: void setResult(int,android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void setResult(int,android.content.Intent)"/>
+      <node type="ReceiveIntentFromParatMethod" method="MainActivity setResult" unit="parameter1 := @parameter1: android.content.Intent">
+        <nodeInfo nodeId="451320510" predsStr="1284650432" succsStr="1434389049" context=""/>
+        <baseNodePointTo value="451320510" context=""/>
+        <nodeSetPointToMe value="451320510,1434389049," context=""/>
+      </node>
+      <node type="StaticCreateMethod" method="MainActivity setResult" unit="this.&lt;com.example.fragmentbench.MainActivity: android.content.Intent ipcResultIntent&gt; = parameter1">
+        <nodeInfo nodeId="1434389049" predsStr="451320510" succsStr="" context=""/>
+        <baseNodePointTo value="1434389049" context=""/>
+        <nodeSetPointToMe value="1434389049," context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+</root>
