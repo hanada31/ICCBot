@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <singleMethod source="&lt;com.example.fragmentbench.MainActivity: void onCreate(android.os.Bundle)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(2131296305, $r5)">
+        <nodeInfo nodeId="2132361999" predsStr="1823075447" succsStr="1586095399" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(2131296320, $r6)">
+        <nodeInfo nodeId="1586095399" predsStr="2132361999" succsStr="1106791345" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addToBackStack" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;dash1&quot;)">
+        <nodeInfo nodeId="1106791345" predsStr="1586095399" succsStr="1343473340" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="1343473340" predsStr="1106791345" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="replaceFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131296320, $r6)">
+        <nodeInfo nodeId="762100699" predsStr="1823075447" succsStr="1082789522" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;6&quot;)">
+        <nodeInfo nodeId="1082789522" predsStr="762100699" succsStr="756603373" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;7&quot;)">
+        <nodeInfo nodeId="756603373" predsStr="1082789522" succsStr="2090535958" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;8&quot;)">
+        <nodeInfo nodeId="2090535958" predsStr="756603373" succsStr="887210557" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="887210557" predsStr="2090535958" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296322, $r5, &quot;1&quot;)">
+        <nodeInfo nodeId="1814723699" predsStr="1823075447" succsStr="987666875" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="replaceFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;2&quot;)">
+        <nodeInfo nodeId="987666875" predsStr="1814723699" succsStr="423039171" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addToBackStack" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;home&quot;)">
+        <nodeInfo nodeId="423039171" predsStr="987666875" succsStr="246561692" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="246561692" predsStr="423039171" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r5, &quot;2&quot;)">
+        <nodeInfo nodeId="1947633620" predsStr="1823075447" succsStr="2008088356" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r5, &quot;3&quot;)">
+        <nodeInfo nodeId="2008088356" predsStr="1947633620" succsStr="962126152" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r5, &quot;4&quot;)">
+        <nodeInfo nodeId="962126152" predsStr="2008088356" succsStr="1670501199" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="replaceFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296320, $r7, &quot;3&quot;)">
+        <nodeInfo nodeId="1670501199" predsStr="962126152" succsStr="603574478" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="603574478" predsStr="1670501199" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+  <singleMethod source="&lt;dummyMainClass: com.example.fragmentbench.MainActivity dummyMainMethod_com_example_fragmentbench_MainActivity(android.content.Intent)&gt;">
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(2131296305, $r5)">
+        <nodeInfo nodeId="2132361999" predsStr="1823075447" succsStr="1586095399" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(2131296320, $r6)">
+        <nodeInfo nodeId="1586095399" predsStr="2132361999" succsStr="1106791345" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addToBackStack" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;dash1&quot;)">
+        <nodeInfo nodeId="1106791345" predsStr="1586095399" succsStr="1343473340" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="1343473340" predsStr="1106791345" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="replaceFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131296320, $r6)">
+        <nodeInfo nodeId="762100699" predsStr="1823075447" succsStr="1082789522" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;6&quot;)">
+        <nodeInfo nodeId="1082789522" predsStr="762100699" succsStr="756603373" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;7&quot;)">
+        <nodeInfo nodeId="756603373" predsStr="1082789522" succsStr="2090535958" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;8&quot;)">
+        <nodeInfo nodeId="2090535958" predsStr="756603373" succsStr="887210557" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="887210557" predsStr="2090535958" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296322, $r5, &quot;1&quot;)">
+        <nodeInfo nodeId="1814723699" predsStr="1823075447" succsStr="987666875" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="replaceFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r6, &quot;2&quot;)">
+        <nodeInfo nodeId="987666875" predsStr="1814723699" succsStr="423039171" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addToBackStack" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;home&quot;)">
+        <nodeInfo nodeId="423039171" predsStr="987666875" succsStr="246561692" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="246561692" predsStr="423039171" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+    <singlePath>
+      <method methodtrace="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: void setContentView(int)&gt;(2130903063)">
+        <nodeInfo nodeId="1821826140" predsStr="1721207829" succsStr="1639379591" context=""/>
+        <baseNodePointTo value="1821826140" context=""/>
+        <nodeSetPointToMe value="1821826140," context=""/>
+      </node>
+      <node type="getFragment" method="MainActivity onCreate" unit="$r3 = virtualinvoke r0.&lt;com.example.fragmentbench.MainActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1639379591" predsStr="1821826140" succsStr="1823075447" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+        <nodeSetPointToMe value="1639379591,1823075447,1814723699,987666875,423039171,246561692,2132361999,1586095399,1106791345,1343473340,1947633620,2008088356,962126152,1670501199,603574478,762100699,1082789522,756603373,2090535958,887210557," context=""/>
+      </node>
+      <node type="beginTransaction" method="MainActivity onCreate" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1823075447" predsStr="1639379591" succsStr="1947633620, 1337181808, 2132361999, 762100699, 1814723699" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r5, &quot;2&quot;)">
+        <nodeInfo nodeId="1947633620" predsStr="1823075447" succsStr="2008088356" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r5, &quot;3&quot;)">
+        <nodeInfo nodeId="2008088356" predsStr="1947633620" succsStr="962126152" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="addFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296321, $r5, &quot;4&quot;)">
+        <nodeInfo nodeId="962126152" predsStr="2008088356" succsStr="1670501199" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="replaceFunction" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131296320, $r7, &quot;3&quot;)">
+        <nodeInfo nodeId="1670501199" predsStr="962126152" succsStr="603574478" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+      <node type="commit" method="MainActivity onCreate" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="603574478" predsStr="1670501199" succsStr="" context=""/>
+        <baseNodePointTo value="1639379591" context=""/>
+      </node>
+    </singlePath>
+  </singleMethod>
+</root>
