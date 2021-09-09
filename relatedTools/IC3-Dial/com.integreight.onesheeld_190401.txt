@@ -1,0 +1,4718 @@
+name: "com.integreight.onesheeld"
+version: 190401
+permissions {
+  name: "com.integreight.onesheeld.permission.C2D_MESSAGE"
+  level: SIGNATURE
+}
+used_permissions: "android.permission.FLASHLIGHT"
+used_permissions: "android.permission.CALL_PHONE"
+used_permissions: "android.permission.GET_ACCOUNTS"
+used_permissions: "android.permission.BLUETOOTH_ADMIN"
+used_permissions: "android.permission.VIBRATE"
+used_permissions: "android.permission.SYSTEM_ALERT_WINDOW"
+used_permissions: "android.permission.RECORD_AUDIO"
+used_permissions: "android.permission.NFC"
+used_permissions: "android.permission.WRITE_EXTERNAL_STORAGE"
+used_permissions: "android.permission.ACCESS_FINE_LOCATION"
+used_permissions: "com.integreight.onesheeld.permission.C2D_MESSAGE"
+used_permissions: "android.permission.INTERNET"
+used_permissions: "android.permission.USE_CREDENTIALS"
+used_permissions: "android.permission.ACCESS_NETWORK_STATE"
+used_permissions: "android.permission.GET_TASKS"
+used_permissions: "android.permission.WAKE_LOCK"
+used_permissions: "android.permission.CAMERA"
+used_permissions: "android.permission.BLUETOOTH"
+used_permissions: "android.permission.READ_EXTERNAL_STORAGE"
+used_permissions: "android.permission.READ_PHONE_STATE"
+used_permissions: "com.google.android.c2dm.permission.RECEIVE"
+used_permissions: "android.permission.MANAGE_ACCOUNTS"
+components {
+  name: "com.google.android.gms.common.api.GoogleApiActivity"
+  kind: ACTIVITY
+  exported: false
+}
+components {
+  name: "com.integreight.onesheeld.plugin.action.FireReceiver"
+  kind: RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.twofortyfouram.locale.intent.action.FIRE_SETTING"
+    }
+  }
+}
+components {
+  name: "com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.google.android.gms.auth.api.signin.internal.SignInHubActivity: void startActivityForResult(android.content.Intent,int)>($r1, 40962)"
+      class_name: "com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+      method: "<com.google.android.gms.auth.api.signin.internal.SignInHubActivity: void zzj(android.content.Intent)>"
+      id: 5
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.gms.auth.GOOGLE_SIGN_IN"
+      }
+      attributes {
+        kind: EXTRA
+        value: "config"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.google.android.gms"
+      }
+    }
+  }
+}
+components {
+  name: "com.google.firebase.iid.FirebaseInstanceIdReceiver"
+  kind: RECEIVER
+  exported: true
+  permission: "com.google.android.c2dm.permission.SEND"
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.google.android.c2dm.intent.REGISTRATION"
+      value: "com.google.android.c2dm.intent.RECEIVE"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "com.integreight.onesheeld"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "$r3 = virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r2)"
+      class_name: "com.google.firebase.iid.zzg"
+      method: "<com.google.firebase.iid.zzg: int zzg(android.content.Context,android.content.Intent)>"
+      id: 10
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+  }
+}
+components {
+  name: "com.google.android.gms.auth.api.signin.RevocationBoundService"
+  kind: SERVICE
+  exported: true
+  permission: "com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+}
+components {
+  name: "android.support.v4.content.FileProvider"
+  kind: PROVIDER
+  exported: false
+  permission: ""
+}
+components {
+  name: "com.google.android.gms.measurement.AppMeasurementReceiver"
+  kind: RECEIVER
+  exported: false
+}
+components {
+  name: "com.integreight.onesheeld.shields.controller.utils.SpeechRecognitionService"
+  kind: SERVICE
+  exported: false
+}
+components {
+  name: "com.google.firebase.iid.FirebaseInstanceIdService"
+  kind: SERVICE
+  exported: true
+  intent_filters {
+    attributes {
+      kind: PRIORITY
+      int_value: -500
+    }
+    attributes {
+      kind: ACTION
+      value: "com.google.firebase.INSTANCE_ID_EVENT"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r6.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r1)"
+      class_name: "com.google.firebase.iid.zzf"
+      method: "<com.google.firebase.iid.zzf: void zzb(android.content.Intent,java.lang.String)>"
+      id: 63
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: ACTIVITY
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: RECEIVER
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: SERVICE
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r6.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r1)"
+      class_name: "com.google.firebase.iid.zzf"
+      method: "<com.google.firebase.iid.zzf: void zzb(android.content.Intent,java.lang.String)>"
+      id: 43
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.google.firebase.iid.FirebaseInstanceIdService: void sendOrderedBroadcast(android.content.Intent,java.lang.String)>($r4, \"com.google.android.gtalkservice.permission.GTALK_SERVICE\")"
+      class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+      method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zza(com.google.firebase.iid.zzf,android.os.Bundle)>"
+      id: 15
+    }
+    kind: RECEIVER
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.gcm.intent.SEND"
+      }
+      attributes {
+        kind: EXTRA
+        value: "google.to"
+        value: "(.*)"
+        value: "google.message_id"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+      permission: "com.google.android.gtalkservice.permission.GTALK_SERVICE"
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.gcm.intent.SEND"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "google.to"
+        value: "(.*)"
+        value: "google.message_id"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+      permission: "com.google.android.gtalkservice.permission.GTALK_SERVICE"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "$r3 = virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r2)"
+      class_name: "com.google.firebase.iid.zzg"
+      method: "<com.google.firebase.iid.zzg: int zzg(android.content.Context,android.content.Intent)>"
+      id: 10
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+  }
+}
+components {
+  name: "com.integreight.onesheeld.plugin.action.ActionActivity"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.twofortyfouram.locale.intent.action.EDIT_SETTING"
+    }
+  }
+}
+components {
+  name: "com.google.firebase.messaging.FirebaseMessagingService"
+  kind: SERVICE
+  exported: true
+  intent_filters {
+    attributes {
+      kind: PRIORITY
+      int_value: -500
+    }
+    attributes {
+      kind: ACTION
+      value: "com.google.firebase.MESSAGING_EVENT"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r6.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r1)"
+      class_name: "com.google.firebase.iid.zzf"
+      method: "<com.google.firebase.iid.zzf: void zzb(android.content.Intent,java.lang.String)>"
+      id: 63
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: ACTIVITY
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: RECEIVER
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: SERVICE
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r6.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r1)"
+      class_name: "com.google.firebase.iid.zzf"
+      method: "<com.google.firebase.iid.zzf: void zzb(android.content.Intent,java.lang.String)>"
+      id: 43
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.google.firebase.iid.FirebaseInstanceIdService: void sendOrderedBroadcast(android.content.Intent,java.lang.String)>($r4, \"com.google.android.gtalkservice.permission.GTALK_SERVICE\")"
+      class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+      method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zza(com.google.firebase.iid.zzf,android.os.Bundle)>"
+      id: 15
+    }
+    kind: RECEIVER
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.gcm.intent.SEND"
+      }
+      attributes {
+        kind: EXTRA
+        value: "google.to"
+        value: "(.*)"
+        value: "google.message_id"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+      permission: "com.google.android.gtalkservice.permission.GTALK_SERVICE"
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.gcm.intent.SEND"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "google.to"
+        value: "(.*)"
+        value: "google.message_id"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+      permission: "com.google.android.gtalkservice.permission.GTALK_SERVICE"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "$r3 = virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r2)"
+      class_name: "com.google.firebase.iid.zzg"
+      method: "<com.google.firebase.iid.zzg: int zzg(android.content.Context,android.content.Intent)>"
+      id: 10
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+  }
+}
+components {
+  name: "com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+  kind: RECEIVER
+  exported: true
+  permission: "android.permission.INSTALL_PACKAGES"
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.android.vending.INSTALL_REFERRER"
+    }
+  }
+}
+components {
+  name: "com.google.firebase.provider.FirebaseInitProvider"
+  kind: PROVIDER
+  exported: false
+  permission: ""
+}
+components {
+  name: "com.integreight.onesheeld.utils.FacebookBroadcastReceiver"
+  kind: RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.facebook.platform.AppCallResultBroadcast"
+    }
+  }
+}
+components {
+  name: "com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"
+  kind: RECEIVER
+  exported: false
+  exit_points {
+    instruction {
+      statement: "$r3 = virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r2)"
+      class_name: "com.google.firebase.iid.zzg"
+      method: "<com.google.firebase.iid.zzg: int zzg(android.content.Context,android.content.Intent)>"
+      id: 10
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+  }
+}
+components {
+  name: "com.integreight.onesheeld.services.OneSheeldService"
+  kind: SERVICE
+  exported: false
+}
+components {
+  name: "com.facebook.FacebookActivity"
+  kind: ACTIVITY
+  exported: false
+}
+components {
+  name: "com.integreight.onesheeld.Tutorial"
+  kind: ACTIVITY
+  exported: false
+}
+components {
+  name: "com.integreight.onesheeld.shields.controller.utils.NfcUtils"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.integreight.onesheeld.shields.controller.utils.NfcUtils: void startActivity(android.content.Intent)>($r4)"
+      class_name: "com.integreight.onesheeld.shields.controller.utils.NfcUtils"
+      method: "<com.integreight.onesheeld.shields.controller.utils.NfcUtils: void onCreate(android.os.Bundle)>"
+      id: 47
+    }
+    kind: ACTIVITY
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.integreight.onesheeld.shields.controller.utils.NfcUtils: void startActivity(android.content.Intent)>($r4)"
+      class_name: "com.integreight.onesheeld.shields.controller.utils.NfcUtils"
+      method: "<com.integreight.onesheeld.shields.controller.utils.NfcUtils: void onCreate(android.os.Bundle)>"
+      id: 52
+    }
+    kind: ACTIVITY
+    missing: 0
+  }
+}
+components {
+  name: "com.integreight.onesheeld.plugin.condition.ConditionActivity"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.twofortyfouram.locale.intent.action.EDIT_CONDITION"
+    }
+  }
+}
+components {
+  name: "com.google.android.gms.measurement.AppMeasurementService"
+  kind: SERVICE
+  exported: false
+}
+components {
+  name: "com.integreight.onesheeld.MainActivity"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.MAIN"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "android.intent.category.LAUNCHER"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.integreight.onesheeld.MainActivity: void startActivity(android.content.Intent)>($r1)"
+      class_name: "com.integreight.onesheeld.MainActivity"
+      method: "<com.integreight.onesheeld.MainActivity: void handleNotificationWithUrlIntent(android.content.Intent)>"
+      id: 23
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "android.intent.action.VIEW"
+      }
+      attributes {
+        kind: FLAG
+        int_value: 268435456
+      }
+      attributes {
+        kind: URI
+        value: "http://(.*)"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "android.intent.action.VIEW"
+      }
+      attributes {
+        kind: FLAG
+        int_value: 268435456
+      }
+      attributes {
+        kind: URI
+        value: "(.*)"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.integreight.onesheeld.MainActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.integreight.onesheeld.MainActivity"
+      method: "<com.integreight.onesheeld.MainActivity: void onCreate(android.os.Bundle)>"
+      id: 34
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/integreight/onesheeld/Tutorial"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+  }
+}
+components {
+  name: "com.facebook.FacebookContentProvider"
+  kind: PROVIDER
+  exported: true
+  permission: ""
+}
+components {
+  name: "com.integreight.onesheeld.shields.controller.utils.CameraHeadService"
+  kind: SERVICE
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r12.<com.integreight.onesheeld.shields.controller.utils.CameraHeadService: void sendBroadcast(android.content.Intent)>($r18)"
+      class_name: "com.integreight.onesheeld.shields.controller.utils.CameraHeadService$4"
+      method: "<com.integreight.onesheeld.shields.controller.utils.CameraHeadService$4: void onPictureTaken(byte[],android.hardware.Camera)>"
+      id: 75
+    }
+    kind: RECEIVER
+    intents {
+      attributes {
+        kind: ACTION
+        value: "android.intent.action.MEDIA_MOUNTED"
+      }
+      attributes {
+        kind: URI
+        value: "file://(.*)"
+      }
+    }
+  }
+}
+components {
+  name: "com.integreight.onesheeld.plugin.condition.QueryReceiver"
+  kind: RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.twofortyfouram.locale.intent.action.QUERY_CONDITION"
+    }
+  }
+}
+components {
+  name: "com.integreight.onesheeld.push.PushMessagesReceiver"
+  kind: SERVICE
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "com.google.firebase.MESSAGING_EVENT"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r6.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r1)"
+      class_name: "com.google.firebase.iid.zzf"
+      method: "<com.google.firebase.iid.zzf: void zzb(android.content.Intent,java.lang.String)>"
+      id: 63
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "google.messenger"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: ACTIVITY
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: RECEIVER
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.app.PendingIntent: void send()>()"
+      class_name: "com.google.firebase.messaging.FirebaseMessagingService"
+      method: "<com.google.firebase.messaging.FirebaseMessagingService: void zzK(android.content.Intent)>"
+      id: 5
+    }
+    kind: SERVICE
+    missing: 0
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r6.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r1)"
+      class_name: "com.google.firebase.iid.zzf"
+      method: "<com.google.firebase.iid.zzf: void zzb(android.content.Intent,java.lang.String)>"
+      id: 43
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "kid"
+        value: "X-subscription"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.c2dm.intent.REGISTER"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "pub2"
+        value: "X-delete"
+        value: "gmp_app_id"
+        value: "kid"
+        value: "gcm.topic"
+        value: "subscription"
+        value: "delete"
+        value: "X-subtype"
+        value: "sig"
+        value: "osv"
+        value: "sender"
+        value: "subtype"
+        value: "scope"
+        value: "app_ver"
+        value: "appid"
+        value: "cliv"
+        value: "gmsv"
+        value: "app_ver_name"
+        value: "X-kid"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.google.firebase.iid.FirebaseInstanceIdService: void sendOrderedBroadcast(android.content.Intent,java.lang.String)>($r4, \"com.google.android.gtalkservice.permission.GTALK_SERVICE\")"
+      class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+      method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zza(com.google.firebase.iid.zzf,android.os.Bundle)>"
+      id: 15
+    }
+    kind: RECEIVER
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.gcm.intent.SEND"
+      }
+      attributes {
+        kind: EXTRA
+        value: "google.to"
+        value: "(.*)"
+        value: "google.message_id"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+      permission: "com.google.android.gtalkservice.permission.GTALK_SERVICE"
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.android.gcm.intent.SEND"
+      }
+      attributes {
+        kind: EXTRA
+        value: "app"
+        value: "google.to"
+        value: "(.*)"
+        value: "google.message_id"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "NULL-CONSTANT"
+      }
+      permission: "com.google.android.gtalkservice.permission.GTALK_SERVICE"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "$r3 = virtualinvoke $r1.<android.content.Context: android.content.ComponentName startService(android.content.Intent)>($r2)"
+      class_name: "com.google.firebase.iid.zzg"
+      method: "<com.google.firebase.iid.zzg: int zzg(android.content.Context,android.content.Intent)>"
+      id: 10
+    }
+    kind: SERVICE
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.MESSAGING_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "com.google.firebase.INSTANCE_ID_EVENT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "NULL-CONSTANT"
+      }
+      attributes {
+        kind: CLASS
+        value: "(.*)"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.integreight.onesheeld"
+      }
+    }
+  }
+}
+components {
+  name: "com.integreight.onesheeld.utils.FacebookBroadcastReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.integreight.onesheeld.shields.controller.utils.SmsListener"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.android.gms.analytics.CampaignTrackingReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.integreight.onesheeld.shields.controller.ClockShield$2"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.firebase.iid.FirebaseInstanceIdService$1"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.integreight.onesheeld.plugin.action.FireReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.firebase.FirebaseApp$zzc"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.USER_UNLOCKED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r0.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r3, $r4)"
+    class_name: "com.google.firebase.FirebaseApp$zzc"
+    method: "<com.google.firebase.FirebaseApp$zzc: void zzbR(android.content.Context)>"
+    id: 11
+  }
+}
+components {
+  name: "com.google.firebase.iid.FirebaseInstanceIdReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.facebook.ProfileTracker$ProfileBroadcastReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "android.support.v4.content.WakefulBroadcastReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.android.gms.measurement.AppMeasurementReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.android.gms.internal.zzaar"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.integreight.onesheeld.popup.ArduinoConnectivityPopup$15"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.android.gms.internal.zzatk"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.integreight.onesheeld.sdk.OneSheeldManager$1"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.android.gms.internal.zzsy"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.facebook.FacebookBroadcastReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.facebook.internal.BoltsMeasurementEventListener"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "null_type"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "$r3 = virtualinvoke $r1.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>(null, $r2)"
+    class_name: "com.crashlytics.android.core.DevicePowerStateListener"
+    method: "<com.crashlytics.android.core.DevicePowerStateListener: void <init>(android.content.Context)>"
+    id: 6
+  }
+}
+components {
+  name: "com.crashlytics.android.core.DevicePowerStateListener$1"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.crashlytics.android.core.DevicePowerStateListener$2"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+components {
+  name: "com.integreight.onesheeld.plugin.condition.QueryReceiver"
+  kind: DYNAMIC_RECEIVER
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.BATTERY_CHANGED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_CONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.ACTION_POWER_DISCONNECTED"
+    }
+  }
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.net.conn.CONNECTIVITY_CHANGE"
+    }
+  }
+  registration_instruction {
+    statement: "virtualinvoke $r8.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r9)"
+    class_name: "com.google.firebase.iid.FirebaseInstanceIdService"
+    method: "<com.google.firebase.iid.FirebaseInstanceIdService: void zzd(android.content.Intent,java.lang.String)>"
+    id: 35
+  }
+}
+analysis_start: 1628772057
+analysis_end: 1628772243
