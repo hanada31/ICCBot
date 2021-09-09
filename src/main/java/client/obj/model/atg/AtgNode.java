@@ -1,8 +1,5 @@
 package main.java.client.obj.model.atg;
 
-import main.java.Global;
-import soot.Scene;
-
 public class AtgNode {
 	private String name;
 

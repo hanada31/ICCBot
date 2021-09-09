@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import java_cup.internal_error;
-
 import main.java.Analyzer;
 import main.java.Global;
 import main.java.MyConfig;
@@ -19,9 +17,9 @@ import main.java.SummaryLevel;
 import main.java.analyze.model.analyzeModel.Attribute;
 import main.java.analyze.model.analyzeModel.Condition;
 import main.java.analyze.model.analyzeModel.ConditionLeaf;
-import main.java.analyze.model.analyzeModel.SingleMethodModel;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
-import main.java.analyze.model.analyzeModel.SinglePathModel;
+import main.java.analyze.model.analyzeModel.MethodSummaryModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
+import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.model.analyzeModel.StaticFiledInfo;
 import main.java.analyze.model.analyzeModel.UnitNode;
 import main.java.analyze.model.sootAnalysisModel.Context;
@@ -45,7 +43,6 @@ import soot.UnitBox;
 import soot.Value;
 import soot.ValueBox;
 import soot.jimple.InvokeExpr;
-import soot.jimple.RetStmt;
 import soot.jimple.internal.JAssignStmt;
 import soot.jimple.internal.JIdentityStmt;
 import soot.jimple.internal.JLookupSwitchStmt;
@@ -57,13 +54,13 @@ import soot.toolkits.scalar.UnitValueBoxPair;
 public abstract class ObjectAnalyzer extends Analyzer {
 	public abstract void assignForObjectName();
 
-	public abstract void drawATGandStatistic(SingleMethodModel model);
+	public abstract void drawATGandStatistic(MethodSummaryModel model);
 
 	private Set<SootMethod> analyzedMethodSet;
 	protected SootMethod methodUnderAnalysis;
 	protected List<SootMethod> topoQueue;
 	protected AnalyzerHelper helper;
-	protected Map<String, SingleMethodModel> currentSummaryMap;
+	protected Map<String, MethodSummaryModel> currentSummaryMap;
 	protected List<String> objectIdentier;
 	protected String objectName = "";
 	protected StatisticResult result;
@@ -73,7 +70,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		this.analyzedMethodSet = new HashSet<SootMethod>();
 		this.topoQueue = topoQueue;
 		this.helper = helper;
-		this.currentSummaryMap = new HashMap<String, SingleMethodModel>();
+		this.currentSummaryMap = new HashMap<String, MethodSummaryModel>();
 		this.result = result;
 		this.objectIdentier = helper.getObjectIdentier();
 		assignForObjectName();
@@ -90,7 +87,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					System.out.println("This is the method #" + Global.v().id + "/"
 							+ Global.v().getAppModel().getTopoMethodQueue().size());
 			}
-			SingleMethodModel model = analyzeSingleMethod(m);
+			MethodSummaryModel model = analyzeSingleMethod(m);
 			drawATGandStatistic(model);
 			if (MyConfig.getInstance().isStopFlag())
 				return;
@@ -102,7 +99,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * 
 	 * @param mc
 	 */
-	protected SingleMethodModel analyzeSingleMethod(SootMethod methodUnderAnalysis) {
+	protected MethodSummaryModel analyzeSingleMethod(SootMethod methodUnderAnalysis) {
 		appModel.addMethod(methodUnderAnalysis);
 		if (initMethodCheck(methodUnderAnalysis) == false)
 			return null;
@@ -110,12 +107,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		this.methodUnderAnalysis = methodUnderAnalysis;
 
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
-		SingleMethodModel singleMethod = new SingleMethodModel(className, methodUnderAnalysis);
+		MethodSummaryModel singleMethod = new MethodSummaryModel(className, methodUnderAnalysis);
 		String tag = methodUnderAnalysis.getSignature();
-		if (tag.contains("AllergiesActivity: void showSearchView"))
-			System.err.println(methodUnderAnalysis.getSignature());
-		// System.out.println(methodUnderAnalysis.getSignature());
-
 		if (methodUnderAnalysis.getSignature().contains(ConstantUtils.DUMMYMAIN)) {
 			analyzeDummyMain(singleMethod);
 			return singleMethod;
@@ -147,7 +140,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * 
 	 * @param singleMethod
 	 */
-	private void analyzeDummyMain(SingleMethodModel singleMethod) {
+	private void analyzeDummyMain(MethodSummaryModel singleMethod) {
 		Iterator<Unit> it = SootUtils.getSootActiveBody(methodUnderAnalysis).getUnits().iterator();
 		while (it.hasNext()) {
 			Unit u = it.next();
@@ -156,7 +149,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				continue;
 			SootMethod invokedMethod = exp.getMethod();
 			if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-				Set<SinglePathModel> paths = currentSummaryMap.get(invokedMethod.getSignature()).getPathSet();
+				Set<PathSummaryModel> paths = currentSummaryMap.get(invokedMethod.getSignature()).getPathSet();
 				if (paths.size() > 0) {
 					singleMethod.getPathSet().addAll(paths);
 				}
@@ -201,13 +194,13 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param singlePath
 	 * @return
 	 */
-	private SingleObjectModel creatSingleObject(SinglePathModel singlePath) {
-		SingleObjectModel singleObj = null;
+	private ObjectSummaryModel creatSingleObject(PathSummaryModel singlePath) {
+		ObjectSummaryModel singleObj = null;
 		try {
 			Class<?> clazz = Class.forName(objectName);
 			@SuppressWarnings("unchecked")
-			Constructor<SingleObjectModel> constructor = (Constructor<SingleObjectModel>) clazz
-					.getConstructor(SinglePathModel.class);
+			Constructor<ObjectSummaryModel> constructor = (Constructor<ObjectSummaryModel>) clazz
+					.getConstructor(PathSummaryModel.class);
 			singleObj = constructor.newInstance(singlePath);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,7 +214,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param singleMethod
 	 * @param targetMap
 	 */
-	protected void getSingleObject(SingleMethodModel singleMethod) {
+	protected void getSingleObject(MethodSummaryModel singleMethod) {
 		if (MyConfig.getInstance().getMySwithch().getSummaryStrategy().equals(SummaryLevel.object)) {
 			getSingleObject_objectLevel(singleMethod);
 		} else if (MyConfig.getInstance().getMySwithch().getSummaryStrategy().equals(SummaryLevel.path)) {
@@ -236,10 +229,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * 
 	 * @param singleMethod
 	 */
-	private void getSingleObject_pathLevel(SingleMethodModel singleMethod) {
-		for (SinglePathModel singlePath : singleMethod.getPathSet()) {
-			Set<SingleObjectModel> addedSet = new HashSet<SingleObjectModel>();
-			SingleObjectModel singleObj = creatSingleObject(singlePath);
+	private void getSingleObject_pathLevel(MethodSummaryModel singleMethod) {
+		for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
+			Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
+			ObjectSummaryModel singleObj = creatSingleObject(singlePath);
 			if (singleObj == null)
 				continue;
 			addedSet.add(singleObj);
@@ -252,7 +245,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					SootMethod invokedMethod = node.getInterFunNode().getMethod();
 					if (invokedMethod != null) {
 						if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-							SingleMethodModel summary = getSummaryFromStorage(invokedMethod.getSignature());
+							MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
 							singleMethod.getReuseModelSet().add(summary);
 						}
 					}
@@ -269,10 +262,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param singleMethod
 	 * @param targetMap
 	 */
-	private void getSingleObject_flowLevel(SingleMethodModel singleMethod) {
-		SinglePathModel singlePath = new SinglePathModel(singleMethod);
+	private void getSingleObject_flowLevel(MethodSummaryModel singleMethod) {
+		PathSummaryModel singlePath = new PathSummaryModel(singleMethod);
 		singlePath.setNodes(singleMethod.getNodePathList());
-		Set<SingleObjectModel> addedSet = new HashSet<SingleObjectModel>();
+		Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
 		Set<UnitNode> history = new HashSet<UnitNode>();
 		int nodeId = 0;
 		for (UnitNode node : singlePath.getNodes()) {
@@ -281,16 +274,16 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			if (context == null)
 				context = new ArrayList<String>();
 			if (node.getNodeSetPointToMeMap().containsKey(context) && node.getNodeSetPointToMe(context) != null) {
-				SingleObjectModel singleObj = creatSingleObject(singlePath);
+				ObjectSummaryModel singleObj = creatSingleObject(singlePath);
 				if (singleObj == null)
 					continue;
 				addedSet.add(singleObj);
 				List<UnitNode> workList = singlePath.getNodes();
 				handleWorkList(singlePath, singleObj, workList, addedSet);
 				if (node.getInterFunNode() != null) {
-					SingleMethodModel interFunMethod = node.getInterFunNode();
-					for (SingleObjectModel model : interFunMethod.getSingleObjects()) {
-						SingleObjectModel copy = creatSingleObject(singlePath);
+					MethodSummaryModel interFunMethod = node.getInterFunNode();
+					for (ObjectSummaryModel model : interFunMethod.getSingleObjects()) {
+						ObjectSummaryModel copy = creatSingleObject(singlePath);
 						copy.merge(model);
 						addedSet.add(copy);
 					}
@@ -306,7 +299,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				SootMethod invokedMethod = node.getInterFunNode().getMethod();
 				if (invokedMethod != null) {
 					if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-						SingleMethodModel summary = getSummaryFromStorage(invokedMethod.getSignature());
+						MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
 						singleMethod.getReuseModelSet().add(summary);
 					}
 				}
@@ -321,9 +314,9 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * 
 	 * @param singleMethod
 	 */
-	private void getSingleObject_objectLevel(SingleMethodModel singleMethod) {
-		for (SinglePathModel singlePath : singleMethod.getPathSet()) {
-			Set<SingleObjectModel> addedSet = new HashSet<SingleObjectModel>();
+	private void getSingleObject_objectLevel(MethodSummaryModel singleMethod) {
+		for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
+			Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
 			Set<UnitNode> history = new HashSet<UnitNode>();
 			int nodeId = 0;
 			for (UnitNode node : singlePath.getNodes()) {
@@ -332,7 +325,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				if (context == null)
 					context = new ArrayList<String>();
 				if (node.getNodeSetPointToMeMap().containsKey(context) && node.getNodeSetPointToMe(context) != null) {
-					SingleObjectModel singleObj = creatSingleObject(singlePath);
+					ObjectSummaryModel singleObj = creatSingleObject(singlePath);
 					if (singleObj == null)
 						continue;
 					addedSet.add(singleObj);
@@ -349,7 +342,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 						SootMethod invokedMethod = node.getInterFunNode().getMethod();
 						if (invokedMethod != null) {
 							if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-								SingleMethodModel summary = getSummaryFromStorage(invokedMethod.getSignature());
+								MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
 								// addedSet.addAll(summary.getSingleObjectSet());
 								singleMethod.getReuseModelSet().add(summary);
 							}
@@ -369,9 +362,9 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * 
 	 * @param inputSet
 	 */
-	private void removeInvalidSingleObject(Set<SingleObjectModel> inputSet) {
-		Set<SingleObjectModel> addedSet = new HashSet<SingleObjectModel>();
-		for (SingleObjectModel obj : inputSet) {
+	private void removeInvalidSingleObject(Set<ObjectSummaryModel> inputSet) {
+		Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
+		for (ObjectSummaryModel obj : inputSet) {
 			if (obj instanceof SingleIntentModel) {
 				SingleIntentModel intentObj = (SingleIntentModel) obj;
 				if (intentObj.getCreateList().size() > 0 || intentObj.getReceiveFromFromRetValueList().size() > 0
@@ -400,8 +393,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param history
 	 * @param addedSet
 	 */
-	protected void analyzeSingleObject(SinglePathModel singlePath, UnitNode node, SingleObjectModel singleObject,
-			int nodeId, Set<UnitNode> history, int depth, Set<SingleObjectModel> addedSet) {
+	protected void analyzeSingleObject(PathSummaryModel singlePath, UnitNode node, ObjectSummaryModel singleObject,
+			int nodeId, Set<UnitNode> history, int depth, Set<ObjectSummaryModel> addedSet) {
 		// System.out.println("analyzeSingleObject "+ node.getUnit());
 		List<String> context = singlePath.getNode2TraceMap().get(nodeId);
 		if (context == null)
@@ -428,8 +421,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		}
 	}
 
-	private List<UnitNode> getWorkListofObjectAnalysis(UnitNode node, SinglePathModel singlePath,
-			SingleObjectModel singleObject, List<String> context, Set<SingleObjectModel> addedSet) {
+	private List<UnitNode> getWorkListofObjectAnalysis(UnitNode node, PathSummaryModel singlePath,
+			ObjectSummaryModel singleObject, List<String> context, Set<ObjectSummaryModel> addedSet) {
 		// parameter passing between functions
 		boolean findPassing = false;
 		List<UnitNode> workList;
@@ -448,9 +441,9 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		} else {
 			workList = singlePath.getNodes();
 			if (node.getInterFunNode() != null) {
-				SingleMethodModel interFunMethod = node.getInterFunNode();
-				for (SingleObjectModel model : interFunMethod.getSingleObjects()) {
-					SingleObjectModel copy = creatSingleObject(singlePath);
+				MethodSummaryModel interFunMethod = node.getInterFunNode();
+				for (ObjectSummaryModel model : interFunMethod.getSingleObjects()) {
+					ObjectSummaryModel copy = creatSingleObject(singlePath);
 					copy.merge(model);
 					addedSet.add(copy);
 				}
@@ -459,8 +452,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		return workList;
 	}
 
-	private void handleWorkList(SinglePathModel singlePath, SingleObjectModel singleObject, List<UnitNode> workList,
-			Set<SingleObjectModel> addedSet) {
+	private void handleWorkList(PathSummaryModel singlePath, ObjectSummaryModel singleObject, List<UnitNode> workList,
+			Set<ObjectSummaryModel> addedSet) {
 		if (workList == null)
 			return;
 		for (UnitNode pointedToMeNode : workList) {
@@ -481,21 +474,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		}
 	}
 
-	// private List<UnitNode> getWorkListofObjectAnalysisInner(UnitNode node,
-	// SinglePathModel singlePath, SingleObjectModel singleObject, List<String>
-	// context) {
-	// //parameter passing between functions
-	// boolean findPassing =false;
-	// List<UnitNode> workList;
-	// if(MyConfig.getInstance().getMySwithch().isContextSensiSwitch())
-	// findPassing = handleParameterPassing(node, singlePath, singleObject);
-	//
-	// if(!findPassing)
-	// workList = null;
-	// else
-	// workList = node.getNodeSetPointToMe(context);
-	// return workList;
-	// }
 	/**
 	 * handleParameterPassing
 	 * 
@@ -503,7 +481,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param singlePath
 	 * @param singleObject
 	 */
-	private boolean handleParameterPassing(UnitNode node, SinglePathModel singlePath, SingleObjectModel singleObject) {
+	private boolean handleParameterPassing(UnitNode node, PathSummaryModel singlePath, ObjectSummaryModel singleObject) {
 		boolean findPassing = false;
 		if (node.getInterFunNode() == null)
 			return false;
@@ -555,7 +533,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param u
 	 * @param singleObject
 	 */
-	private void handleStaticFieldInitUnits(Unit u, SingleObjectModel singleObject) {
+	private void handleStaticFieldInitUnits(Unit u, ObjectSummaryModel singleObject) {
 		List<Unit> useList = new ArrayList<>();
 		JAssignStmt jas = (JAssignStmt) u;
 		if (jas.containsFieldRef()) {
@@ -588,7 +566,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		}
 	}
 
-	protected void getSingleComponent(SingleMethodModel singleMethod) {
+	protected void getSingleComponent(MethodSummaryModel singleMethod) {
 
 	}
 
@@ -867,15 +845,15 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				}
 
 				/** add summary of invoked method to current node **/
-				// SingleMethodModel summaries =
+				// MethodSummaryModel summaries =
 				// currentSummaryMap.get(invokedMethod.getSignature());
-				SingleMethodModel summaries = getSummaryFromStorage(invokedMethod.getSignature());
+				MethodSummaryModel summaries = getSummaryFromStorage(invokedMethod.getSignature());
 				currentNode.setInterFunNode(summaries);
 				/**
 				 * analyze the point to analyze under current context, i.e.,
 				 * PointedBaseNode and NodeSetPointToMe
 				 **/
-				SingleMethodModel subModel = currentNode.getInterFunNode();
+				MethodSummaryModel subModel = currentNode.getInterFunNode();
 				boolean flag = false;
 				for (UnitNode subNode : subModel.getNodePathList()) {
 					/**
@@ -1152,14 +1130,14 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 				if (SootUtils.hasSootActiveBody(invokedMethod)) {
 					SootMethod oldMethodStore = methodUnderAnalysis;
-					SingleMethodModel model = analyzeSingleMethod(invokedMethod);
+					MethodSummaryModel model = analyzeSingleMethod(invokedMethod);
 					drawATGandStatistic(model);
 					this.methodUnderAnalysis = oldMethodStore;
 				}
 			}
 			if (!targetMap.containsKey(u)) {
 				if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-					SingleMethodModel model = getSummaryFromStorage(invokedMethod.getSignature());
+					MethodSummaryModel model = getSummaryFromStorage(invokedMethod.getSignature());
 					if (model.getSingleObjectSet().size() > 0 || model.getReuseModelSet().size() > 0) {
 						if (!targetMap.containsKey(u))
 							targetMap.put(u, new ArrayList<Unit>());
@@ -1204,7 +1182,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param singleMethod
 	 * @param targetUnitListSet
 	 */
-	protected void getSinglePath(SingleMethodModel singleMethod, Set<List<UnitNode>> targetUnitListSet) {
+	protected void getSinglePath(MethodSummaryModel singleMethod, Set<List<UnitNode>> targetUnitListSet) {
 		// node is single path is repeated
 		Set<String> nodeHistoryForNotExpand = new HashSet<String>();
 		for (List<UnitNode> nodelist : targetUnitListSet) {
@@ -1214,8 +1192,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				if (!singleMethod.getNodePathList().contains(newNode))
 					singleMethod.getNodePathList().add(newNode);
 			}
-			Set<SinglePathModel> pathSet = new HashSet<SinglePathModel>();
-			SinglePathModel initPath = new SinglePathModel(singleMethod);
+			Set<PathSummaryModel> pathSet = new HashSet<PathSummaryModel>();
+			PathSummaryModel initPath = new PathSummaryModel(singleMethod);
 			initPath.getMethodTrace().add(methodUnderAnalysis.getSubSignature());
 			pathSet.add(initPath);
 			for (UnitNode n : nodelist) {
@@ -1293,8 +1271,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param n
 	 * @param pathSet
 	 */
-	private void addAllPathsWithoutExpand(SingleMethodModel singleMethod, UnitNode n, Set<SinglePathModel> pathSet) {
-		SingleMethodModel interFunMethod = n.getInterFunNode();
+	private void addAllPathsWithoutExpand(MethodSummaryModel singleMethod, UnitNode n, Set<PathSummaryModel> pathSet) {
+		MethodSummaryModel interFunMethod = n.getInterFunNode();
 		if (interFunMethod == null)
 			return;
 		singleMethod.getReuseModelSet().add(interFunMethod);
@@ -1307,9 +1285,9 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param initPath
 	 * @param pathSet
 	 */
-	private void forNodeNotFunctionCall(UnitNode n, SinglePathModel initPath, Set<SinglePathModel> pathSet) {
+	private void forNodeNotFunctionCall(UnitNode n, PathSummaryModel initPath, Set<PathSummaryModel> pathSet) {
 		initPath.getNode2TraceMap().put(initPath.getNode2TraceMap().size(), new ArrayList<String>());
-		for (SinglePathModel singlePath : pathSet) {
+		for (PathSummaryModel singlePath : pathSet) {
 			singlePath.addNode(n);
 		}
 	}
@@ -1323,10 +1301,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param addedPathSet
 	 * @param currentPathNum
 	 */
-	private void expandAllPaths(UnitNode n, SinglePathModel initPath, Set<SinglePathModel> pathSet, int currentPathNum) {
-		Set<SinglePathModel> addedPathSet = new HashSet<SinglePathModel>();
+	private void expandAllPaths(UnitNode n, PathSummaryModel initPath, Set<PathSummaryModel> pathSet, int currentPathNum) {
+		Set<PathSummaryModel> addedPathSet = new HashSet<PathSummaryModel>();
 		initPath.getNode2TraceMap().put(initPath.getNode2TraceMap().size(), new ArrayList<String>());
-		for (SinglePathModel singlePath : pathSet) {
+		for (PathSummaryModel singlePath : pathSet) {
 			singlePath.addNode(n);
 			if (n.getInterFunNode() != null) {
 				String innerSig = n.getUnit().toString() + n.hashCode();
@@ -1335,15 +1313,15 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					singlePath.getMethodTrace().add(
 							n.getInterFunNode().getMethod().getSignature() + " --- " + n.getUnit());
 				}
-				SingleMethodModel interFunMethod = n.getInterFunNode();
+				MethodSummaryModel interFunMethod = n.getInterFunNode();
 				int id = 0;
-				SinglePathModel singlePathUpdated = null;
-				for (SinglePathModel innerPath : interFunMethod.getPathSet()) {
+				PathSummaryModel singlePathUpdated = null;
+				for (PathSummaryModel innerPath : interFunMethod.getPathSet()) {
 					id++;
 					if (id == interFunMethod.getPathSet().size())
 						singlePathUpdated = singlePath;
 					else {
-						singlePathUpdated = new SinglePathModel();
+						singlePathUpdated = new PathSummaryModel();
 						singlePathUpdated.copy(singlePath);
 						addedPathSet.add(singlePathUpdated);
 					}
@@ -1363,9 +1341,9 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * 
 	 * @param singleMethod
 	 */
-	private void removePathWithSingleRet(SingleMethodModel singleMethod) {
-		Set<SinglePathModel> deleteSet = new HashSet<SinglePathModel>();
-		for (SinglePathModel path : singleMethod.getPathSet()) {
+	private void removePathWithSingleRet(MethodSummaryModel singleMethod) {
+		Set<PathSummaryModel> deleteSet = new HashSet<PathSummaryModel>();
+		for (PathSummaryModel path : singleMethod.getPathSet()) {
 			if (path.getNodes().size() == 1) {
 				if (path.getNodes().get(0).getUnit() instanceof JIdentityStmt) {
 					deleteSet.add(path);
@@ -1374,7 +1352,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				deleteSet.add(path);
 			}
 		}
-		for (SinglePathModel path : deleteSet) {
+		for (PathSummaryModel path : deleteSet) {
 			singleMethod.getPathSet().remove(path);
 		}
 	}
@@ -1392,7 +1370,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	}
 
 	// subsclass of cg edge
-	private SingleMethodModel getSummaryFromStorage(String signature) {
+	private MethodSummaryModel getSummaryFromStorage(String signature) {
 		return currentSummaryMap.get(signature);
 	}
 

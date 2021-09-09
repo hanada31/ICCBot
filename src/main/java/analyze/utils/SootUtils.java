@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import afu.org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.model.analyzeModel.StaticFiledInfo;
@@ -29,7 +28,6 @@ import soot.SootMethod;
 import soot.Type;
 import soot.Unit;
 import soot.Value;
-import soot.dava.internal.AST.ASTTryNode.container;
 import soot.jimple.InvokeExpr;
 import soot.jimple.ParameterRef;
 import soot.jimple.StaticFieldRef;

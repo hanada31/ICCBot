@@ -70,7 +70,7 @@ public class dynamicResultAnalyzer extends Analyzer {
 		getCoveredMethod(coveredSet, instrumentedFolder + appName + "_log_manual.txt");
 		double res = 1.0 * coveredSet.size() / methodSet.size();
 		System.out.println(coveredSet.size() + "\t" + methodSet.size() + "\t" + res);
-		FileUtils.writeText2File("results" + File.separator + "covrageResult.txt", Global.v().getAppModel()
+		FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "covrageResult.txt", Global.v().getAppModel()
 				.getAppName()
 				+ "\t" + coveredSet.size() + "\t" + methodSet.size() + "\t" + res + "\n", true);
 	}

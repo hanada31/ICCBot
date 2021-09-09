@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.security.auth.x500.X500Principal;
-
 //import jymbolic.android.resources.controls.ProcessManifest;
 //import jymbolic.android.resources.xml.AXmlAttribute;
 //import jymbolic.android.resources.xml.AXmlNode;
@@ -15,7 +13,6 @@ import main.java.Analyzer;
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
-import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.model.atg.AtgEdge;
@@ -51,7 +48,7 @@ public class manualResultAnalyzer extends Analyzer {
 		}
 	}
 
-	private ATGModel constructModel() {
+		private ATGModel constructModel() {
 		ATGModel model = new ATGModel();
 		FileUtils.createFolder(oracleFolder);
 		List<String> logs = FileUtils.getListFromFile(oracleLogPath);
@@ -75,27 +72,46 @@ public class manualResultAnalyzer extends Analyzer {
 								if (edge.getDestnation().getClassName().equals(classNameT)) {
 									entry.getValue().remove(edge);
 									model.setFilteredNum(model.getFilteredNum() + 1);
+									if (classNameS.contains("Service") || classNameT.contains("Service"))
+										model.setFilteredServiceNum(model.getFilteredServiceNum() + 1);
+									else if (classNameS.contains("Receiver") || classNameT.contains("Receiver"))
+										model.setFilteredReceiverNum(model.getFilteredReceiverNum() + 1);
 									find = true;
 									break;
 								}
 							}
 						}
 					}
-				} else if (op.equals("+ ")) {
-					AtgEdge edge = new AtgEdge(new AtgNode(classNameS), new AtgNode(classNameT), "", -1, "");
-					if (model.addAtgEdges(classNameS, edge))
-						model.setEnhancedNum(model.getEnhancedNum() + 1);
-
+					if (!find) {
+						FileUtils.writeText2File(Global.v().getAppModel().getAppName() + ".txt", line + "\n", true);
+					}
 				}
-				// else {
-				// AtgEdge edge = new AtgEdge(new AtgNode(line.trim().split(
-				// spliter)[0]), new AtgNode(line.trim()
-				// .split(spliter)[1]), "", -1, "");
-				// if(model.addAtgEdges(classNameS, edge))
-				// model.setEnhancedNum(model.getEnhancedNum()+1);
-				// }
+				if (op.equals("+ ")) {
+					boolean find = false;
+					for (Entry<String, Set<AtgEdge>> entry : Global.v().getiCTGModel().getDynamicModel().getAtgEdges()
+							.entrySet()) {
+						if (find)
+							break;
+						if (entry.getKey().equals(classNameS)) {
+							for (AtgEdge edge : entry.getValue()) {
+								if (edge.getDestnation().getClassName().equals(classNameT)) {
+									find = true;
+									break;
+								}
+							}
+						}
+					}
+					if (!find) {
+						AtgEdge edge = new AtgEdge(new AtgNode(classNameS), new AtgNode(classNameT), "", -1, "");
+						if (model.addAtgEdges(classNameS, edge))
+							model.setEnhancedNum(model.getEnhancedNum() + 1);
+					} else {
+						FileUtils.writeText2File(Global.v().getAppModel().getAppName() + ".txt", line + "\n", true);
+					}
+				}
 			}
 		}
+
 		return model;
 	}
 

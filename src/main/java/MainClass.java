@@ -5,51 +5,58 @@ import java.io.File;
 import main.java.analyze.utils.TimeUtilsofProject;
 import main.java.client.BaseClient;
 import main.java.client.cg.CallGraphClient;
-import main.java.client.instrument.InstrumentClient;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.obj.target.ictg.ICTGClient;
-import main.java.client.related.ic3.IC3ReaderClient;
-import main.java.client.related.wtg.WTGReadderClient;
+import main.java.client.related.gator.GatorATGResultEvaluateClient;
+import main.java.client.related.ic3.IC3ResultEvaluateClient;
+import main.java.client.related.ic3dial.IC3DIALDroidResultEvaluateClient;
 import main.java.client.soot.IROutputClient;
-import main.java.client.statistic.StatisticClient;
-import main.java.client.toolEvaluate.CTGEvaluateClient;
+import main.java.client.toolEvaluate.ICCBotResultEvaluateClient;
+import main.java.client.toolEvaluate.ToolEvaluateClient;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * import polyglot.main.Main;
- * 
- * Main Class of ICC Extractor
+ * Main Class of Android ICC Resolution Tool ICCBot
  * 
  * @author hanada
- * @version 2.0 -version 28 -path ..\apk\ -name IntentFlowBench.apk -outputDir
- *          Result_testGen -client xxxClient
+ * @version 2.0 
  */
-
 public class MainClass {
-	private static CommandLine mCmd = null;
 
+	/**
+	 * get commands from args
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		mCmd = getCmd(args);
-		analyzeArgs();
+		/** analyze args**/
+		CommandLine mCmd = getCommandLine(args);
+		analyzeArgs(mCmd);
+		/** debug mode in IDE **/
 		if (mCmd.hasOption("debug")) {
 			testConfig();
 			setMySwitch();
 		}
+		
+		/** start ICCBot**/
 		startAnalyze();
-		System.out.println("ICC Extractor Finish...\n");
+		
+		System.out.println("ICC Resolution Finish...\n");
 		System.exit(0);
 	}
 
-	private static CommandLine getCmd(String[] mCmdArgs) {
+	/**
+	 * 
+	 * @param mCmdArgs
+	 * @return
+	 */
+	private static CommandLine getCommandLine(String[] mCmdArgs) {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			return parser.parse(getOptions(), mCmdArgs);
@@ -58,6 +65,75 @@ public class MainClass {
 			return null;
 		}
 	}
+	
+	/**
+	 * start the analyze of app with a given client
+	 */
+	private static void startAnalyze() {
+		System.out.println("Analyzing " + MyConfig.getInstance().getAppName());
+		BaseClient client = getClient();
+
+		TimeUtilsofProject.setTotalTimer(client);
+		long startTime = System.currentTimeMillis();
+
+		client.start();
+
+		long endTime = System.currentTimeMillis();
+		System.out.println("---------------------------------------");
+		System.out.println("Analyzing " + MyConfig.getInstance().getAppName() + " Finish...\n");
+		System.out.println(MyConfig.getInstance().getClient() + " time = " + (endTime - startTime) / 1000 + " seconds");
+	}
+	
+	
+
+	
+	
+	/**
+	 * get the client to be analyzed
+	 * the default client is used for ICC resolution
+	 * @return
+	 */
+	private static BaseClient getClient() {
+		System.out.println("using client " + MyConfig.getInstance().getClient());
+		BaseClient client;
+		switch (MyConfig.getInstance().getClient()) {
+			case "MainClient":
+				client = new ICTGClient();
+				break;
+			case "IROutputClient":
+				client = new IROutputClient();
+				break;
+			case "ManifestClient":
+				client = new ManifestClient();
+				break;
+			case "CallGraphClient":
+				client = new CallGraphClient();
+				break;
+			case "FragmentClient":
+				client = new FragmentClient();
+				break;
+			case "ICCBotResultEvaluateClient":
+				client = new ICCBotResultEvaluateClient();
+				break;
+			case "IC3ResultEvaluateClient":
+				client = new IC3ResultEvaluateClient();
+				break;
+			case "IC3DIALDroidResultEvaluateClient":
+				client = new IC3DIALDroidResultEvaluateClient();
+				break;
+			case "GatorATGResultEvaluateClient":
+				client = new GatorATGResultEvaluateClient();
+				break;
+			case "ToolEvaluateClient":
+				client = new ToolEvaluateClient();
+				break;
+			default:
+				client = new ICTGClient();
+				break;
+		}
+		return client;
+	}
+	
 
 	/**
 	 * construct the structure of options
@@ -76,10 +152,19 @@ public class MainClass {
 		options.addOption("version", true, "-version [default:23]: Version of Android SDK.");
 
 		/** analysis config **/
-		options.addOption("client", true, "-client [default:ICTGClient]: Set the analyze client.\n"
-				+ "IROutputClient: Output soot IR files.\n" + "ManifestClient: Output manifest.xml file.\n"
-				+ "CallGraphClient: Output call graph files.\n" + "ICTGClient: Analyze Intents.\n");
-
+		options.addOption("client", true, "-client "
+				+ "[default:MainClient]: Resolve ICC and generate component transiton graph.\n"
+				+ "IROutputClient: Output soot IR files.\n"
+				+ "ManifestClient: Output manifest.xml file.\n"
+				+ "CallGraphClient: Output call graph files.\n"
+				+ "FragmentClient: Output the fragment loading results.\n"
+				+ "ICCBotResultEvaluateClient: Evaluate the results generated by ICCBot.\n"
+				+ "IC3ResultEvaluateClient: Evaluate the results generated by IC3.\n"
+				+ "IC3DIALDroidResultEvaluateClient: Evaluate the results generated by IC3DIALDroid.\n"
+				+ "GatorATGResultEvaluateClient: Evaluate the results generated by Gator.\n"
+				+ "ToolEvaluateClient: Evaluate the results of four tools.\n"
+			);
+		
 		options.addOption("time", true, "-time [default:90]: Set the max running time (min).");
 		options.addOption("maxPathNumber", true, "-maxPathNumber [default:10000]: Set the max number of paths.");
 
@@ -104,28 +189,29 @@ public class MainClass {
 		options.addOption("noWrapperAPI", false, "-noWrapperAPI: exclude RAICC model");
 		options.addOption("noImplicit", false, "-noImplicit: exclude implict matching");
 		options.addOption("noDynamicBC", false, "-noDynamicBC: exclude dynamic broadcast receiver matching");
-		//
-		// /** Strategy **/
-		// options.addOption("summaryStrategy", true,
-		// "-summaryStrategy: choose the type of summary model from object/path/none");
-		// options.addOption("noVfgStrategy", false,
-		// "-vfgStrategy: do not use vfg model");
-		// options.addOption("cgAnalyzeGroup", false,
-		// "-cgAnalyzeGroup: group cg edges into several groups");
-		// options.addOption("getAttributeStrategy", false,
-		// "-getAttributeStrategy: include the analyze of intent data receiveing.");
-		//
-		// options.addOption("scenarioStack", false,
-		// "-scenarioStack: for stack related bug analysis.");
+		
+		 /** Strategy **/
+		 options.addOption("summaryStrategy", true,
+		 "-summaryStrategy: choose the type of summary model from object/path/none");
+		 options.addOption("noVfgStrategy", false,
+		 "-vfgStrategy: do not use vfg model");
+		 options.addOption("cgAnalyzeGroup", false,
+		 "-cgAnalyzeGroup: group cg edges into several groups");
+		 options.addOption("getAttributeStrategy", false,
+		 "-getAttributeStrategy: include the analyze of intent data receiveing.");
+		
+		 options.addOption("scenarioStack", false,
+		 "-scenarioStack: for stack related bug analysis.");
 
 		return options;
 	}
 
 	/**
 	 * analyze args and store information to MyConfig
+	 * @param mCmd 
 	 * 
 	 */
-	private static void analyzeArgs() {
+	private static void analyzeArgs(CommandLine mCmd) {
 		if (null == mCmd)
 			System.exit(-1);
 
@@ -151,7 +237,15 @@ public class MainClass {
 		MyConfig.getInstance().setClient(mCmd.getOptionValue("client", client));
 
 		MyConfig.getInstance().setResultFolder(mCmd.getOptionValue("outputDir", "outputDir") + File.separator);
-
+		String resFolder = mCmd.getOptionValue("outputDir", "results/outputDir");
+		if(resFolder.contains("/")){
+			resFolder = resFolder.substring(0,resFolder.lastIndexOf("/"));
+			MyConfig.getInstance().setResultWarpperFolder(resFolder+ File.separator);
+		}else if(resFolder.contains("\\")){
+			resFolder = resFolder.substring(0,resFolder.lastIndexOf("\\"));
+			MyConfig.getInstance().setResultWarpperFolder(resFolder+ File.separator);
+		}
+		
 		if (!mCmd.hasOption("debug") && !mCmd.hasOption("name")) {
 			printHelp("Please input the apk name use -name.");
 		}
@@ -246,68 +340,26 @@ public class MainClass {
 		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(false);
 	}
 
-	/** for self testing **/
+	/** 
+	 * for self testing
+	 *  **/
 	private static void testConfig() {
 		String path;
 		path = "apk/";
 		String name;
 		name = "IntentFlowBench";
 		String client = "MainClient";
+		client = "ToolEvaluateClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
 		MyConfig.getInstance().setMaxPathNumber(100);
+		MyConfig.getInstance().setResultWarpperFolder("../results" + File.separator);
 		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);
 		MyConfig.getInstance().setTimeLimit(50);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
 	}
 
-	/**
-	 * startAnalyze
-	 */
-	private static void startAnalyze() {
-		System.out.println("Analyzing " + MyConfig.getInstance().getAppName());
-		BaseClient client = getClient();
-
-		TimeUtilsofProject.setTotalTimer(client);
-		long startTime = System.currentTimeMillis();
-
-		client.start();
-
-		long endTime = System.currentTimeMillis();
-		System.out.println("---------------------------------------");
-		System.out.println("Analyzing " + MyConfig.getInstance().getAppName() + " Finish...\n");
-		System.out.println(MyConfig.getInstance().getClient() + " time = " + (endTime - startTime) / 1000 + " seconds");
-	}
-
-	private static BaseClient getClient() {
-		System.out.println("using client " + MyConfig.getInstance().getClient());
-		BaseClient client;
-		switch (MyConfig.getInstance().getClient()) {
-		case "IROutputClient":
-			client = new IROutputClient();
-			break;
-		case "InstrumentClient":
-			client = new InstrumentClient();
-			break;
-		case "ManifestClient":
-			client = new ManifestClient();
-			break;
-		case "CallGraphClient":
-			client = new CallGraphClient();
-			break;
-		case "MainClient":
-			client = new ICTGClient();
-			break;
-		case "CTGEvaluateClient":
-			client = new CTGEvaluateClient();
-			break;
-		default:
-			client = new ICTGClient();
-			break;
-		}
-		return client;
-	}
 
 }

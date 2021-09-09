@@ -3,15 +3,13 @@ package main.java.analyze.model.labeledOracleModel;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-
 import main.java.Analyzer;
 import main.java.Global;
-import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.client.obj.model.atg.ATGModel;
+import main.java.client.obj.model.atg.AtgEdge;
+import main.java.client.obj.model.atg.AtgNode;
 
-import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -33,6 +31,8 @@ public class LabeledOracleReader extends Analyzer {
 
 	private LabeledOracleModel readLabeledOracleModelFromFile() {
 		LabeledOracleModel model = new LabeledOracleModel();
+		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+		System.out.println(filePath);
 		File xmlFile = new File(filePath);
 		if (!xmlFile.exists())
 			return model;
@@ -43,10 +43,14 @@ public class LabeledOracleReader extends Analyzer {
 			Iterator<?> iterator = rootElement.elementIterator();
 			while (iterator.hasNext()) {
 				Element oracleEdge = (Element) iterator.next();
-				IccTag iccTag = new IccTag(oracleEdge.attributeValue("source"),
-						oracleEdge.attributeValue("destination"));
+				String classNameS = oracleEdge.attributeValue("source");
+				String classNameT = oracleEdge.attributeValue("destination");
+				IccTag iccTag = new IccTag(classNameS,classNameT);
+				
 				model.addLabeledOracle(iccTag);
-
+				AtgEdge edge = new AtgEdge(new AtgNode(classNameS), new AtgNode(classNameT), "", -1, "");
+				oracleModel.addAtgEdges(classNameS, edge);
+				
 				Iterator<?> iterator1 = oracleEdge.elementIterator();
 				while (iterator1.hasNext()) {
 					Element subEle = (Element) iterator1.next();
@@ -76,7 +80,7 @@ public class LabeledOracleReader extends Analyzer {
 
 						Element exitMethod = subEle.element("exitMethod");
 						iccTag.setNormalSendICC(exitMethod.attributeValue("isNormalSendICC").equals("true"));
-						iccTag.setWarpperSendICC(exitMethod.attributeValue("isWarpperSendICC").equals("true"));
+						iccTag.setWarpperSendICC(exitMethod.attributeValue("isAtypicalSendICC").equals("true"));
 
 						Element intentMatch = subEle.element("intentMatch");
 						iccTag.setExplicit(intentMatch.attributeValue("isExplicit").equals("true"));
@@ -96,7 +100,7 @@ public class LabeledOracleReader extends Analyzer {
 						iccTag.setAdapter(nonComponentScope.attributeValue("isAdapter").equals("true"));
 						iccTag.setWidget(nonComponentScope.attributeValue("isWidget").equals("true"));
 						iccTag.setOtherClass(nonComponentScope.attributeValue("isOtherClass").equals("true"));
-						if (iccTag.isFragment() || iccTag.isAdapter() || iccTag.isWidget() || iccTag.isOtherClass()) {
+						if (iccTag.isFragment() || iccTag.isAdapter() || iccTag.isWidget()) {
 							iccTag.setNonComponent(true);
 						}
 
@@ -116,10 +120,7 @@ public class LabeledOracleReader extends Analyzer {
 						iccTag.setContextSensitive(sensitivityScope.attributeValue("context").equals("true"));
 						iccTag.setObjectSensitive(sensitivityScope.attributeValue("object").equals("true"));
 						iccTag.setFieldSensitive(sensitivityScope.attributeValue("field").equals("true"));
-						if (iccTag.isFlowSensitive() || iccTag.isPathSensitive() || iccTag.isContextSensitive()
-								|| iccTag.isFieldSensitive() || iccTag.isObjectSensitive()) {
-							iccTag.setSomeSensitive(true);
-						}
+
 					}
 				}
 				iccTag.postAnalyzeTags();

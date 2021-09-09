@@ -10,9 +10,6 @@ import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.manifest.ManifestClient;
-import main.java.client.related.ic3.IC3ClientOutput;
-import main.java.client.related.ic3.IC3Reader;
-import main.java.client.related.ic3.IC3ReaderClient;
 import main.java.client.related.ic3.model.IC3Model;
 import main.java.client.soot.SootAnalyzer;
 import main.java.client.statistic.model.StatisticResult;
@@ -25,7 +22,7 @@ import org.dom4j.DocumentException;
  * @author hanada
  * @version 2.0
  */
-public class IC3DialReaderClient extends BaseClient {
+public class IC3DIALDroidResultEvaluateClient extends BaseClient {
 
 	/**
 	 * analyze logic for single app

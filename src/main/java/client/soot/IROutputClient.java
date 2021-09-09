@@ -3,7 +3,6 @@ package main.java.client.soot;
 import main.java.MyConfig;
 import main.java.client.BaseClient;
 import main.java.client.soot.IROutputClient;
-import main.java.client.statistic.model.StatisticResult;
 import soot.PackManager;
 
 /**

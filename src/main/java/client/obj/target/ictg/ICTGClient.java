@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
@@ -27,9 +24,8 @@ import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.atg.AtgType;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.obj.target.ictg.ICTGClient;
-import main.java.client.soot.IROutputClient;
 import main.java.client.statistic.model.StatisticResult;
-import main.java.client.toolEvaluate.CTGEvaluateClient;
+import main.java.client.toolEvaluate.ICCBotResultEvaluateClient;
 
 import org.dom4j.DocumentException;
 
@@ -87,7 +83,7 @@ public class ICTGClient extends BaseClient {
 	public void clientOutput() throws IOException, DocumentException {
 		outputCTGInfo();
 		if (!MyConfig.getInstance().isOracleConstructionClientFinish()) {
-			new CTGEvaluateClient().start();
+			new ICCBotResultEvaluateClient().start();
 		}
 	}
 

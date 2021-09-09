@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import main.java.analyze.model.analyzeModel.Attribute;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.utils.CollectionUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
@@ -30,7 +30,7 @@ public class GetIntentExtraHandler extends UnitHandler {
 	SingleIntentModel singleIntent;
 
 	@Override
-	public void handleSingleObject(SingleObjectModel singleObject) {
+	public void handleSingleObject(ObjectSummaryModel singleObject) {
 		this.singleIntent = (SingleIntentModel) singleObject;
 		this.singleIntent.getDataHandleList().add(unit);
 		getExtraAPIAnalyze(unit); // extra

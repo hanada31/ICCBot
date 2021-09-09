@@ -1,30 +1,10 @@
 package main.java.client.toolEvaluate;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.tree.DefaultElement;
-
 import main.java.Global;
 import main.java.MyConfig;
-import main.java.analyze.model.labeledOracleModel.LabeledOracleModel;
-import main.java.analyze.model.labeledOracleModel.LabeledOracleReader;
-import main.java.analyze.utils.ConstantUtils;
-import main.java.analyze.utils.GraphUtils;
-import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
-import main.java.client.obj.target.ictg.ICTGClient;
 import main.java.client.obj.target.ictg.ICTGReaderClient;
-import main.java.client.related.ic3.IC3ReaderClient;
-import main.java.client.related.ic3dial.IC3DialReaderClient;
-import main.java.client.related.wtg.WTGReadderClient;
-import main.java.client.statistic.model.StatisticResult;
 
 /**
  * Analyzer Class
@@ -32,13 +12,13 @@ import main.java.client.statistic.model.StatisticResult;
  * @author hanada
  * @version 2.0
  */
-public class CTGEvaluateClient extends BaseClient {
+public class ICCBotResultEvaluateClient extends BaseClient {
 
 	@Override
 	protected void clientAnalyze() {
 
 		new ICTGReaderClient().start();
-		System.out.println("Successfully analyze with CTGEvaluateClient.");
+		System.out.println("Successfully analyze with ICCBotResultEvaluateClient.");
 
 	}
 

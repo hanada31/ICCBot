@@ -8,36 +8,36 @@ import java.util.Set;
 import main.java.analyze.utils.output.PrintUtils;
 import soot.SootMethod;
 
-public class SingleMethodModel {
+public class MethodSummaryModel {
 	private SootMethod method;
 	private String componentName;
-	private Set<SinglePathModel> singlePathSet;
-	private Set<SinglePathModel> analyzedSinglePathSet;
-	private Set<SingleObjectModel> singleObjectSet;
+	private Set<PathSummaryModel> singlePathSet;
+	private Set<PathSummaryModel> analyzedSinglePathSet;
+	private Set<ObjectSummaryModel> singleObjectSet;
 	private List<UnitNode> nodePathList;
 	private int maxMethodTraceDepth;
-	private Set<SingleMethodModel> reuseModelSet;
+	private Set<MethodSummaryModel> reuseModelSet;
 
-	public SingleMethodModel(String className, SootMethod method) {
+	public MethodSummaryModel(String className, SootMethod method) {
 		this.maxMethodTraceDepth = 0;
 		this.componentName = className;
 		this.method = method;
 		this.nodePathList = new ArrayList<UnitNode>();
-		this.singlePathSet = new HashSet<SinglePathModel>();
-		this.analyzedSinglePathSet = new HashSet<SinglePathModel>();
-		this.singleObjectSet = new HashSet<SingleObjectModel>();
-		this.setReuseModelSet(new HashSet<SingleMethodModel>());
+		this.singlePathSet = new HashSet<PathSummaryModel>();
+		this.analyzedSinglePathSet = new HashSet<PathSummaryModel>();
+		this.singleObjectSet = new HashSet<ObjectSummaryModel>();
+		this.setReuseModelSet(new HashSet<MethodSummaryModel>());
 	}
 
-	public SingleMethodModel(SingleMethodModel temp) {
+	public MethodSummaryModel(MethodSummaryModel temp) {
 		this.method = temp.method;
 		this.componentName = temp.componentName;
 		this.maxMethodTraceDepth = temp.maxMethodTraceDepth;
 		this.nodePathList = temp.getNodePathList();
-		this.singlePathSet = new HashSet<SinglePathModel>(temp.getPathSet());
-		this.analyzedSinglePathSet = new HashSet<SinglePathModel>(temp.getAnalyzedSinglePathSet());
-		this.singleObjectSet = new HashSet<SingleObjectModel>(temp.getSingleObjectSet());
-		this.setReuseModelSet(new HashSet<SingleMethodModel>(temp.getReuseModelSet()));
+		this.singlePathSet = new HashSet<PathSummaryModel>(temp.getPathSet());
+		this.analyzedSinglePathSet = new HashSet<PathSummaryModel>(temp.getAnalyzedSinglePathSet());
+		this.singleObjectSet = new HashSet<ObjectSummaryModel>(temp.getSingleObjectSet());
+		this.setReuseModelSet(new HashSet<MethodSummaryModel>(temp.getReuseModelSet()));
 	}
 
 	public String getComponentName() {
@@ -89,18 +89,18 @@ public class SingleMethodModel {
 		this.maxMethodTraceDepth = maxMethodTraceDepth;
 	}
 
-	public Set<SinglePathModel> getPathSet() {
+	public Set<PathSummaryModel> getPathSet() {
 		return singlePathSet;
 	}
 
-	public void setSinglePathSet(Set<SinglePathModel> singlePathSet) {
+	public void setSinglePathSet(Set<PathSummaryModel> singlePathSet) {
 		this.singlePathSet = singlePathSet;
 	}
 
 	/**
 	 * @return the analyzedSinglePathSet
 	 */
-	public Set<SinglePathModel> getAnalyzedSinglePathSet() {
+	public Set<PathSummaryModel> getAnalyzedSinglePathSet() {
 		return analyzedSinglePathSet;
 	}
 
@@ -108,14 +108,14 @@ public class SingleMethodModel {
 	 * @param analyzedSinglePathSet
 	 *            the analyzedSinglePathSet to set
 	 */
-	public void setAnalyzedSinglePathSet(Set<SinglePathModel> analyzedSinglePathSet) {
+	public void setAnalyzedSinglePathSet(Set<PathSummaryModel> analyzedSinglePathSet) {
 		this.analyzedSinglePathSet = analyzedSinglePathSet;
 	}
 
 	/**
 	 * @return the singleObjectSet
 	 */
-	public Set<SingleObjectModel> getSingleObjectSet() {
+	public Set<ObjectSummaryModel> getSingleObjectSet() {
 		return singleObjectSet;
 	}
 
@@ -123,14 +123,14 @@ public class SingleMethodModel {
 	 * @param singleObjectSet
 	 *            the singleObjectSet to set
 	 */
-	public void setSingleObjectSet(Set<SingleObjectModel> singleObjectSet) {
+	public void setSingleObjectSet(Set<ObjectSummaryModel> singleObjectSet) {
 		this.singleObjectSet = singleObjectSet;
 	}
 
 	/**
 	 * @return the reuseModelSet
 	 */
-	public Set<SingleMethodModel> getReuseModelSet() {
+	public Set<MethodSummaryModel> getReuseModelSet() {
 		return reuseModelSet;
 	}
 
@@ -138,7 +138,7 @@ public class SingleMethodModel {
 	 * @param reuseModelSet
 	 *            the reuseModelSet to set
 	 */
-	public void setReuseModelSet(Set<SingleMethodModel> reuseModelSet) {
+	public void setReuseModelSet(Set<MethodSummaryModel> reuseModelSet) {
 		this.reuseModelSet = reuseModelSet;
 	}
 
@@ -147,21 +147,21 @@ public class SingleMethodModel {
 	 * 
 	 * @return
 	 */
-	public Set<SingleObjectModel> getSingleObjects() {
-		Set<SingleObjectModel> objectSet = new HashSet<SingleObjectModel>();
-		Set<SingleMethodModel> history = new HashSet<SingleMethodModel>();
+	public Set<ObjectSummaryModel> getSingleObjects() {
+		Set<ObjectSummaryModel> objectSet = new HashSet<ObjectSummaryModel>();
+		Set<MethodSummaryModel> history = new HashSet<MethodSummaryModel>();
 		getSingleObjectsIterative(this, objectSet, history);
 
 		return objectSet;
 	}
 
-	private void getSingleObjectsIterative(SingleMethodModel singleMethod, Set<SingleObjectModel> objectSet,
-			Set<SingleMethodModel> history) {
+	private void getSingleObjectsIterative(MethodSummaryModel singleMethod, Set<ObjectSummaryModel> objectSet,
+			Set<MethodSummaryModel> history) {
 		if (history.contains(singleMethod))
 			return;
 		history.add(singleMethod);
 		objectSet.addAll(singleMethod.getSingleObjectSet());
-		for (SingleMethodModel model : singleMethod.getReuseModelSet()) {
+		for (MethodSummaryModel model : singleMethod.getReuseModelSet()) {
 			getSingleObjectsIterative(model, objectSet, history);
 		}
 	}

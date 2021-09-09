@@ -7,7 +7,6 @@ import soot.Unit;
 public class ParameterSource {
 	private SootMethod currentMethod;
 	private Unit unit;
-	// fun1(int i){ fun2(j, i)} invokeContextId2CurrentMehtodId.put(1,0)
 	private int contextLocationId;
 	private int useLocationId;
 

@@ -8,10 +8,8 @@ import main.java.analyze.utils.output.PrintUtils;
 public class LabeledOracleModel {
 	private Map<String, IccTag> LabeledOracle;
 
-	// private IccTagCount counter;
 	public LabeledOracleModel() {
 		LabeledOracle = new HashMap<String, IccTag>();
-		// setCounter(new IccTagCount());
 	}
 
 	@Override

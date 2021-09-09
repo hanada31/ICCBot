@@ -1,4 +1,4 @@
-package main.java.client.related.wtg;
+package main.java.client.related.gator;
 
 import java.io.File;
 import java.util.List;
@@ -19,15 +19,19 @@ public class ATGReader extends Analyzer {
 
 	@Override
 	public void analyze() {
-		obtainATGfromFile();
+		if(obtainATGfromFile())
+			constructModel();
 	}
-
-	private void obtainATGfromFile() {
+	
+	private boolean obtainATGfromFile() {
 		File file = new File(model.getATGFilePath());
 		if (!file.exists()) {
 			model.setExist(false);
-			return;
+			return false;
 		}
+		return true;
+	}
+	private void constructModel() {
 		List<String> lines = FileUtils.getListFromFile(model.getATGFilePath());
 		for (String line : lines) {
 			line = line.trim();
@@ -50,4 +54,7 @@ public class ATGReader extends Analyzer {
 			}
 		}
 	}
+
+
+
 }

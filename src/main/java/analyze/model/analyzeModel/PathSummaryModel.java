@@ -10,22 +10,22 @@ import java.util.Set;
 
 import main.java.analyze.utils.output.PrintUtils;
 
-public class SinglePathModel {
-	private SingleMethodModel singleMethod;
+public class PathSummaryModel {
+	private MethodSummaryModel singleMethod;
 	private List<UnitNode> nodes;
 	private List<String> methodTraceUnrepeated;
-	private Set<SingleObjectModel> singleObjectSet;
+	private Set<ObjectSummaryModel> singleObjectSet;
 	private Map<Integer, List<String>> node2TraceMap;
 
-	public SinglePathModel() {
+	public PathSummaryModel() {
 		this(null);
 	}
 
-	public SinglePathModel(SingleMethodModel singleMethod) {
+	public PathSummaryModel(MethodSummaryModel singleMethod) {
 		setSingleMethod(singleMethod);
 		setNodes(new ArrayList<UnitNode>());
 		setMethodTrace(new LinkedList<String>());
-		setSingleObjectSet(new HashSet<SingleObjectModel>());
+		setSingleObjectSet(new HashSet<ObjectSummaryModel>());
 		setNode2TraceMap(new HashMap<Integer, List<String>>());
 	}
 
@@ -37,11 +37,11 @@ public class SinglePathModel {
 		this.methodTraceUnrepeated = methodTrace;
 	}
 
-	public SingleMethodModel getSingleMethod() {
+	public MethodSummaryModel getSingleMethod() {
 		return singleMethod;
 	}
 
-	public void setSingleMethod(SingleMethodModel singleMethod) {
+	public void setSingleMethod(MethodSummaryModel singleMethod) {
 		this.singleMethod = singleMethod;
 	}
 
@@ -57,12 +57,12 @@ public class SinglePathModel {
 		this.nodes.add(node);
 	}
 
-	public void copy(SinglePathModel temp) {
+	public void copy(PathSummaryModel temp) {
 		setSingleMethod(temp.getSingleMethod());
 		setMethodTrace(new LinkedList<String>(temp.getMethodTrace()));
 		setNode2TraceMap(new HashMap<Integer, List<String>>(temp.getNode2TraceMap()));
 
-		// for(SingleObjectModel model :temp.getSingleObjectSet())
+		// for(ObjectSummaryModel model :temp.getSingleObjectSet())
 		// getSingleObjectSet().add(model);
 
 		for (UnitNode n : temp.getNodes())
@@ -70,7 +70,7 @@ public class SinglePathModel {
 
 	}
 
-	public void merge(SinglePathModel temp, String curentContextSig) {
+	public void merge(PathSummaryModel temp, String curentContextSig) {
 		if (this.hashCode() == temp.hashCode())
 			return;
 		for (String me : temp.getMethodTrace()) {
@@ -113,7 +113,7 @@ public class SinglePathModel {
 	/**
 	 * @return the singleObjectSet
 	 */
-	public Set<SingleObjectModel> getSingleObjectSet() {
+	public Set<ObjectSummaryModel> getSingleObjectSet() {
 		return singleObjectSet;
 	}
 
@@ -121,7 +121,7 @@ public class SinglePathModel {
 	 * @param singleObjectSet
 	 *            the singleObjectSet to set
 	 */
-	public void setSingleObjectSet(Set<SingleObjectModel> singleObjectSet) {
+	public void setSingleObjectSet(Set<ObjectSummaryModel> singleObjectSet) {
 		this.singleObjectSet = singleObjectSet;
 	}
 }

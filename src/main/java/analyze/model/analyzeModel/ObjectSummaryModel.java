@@ -3,15 +3,15 @@ package main.java.analyze.model.analyzeModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.analyze.model.analyzeModel.SinglePathModel;
+import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.model.analyzeModel.UnitNode;
 import main.java.analyze.utils.output.PrintUtils;
 import soot.SootMethod;
 import soot.Unit;
 
-public class SingleObjectModel {
+public class ObjectSummaryModel {
 	protected List<UnitNode> nodes;
-	protected SinglePathModel singlePath;
+	protected PathSummaryModel singlePath;
 	protected SootMethod method;
 	// protected List<String> methodTraceUnrepeated;
 
@@ -24,7 +24,7 @@ public class SingleObjectModel {
 
 	protected boolean finishFlag;
 
-	public SingleObjectModel(SinglePathModel singlePath) {
+	public ObjectSummaryModel(PathSummaryModel singlePath) {
 		setNodes(new ArrayList<UnitNode>());
 		setSinglePath(singlePath);
 		if (singlePath != null && singlePath.getSingleMethod() != null)
@@ -41,7 +41,7 @@ public class SingleObjectModel {
 		setDataHandleList(new ArrayList<Unit>());
 	}
 
-	public void copy(SingleObjectModel temp) {
+	public void copy(ObjectSummaryModel temp) {
 		setNodes(temp.nodes);
 		setSinglePath(temp.singlePath);
 		// setMethodTrace(new ArrayList<>(temp.getMethodTrace()));
@@ -54,7 +54,7 @@ public class SingleObjectModel {
 
 	}
 
-	public void merge(SingleObjectModel temp) {
+	public void merge(ObjectSummaryModel temp) {
 		getNodes().addAll(temp.nodes);
 		// for (String me : temp.getMethodTrace()) {
 		// if (!getMethodTrace().contains(me))
@@ -77,8 +77,8 @@ public class SingleObjectModel {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof SingleObjectModel) {
-			SingleObjectModel model = (SingleObjectModel) obj;
+		if (obj instanceof ObjectSummaryModel) {
+			ObjectSummaryModel model = (ObjectSummaryModel) obj;
 			return model.toHashString().equals(this.toHashString());
 		} else {
 			return false;
@@ -138,11 +138,11 @@ public class SingleObjectModel {
 	// this.methodTraceUnrepeated = methodTrace;
 	// }
 
-	public SinglePathModel getSinglePath() {
+	public PathSummaryModel getSinglePath() {
 		return singlePath;
 	}
 
-	public void setSinglePath(SinglePathModel singlePath) {
+	public void setSinglePath(PathSummaryModel singlePath) {
 		this.singlePath = singlePath;
 	}
 

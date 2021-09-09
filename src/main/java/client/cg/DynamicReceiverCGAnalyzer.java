@@ -9,7 +9,6 @@ import main.java.Analyzer;
 import main.java.MyConfig;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
-import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.component.BroadcastReceiverModel;
 import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Data;

@@ -17,7 +17,7 @@ public class UnitNode {
 	private Set<UnitNode> preds;
 	private Set<UnitNode> succs;
 	private String condition;
-	private SingleMethodModel interFunNode;
+	private MethodSummaryModel interFunNode;
 	private Map<List<String>, UnitNode> baseNodePointToMap;
 	private Map<List<String>, List<UnitNode>> nodeSetPointToMeMap;
 	private boolean isFormalParameter;
@@ -109,12 +109,12 @@ public class UnitNode {
 		this.succs = succs;
 	}
 
-	public SingleMethodModel getInterFunNode() {
+	public MethodSummaryModel getInterFunNode() {
 		return interFunNode;
 	}
 
-	public void setInterFunNode(SingleMethodModel interFunNode) {
-		this.interFunNode = new SingleMethodModel(interFunNode);
+	public void setInterFunNode(MethodSummaryModel interFunNode) {
+		this.interFunNode = new MethodSummaryModel(interFunNode);
 	}
 
 	public void addBaseNodePointToMap(List<String> context, UnitNode baseNodePointTo) {

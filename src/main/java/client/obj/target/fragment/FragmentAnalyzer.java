@@ -1,16 +1,11 @@
 package main.java.client.obj.target.fragment;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.Map.Entry;
-
-import afu.org.checkerframework.checker.units.qual.s;
 import main.java.Global;
 import main.java.MyConfig;
-import main.java.analyze.model.analyzeModel.SingleMethodModel;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.MethodSummaryModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.client.obj.ObjectAnalyzer;
@@ -41,7 +36,7 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 	 * analyzeCurrentSetMethods for a set of method
 	 */
 	@Override
-	public void drawATGandStatistic(SingleMethodModel model) {
+	public void drawATGandStatistic(MethodSummaryModel model) {
 		if (model == null)
 			return;
 		makeStatistic(model);
@@ -53,7 +48,7 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param model
 	 */
-	private void generateATGInfo(SingleMethodModel singleMethod) {
+	private void generateATGInfo(MethodSummaryModel singleMethod) {
 		SootMethod sootMtd = singleMethod.getMethod();
 		SootClass cls = null;
 		if (appModel.getEntryMethod2Component().containsKey(sootMtd))
@@ -80,7 +75,7 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 		for (SootClass sootCls : subClasses) {
 			if (sootCls.getMethodUnsafe(sootMtd.getSubSignature()) == null || sootCls == sootMtd.getDeclaringClass()) {
 				String src = sootCls.getName();
-				for (SingleObjectModel singleFrag : singleMethod.getSingleObjects()) {
+				for (ObjectSummaryModel singleFrag : singleMethod.getSingleObjects()) {
 					if (((SingleFragmentModel) singleFrag).getSendFragment2Start().size() == 0)
 						continue;
 					getTargetOfSrc((SingleFragmentModel) singleFrag, src);
@@ -121,7 +116,7 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param model
 	 */
-	private void makeStatistic(SingleMethodModel model) {
+	private void makeStatistic(MethodSummaryModel model) {
 
 		DoStatistic.updateSummaryStatisticUseSummayMap(model, result);
 

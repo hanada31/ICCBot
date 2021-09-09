@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import main.java.Global;
+import main.java.MyConfig;
 import main.java.analyze.model.labeledOracleModel.IccTag;
 import main.java.analyze.model.labeledOracleModel.IccTagCount;
 import main.java.analyze.model.labeledOracleModel.LabeledOracleModel;
@@ -31,8 +32,6 @@ public class ATGModel {
 	private boolean exist = true;
 
 	public int getConnectionSize() {
-		if (!isExist())
-			return -1;
 		if (connectionSize > 0)
 			return connectionSize;
 
@@ -63,17 +62,14 @@ public class ATGModel {
 			}
 		}
 
-		File f = new File("results" + File.separator + "tagResult.txt");
+		File f = new File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt");
 		if (!f.exists())
-			FileUtils.writeText2File("results" + File.separator + "tagResult.txt", "\t\t" + counter.getTitle() + "\n",
-					true);
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder()+ File.separator + "tagResult.txt", "\t\t" + counter.getTitle() + "\n",true);
 		if (isExist())
-			FileUtils.writeText2File("results" + File.separator + "tagResult.txt", Global.v().getAppModel()
-					.getAppName()
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel().getAppName()
 					+ "\t" + "oracle       " + "\t" + counter.toSimpleString() + "\n", true);
 		else {
-			FileUtils.writeText2File("results" + File.separator + "tagResult.txt", Global.v().getAppModel()
-					.getAppName()
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel().getAppName()
 					+ "\t" + "oracle       " + "\n", true);
 		}
 		return;
@@ -103,7 +99,6 @@ public class ATGModel {
 			for (AtgEdge oracleEdge : entry.getValue()) {
 				if (!oracleEdges.contains(oracleEdge.getDescribtion())) {
 					oracleEdges.add(oracleEdge.getDescribtion());
-					// System.out.println("- " +oracleEdge.getDescribtion());
 				}
 				if (!myEdges.contains(oracleEdge.getDescribtion()) && !fnSet.contains(oracleEdge.getDescribtion())) {
 					fnSet.add(oracleEdge.getDescribtion());
@@ -114,7 +109,7 @@ public class ATGModel {
 			}
 		}
 		for (String fn : fnSet) {
-			System.out.println(fn);
+			System.out.println("false negative: "+fn);
 		}
 		oracleEdgeSize = oracleEdges.size();
 		fnEdgeSize = fnSet.size();
@@ -127,16 +122,16 @@ public class ATGModel {
 		System.out.println(tag + " false negative score fn = " + falsenegativeScore);
 
 		System.out.println(counter);
-		File f = new File("results" + File.separator + "tagResult.txt");
+		File f = new File(MyConfig.getInstance().getResultWarpperFolder()  + File.separator + "tagResult.txt");
 		if (!f.exists())
-			FileUtils.writeText2File("results" + File.separator + "tagResult.txt", "\t\t" + counter.getTitle() + "\n",
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", "\t\t" + counter.getTitle() + "\n",
 					true);
 		if (isExist())
-			FileUtils.writeText2File("results" + File.separator + "tagResult.txt", Global.v().getAppModel()
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel()
 					.getAppName()
 					+ "\t" + tag + "\t" + counter.toSimpleString() + "\n", true);
 		else {
-			FileUtils.writeText2File("results" + File.separator + "tagResult.txt", Global.v().getAppModel()
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel()
 					.getAppName()
 					+ "\t" + tag + "\n", true);
 		}

@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Stack;
 
 import main.java.analyze.utils.output.PrintUtils;
-import soot.coffi.method_info;
-import soot.coffi.parameter_annotation;
 
 public class BackStack {
 	private Stack<Pair<String, List<String>>> backStack;
