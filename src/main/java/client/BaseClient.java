@@ -9,7 +9,7 @@ import org.dom4j.DocumentException;
 /**
  * BaseClient
  * 
- * @author yanjw
+ * @author hanada
  * @version 2.0
  */
 public abstract class BaseClient {

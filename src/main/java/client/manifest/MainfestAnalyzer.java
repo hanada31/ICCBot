@@ -28,7 +28,7 @@ import soot.jimple.infoflow.android.manifest.ProcessManifest;
  * This class is used to parse a manifest XML file Extract all the exported
  * components (Activity, Service, and Receiver)
  * 
- * @author yanjw
+ * @author hanada
  *
  */
 public class MainfestAnalyzer extends Analyzer {

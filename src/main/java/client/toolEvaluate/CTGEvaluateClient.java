@@ -29,7 +29,7 @@ import main.java.client.statistic.model.StatisticResult;
 /**
  * Analyzer Class
  * 
- * @author yanjw
+ * @author hanada
  * @version 2.0
  */
 public class CTGEvaluateClient extends BaseClient {
