@@ -27,11 +27,11 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir]
  -name <arg>            -name: Set the name of the apk under analysis.
  -path <arg>            -path: Set the path to the apk under analysis.
  -outputDir <arg>       -outputDir: Set the output folder of the apk.
- -client <arg>          -client [default:ICTGClient]: Set the analyze client.
+ -client <arg>          -client:
                         [IROutputClient: Output soot IR files.
                         ManifestClient: Output manifest.xml file.
                         CallGraphClient: Output call graph files.
-                       	MainClient: Resolve ICC Links.]
+                       	MainClient: Resolve ICC Links.(default)]
                         
  -androidJar <arg>      -androidJar: Set the path of android.jar.                
  -version <arg>         -version [default:23]: Version of Android SDK.
