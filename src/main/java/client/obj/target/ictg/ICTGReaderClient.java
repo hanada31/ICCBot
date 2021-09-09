@@ -16,7 +16,7 @@ import org.dom4j.DocumentException;
 /**
  * Analyzer Class
  * 
- * @author yanjw
+ * @author hanada
  * @version 2.0
  */
 public class ICTGReaderClient extends BaseClient {
