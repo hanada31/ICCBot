@@ -1,6 +1,5 @@
 package main.java.client.manifest;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import java.util.List;
 //import jymbolic.android.resources.xml.AXmlNode;
 import main.java.Analyzer;
 import main.java.Global;
-import main.java.MyConfig;
 import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.utils.SootUtils;
 import main.java.client.obj.model.component.ActivityModel;
@@ -18,8 +16,6 @@ import main.java.client.obj.model.component.ContentProviderModel;
 import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.IntentFilterModel;
 import main.java.client.obj.model.component.ServiceModel;
-
-import org.xmlpull.v1.XmlPullParserException;
 
 import soot.jimple.infoflow.android.axml.AXmlNode;
 import soot.jimple.infoflow.android.manifest.ProcessManifest;

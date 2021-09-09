@@ -1,12 +1,5 @@
 package main.java.analyze.model.labeledOracleModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import main.java.analyze.utils.output.PrintUtils;
-
 public class IccTagCount {
 	public int isLifeCycle;
 	public int isStaticCallBack;
@@ -112,12 +105,13 @@ public class IccTagCount {
 		sb.append("isWarrperonly: " + isWarrperonly + "\t");
 		sb.append("isImplicitICConly: " + isImplicitICConly + "\n");
 		sb.append("isNonActonly: " + isNonActonly + "\t");
-
-		sb.append("isFragmentonly: " + isFragmentonly + "\n");
-		sb.append("isAdapteronly: " + isAdapteronly + "\n");
-		sb.append("isWidgetonly: " + isWidgetonly + "\n");
-		sb.append("isOtherClassonly: " + isOtherClassonly + "\n");
 		sb.append("isNonComponentonly: " + isNonComponentonly + "\n");
+
+		sb.append("isFragmentonly: " + isFragmentonly + "\t");
+		sb.append("isAdapteronly: " + isAdapteronly + "\t");
+		sb.append("isWidgetonly: " + isWidgetonly + "\t");
+		sb.append("isOtherClassonly: " + isOtherClassonly + "\n");
+
 		sb.append("isContextSensionly: " + isContextSensionly + "\t");
 		sb.append("isLibonly: " + isLibonly + "\t");
 		sb.append("isAsynconly: " + isAsynconly + "\t");
@@ -170,11 +164,13 @@ public class IccTagCount {
 		sb.append("isWarrperonly\t");
 		sb.append("isImplicitICConly\t");
 		sb.append("isNonActonly\t");
+		sb.append("isNonComponentonly\t");
+
 		sb.append("isFragmentonly\t");
 		sb.append("isAdapteronly\t");
 		sb.append("isWidgetonly\t");
 		sb.append("isOtherClassonly\t");
-		sb.append("isNonComponentonly\t");
+
 		sb.append("isContextSensionly\t");
 		sb.append("isLibonly\t");
 		sb.append("isAsynconly\t");
@@ -217,12 +213,14 @@ public class IccTagCount {
 		sb.append(isWarrperonly + "\t");
 		sb.append(isImplicitICConly + "\t");
 		sb.append(isNonActonly + "\t");
-		sb.append("isFragmentonly\t");
-		sb.append("isAdapteronly\t");
-		sb.append("isWidgetonly\t");
-		sb.append("isOtherClassonly\t");
-		sb.append("isNonComponentonly\t");
-		sb.append("isContextSensionly\t");
+		sb.append(isNonComponentonly + "\t");
+
+		sb.append(isFragmentonly + "\t");
+		sb.append(isAdapteronly + "\t");
+		sb.append(isWidgetonly + "\t");
+		sb.append(isOtherClassonly + "\t");
+
+		sb.append(isContextSensionly + "\t");
 		sb.append(isLibonly + "\t");
 		sb.append(isAsynconly + "\t");
 		sb.append(isPolymonly + "");

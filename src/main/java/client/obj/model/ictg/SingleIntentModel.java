@@ -1,22 +1,18 @@
 package main.java.client.obj.model.ictg;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.security.auth.x500.X500Principal;
-
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
-import main.java.analyze.model.analyzeModel.SinglePathModel;
-import main.java.analyze.model.analyzeModel.UnitNode;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
+import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ExtraData;
 import soot.Unit;
 
-public class SingleIntentModel extends SingleObjectModel {
+public class SingleIntentModel extends ObjectSummaryModel {
 
 	// unit
 	private List<Unit> receiveFromOutList;
@@ -37,7 +33,7 @@ public class SingleIntentModel extends SingleObjectModel {
 	private List<String> setFlagsList;
 	private String targetType;
 
-	public SingleIntentModel(SinglePathModel singlePath) {
+	public SingleIntentModel(PathSummaryModel singlePath) {
 		super(singlePath);
 		setReceiveFromOutList(new ArrayList<Unit>());
 		setSendIntent2ICCList(new ArrayList<Unit>());
@@ -80,7 +76,8 @@ public class SingleIntentModel extends SingleObjectModel {
 		setListExtrasValueList(temp.getSetExtrasValueList());
 	}
 
-	public void merge(SingleObjectModel temp) {
+	@Override
+	public void merge(ObjectSummaryModel temp) {
 		super.merge(temp);
 		SingleIntentModel temp2 = (SingleIntentModel) temp;
 		getReceiveFromOutList().addAll(temp2.getReceiveFromOutList());

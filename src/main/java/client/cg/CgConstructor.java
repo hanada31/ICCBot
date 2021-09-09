@@ -16,7 +16,6 @@ import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.FileUtils;
-import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.soot.SootAnalyzer;
 import soot.PackManager;
 import soot.Scene;

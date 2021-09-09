@@ -19,7 +19,7 @@ public class ConstantUtils {
 	public static final String ICTGFOLDETR = "CTGResult" + File.separator;
 	public static final String IC3FOLDETR = "relatedTools" + File.separator + "IC3" + File.separator;
 	public static final String IC3DIALDROIDFOLDETR = "relatedTools" + File.separator + "IC3-Dial" + File.separator;
-	public static final String WTGFOLDETR = "relatedTools" + File.separator + "WTG" + File.separator;
+	public static final String GATORFOLDETR = "relatedTools" + File.separator + "GATOR" + File.separator;
 	public static final String ICCINFOFOLDETR = "iccInfo" + File.separator;
 	public static final String MANIFOLDETR = "ManifestInfo" + File.separator;
 	public static final String STATFOLDETR = "statistic" + File.separator;

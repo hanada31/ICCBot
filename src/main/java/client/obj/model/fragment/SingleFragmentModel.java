@@ -3,14 +3,12 @@ package main.java.client.obj.model.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
-import main.java.analyze.model.analyzeModel.SinglePathModel;
-import main.java.analyze.model.analyzeModel.UnitNode;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
+import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.utils.output.PrintUtils;
-import main.java.client.obj.model.ictg.SingleIntentModel;
 import soot.Unit;
 
-public class SingleFragmentModel extends SingleObjectModel {
+public class SingleFragmentModel extends ObjectSummaryModel {
 	// unit
 	private List<Unit> sendFragment2Start;
 	private List<Unit> getFragmentFromOut;
@@ -20,7 +18,7 @@ public class SingleFragmentModel extends SingleObjectModel {
 	private List<String> replaceValueList;
 	private List<String> ListDestinationValueList;
 
-	public SingleFragmentModel(SinglePathModel singlePath) {
+	public SingleFragmentModel(PathSummaryModel singlePath) {
 		super(singlePath);
 		setSendFragment2Start(new ArrayList<Unit>());
 		setGetFragmentFromOut(new ArrayList<Unit>());
@@ -40,7 +38,8 @@ public class SingleFragmentModel extends SingleObjectModel {
 		setSetDestinationList(temp.getSetDestinationList());
 	}
 
-	public void merge(SingleObjectModel temp) {
+	@Override
+	public void merge(ObjectSummaryModel temp) {
 		super.merge(temp);
 		SingleFragmentModel temp2 = (SingleFragmentModel) temp;
 		getSendFragment2Start().addAll(temp2.getSendFragment2Start());

@@ -8,13 +8,12 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import main.java.Global;
-import main.java.analyze.model.analyzeModel.SingleMethodModel;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
-import main.java.analyze.model.analyzeModel.SinglePathModel;
+import main.java.analyze.model.analyzeModel.MethodSummaryModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
+import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.model.analyzeModel.UnitNode;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
-import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.fragment.SingleFragmentModel;
 import main.java.client.obj.model.ictg.SingleIntentFeatureExtractor;
@@ -29,7 +28,7 @@ import soot.Unit;
 
 public class DoStatistic {
 
-	public static void updateXMLStatisticUseSummayMapForFragment(boolean entryMethod, SingleMethodModel singleMethod,
+	public static void updateXMLStatisticUseSummayMapForFragment(boolean entryMethod, MethodSummaryModel singleMethod,
 			StatisticResult result) {
 		XmlStatistic statistic = result.getXmlStatistic();
 		if (entryMethod) {
@@ -45,7 +44,7 @@ public class DoStatistic {
 		}
 	}
 
-	public static void updateXMLStatisticUseSummayMap(boolean entryMethod, SingleMethodModel singleMethod,
+	public static void updateXMLStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel singleMethod,
 			StatisticResult result) {
 		XmlStatistic statistic = result.getXmlStatistic();
 
@@ -71,14 +70,14 @@ public class DoStatistic {
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSingleIntent(SingleMethodModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
+	private static void writeForSingleIntent(MethodSummaryModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
 		Element singleIntentEle = new DefaultElement("Component");
 		String sourceStr = SootUtils.getNameofClass(singleMethod.getComponentName());
 		singleIntentEle.addAttribute("source", sourceStr);
 		Set<SingleIntentModel> history = new HashSet<SingleIntentModel>();
-		// for (SinglePathModel singlePath : singleMethod.getPathSet()) {
-		// for(SingleObjectModel singleObject: singlePath.getSingleObjectSet()){
-		for (SingleObjectModel singleObject : singleMethod.getSingleObjects()) {
+		// for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
+		// for(ObjectSummaryModel singleObject: singlePath.getSingleObjectSet()){
+		for (ObjectSummaryModel singleObject : singleMethod.getSingleObjects()) {
 			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
 			if (history.contains(singleIntent))
 				continue;
@@ -103,13 +102,13 @@ public class DoStatistic {
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSingleFragment(SingleMethodModel singleMethod, boolean entryMethod,
+	private static void writeForSingleFragment(MethodSummaryModel singleMethod, boolean entryMethod,
 			XmlStatistic statistic) {
 		Element singleIntentEle = new DefaultElement("Component");
 		String sourceStr = singleMethod.getMethod().getDeclaringClass().getName();
 		singleIntentEle.addAttribute("source", sourceStr);
-		Set<SingleObjectModel> history = new HashSet<SingleObjectModel>();
-		for (SingleObjectModel singleObject : singleMethod.getSingleObjects()) {
+		Set<ObjectSummaryModel> history = new HashSet<ObjectSummaryModel>();
+		for (ObjectSummaryModel singleObject : singleMethod.getSingleObjects()) {
 			SingleFragmentModel Singlefrag = (SingleFragmentModel) singleObject;
 			if (history.contains(Singlefrag))
 				continue;
@@ -133,14 +132,14 @@ public class DoStatistic {
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSinglePath(SingleMethodModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
+	private static void writeForSinglePath(MethodSummaryModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
 		if (singleMethod.getPathSet().size() == 0)
 			return;
 
 		Element singlePathEle = new DefaultElement("singleMethod");
 		singlePathEle.addAttribute("source", singleMethod.getMethod().getSignature());
 
-		for (SinglePathModel singlePath : singleMethod.getPathSet()) {
+		for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
 			writeSinglePath(singlePath, singlePathEle);
 		}
 
@@ -159,7 +158,7 @@ public class DoStatistic {
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSingleMethod(SingleMethodModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
+	private static void writeForSingleMethod(MethodSummaryModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
 		Element singleMethodEle = new DefaultElement("singleMethod");
 		singleMethodEle.addAttribute("source", singleMethod.getMethod().getSignature());
 
@@ -184,7 +183,7 @@ public class DoStatistic {
 	 * @param topSummary
 	 * @param i
 	 */
-	private static void writeSingleMethod(Element path, SingleMethodModel singleMethod) {
+	private static void writeSingleMethod(Element path, MethodSummaryModel singleMethod) {
 		List<UnitNode> list = singleMethod.getNodePathList();
 		for (UnitNode n : list) {
 			if (n.getUnit() == null)
@@ -206,7 +205,7 @@ public class DoStatistic {
 	 * @param singlePath
 	 * @param summary
 	 */
-	private static void writeSinglePath(SinglePathModel singlePath, Element summary) {
+	private static void writeSinglePath(PathSummaryModel singlePath, Element summary) {
 		if (singlePath.getNodes().size() == 0)
 			return;
 		Element icc = summary.addElement("singlePath");
@@ -221,8 +220,8 @@ public class DoStatistic {
 	 * @param summary
 	 * @param singlePath
 	 */
-	private static void writeSingleIntent(SingleIntentModel singleIntent, Element summary, SinglePathModel singlePath,
-			SingleMethodModel singleMethod) {
+	private static void writeSingleIntent(SingleIntentModel singleIntent, Element summary, PathSummaryModel singlePath,
+			MethodSummaryModel singleMethod) {
 		Element icc = new DefaultElement("singleIntent");
 		// writeICCType(singleIntent, icc);
 		writeMethod(icc, singlePath, singleMethod);
@@ -235,7 +234,7 @@ public class DoStatistic {
 			summary.add(icc);
 	}
 
-	private static void writeMethod(Element icc, SinglePathModel singlePath, SingleMethodModel singleMethod) {
+	private static void writeMethod(Element icc, PathSummaryModel singlePath, MethodSummaryModel singleMethod) {
 		Element desElement = icc.addElement("method");
 		desElement.addAttribute("method", singleMethod.getMethod().getSubSignature());
 		if (singlePath != null)
@@ -243,7 +242,7 @@ public class DoStatistic {
 
 	}
 
-	private static void writeMethod(Element icc, SinglePathModel singlePath) {
+	private static void writeMethod(Element icc, PathSummaryModel singlePath) {
 		Element desElement = icc.addElement("method");
 		// desElement.addAttribute("method",
 		// singleMethod.getMethod().getSignature());
@@ -252,7 +251,7 @@ public class DoStatistic {
 	}
 
 	private static void writeSingleFragment(SingleFragmentModel singlefrag, Element singleIntentEle,
-			SinglePathModel singlePath, SingleMethodModel singleMethod) {
+			PathSummaryModel singlePath, MethodSummaryModel singleMethod) {
 		if (singlefrag.getSendFragment2Start().size() == 0)
 			return;
 		Element frag = new DefaultElement("SingleFragment");
@@ -341,7 +340,7 @@ public class DoStatistic {
 			icc.add(flow);
 	}
 
-	private static void writeSinglePathICCNode(List<String> context, SinglePathModel singlePath, Element icc) {
+	private static void writeSinglePathICCNode(List<String> context, PathSummaryModel singlePath, Element icc) {
 		List<UnitNode> nodeList = singlePath.getNodes();
 		// how to print node with its context??/
 		int nodeId = 0;
@@ -392,7 +391,7 @@ public class DoStatistic {
 
 	}
 
-	private static void writeSingleObjectICCNode(List<String> context, SingleObjectModel singleObject, Element icc) {
+	private static void writeSingleObjectICCNode(List<String> context, ObjectSummaryModel singleObject, Element icc) {
 		// if(singleObject.getCreateList().size()==0 &&
 		// singleObject.getReceiveFromFromRetValueList().size()==0 &&
 		// singleObject.getReceiveFromParaList().size()==0) return;
@@ -473,13 +472,13 @@ public class DoStatistic {
 		// icc.add(receiver);
 	}
 
-	private static void writeSource(SingleObjectModel singleObj, Element icc, SingleMethodModel singleMethod) {
+	private static void writeSource(ObjectSummaryModel singleObj, Element icc, MethodSummaryModel singleMethod) {
 		Element desElement = icc.addElement("source");
 		desElement.addAttribute("name", SootUtils.getNameofClass(singleMethod.getComponentName()));
 
 	}
 
-	private static void writeDestnition(SingleObjectModel singleObj, Element icc) {
+	private static void writeDestnition(ObjectSummaryModel singleObj, Element icc) {
 		List<String> des = null;
 		if (singleObj instanceof SingleIntentModel)
 			des = ((SingleIntentModel) singleObj).getSetDestinationList();
@@ -524,9 +523,9 @@ public class DoStatistic {
 	 * @param entryMethod
 	 *            only count entry method
 	 */
-	public static int countICCRelatedMethodNumber(boolean entryMethod, Map<String, SingleMethodModel> summaryMap) {
+	public static int countICCRelatedMethodNumber(boolean entryMethod, Map<String, MethodSummaryModel> summaryMap) {
 		int sum = 0;
-		for (Entry<String, SingleMethodModel> en : summaryMap.entrySet()) {
+		for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
 			if (entryMethod) {
 				SootMethod sm = SootUtils.getSootMethodBySignature(en.getKey());
 				boolean flag = Global.v().getAppModel().getEntryMethod2Component().containsKey(sm);
@@ -545,7 +544,7 @@ public class DoStatistic {
 	 * @param result
 	 * @return
 	 */
-	public static void updateSummaryStatisticUseSummayMap(SingleMethodModel model, StatisticResult result) {
+	public static void updateSummaryStatisticUseSummayMap(MethodSummaryModel model, StatisticResult result) {
 		SummaryStatistic statistic = result.getSummaryStatistic();
 		statistic.getSummariedMethods().add(model.getMethod().getSignature());
 		if (isICCRelatedEntryMethod(model))
@@ -566,7 +565,7 @@ public class DoStatistic {
 	 * @param summaryMap
 	 * @param result
 	 */
-	public static void updateTraceStatisticUseSummayMap(boolean entryMethod, SingleMethodModel intentSummary,
+	public static void updateTraceStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel intentSummary,
 			StatisticResult result) {
 		TraceStatistic statistic;
 		if (entryMethod) {
@@ -584,7 +583,7 @@ public class DoStatistic {
 				return;
 		}
 		traceDepth += intentSummary.getMaxMethodTraceDepth();
-		for (SinglePathModel si : intentSummary.getPathSet()) {
+		for (PathSummaryModel si : intentSummary.getPathSet()) {
 			traceNum += si.getMethodTrace().size() - 1;
 			traceNumSum++;
 		}
@@ -612,7 +611,7 @@ public class DoStatistic {
 	 * @param summaryMap
 	 * @param result
 	 */
-	public static void updateICCStatisticUseSummayMap(boolean entryMethod, SingleMethodModel intentSummary,
+	public static void updateICCStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel intentSummary,
 			StatisticResult result) {
 		ICCStatistic statistic;
 		if (entryMethod) {
@@ -634,7 +633,7 @@ public class DoStatistic {
 		if (!statistic.getDestinationMap().containsKey(sm.getSignature())) {
 			statistic.getDestinationMap().put(sm.getSignature(), new HashSet<String>());
 		}
-		for (SingleObjectModel singleObject : intentSummary.getSingleObjects()) {
+		for (ObjectSummaryModel singleObject : intentSummary.getSingleObjects()) {
 			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
 			Set<String> newDestinationSet = new HashSet<String>();
 			for (String des : singleIntent.getSetDestinationList()) {
@@ -693,7 +692,7 @@ public class DoStatistic {
 		}
 	}
 
-	private static boolean isICCRelatedEntryMethod(SingleMethodModel intentSummary) {
+	private static boolean isICCRelatedEntryMethod(MethodSummaryModel intentSummary) {
 		if (intentSummary.getPathSet().size() == 0)
 			return false;
 		SootMethod sm = null;

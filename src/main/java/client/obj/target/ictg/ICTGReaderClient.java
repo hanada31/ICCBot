@@ -2,14 +2,14 @@ package main.java.client.obj.target.ictg;
 
 import java.io.File;
 import java.io.IOException;
+
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.target.ictg.ICTGReaderClient;
-import main.java.client.related.wtg.ATGReader;
-import main.java.client.statistic.model.StatisticResult;
+import main.java.client.related.gator.ATGReader;
 
 import org.dom4j.DocumentException;
 

@@ -4,13 +4,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.Counter;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.ictg.SingleIntentModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.Unit;
@@ -21,12 +20,12 @@ public class SetAttributeHandler extends UnitHandler {
 	SingleIntentModel singleIntent;
 
 	@Override
-	public void handleSingleObject(SingleObjectModel singleObject) {
+	public void handleSingleObject(ObjectSummaryModel singleObject) {
 		this.handleSingleObject(new Context(), singleObject);
 	}
 
 	@Override
-	public void handleSingleObject(Context context, SingleObjectModel singleObject) {
+	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
 		this.singleIntent = (SingleIntentModel) singleObject;
 		this.singleIntent.getDataHandleList().add(unit);
@@ -34,7 +33,7 @@ public class SetAttributeHandler extends UnitHandler {
 	}
 
 	@Override
-	public void handleSingleObject(Context oldContextwithRealValue, SingleObjectModel singleObject, Unit targetUnit) {
+	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
 		this.oldContextwithRealValue = oldContextwithRealValue;
 		this.singleIntent = (SingleIntentModel) singleObject;
 		this.singleIntent.getDataHandleList().add(unit);

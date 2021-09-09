@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import main.java.analyze.model.analyzeModel.Attribute;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.Counter;
 import main.java.analyze.utils.CollectionUtils;
@@ -36,14 +36,14 @@ public class SetIntentExtraHandler extends UnitHandler {
 	SingleIntentModel singleIntent;
 
 	@Override
-	public void handleSingleObject(SingleObjectModel singleObject) {
+	public void handleSingleObject(ObjectSummaryModel singleObject) {
 		this.singleIntent = (SingleIntentModel) singleObject;
 		this.singleIntent.getDataHandleList().add(unit);
 		setExtraAPIAnalyze(unit); // extra
 	}
 
 	@Override
-	public void handleSingleObject(Context context, SingleObjectModel singleObject) {
+	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
 		this.singleIntent = (SingleIntentModel) singleObject;
 		this.singleIntent.getDataHandleList().add(unit);
@@ -51,7 +51,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 	}
 
 	@Override
-	public void handleSingleObject(Context oldContextwithRealValue, SingleObjectModel singleObject, Unit targetUnit) {
+	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
 		this.oldContextwithRealValue = oldContextwithRealValue;
 		this.singleIntent = (SingleIntentModel) singleObject;
 		this.singleIntent.getDataHandleList().add(unit);

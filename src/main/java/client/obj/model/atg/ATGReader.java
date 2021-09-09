@@ -17,10 +17,10 @@ public class ATGReader extends Analyzer {
 
 	@Override
 	public void analyze() {
-		obtainWTGfromFile();
+		obtainGatorfromFile();
 	}
 
-	private void obtainWTGfromFile() {
+	private void obtainGatorfromFile() {
 		List<String> lines = FileUtils.getListFromFile(model.getATGFilePath());
 		for (String line : lines) {
 			line = line.trim();

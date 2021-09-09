@@ -1,7 +1,7 @@
 package main.java.client.obj.unitHnadler.fragment;
 
 import java.io.IOException;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.Counter;
 import main.java.analyze.utils.ValueObtainer;
@@ -15,12 +15,12 @@ public class AddTabFunctionHandler extends UnitHandler {
 	SingleFragmentModel singleFrag;
 
 	@Override
-	public void handleSingleObject(SingleObjectModel singleObject) {
+	public void handleSingleObject(ObjectSummaryModel singleObject) {
 		this.handleSingleObject(new Context(), singleObject);
 	}
 
 	@Override
-	public void handleSingleObject(Context context, SingleObjectModel singleObject) {
+	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
 		this.singleFrag = (SingleFragmentModel) singleObject;
 		this.singleFrag.getSendFragment2Start().add(unit);
@@ -32,7 +32,7 @@ public class AddTabFunctionHandler extends UnitHandler {
 	}
 
 	@Override
-	public void handleSingleObject(Context oldContextwithRealValue, SingleObjectModel singleObject, Unit targetUnit) {
+	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
 		this.oldContextwithRealValue = oldContextwithRealValue;
 		this.singleFrag = (SingleFragmentModel) singleObject;
 		this.singleFrag.getDataHandleList().add(unit);

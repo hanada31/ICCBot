@@ -5,11 +5,10 @@ import java.util.List;
 import main.java.Global;
 import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.model.analyzeModel.ParameterSource;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.NestableObj;
 import main.java.analyze.utils.SootUtils;
-import main.java.client.obj.model.atg.AtgNode;
 import soot.SootMethod;
 import soot.Unit;
 import soot.Value;
@@ -38,13 +37,13 @@ public abstract class UnitHandler {
 
 	}
 
-	public void handleSingleObject(SingleObjectModel singleObject) {
+	public void handleSingleObject(ObjectSummaryModel singleObject) {
 	}
 
-	public void handleSingleObject(Context context, SingleObjectModel singleObject) {
+	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 	}
 
-	public void handleSingleObject(Context oldContextwithRealValue, SingleObjectModel singleObject,
+	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject,
 			Unit handleTargetUnit) {
 	}
 

@@ -1,18 +1,15 @@
 package main.java.client.obj.target.ictg;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import afu.org.checkerframework.checker.units.qual.s;
 import main.java.Global;
 import main.java.MyConfig;
-import main.java.analyze.model.analyzeModel.SingleMethodModel;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.MethodSummaryModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.analyzeModel.UnitNode;
-import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.ObjectAnalyzer;
@@ -46,12 +43,12 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * getSingleClassAnalyze
 	 */
 	@Override
-	public void getSingleComponent(SingleMethodModel singleMethod) {
+	public void getSingleComponent(MethodSummaryModel singleMethod) {
 		ComponentModel model = appModel.getComponentMap().get(
 				SootUtils.getNameofClass(methodUnderAnalysis.getDeclaringClass().getName()));
 		if (model == null)
 			return;
-		for (SingleObjectModel singleObject : singleMethod.getSingleObjects()) {
+		for (ObjectSummaryModel singleObject : singleMethod.getSingleObjects()) {
 			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
 			model.getReceiveModel().getReceivedActionSet().addAll(singleIntent.getGetActionCandidateList());
 			model.getReceiveModel().getReceivedCategorySet().addAll(singleIntent.getGetCategoryCandidateList());
@@ -75,7 +72,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * analyzeCurrentSetMethods for a set of method
 	 */
 	@Override
-	public void drawATGandStatistic(SingleMethodModel model) {
+	public void drawATGandStatistic(MethodSummaryModel model) {
 		if (model == null)
 			return;
 		generateATGInfo(model);
@@ -87,7 +84,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param model
 	 */
-	private void generateATGInfo(SingleMethodModel singleMethod) {
+	private void generateATGInfo(MethodSummaryModel singleMethod) {
 		SootMethod sootMtd = singleMethod.getMethod();
 		if (MyConfig.getInstance().getMySwithch().isImplicitLaunchSwitch()) {
 			implicitDestinationAnalyze(singleMethod);
@@ -120,7 +117,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 		for (SootClass sootCls : subClasses) {
 			if (sootCls.getMethodUnsafe(sootMtd.getSubSignature()) == null || sootCls == sootMtd.getDeclaringClass()) {
 				String src = sootCls.getName();
-				for (SingleObjectModel singleIntent : singleMethod.getSingleObjects()) {
+				for (ObjectSummaryModel singleIntent : singleMethod.getSingleObjects()) {
 					if (((SingleIntentModel) singleIntent).getSendIntent2ICCList().size() == 0)
 						continue;
 					getTargetOfSrc((SingleIntentModel) singleIntent, src);
@@ -164,8 +161,8 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param intentSummary
 	 */
-	private void implicitDestinationAnalyze(SingleMethodModel intentSummary) {
-		for (SingleObjectModel singleObject : intentSummary.getSingleObjects()) {
+	private void implicitDestinationAnalyze(MethodSummaryModel intentSummary) {
+		for (ObjectSummaryModel singleObject : intentSummary.getSingleObjects()) {
 			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
 
 			if (singleIntent.getSendIntent2ICCList().size() == 0)
@@ -281,7 +278,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param model
 	 */
-	private void makeStatistic(SingleMethodModel model) {
+	private void makeStatistic(MethodSummaryModel model) {
 		// computeTraceDepth();
 		DoStatistic.updateTraceStatisticUseSummayMap(false, model, result);
 		DoStatistic.updateTraceStatisticUseSummayMap(true, model, result);
@@ -301,8 +298,8 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * 
 	 */
 	public void computeTraceDepth() {
-		for (Entry<String, SingleMethodModel> en : currentSummaryMap.entrySet()) {
-			SingleMethodModel intentSummary = en.getValue();
+		for (Entry<String, MethodSummaryModel> en : currentSummaryMap.entrySet()) {
+			MethodSummaryModel intentSummary = en.getValue();
 			computeTraceDepthForOne(intentSummary, intentSummary, 1);
 		}
 	}
@@ -314,7 +311,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * @param topSummary
 	 * @param i
 	 */
-	private void computeTraceDepthForOne(SingleMethodModel currentSummary, SingleMethodModel topSummary, int i) {
+	private void computeTraceDepthForOne(MethodSummaryModel currentSummary, MethodSummaryModel topSummary, int i) {
 		List<UnitNode> list = currentSummary.getNodePathList();
 		for (UnitNode n : list) {
 			if (n.getInterFunNode() != null) {

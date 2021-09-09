@@ -39,10 +39,9 @@ public class AppModel implements Serializable {
 	private String permission;
 	private Set<String> usesPermissionSet;
 	private Set<String> applicationClassNames;
-	// private Set<SootClass> applicationClasses;
-	// private HashMap<String, SootMethod> methodMap;
 
-	// cg related
+
+	// call graph related
 	private Set<SootMethod> allMethods;
 	private Set<SootMethod> entryMethods;
 	private CallGraph cg;
@@ -83,11 +82,9 @@ public class AppModel implements Serializable {
 	private Map<SootMethod, SootClass> entryMethod2Component;
 	private Map<Pair<SootMethod, Unit>, Set<SootMethod>> entryMethod2MethodAddThisCallBack;
 	private Map<SootClass, SootClass> fragment2Component;
-	// TODO
 	private Map<Unit, List<ParameterSource>> unit2ParameterSource;
 
 	public AppModel() {
-
 		String name = MyConfig.getInstance().getAppName();
 		appPath = MyConfig.getInstance().getAppPath() + name;
 		appName = name.substring(0, name.length() - 4);
@@ -108,9 +105,7 @@ public class AppModel implements Serializable {
 		componentMap = new HashMap<String, ComponentModel>();
 		exportedComponentMap = new HashMap<String, ComponentModel>();
 		FragmentClasses = new HashSet<String>();
-		// applicationClasses = new HashSet<SootClass>();
 		applicationClassNames = new HashSet<String>();
-		// setmethodMap(new HashMap<String, SootMethod> ());
 
 		toBeAnalyzedActivityMap = new HashMap<String, ActivityModel>();
 		usesPermissionSet = new HashSet<String>();
@@ -151,6 +146,9 @@ public class AppModel implements Serializable {
 		return res;
 	}
 
+	/**
+	 * print the call graph
+	 */
 	public void printCg() {
 		if (cg == null)
 			return;
@@ -163,7 +161,7 @@ public class AppModel implements Serializable {
 		}
 	}
 
-	// getter an setter
+	
 	public Map<String, Attribute> getUnit2Attribute() {
 		return unit2Attribute;
 	}
@@ -245,9 +243,6 @@ public class AppModel implements Serializable {
 		return StaticRefSignature2initAssignMap;
 	}
 
-	// public Map<String, Set<String>> getSystemServiceMap() {
-	// return systemServiceMap;
-	// }
 
 	public List<SootMethod> getTopoMethodQueue() {
 		return topoMethodQueue;
@@ -577,41 +572,4 @@ public class AppModel implements Serializable {
 		this.entryMethods = entryMethods;
 	}
 
-	// /**
-	// * @return the applicationClasses
-	// */
-	// public Set<SootClass> getApplicationClasses() {
-	// return applicationClasses;
-	// }
-	//
-	//
-	//
-	// /**
-	// * @param applicationClasses the applicationClasses to set
-	// */
-	// public void addApplicationClasses(SootClass sc) {
-	// this.applicationClasses.add(sc);
-	// }
-	//
-	// /**
-	// * @return the methodMap
-	// */
-	// public HashMap<String, SootMethod> getmethodMap() {
-	// return methodMap;
-	// }
-	//
-	// /**
-	// * @param methodMap the methodMap to set
-	// */
-	// public void setmethodMap(HashMap<String, SootMethod> methodMap) {
-	// this.methodMap = methodMap;
-	// }
-	//
-	// /**
-	// * @param methodMap the methodMap to set
-	// */
-	// public void addmethodMap(String s, SootMethod sm) {
-	// if(!methodMap.containsKey(s))
-	// methodMap.put(s, sm);
-	// }
 }

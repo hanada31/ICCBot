@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import main.java.analyze.model.analyzeModel.Attribute;
-import main.java.analyze.model.analyzeModel.SingleObjectModel;
+import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.NestableObj;
 import main.java.analyze.utils.CollectionUtils;
@@ -34,12 +34,12 @@ public class GetAttributeHandler extends UnitHandler {
 	SingleIntentModel singleIntent;
 
 	@Override
-	public void handleSingleObject(SingleObjectModel singleObject) {
+	public void handleSingleObject(ObjectSummaryModel singleObject) {
 		this.handleSingleObject(new Context(), singleObject);
 	}
 
 	@Override
-	public void handleSingleObject(Context context, SingleObjectModel singleObject) {
+	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
 		this.singleIntent = (SingleIntentModel) singleObject;
 		this.singleIntent.getDataHandleList().add(unit);

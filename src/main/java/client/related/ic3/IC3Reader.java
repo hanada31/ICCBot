@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import main.java.Analyzer;
 import main.java.Global;
-import main.java.analyze.model.analyzeModel.SingleMethodModel;
+import main.java.analyze.model.analyzeModel.MethodSummaryModel;
 import main.java.analyze.model.analyzeModel.UnitNode;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.SootUtils;
@@ -41,11 +41,11 @@ public class IC3Reader extends Analyzer {
 	Map<String, ComponentModel> IC3ComponentMap = new HashMap<String, ComponentModel>();
 	IC3Model model;
 	protected StatisticResult result;
-	protected Map<String, SingleMethodModel> summaryMap;
+	protected Map<String, MethodSummaryModel> summaryMap;
 
 	public IC3Reader(StatisticResult result) {
 		this.result = result;
-		summaryMap = new HashMap<String, SingleMethodModel>();
+		summaryMap = new HashMap<String, MethodSummaryModel>();
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class IC3Reader extends Analyzer {
 	}
 
 	private void makeStatistic() {
-		for (Entry<String, SingleMethodModel> en : summaryMap.entrySet()) {
+		for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
 			DoStatistic.updateXMLStatisticUseSummayMap(true, en.getValue(), result);
 			DoStatistic.updateXMLStatisticUseSummayMap(false, en.getValue(), result);
 		}
@@ -293,9 +293,9 @@ public class IC3Reader extends Analyzer {
 
 	private void addToSummaryMap(String src, String method, SingleIntentModel singleIntent) {
 		if (SootUtils.getSootMethodBySignature(method) != null) {
-			SingleMethodModel singleMethod = summaryMap.get(method);
+			MethodSummaryModel singleMethod = summaryMap.get(method);
 			if (!summaryMap.containsKey(method)) {
-				singleMethod = new SingleMethodModel(SootUtils.getNameofClass(src), Scene.v().getMethod(method));
+				singleMethod = new MethodSummaryModel(SootUtils.getNameofClass(src), Scene.v().getMethod(method));
 				summaryMap.put(method, singleMethod);
 			}
 			singleMethod.getSingleObjects().add(singleIntent);

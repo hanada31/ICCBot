@@ -1,13 +1,19 @@
 package main.java;
 
+/**
+ * switches for the analysis
+ * @author hanada
+ *
+ */
 public class Switch {
 	// control flow
-	private boolean dummyMainSwitch;//
+	private boolean dummyMainSwitch;
 	private boolean callBackSwitch;
 	private boolean asyncMethodSwitch;
 	private boolean polymSwitch;
-	private boolean functionExpandSwitch;//
-	private boolean functionExpandAllSwitch;//
+	private boolean functionExpandSwitch;
+	private boolean functionExpandAllSwitch;
+	
 	// data flow
 	private boolean adapterSwitch;
 	private boolean stringOpSwitch;
@@ -27,9 +33,9 @@ public class Switch {
 	private boolean vfgStrategy;
 	private SummaryLevel summaryStrategy;
 	private boolean cgAnalyzeGroupedStrategy;
-
+	
+	//other
 	private boolean getAttributeStrategy;
-
 	private boolean scenario_stack;
 
 	public Switch() {

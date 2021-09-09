@@ -18,6 +18,7 @@ public class MyConfig {
 	private boolean writeSootOutput = false;
 	private String androidVersion;
 	private String resultFolder;
+	private String resultWarpperFolder;
 	private String srcFolder;
 	private String appName;
 	private String appPath;
@@ -271,5 +272,19 @@ public class MyConfig {
 	 */
 	public void setStopFlag(boolean stopFlag) {
 		this.stopFlag = stopFlag;
+	}
+
+	/**
+	 * @return the resultWarpperFolder
+	 */
+	public String getResultWarpperFolder() {
+		return resultWarpperFolder;
+	}
+
+	/**
+	 * @param resultWarpperFolder the resultWarpperFolder to set
+	 */
+	public void setResultWarpperFolder(String resultWarpperFolder) {
+		this.resultWarpperFolder = resultWarpperFolder;
 	}
 }

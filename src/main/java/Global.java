@@ -8,8 +8,8 @@ import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.model.labeledOracleModel.LabeledOracleModel;
 import main.java.client.obj.model.fragment.FragmentModel;
 import main.java.client.obj.model.ictg.ICTGModel;
+import main.java.client.related.gator.model.GatorModel;
 import main.java.client.related.ic3.model.IC3Model;
-import main.java.client.related.wtg.model.WTGModel;
 
 public class Global {
 	private static final Global instance = new Global();
@@ -17,31 +17,39 @@ public class Global {
 	private IC3Model iC3Model;
 	private IC3Model iC3DialDroidModel;
 	private ICTGModel iCTGModel;
-	private WTGModel wtgModel;
+	private GatorModel gatorModel;
 	private LabeledOracleModel labeledOracleModel;
-
 	private FragmentModel fragmentModel;
 	private List<Unit> instrumentList;
-
+	
+	//counter of analyzed app
 	public int id = 0;
-
+	
+	/**
+	 * get the single instance of Global information
+	 * include multiple models
+	 * @return
+	 */
 	public static Global v() {
 		return instance;
 	}
 
+	/**
+	 * initialize the Global instance
+	 */
 	private Global() {
 		appModel = new AppModel();
 		iC3Model = new IC3Model();
 		iC3DialDroidModel = new IC3Model();
 		fragmentModel = new FragmentModel();
 		iCTGModel = new ICTGModel();
-		setWtgModel(new WTGModel());
+		setGatorModel(new GatorModel());
 		setInstrumentList(new ArrayList<Unit>());
 		labeledOracleModel = new LabeledOracleModel();
 	}
 
 	/**
-	 * @return the appModel
+	 * @return get the AppModel
 	 */
 	public AppModel getAppModel() {
 		return appModel;
@@ -91,20 +99,6 @@ public class Global {
 		this.instrumentList.add(u);
 	}
 
-	/**
-	 * @return the wtgModel
-	 */
-	public WTGModel getWtgModel() {
-		return wtgModel;
-	}
-
-	/**
-	 * @param wtgModel
-	 *            the wtgModel to set
-	 */
-	public void setWtgModel(WTGModel wtgModel) {
-		this.wtgModel = wtgModel;
-	}
 
 	/**
 	 * @return the iC3DialDroidModel
@@ -134,6 +128,20 @@ public class Global {
 	 */
 	public void setLabeledOracleModel(LabeledOracleModel labeledOracleModel) {
 		this.labeledOracleModel = labeledOracleModel;
+	}
+
+	/**
+	 * @return the gatorModel
+	 */
+	public GatorModel getGatorModel() {
+		return gatorModel;
+	}
+
+	/**
+	 * @param gatorModel the gatorModel to set
+	 */
+	public void setGatorModel(GatorModel gatorModel) {
+		this.gatorModel = gatorModel;
 	}
 
 }

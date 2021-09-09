@@ -10,8 +10,6 @@ import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.target.ictg.ICTGClient;
 import main.java.client.statistic.StatisticClient;
-import main.java.client.statistic.model.StatisticResult;
-
 import org.dom4j.DocumentException;
 
 /**

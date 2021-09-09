@@ -10,8 +10,6 @@ import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.soot.SootAnalyzer;
-import main.java.client.statistic.model.StatisticResult;
-
 import org.dom4j.DocumentException;
 
 /**
