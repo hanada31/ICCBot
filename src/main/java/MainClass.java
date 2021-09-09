@@ -29,7 +29,7 @@ import org.apache.commons.cli.ParseException;
  * 
  * Main Class of ICC Extractor
  * 
- * @author yanjw
+ * @author hanada
  * @version 2.0 -version 28 -path ..\apk\ -name IntentFlowBench.apk -outputDir
  *          Result_testGen -client xxxClient
  */
@@ -258,7 +258,7 @@ public class MainClass {
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
 		MyConfig.getInstance().setMaxPathNumber(100);
-		MyConfig.getInstance().setResultFolder("results" + File.separator + "output" + File.separator);
+		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);
 		MyConfig.getInstance().setTimeLimit(50);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
 	}
