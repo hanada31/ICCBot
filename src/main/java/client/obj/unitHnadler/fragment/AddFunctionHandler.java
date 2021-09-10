@@ -4,7 +4,7 @@ import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.Counter;
 import main.java.analyze.utils.ValueObtainer;
-import main.java.client.obj.model.fragment.SingleFragmentModel;
+import main.java.client.obj.model.fragment.FragmentSummaryModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.Scene;
 import soot.SootClass;
@@ -14,7 +14,7 @@ import soot.Value;
 
 public class AddFunctionHandler extends UnitHandler {
 	Context context;
-	SingleFragmentModel singleFrag;
+	FragmentSummaryModel singleFrag;
 
 	@Override
 	public void handleSingleObject(ObjectSummaryModel singleObject) {
@@ -24,7 +24,7 @@ public class AddFunctionHandler extends UnitHandler {
 	@Override
 	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
-		this.singleFrag = (SingleFragmentModel) singleObject;
+		this.singleFrag = (FragmentSummaryModel) singleObject;
 		this.singleFrag.getDataHandleList().add(unit);
 		addAnalyze();
 	}
@@ -32,7 +32,7 @@ public class AddFunctionHandler extends UnitHandler {
 	@Override
 	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
 		this.oldContextwithRealValue = oldContextwithRealValue;
-		this.singleFrag = (SingleFragmentModel) singleObject;
+		this.singleFrag = (FragmentSummaryModel) singleObject;
 		this.singleFrag.getDataHandleList().add(unit);
 		this.targetUnit = targetUnit;
 		addAnalyze();

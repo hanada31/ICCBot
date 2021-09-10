@@ -420,7 +420,7 @@ public class ToolEvaluateClient extends BaseClient {
 	}
 
 	/**
-	 * writeSingleIntentModel
+	 * writeIntentSummaryModel
 	 * 
 	 * @param dir
 	 * @param file

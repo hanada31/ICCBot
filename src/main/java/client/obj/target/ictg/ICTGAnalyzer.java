@@ -20,7 +20,7 @@ import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.ExtraData;
 import main.java.client.obj.model.component.IntentFilterModel;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.statistic.model.DoStatistic;
 import main.java.client.statistic.model.StatisticResult;
 import soot.Scene;
@@ -36,33 +36,33 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 
 	@Override
 	public void assignForObjectName() {
-		this.objectName = "main.java.client.obj.model.ictg.SingleIntentModel";
+		this.objectName = "main.java.client.obj.model.ictg.IntentSummaryModel";
 	}
 
 	/**
 	 * getSingleClassAnalyze
 	 */
 	@Override
-	public void getSingleComponent(MethodSummaryModel singleMethod) {
+	public void getSingleComponent(MethodSummaryModel methodSummary) {
 		ComponentModel model = appModel.getComponentMap().get(
 				SootUtils.getNameofClass(methodUnderAnalysis.getDeclaringClass().getName()));
 		if (model == null)
 			return;
-		for (ObjectSummaryModel singleObject : singleMethod.getSingleObjects()) {
-			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
-			model.getReceiveModel().getReceivedActionSet().addAll(singleIntent.getGetActionCandidateList());
-			model.getReceiveModel().getReceivedCategorySet().addAll(singleIntent.getGetCategoryCandidateList());
-			model.getReceiveModel().getReceivedDataSet().addAll(singleIntent.getGetDataCandidateList());
-			model.getReceiveModel().getReceivedTypeSet().addAll(singleIntent.getGetTypeCandidateList());
-			for (Entry<String, List<ExtraData>> entry : singleIntent.getGetExtrasCandidateList().getBundle().entrySet())
+		for (ObjectSummaryModel singleObject : methodSummary.getSingleObjects()) {
+			IntentSummaryModel intentSummary = (IntentSummaryModel) singleObject;
+			model.getReceiveModel().getReceivedActionSet().addAll(intentSummary.getGetActionCandidateList());
+			model.getReceiveModel().getReceivedCategorySet().addAll(intentSummary.getGetCategoryCandidateList());
+			model.getReceiveModel().getReceivedDataSet().addAll(intentSummary.getGetDataCandidateList());
+			model.getReceiveModel().getReceivedTypeSet().addAll(intentSummary.getGetTypeCandidateList());
+			for (Entry<String, List<ExtraData>> entry : intentSummary.getGetExtrasCandidateList().getBundle().entrySet())
 				model.getReceiveModel().getReceivedExtraData().getBundle().put(entry.getKey(), entry.getValue());
 
-			model.getSendModel().getSendActionSet().addAll(singleIntent.getSetActionValueList());
-			model.getSendModel().getSendCategorySet().addAll(singleIntent.getSetCategoryValueList());
-			model.getSendModel().getSendDataSet().addAll(singleIntent.getSetDataValueList());
-			model.getSendModel().getSendTypeSet().addAll(singleIntent.getSetTypeValueList());
-			model.getSendModel().getSendFlagSet().addAll(singleIntent.getSetFlagsList());
-			for (Entry<String, List<ExtraData>> entry : singleIntent.getSetExtrasValueList().getBundle().entrySet())
+			model.getSendModel().getSendActionSet().addAll(intentSummary.getSetActionValueList());
+			model.getSendModel().getSendCategorySet().addAll(intentSummary.getSetCategoryValueList());
+			model.getSendModel().getSendDataSet().addAll(intentSummary.getSetDataValueList());
+			model.getSendModel().getSendTypeSet().addAll(intentSummary.getSetTypeValueList());
+			model.getSendModel().getSendFlagSet().addAll(intentSummary.getSetFlagsList());
+			for (Entry<String, List<ExtraData>> entry : intentSummary.getSetExtrasValueList().getBundle().entrySet())
 				model.getSendModel().getSendExtraData().getBundle().put(entry.getKey(), entry.getValue());
 
 		}
@@ -84,10 +84,10 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param model
 	 */
-	private void generateATGInfo(MethodSummaryModel singleMethod) {
-		SootMethod sootMtd = singleMethod.getMethod();
+	private void generateATGInfo(MethodSummaryModel methodSummary) {
+		SootMethod sootMtd = methodSummary.getMethod();
 		if (MyConfig.getInstance().getMySwithch().isImplicitLaunchSwitch()) {
-			implicitDestinationAnalyze(singleMethod);
+			implicitDestinationAnalyze(methodSummary);
 		}
 		SootClass cls = null;
 		if (appModel.getEntryMethod2Component().containsKey(sootMtd))
@@ -117,10 +117,10 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 		for (SootClass sootCls : subClasses) {
 			if (sootCls.getMethodUnsafe(sootMtd.getSubSignature()) == null || sootCls == sootMtd.getDeclaringClass()) {
 				String src = sootCls.getName();
-				for (ObjectSummaryModel singleIntent : singleMethod.getSingleObjects()) {
-					if (((SingleIntentModel) singleIntent).getSendIntent2ICCList().size() == 0)
+				for (ObjectSummaryModel intentSummary : methodSummary.getSingleObjects()) {
+					if (((IntentSummaryModel) intentSummary).getSendIntent2ICCList().size() == 0)
 						continue;
-					getTargetOfSrc((SingleIntentModel) singleIntent, src);
+					getTargetOfSrc((IntentSummaryModel) intentSummary, src);
 				}
 			}
 		}
@@ -129,14 +129,14 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	/**
 	 * getTargetOfSrc
 	 * 
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param src
 	 */
-	private void getTargetOfSrc(SingleIntentModel singleIntent, String src) {
-		SootMethod method = singleIntent.getMethod();
-		Unit unit = singleIntent.getSendIntent2ICCList().iterator().next();
+	private void getTargetOfSrc(IntentSummaryModel intentSummary, String src) {
+		SootMethod method = intentSummary.getMethod();
+		Unit unit = intentSummary.getSendIntent2ICCList().iterator().next();
 		int instructionId = SootUtils.getIdForUnit(unit, method);
-		for (String des : singleIntent.getSetDestinationList()) {
+		for (String des : intentSummary.getSetDestinationList()) {
 			ComponentModel comp = appModel.getComponentMap().get(des);
 			AtgEdge edge;
 			if (comp == null || !method.getActiveBody().getUnits().contains(unit))
@@ -145,7 +145,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
 						comp.getComponentType());
 
-			edge.setSingleIntent(singleIntent);
+			edge.setIntentSummary(intentSummary);
 			Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
 
 			String name = SootUtils.getNameofClass(src);
@@ -161,20 +161,20 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param intentSummary
 	 */
-	private void implicitDestinationAnalyze(MethodSummaryModel intentSummary) {
-		for (ObjectSummaryModel singleObject : intentSummary.getSingleObjects()) {
-			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
+	private void implicitDestinationAnalyze(MethodSummaryModel methodSummary) {
+		for (ObjectSummaryModel singleObject : methodSummary.getSingleObjects()) {
+			IntentSummaryModel intentSummary = (IntentSummaryModel) singleObject;
 
-			if (singleIntent.getSendIntent2ICCList().size() == 0)
+			if (intentSummary.getSendIntent2ICCList().size() == 0)
 				continue;
-			if (singleIntent.getSetDestinationList().size() > 0)
+			if (intentSummary.getSetDestinationList().size() > 0)
 				continue;
-			List<String> actionSet = singleIntent.getSetActionValueList();
-			List<String> cateSet = singleIntent.getSetCategoryValueList();
-			List<String> dataSet = singleIntent.getSetDataValueList();
-			List<String> typeSet = singleIntent.getSetTypeValueList();
+			List<String> actionSet = intentSummary.getSetActionValueList();
+			List<String> cateSet = intentSummary.getSetCategoryValueList();
+			List<String> dataSet = intentSummary.getSetDataValueList();
+			List<String> typeSet = intentSummary.getSetTypeValueList();
 			if (actionSet.size() + cateSet.size() + dataSet.size() + typeSet.size() > 0) {
-				analyzeDesinationByACDT(singleIntent);
+				analyzeDesinationByACDT(intentSummary);
 				/** add destination match **/
 			}
 		}
@@ -183,16 +183,16 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	/**
 	 * for implicit ICC destination match ICC-intent filter match rule
 	 * 
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param acdtSet
 	 * @param set
 	 */
-	private void analyzeDesinationByACDT(SingleIntentModel singleIntent) {
-		List<String> summaryActionSet = singleIntent.getSetActionValueList();
-		List<String> summaryCateSet = singleIntent.getSetCategoryValueList();
-		List<String> summaryDataSet = singleIntent.getSetDataValueList();
-		List<String> summaryTypeSet = singleIntent.getSetTypeValueList();
-		List<String> resSet = singleIntent.getSetDestinationList();
+	private void analyzeDesinationByACDT(IntentSummaryModel intentSummary) {
+		List<String> summaryActionSet = intentSummary.getSetActionValueList();
+		List<String> summaryCateSet = intentSummary.getSetCategoryValueList();
+		List<String> summaryDataSet = intentSummary.getSetDataValueList();
+		List<String> summaryTypeSet = intentSummary.getSetTypeValueList();
+		List<String> resSet = intentSummary.getSetDestinationList();
 		boolean findTarget = false;
 		for (ComponentModel component : appModel.getComponentMap().values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
@@ -258,7 +258,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 				boolean flag1 = actionTarget && cateTarget && dataTarget && typeTarget;
 				boolean flag2 = (summaryActionSet.size() == 0) && cateTarget && dataTarget && typeTarget;
 				if (flag1 || flag2) {
-					if (component.getComponentType().contains(singleIntent.getTargetType())) {
+					if (component.getComponentType().contains(intentSummary.getTargetType())) {
 						findTarget = true;
 						resSet.add(component.getComponetName());
 					}
@@ -287,7 +287,8 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 		DoStatistic.updateICCStatisticUseSummayMap(true, model, result);
 
 		DoStatistic.updateSummaryStatisticUseSummayMap(model, result);
-
+		if(model.getMethod().getSignature().contains("OneFragment: void onAttach"))
+			System.out.println();
 		DoStatistic.updateXMLStatisticUseSummayMap(true, model, result);
 		DoStatistic.updateXMLStatisticUseSummayMap(false, model, result);
 

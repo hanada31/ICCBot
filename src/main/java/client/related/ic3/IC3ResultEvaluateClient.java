@@ -65,8 +65,8 @@ public class IC3ResultEvaluateClient extends BaseClient {
 				+ Global.v().getAppModel().getAppName() + ".json");
 
 		/** Intent **/
-		outer.writeSingleIntentModel(summary_app_dir + ConstantUtils.IC3FOLDETR, ConstantUtils.SINGLEOBJECT_ENTRY, true);
-		outer.writeSingleIntentModel(summary_app_dir + ConstantUtils.IC3FOLDETR, ConstantUtils.SINGLEOBJECT_ALL, false);
+		outer.writeIntentSummaryModel(summary_app_dir + ConstantUtils.IC3FOLDETR, ConstantUtils.SINGLEOBJECT_ENTRY, true);
+		outer.writeIntentSummaryModel(summary_app_dir + ConstantUtils.IC3FOLDETR, ConstantUtils.SINGLEOBJECT_ALL, false);
 	}
 
 }

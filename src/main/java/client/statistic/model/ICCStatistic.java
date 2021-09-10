@@ -4,29 +4,29 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 public class ICCStatistic {
 
 	private int iCCFlowNum = 0;
-	private Map<String, Set<SingleIntentModel>> intentSummaryTypeMap;
-	private Map<String, Set<SingleIntentModel>> intentSummaryReceiveTypeMap;
-	private Map<String, Set<SingleIntentModel>> intentSummaryUsedTypeMap;
-	private Map<String, Set<SingleIntentModel>> intentSummarySetTypeMap;
-	private Map<String, Set<SingleIntentModel>> intentSummaryNewTypeMap;
-	private Map<String, Set<SingleIntentModel>> intentSummarySendTypeMap;
+	private Map<String, Set<IntentSummaryModel>> intentSummaryTypeMap;
+	private Map<String, Set<IntentSummaryModel>> intentSummaryReceiveTypeMap;
+	private Map<String, Set<IntentSummaryModel>> intentSummaryUsedTypeMap;
+	private Map<String, Set<IntentSummaryModel>> intentSummarySetTypeMap;
+	private Map<String, Set<IntentSummaryModel>> intentSummaryNewTypeMap;
+	private Map<String, Set<IntentSummaryModel>> intentSummarySendTypeMap;
 	private Map<String, Set<String>> destinationMap;
 	private Map<Integer, Set<String>> destinationNum2MethodSet;
 	private int intraDestinationNum;
 	private int interDestinationNum;
 
 	public ICCStatistic() {
-		intentSummaryTypeMap = new HashMap<String, Set<SingleIntentModel>>();
-		intentSummaryReceiveTypeMap = new HashMap<String, Set<SingleIntentModel>>();
-		intentSummarySetTypeMap = new HashMap<String, Set<SingleIntentModel>>();
-		intentSummaryUsedTypeMap = new HashMap<String, Set<SingleIntentModel>>();
-		intentSummaryNewTypeMap = new HashMap<String, Set<SingleIntentModel>>();
-		intentSummarySendTypeMap = new HashMap<String, Set<SingleIntentModel>>();
+		intentSummaryTypeMap = new HashMap<String, Set<IntentSummaryModel>>();
+		intentSummaryReceiveTypeMap = new HashMap<String, Set<IntentSummaryModel>>();
+		intentSummarySetTypeMap = new HashMap<String, Set<IntentSummaryModel>>();
+		intentSummaryUsedTypeMap = new HashMap<String, Set<IntentSummaryModel>>();
+		intentSummaryNewTypeMap = new HashMap<String, Set<IntentSummaryModel>>();
+		intentSummarySendTypeMap = new HashMap<String, Set<IntentSummaryModel>>();
 		destinationMap = new HashMap<String, Set<String>>();
 		destinationNum2MethodSet = new HashMap<Integer, Set<String>>();
 	}
@@ -43,27 +43,27 @@ public class ICCStatistic {
 		this.iCCFlowNum += iCCFlowNum;
 	}
 
-	public Map<String, Set<SingleIntentModel>> getIntentSummaryTypeMap() {
+	public Map<String, Set<IntentSummaryModel>> getIntentSummaryTypeMap() {
 		return intentSummaryTypeMap;
 	}
 
-	public Map<String, Set<SingleIntentModel>> getIntentSummaryReceiveTypeMap() {
+	public Map<String, Set<IntentSummaryModel>> getIntentSummaryReceiveTypeMap() {
 		return intentSummaryReceiveTypeMap;
 	}
 
-	public Map<String, Set<SingleIntentModel>> getIntentSummarySetTypeMap() {
+	public Map<String, Set<IntentSummaryModel>> getIntentSummarySetTypeMap() {
 		return intentSummarySetTypeMap;
 	}
 
-	public Map<String, Set<SingleIntentModel>> getIntentSummaryUsedTypeMap() {
+	public Map<String, Set<IntentSummaryModel>> getIntentSummaryUsedTypeMap() {
 		return intentSummaryUsedTypeMap;
 	}
 
-	public Map<String, Set<SingleIntentModel>> getIntentSummaryNewTypeMap() {
+	public Map<String, Set<IntentSummaryModel>> getIntentSummaryNewTypeMap() {
 		return intentSummaryNewTypeMap;
 	}
 
-	public Map<String, Set<SingleIntentModel>> getIntentSummarySendTypeMap() {
+	public Map<String, Set<IntentSummaryModel>> getIntentSummarySendTypeMap() {
 		return intentSummarySendTypeMap;
 	}
 

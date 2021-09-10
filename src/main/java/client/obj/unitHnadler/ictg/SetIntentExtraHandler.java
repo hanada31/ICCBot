@@ -16,7 +16,7 @@ import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ExtraData;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.obj.target.ictg.ICTGAnalyzerHelper;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.SootMethod;
@@ -33,28 +33,28 @@ import soot.toolkits.scalar.UnitValueBoxPair;
 
 public class SetIntentExtraHandler extends UnitHandler {
 
-	SingleIntentModel singleIntent;
+	IntentSummaryModel intentSummary;
 
 	@Override
 	public void handleSingleObject(ObjectSummaryModel singleObject) {
-		this.singleIntent = (SingleIntentModel) singleObject;
-		this.singleIntent.getDataHandleList().add(unit);
+		this.intentSummary = (IntentSummaryModel) singleObject;
+		this.intentSummary.getDataHandleList().add(unit);
 		setExtraAPIAnalyze(unit); // extra
 	}
 
 	@Override
 	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
-		this.singleIntent = (SingleIntentModel) singleObject;
-		this.singleIntent.getDataHandleList().add(unit);
+		this.intentSummary = (IntentSummaryModel) singleObject;
+		this.intentSummary.getDataHandleList().add(unit);
 		setExtraAPIAnalyze(unit); // extra
 	}
 
 	@Override
 	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
 		this.oldContextwithRealValue = oldContextwithRealValue;
-		this.singleIntent = (SingleIntentModel) singleObject;
-		this.singleIntent.getDataHandleList().add(unit);
+		this.intentSummary = (IntentSummaryModel) singleObject;
+		this.intentSummary.getDataHandleList().add(unit);
 		this.targetUnit = targetUnit;
 		setExtraAPIAnalyze(unit); // extra
 	}
@@ -111,7 +111,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 		// entry class
 		// appModel.ops.addSendExtraDataItemToMap(methodName, u, className,
 		// param_list);
-		addExtraValue2Set(methodUnderAnalyze, u, methodSig, param_list, singleIntent.getSetExtrasValueList());
+		addExtraValue2Set(methodUnderAnalyze, u, methodSig, param_list, intentSummary.getSetExtrasValueList());
 	}
 
 	public Map<String, List<ExtraData>> getParamListBundle(Unit u) {

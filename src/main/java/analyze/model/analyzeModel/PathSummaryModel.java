@@ -11,7 +11,7 @@ import java.util.Set;
 import main.java.analyze.utils.output.PrintUtils;
 
 public class PathSummaryModel {
-	private MethodSummaryModel singleMethod;
+	private MethodSummaryModel methodSummary;
 	private List<UnitNode> nodes;
 	private List<String> methodTraceUnrepeated;
 	private Set<ObjectSummaryModel> singleObjectSet;
@@ -21,8 +21,8 @@ public class PathSummaryModel {
 		this(null);
 	}
 
-	public PathSummaryModel(MethodSummaryModel singleMethod) {
-		setSingleMethod(singleMethod);
+	public PathSummaryModel(MethodSummaryModel methodSummary) {
+		setMethodSummary(methodSummary);
 		setNodes(new ArrayList<UnitNode>());
 		setMethodTrace(new LinkedList<String>());
 		setSingleObjectSet(new HashSet<ObjectSummaryModel>());
@@ -37,12 +37,12 @@ public class PathSummaryModel {
 		this.methodTraceUnrepeated = methodTrace;
 	}
 
-	public MethodSummaryModel getSingleMethod() {
-		return singleMethod;
+	public MethodSummaryModel getMethodSummary() {
+		return methodSummary;
 	}
 
-	public void setSingleMethod(MethodSummaryModel singleMethod) {
-		this.singleMethod = singleMethod;
+	public void setMethodSummary(MethodSummaryModel methodSummary) {
+		this.methodSummary = methodSummary;
 	}
 
 	public List<UnitNode> getNodes() {
@@ -58,7 +58,7 @@ public class PathSummaryModel {
 	}
 
 	public void copy(PathSummaryModel temp) {
-		setSingleMethod(temp.getSingleMethod());
+		setMethodSummary(temp.getMethodSummary());
 		setMethodTrace(new LinkedList<String>(temp.getMethodTrace()));
 		setNode2TraceMap(new HashMap<Integer, List<String>>(temp.getNode2TraceMap()));
 
@@ -74,7 +74,7 @@ public class PathSummaryModel {
 		if (this.hashCode() == temp.hashCode())
 			return;
 		for (String me : temp.getMethodTrace()) {
-			if (!getMethodTrace().contains(me))
+			if (!getMethodTrace().contains(me) && me.contains("\t"))
 				getMethodTrace().add(me);
 		}
 		for (int i : temp.getNode2TraceMap().keySet()) {

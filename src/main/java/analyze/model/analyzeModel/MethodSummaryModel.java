@@ -7,12 +7,13 @@ import java.util.Set;
 
 import main.java.analyze.utils.output.PrintUtils;
 import soot.SootMethod;
+import soot.Unit;
 
 public class MethodSummaryModel {
 	private SootMethod method;
 	private String componentName;
-	private Set<PathSummaryModel> singlePathSet;
-	private Set<PathSummaryModel> analyzedSinglePathSet;
+	private Set<PathSummaryModel> pathSummarySet;
+	private Set<PathSummaryModel> analyzedPathSummarySet;
 	private Set<ObjectSummaryModel> singleObjectSet;
 	private List<UnitNode> nodePathList;
 	private int maxMethodTraceDepth;
@@ -23,8 +24,8 @@ public class MethodSummaryModel {
 		this.componentName = className;
 		this.method = method;
 		this.nodePathList = new ArrayList<UnitNode>();
-		this.singlePathSet = new HashSet<PathSummaryModel>();
-		this.analyzedSinglePathSet = new HashSet<PathSummaryModel>();
+		this.pathSummarySet = new HashSet<PathSummaryModel>();
+		this.analyzedPathSummarySet = new HashSet<PathSummaryModel>();
 		this.singleObjectSet = new HashSet<ObjectSummaryModel>();
 		this.setReuseModelSet(new HashSet<MethodSummaryModel>());
 	}
@@ -34,8 +35,8 @@ public class MethodSummaryModel {
 		this.componentName = temp.componentName;
 		this.maxMethodTraceDepth = temp.maxMethodTraceDepth;
 		this.nodePathList = temp.getNodePathList();
-		this.singlePathSet = new HashSet<PathSummaryModel>(temp.getPathSet());
-		this.analyzedSinglePathSet = new HashSet<PathSummaryModel>(temp.getAnalyzedSinglePathSet());
+		this.pathSummarySet = new HashSet<PathSummaryModel>(temp.getPathSet());
+		this.analyzedPathSummarySet = new HashSet<PathSummaryModel>(temp.getAnalyzedPathSummarySet());
 		this.singleObjectSet = new HashSet<ObjectSummaryModel>(temp.getSingleObjectSet());
 		this.setReuseModelSet(new HashSet<MethodSummaryModel>(temp.getReuseModelSet()));
 	}
@@ -90,26 +91,26 @@ public class MethodSummaryModel {
 	}
 
 	public Set<PathSummaryModel> getPathSet() {
-		return singlePathSet;
+		return pathSummarySet;
 	}
 
-	public void setSinglePathSet(Set<PathSummaryModel> singlePathSet) {
-		this.singlePathSet = singlePathSet;
-	}
-
-	/**
-	 * @return the analyzedSinglePathSet
-	 */
-	public Set<PathSummaryModel> getAnalyzedSinglePathSet() {
-		return analyzedSinglePathSet;
+	public void setPathSummarySet(Set<PathSummaryModel> pathSummarySet) {
+		this.pathSummarySet = pathSummarySet;
 	}
 
 	/**
-	 * @param analyzedSinglePathSet
-	 *            the analyzedSinglePathSet to set
+	 * @return the analyzedPathSummarySet
 	 */
-	public void setAnalyzedSinglePathSet(Set<PathSummaryModel> analyzedSinglePathSet) {
-		this.analyzedSinglePathSet = analyzedSinglePathSet;
+	public Set<PathSummaryModel> getAnalyzedPathSummarySet() {
+		return analyzedPathSummarySet;
+	}
+
+	/**
+	 * @param analyzedPathSummarySet
+	 *            the analyzedPathSummarySet to set
+	 */
+	public void setAnalyzedPathSummarySet(Set<PathSummaryModel> analyzedPathSummarySet) {
+		this.analyzedPathSummarySet = analyzedPathSummarySet;
 	}
 
 	/**
@@ -150,19 +151,24 @@ public class MethodSummaryModel {
 	public Set<ObjectSummaryModel> getSingleObjects() {
 		Set<ObjectSummaryModel> objectSet = new HashSet<ObjectSummaryModel>();
 		Set<MethodSummaryModel> history = new HashSet<MethodSummaryModel>();
-		getSingleObjectsIterative(this, objectSet, history);
+		List<SootMethod> stack = new ArrayList<SootMethod>();
+		getSingleObjectsIterative(this, objectSet, history, stack);
 
 		return objectSet;
 	}
 
-	private void getSingleObjectsIterative(MethodSummaryModel singleMethod, Set<ObjectSummaryModel> objectSet,
-			Set<MethodSummaryModel> history) {
-		if (history.contains(singleMethod))
+	private void getSingleObjectsIterative(MethodSummaryModel methodSummary, Set<ObjectSummaryModel> objectSet,
+			Set<MethodSummaryModel> history, List<SootMethod> stack) {
+		stack.add(methodSummary.getMethod());
+		if (history.contains(methodSummary))
 			return;
-		history.add(singleMethod);
-		objectSet.addAll(singleMethod.getSingleObjectSet());
-		for (MethodSummaryModel model : singleMethod.getReuseModelSet()) {
-			getSingleObjectsIterative(model, objectSet, history);
+		history.add(methodSummary);
+		for(ObjectSummaryModel objSummary: methodSummary.getSingleObjectSet()){
+			objSummary.setReusedMthCallStack(new ArrayList<SootMethod>(stack)); 
+		}
+		objectSet.addAll(methodSummary.getSingleObjectSet());
+		for (MethodSummaryModel model : methodSummary.getReuseModelSet()) {
+			getSingleObjectsIterative(model, objectSet, history, new ArrayList<SootMethod>(stack));
 		}
 	}
 }

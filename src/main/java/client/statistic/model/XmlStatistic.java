@@ -7,94 +7,94 @@ import org.dom4j.Element;
 public class XmlStatistic {
 
 	// statistic
-	private List<Element> allSingleMethodEleList;
-	private List<Element> entrySingleMethodEleList;
+	private List<Element> allMethodSummaryEleList;
+	private List<Element> entryMethodSummaryEleList;
 
-	private List<Element> allSinglePathEleList;
-	private List<Element> entrySinglePathEleList;
+	private List<Element> allPathSummaryEleList;
+	private List<Element> entryPathSummaryEleList;
 
-	private List<Element> allSingleIntentEleList;
-	private List<Element> entrySingleIntentEleList;
+	private List<Element> allIntentSummaryEleList;
+	private List<Element> entryIntentSummaryEleList;
 
 	public XmlStatistic() {
-		setAllSingleMethodEleList(new ArrayList<Element>());
-		setEntrySingleMethodEleList(new ArrayList<Element>());
-		setAllSinglePathEleList(new ArrayList<Element>());
-		setEntrySinglePathEleList(new ArrayList<Element>());
-		setAllSingleIntentEleList(new ArrayList<Element>());
-		setEntrySingleIntentEleList(new ArrayList<Element>());
+		setAllMethodSummaryEleList(new ArrayList<Element>());
+		setEntryMethodSummaryEleList(new ArrayList<Element>());
+		setAllPathSummaryEleList(new ArrayList<Element>());
+		setEntryPathSummaryEleList(new ArrayList<Element>());
+		setAllIntentSummaryEleList(new ArrayList<Element>());
+		setEntryIntentSummaryEleList(new ArrayList<Element>());
 	}
 
-	public List<Element> getEntrySingleMethodEleList() {
-		return entrySingleMethodEleList;
+	public List<Element> getEntryMethodSummaryEleList() {
+		return entryMethodSummaryEleList;
 	}
 
-	public void setEntrySingleMethodEleList(List<Element> entryNodeEleList) {
-		this.entrySingleMethodEleList = entryNodeEleList;
+	public void setEntryMethodSummaryEleList(List<Element> entryNodeEleList) {
+		this.entryMethodSummaryEleList = entryNodeEleList;
 	}
 
-	public void addEntrySingleMethodEleList(Element element) {
-		this.entrySingleMethodEleList.add(element);
+	public void addEntryMethodSummaryEleList(Element element) {
+		this.entryMethodSummaryEleList.add(element);
 	}
 
-	public List<Element> getAllSingleMethodEleList() {
-		return allSingleMethodEleList;
+	public List<Element> getAllMethodSummaryEleList() {
+		return allMethodSummaryEleList;
 	}
 
-	public void addAllSingleMethodEleList(Element element) {
-		this.allSingleMethodEleList.add(element);
+	public void addAllMethodSummaryEleList(Element element) {
+		this.allMethodSummaryEleList.add(element);
 	}
 
-	public void setAllSingleMethodEleList(List<Element> elementList) {
-		this.allSingleMethodEleList = elementList;
+	public void setAllMethodSummaryEleList(List<Element> elementList) {
+		this.allMethodSummaryEleList = elementList;
 	}
 
-	public List<Element> getEntrySinglePathEleList() {
-		return entrySinglePathEleList;
+	public List<Element> getEntryPathSummaryEleList() {
+		return entryPathSummaryEleList;
 	}
 
-	public void setEntrySinglePathEleList(List<Element> entryNodeEleList) {
-		this.entrySinglePathEleList = entryNodeEleList;
+	public void setEntryPathSummaryEleList(List<Element> entryNodeEleList) {
+		this.entryPathSummaryEleList = entryNodeEleList;
 	}
 
-	public void addEntrySinglePathEleList(Element element) {
-		this.entrySinglePathEleList.add(element);
+	public void addEntryPathSummaryEleList(Element element) {
+		this.entryPathSummaryEleList.add(element);
 	}
 
-	public List<Element> getAllSinglePathEleList() {
-		return allSinglePathEleList;
+	public List<Element> getAllPathSummaryEleList() {
+		return allPathSummaryEleList;
 	}
 
-	public void addAllSinglePathEleList(Element element) {
-		this.allSinglePathEleList.add(element);
+	public void addAllPathSummaryEleList(Element element) {
+		this.allPathSummaryEleList.add(element);
 	}
 
-	public void setAllSinglePathEleList(List<Element> elementList) {
-		this.allSinglePathEleList = elementList;
+	public void setAllPathSummaryEleList(List<Element> elementList) {
+		this.allPathSummaryEleList = elementList;
 	}
 
-	public List<Element> getAllSingleIntentEleList() {
-		return allSingleIntentEleList;
+	public List<Element> getAllIntentSummaryEleList() {
+		return allIntentSummaryEleList;
 	}
 
-	public void setAllSingleIntentEleList(List<Element> allSingleIntentEleList) {
-		this.allSingleIntentEleList = allSingleIntentEleList;
+	public void setAllIntentSummaryEleList(List<Element> allIntentSummaryEleList) {
+		this.allIntentSummaryEleList = allIntentSummaryEleList;
 	}
 
-	public void addAllSingleIntentEleList(Element element) {
-		this.allSingleIntentEleList.add(element);
+	public void addAllIntentSummaryEleList(Element element) {
+		this.allIntentSummaryEleList.add(element);
 	}
 
-	public List<Element> getEntrySingleIntentEleList() {
-		return entrySingleIntentEleList;
+	public List<Element> getEntryIntentSummaryEleList() {
+		return entryIntentSummaryEleList;
 	}
 
-	public void setEntrySingleIntentEleList(List<Element> entrySingleIntentEleList) {
-		this.entrySingleIntentEleList = entrySingleIntentEleList;
+	public void setEntryIntentSummaryEleList(List<Element> entryIntentSummaryEleList) {
+		this.entryIntentSummaryEleList = entryIntentSummaryEleList;
 	}
 
-	public void addEntrySingleIntentEleList(Element element) {
-		this.entrySingleIntentEleList.add(element);
+	public void addEntryIntentSummaryEleList(Element element) {
+		this.entryIntentSummaryEleList.add(element);
 	}
 
 }

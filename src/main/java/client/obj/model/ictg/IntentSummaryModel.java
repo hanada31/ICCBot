@@ -12,7 +12,7 @@ import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ExtraData;
 import soot.Unit;
 
-public class SingleIntentModel extends ObjectSummaryModel {
+public class IntentSummaryModel extends ObjectSummaryModel {
 
 	// unit
 	private List<Unit> receiveFromOutList;
@@ -33,8 +33,8 @@ public class SingleIntentModel extends ObjectSummaryModel {
 	private List<String> setFlagsList;
 	private String targetType;
 
-	public SingleIntentModel(PathSummaryModel singlePath) {
-		super(singlePath);
+	public IntentSummaryModel(PathSummaryModel pathSummary) {
+		super(pathSummary);
 		setReceiveFromOutList(new ArrayList<Unit>());
 		setSendIntent2ICCList(new ArrayList<Unit>());
 
@@ -55,7 +55,7 @@ public class SingleIntentModel extends ObjectSummaryModel {
 		setListExtrasValueList(new BundleType());
 	}
 
-	public void copy(SingleIntentModel temp) {
+	public void copy(IntentSummaryModel temp) {
 		super.copy(temp);
 		setReceiveFromOutList(temp.getReceiveFromOutList());
 		setSendIntent2ICCList(temp.getSendIntent2ICCList());
@@ -79,7 +79,7 @@ public class SingleIntentModel extends ObjectSummaryModel {
 	@Override
 	public void merge(ObjectSummaryModel temp) {
 		super.merge(temp);
-		SingleIntentModel temp2 = (SingleIntentModel) temp;
+		IntentSummaryModel temp2 = (IntentSummaryModel) temp;
 		getReceiveFromOutList().addAll(temp2.getReceiveFromOutList());
 		getSendIntent2ICCList().addAll(temp2.getSendIntent2ICCList());
 

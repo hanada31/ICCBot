@@ -6,12 +6,12 @@ import java.util.Set;
 import main.java.analyze.utils.StringUtils;
 import main.java.client.obj.dataHnadler.DataHandler;
 import main.java.client.obj.model.component.Flag;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 public class SetFlagHandler extends DataHandler {
 
 	@Override
-	public void handleData(SingleIntentModel singleIntent, String key, Set<String> dataSet) {
+	public void handleData(IntentSummaryModel intentSummary, String key, Set<String> dataSet) {
 		Set<String> newDataSet = new HashSet<String>();
 		for (String data : dataSet) {
 			if (StringUtils.isInteger(data)) {
@@ -24,6 +24,6 @@ public class SetFlagHandler extends DataHandler {
 			} else
 				newDataSet.add(data);
 		}
-		singleIntent.getSetFlagsList().addAll(newDataSet);
+		intentSummary.getSetFlagsList().addAll(newDataSet);
 	}
 }

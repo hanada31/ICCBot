@@ -18,7 +18,7 @@ import main.java.analyze.utils.StringUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.Unit;
 import soot.Value;
@@ -31,7 +31,7 @@ import soot.toolkits.scalar.UnitValueBoxPair;
 
 public class GetAttributeHandler extends UnitHandler {
 	Context context;
-	SingleIntentModel singleIntent;
+	IntentSummaryModel intentSummary;
 
 	@Override
 	public void handleSingleObject(ObjectSummaryModel singleObject) {
@@ -41,8 +41,8 @@ public class GetAttributeHandler extends UnitHandler {
 	@Override
 	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
-		this.singleIntent = (SingleIntentModel) singleObject;
-		this.singleIntent.getDataHandleList().add(unit);
+		this.intentSummary = (IntentSummaryModel) singleObject;
+		this.intentSummary.getDataHandleList().add(unit);
 		getAttriAPIAnalyze(); // acid
 	}
 
@@ -77,7 +77,7 @@ public class GetAttributeHandler extends UnitHandler {
 	}
 
 	private void generatehandler(DataHandler dataHandler, Set<String> resSet) {
-		dataHandler.handleData(singleIntent, className, resSet);
+		dataHandler.handleData(intentSummary, className, resSet);
 	}
 
 	/**

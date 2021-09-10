@@ -11,9 +11,8 @@ import soot.Unit;
 
 public class ObjectSummaryModel {
 	protected List<UnitNode> nodes;
-	protected PathSummaryModel singlePath;
+	protected PathSummaryModel pathSummary;
 	protected SootMethod method;
-	// protected List<String> methodTraceUnrepeated;
 
 	protected List<Unit> createList;
 	protected List<Unit> receiveFromParaList;
@@ -24,11 +23,14 @@ public class ObjectSummaryModel {
 
 	protected boolean finishFlag;
 
-	public ObjectSummaryModel(PathSummaryModel singlePath) {
+	protected List<SootMethod> reusedMthCallStack;
+	
+
+	public ObjectSummaryModel(PathSummaryModel pathSummary) {
 		setNodes(new ArrayList<UnitNode>());
-		setSinglePath(singlePath);
-		if (singlePath != null && singlePath.getSingleMethod() != null)
-			setMethod(singlePath.getSingleMethod().getMethod());
+		setPathSummary(pathSummary);
+		if (pathSummary != null && pathSummary.getMethodSummary() != null)
+			setMethod(pathSummary.getMethodSummary().getMethod());
 		// setMethodTrace(new ArrayList<String>());
 
 		setFinishFlag(false);
@@ -39,11 +41,12 @@ public class ObjectSummaryModel {
 
 		setSendIntent2FunList(new ArrayList<Unit>());
 		setDataHandleList(new ArrayList<Unit>());
+		setReusedMthCallStack(new ArrayList<SootMethod>());
 	}
 
 	public void copy(ObjectSummaryModel temp) {
 		setNodes(temp.nodes);
-		setSinglePath(temp.singlePath);
+		setPathSummary(temp.pathSummary);
 		// setMethodTrace(new ArrayList<>(temp.getMethodTrace()));
 		setCreateList(temp.getCreateList());
 		setReceiveFromParaList(temp.getReceiveFromParaList());
@@ -129,21 +132,13 @@ public class ObjectSummaryModel {
 		this.dataHandleList = dataHandleList;
 	}
 
-	//
-	// public List<String> getMethodTrace() {
-	// return methodTraceUnrepeated;
-	// }
-	//
-	// public void setMethodTrace(List<String> methodTrace) {
-	// this.methodTraceUnrepeated = methodTrace;
-	// }
 
-	public PathSummaryModel getSinglePath() {
-		return singlePath;
+	public PathSummaryModel getPathSummary() {
+		return pathSummary;
 	}
 
-	public void setSinglePath(PathSummaryModel singlePath) {
-		this.singlePath = singlePath;
+	public void setPathSummary(PathSummaryModel pathSummary) {
+		this.pathSummary = pathSummary;
 	}
 
 	public List<UnitNode> getNodes() {
@@ -207,6 +202,17 @@ public class ObjectSummaryModel {
 
 	public void setFinishFlag(boolean finishFlag) {
 		this.finishFlag = finishFlag;
+	}
+
+	public void addNode(UnitNode node) {
+			getNodes().add(node);
+	}
+	public List<SootMethod> getReusedMthCallStack() {
+		return reusedMthCallStack;
+	}
+
+	public void setReusedMthCallStack(List<SootMethod> reusedMthCallStack) {
+		this.reusedMthCallStack = reusedMthCallStack;
 	}
 
 }

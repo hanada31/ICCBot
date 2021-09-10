@@ -12,7 +12,7 @@ import main.java.client.obj.ObjectAnalyzer;
 import main.java.client.obj.model.atg.AtgEdge;
 import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.component.ComponentModel;
-import main.java.client.obj.model.fragment.SingleFragmentModel;
+import main.java.client.obj.model.fragment.FragmentSummaryModel;
 import main.java.client.statistic.model.DoStatistic;
 import main.java.client.statistic.model.StatisticResult;
 import soot.Scene;
@@ -28,7 +28,7 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 
 	@Override
 	public void assignForObjectName() {
-		this.objectName = "main.java.client.obj.model.fragment.SingleFragmentModel";
+		this.objectName = "main.java.client.obj.model.fragment.FragmentSummaryModel";
 
 	}
 
@@ -48,8 +48,8 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 	 * 
 	 * @param model
 	 */
-	private void generateATGInfo(MethodSummaryModel singleMethod) {
-		SootMethod sootMtd = singleMethod.getMethod();
+	private void generateATGInfo(MethodSummaryModel methodSummary) {
+		SootMethod sootMtd = methodSummary.getMethod();
 		SootClass cls = null;
 		if (appModel.getEntryMethod2Component().containsKey(sootMtd))
 			cls = appModel.getEntryMethod2Component().get(sootMtd);
@@ -75,10 +75,10 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 		for (SootClass sootCls : subClasses) {
 			if (sootCls.getMethodUnsafe(sootMtd.getSubSignature()) == null || sootCls == sootMtd.getDeclaringClass()) {
 				String src = sootCls.getName();
-				for (ObjectSummaryModel singleFrag : singleMethod.getSingleObjects()) {
-					if (((SingleFragmentModel) singleFrag).getSendFragment2Start().size() == 0)
+				for (ObjectSummaryModel singleFrag : methodSummary.getSingleObjects()) {
+					if (((FragmentSummaryModel) singleFrag).getSendFragment2Start().size() == 0)
 						continue;
-					getTargetOfSrc((SingleFragmentModel) singleFrag, src);
+					getTargetOfSrc((FragmentSummaryModel) singleFrag, src);
 				}
 			}
 		}
@@ -87,10 +87,10 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 	/**
 	 * getTargetOfSrc
 	 * 
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param src
 	 */
-	private void getTargetOfSrc(SingleFragmentModel singleFrag, String src) {
+	private void getTargetOfSrc(FragmentSummaryModel singleFrag, String src) {
 		SootMethod method = singleFrag.getMethod();
 		Unit unit = singleFrag.getSendFragment2Start().iterator().next();
 		int instructionId = SootUtils.getIdForUnit(unit, method);
@@ -103,7 +103,7 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
 						comp.getComponentType());
 			Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
-			String name = SootUtils.getNameofClass(singleFrag.getSinglePath().getSingleMethod().getComponentName());
+			String name = SootUtils.getNameofClass(singleFrag.getPathSummary().getMethodSummary().getComponentName());
 			ComponentModel sourceComponent = Global.v().getAppModel().getComponentMap().get(name);
 			if (sourceComponent != null) {
 				sourceComponent.getSendModel().getIccTargetSet().add(des);

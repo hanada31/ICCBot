@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
@@ -24,8 +25,10 @@ import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.atg.AtgType;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.obj.target.ictg.ICTGClient;
+import main.java.client.soot.IROutputClient;
 import main.java.client.statistic.model.StatisticResult;
 import main.java.client.toolEvaluate.ICCBotResultEvaluateClient;
+import main.java.client.toolEvaluate.ToolEvaluateClient;
 
 import org.dom4j.DocumentException;
 
@@ -40,7 +43,7 @@ import soot.SootMethod;
 public class ICTGClient extends BaseClient {
 
 	/**
-	 * analyze logic for single app
+	 * analyze CTG for single app
 	 */
 	@Override
 	protected void clientAnalyze() {
@@ -49,6 +52,9 @@ public class ICTGClient extends BaseClient {
 			new ManifestClient().start();
 			MyConfig.getInstance().setManifestAnalyzeFinish(true);
 		}
+//		if (!MyConfig.getInstance().isWriteSootOutput()) {
+//			new IROutputClient().start();
+//		}
 		if (!MyConfig.getInstance().isCallGraphAnalyzeFinish()) {
 			new CallGraphClient().start();
 			MyConfig.getInstance().setCallGraphAnalyzeFinish(true);
@@ -83,7 +89,7 @@ public class ICTGClient extends BaseClient {
 	public void clientOutput() throws IOException, DocumentException {
 		outputCTGInfo();
 		if (!MyConfig.getInstance().isOracleConstructionClientFinish()) {
-			new ICCBotResultEvaluateClient().start();
+			new ToolEvaluateClient().start();
 		}
 	}
 
@@ -91,51 +97,57 @@ public class ICTGClient extends BaseClient {
 		String summary_app_dir = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
 				+ File.separator;
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.CGFOLDETR);
-		FileUtils.createFolder(summary_app_dir + ConstantUtils.ICTGFOLDETR);
+		FileUtils.createFolder(summary_app_dir + ConstantUtils.FRAGFOLDETR);
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.CGFOLDETR);
 
 		ICTGClientOutput outer = new ICTGClientOutput(this.result);
 
+		String ictgFolder = summary_app_dir + ConstantUtils.ICTGFOLDETR;
+		String fragFolder = summary_app_dir + ConstantUtils.FRAGFOLDETR;
 		/** Component **/
-		outer.writeComponentModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.COMPONENTMODEL);
-
+		outer.writeComponentModel(ictgFolder, ConstantUtils.COMPONENTMODEL);
+		
 		/** Method **/
-		outer.writeSingleMethodModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.SINGLEMETHOD_ENTRY,
-				true);
-		outer.writeSingleMethodModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.SINGLEMETHOD_ALL, false);
-
+		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ENTRY,true);
+		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ALL, false);
+		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ENTRY);
+		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ALL);
+		
 		/** Path **/
-		outer.writeSinglePathModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.SINGLEPATH_ENTRY, true);
-		outer.writeSinglePathModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.SINGLEPATH_ALL, false);
-
+		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ENTRY, true);
+		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ALL, false);
+		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ENTRY);
+		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ALL);
+		
 		/** Intent **/
-		outer.writeSingleIntentModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.SINGLEOBJECT_ENTRY,
-				true);
-		outer.writeSingleIntentModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.SINGLEOBJECT_ALL, false);
-
+		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ENTRY,true);
+		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ALL, false);
+		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ENTRY);
+		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ALL);
+		
 		/** ICTG **/
 		// merge frage and component
 		ATGModel.mergeNodels2newOne(Global.v().getiCTGModel().getOptModel(), Global.v().getFragmentModel()
 				.getAtgModel(), Global.v().getiCTGModel().getOptModel());
 		ATGModel ictgMergedModel = Global.v().getiCTGModel().getOptModel();
 		// ictgMergedModel
-		outer.writeATGModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.ICTGMERGE + ".xml",
+		outer.writeATGModel(ictgFolder, ConstantUtils.ICTGMERGE + ".xml",
 				ictgMergedModel);
 		String dotname = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGMERGE;
-		outer.writeDotFile(summary_app_dir + ConstantUtils.ICTGFOLDETR, dotname, ictgMergedModel, true);
+		outer.writeDotFile(ictgFolder, dotname, ictgMergedModel, true);
 		if (ictgMergedModel.getConnectionSize() < 1800)
-			GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ICTGFOLDETR + dotname, "pdf");
+			GraphUtils.generateDotFile(ictgFolder + dotname, "pdf");
 
 		Global.v().getiCTGModel().setOptModelwithoutFrag(getIctgOptModel());
 		ATGModel ictgOptModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		// ictgOptModel
-		outer.writeATGModel(summary_app_dir + ConstantUtils.ICTGFOLDETR, ConstantUtils.ICTGOPT + ".xml", ictgOptModel);
+		outer.writeATGModel(ictgFolder, ConstantUtils.ICTGOPT + ".xml", ictgOptModel);
 		String txtName = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT + ".txt";
-		outer.writeAtgModeTxtFile(summary_app_dir + ConstantUtils.ICTGFOLDETR, txtName, ictgOptModel, false);
+		outer.writeAtgModeTxtFile(ictgFolder, txtName, ictgOptModel, false);
 		String dotname2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT;
-		outer.writeDotFile(summary_app_dir + ConstantUtils.ICTGFOLDETR, dotname2, ictgOptModel, false);
+		outer.writeDotFile(ictgFolder, dotname2, ictgOptModel, false);
 		if (ictgMergedModel.getConnectionSize() < 1800)
-			GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ICTGFOLDETR + dotname2, "pdf");
+			GraphUtils.generateDotFile(ictgFolder + dotname2, "pdf");
 
 		// outer.writeIccLinksConfigFile(summary_app_dir +
 		// ConstantUtils.ICTGFOLDETR, ConstantUtils.LINKFILE, ictgOptModel);

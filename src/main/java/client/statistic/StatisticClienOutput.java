@@ -7,7 +7,7 @@ import java.util.Set;
 
 import main.java.Global;
 import main.java.analyze.utils.output.FileUtils;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.statistic.model.ICCStatistic;
 import main.java.client.statistic.model.StatisticResult;
 import main.java.client.statistic.model.SummaryStatistic;
@@ -176,7 +176,7 @@ public class StatisticClienOutput {
 		iccDestination.addAttribute("interDestination", statistic.getInterDestinationNum() + "");
 
 		Element iccType = icc.addElement("type");
-		for (Entry<String, Set<SingleIntentModel>> en : statistic.getIntentSummaryTypeMap().entrySet())
+		for (Entry<String, Set<IntentSummaryModel>> en : statistic.getIntentSummaryTypeMap().entrySet())
 			iccType.addAttribute(en.getKey(), en.getValue().size() + "");
 
 		addElementInICC(icc, "newType", statistic.getIntentSummaryNewTypeMap());
@@ -194,9 +194,9 @@ public class StatisticClienOutput {
 	 * @param key
 	 * @param map
 	 */
-	private void addElementInICC(Element icc, String key, Map<String, Set<SingleIntentModel>> map) {
+	private void addElementInICC(Element icc, String key, Map<String, Set<IntentSummaryModel>> map) {
 		Element ele = icc.addElement(key);
-		for (Entry<String, Set<SingleIntentModel>> en : map.entrySet())
+		for (Entry<String, Set<IntentSummaryModel>> en : map.entrySet())
 			ele.addAttribute(en.getKey(), en.getValue().size() + "");
 	}
 

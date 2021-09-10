@@ -38,7 +38,7 @@ public class FragmentClientOutput {
 	}
 
 	/**
-	 * writeSingleMethodModel
+	 * writeMethodSummaryModel
 	 * 
 	 * @param entry
 	 * 
@@ -48,15 +48,15 @@ public class FragmentClientOutput {
 	 *            .getInstance()
 	 * @throws IOException
 	 */
-	public void writeSingleMethodModel(String dir, String file, boolean entryMethod) throws DocumentException,
+	public void writeMethodSummaryModel(String dir, String file, boolean entryMethod) throws DocumentException,
 			IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
 		List<Element> eleList = new ArrayList<Element>();
 		if (entryMethod) {
-			eleList = result.getXmlStatistic().getEntrySingleMethodEleList();
+			eleList = result.getXmlStatistic().getEntryMethodSummaryEleList();
 		} else {
-			eleList = result.getXmlStatistic().getAllSingleMethodEleList();
+			eleList = result.getXmlStatistic().getAllMethodSummaryEleList();
 		}
 		for (Element e : eleList) {
 			root.add(e);
@@ -65,7 +65,7 @@ public class FragmentClientOutput {
 	}
 
 	/**
-	 * writeSinglePathModel write info about each icc flow
+	 * writePathSummaryModel write info about each icc flow
 	 * 
 	 * @param dir
 	 * @param file
@@ -73,15 +73,15 @@ public class FragmentClientOutput {
 	 *            .getInstance()
 	 * @param entryMethod
 	 */
-	public void writeSinglePathModel(String dir, String file, boolean entryMethod) throws DocumentException,
+	public void writePathSummaryModel(String dir, String file, boolean entryMethod) throws DocumentException,
 			IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
 		List<Element> eleList;
 		if (entryMethod) {
-			eleList = result.getXmlStatistic().getEntrySinglePathEleList();
+			eleList = result.getXmlStatistic().getEntryPathSummaryEleList();
 		} else {
-			eleList = result.getXmlStatistic().getAllSinglePathEleList();
+			eleList = result.getXmlStatistic().getAllPathSummaryEleList();
 		}
 
 		for (Element e : eleList) {
@@ -91,7 +91,7 @@ public class FragmentClientOutput {
 	}
 
 	/**
-	 * writeSingleIntentModel
+	 * writeIntentSummaryModel
 	 * 
 	 * @param dir
 	 * @param file
@@ -105,9 +105,9 @@ public class FragmentClientOutput {
 		Element root = document.getRootElement();
 		List<Element> eleList;
 		if (entryMethod) {
-			eleList = result.getXmlStatistic().getEntrySingleIntentEleList();
+			eleList = result.getXmlStatistic().getEntryIntentSummaryEleList();
 		} else {
-			eleList = result.getXmlStatistic().getAllSingleIntentEleList();
+			eleList = result.getXmlStatistic().getAllIntentSummaryEleList();
 		}
 		for (Element e : eleList) {
 			root.add(e);
@@ -139,23 +139,23 @@ public class FragmentClientOutput {
 				desEle.addAttribute("type", edge.getType().name());
 				desEle.addAttribute("method", edge.getMethodSig());
 				desEle.addAttribute("InstructionId", edge.getInstructionId() + "");
-				if (edge.getSingleIntent() != null) {
-					if (edge.getSingleIntent().getSetActionValueList().size() > 0)
+				if (edge.getIntentSummary() != null) {
+					if (edge.getIntentSummary().getSetActionValueList().size() > 0)
 						desEle.addAttribute("action",
-								PrintUtils.printList(edge.getSingleIntent().getSetActionValueList()));
-					if (edge.getSingleIntent().getSetCategoryValueList().size() > 0)
+								PrintUtils.printList(edge.getIntentSummary().getSetActionValueList()));
+					if (edge.getIntentSummary().getSetCategoryValueList().size() > 0)
 						desEle.addAttribute("category",
-								PrintUtils.printList(edge.getSingleIntent().getSetCategoryValueList()));
-					if (edge.getSingleIntent().getSetDataValueList().size() > 0)
-						desEle.addAttribute("data", PrintUtils.printList(edge.getSingleIntent().getSetDataValueList()));
-					if (edge.getSingleIntent().getSetTypeValueList().size() > 0)
-						desEle.addAttribute("type", PrintUtils.printList(edge.getSingleIntent().getSetTypeValueList()));
-					if (edge.getSingleIntent().getSetExtrasValueList() != null)
-						desEle.addAttribute("extras", edge.getSingleIntent().getSetExtrasValueList().toString());
-					if (edge.getSingleIntent().getSetFlagsList() != null)
-						desEle.addAttribute("flags", PrintUtils.printList(edge.getSingleIntent().getSetFlagsList()));
+								PrintUtils.printList(edge.getIntentSummary().getSetCategoryValueList()));
+					if (edge.getIntentSummary().getSetDataValueList().size() > 0)
+						desEle.addAttribute("data", PrintUtils.printList(edge.getIntentSummary().getSetDataValueList()));
+					if (edge.getIntentSummary().getSetTypeValueList().size() > 0)
+						desEle.addAttribute("type", PrintUtils.printList(edge.getIntentSummary().getSetTypeValueList()));
+					if (edge.getIntentSummary().getSetExtrasValueList() != null)
+						desEle.addAttribute("extras", edge.getIntentSummary().getSetExtrasValueList().toString());
+					if (edge.getIntentSummary().getSetFlagsList() != null)
+						desEle.addAttribute("flags", PrintUtils.printList(edge.getIntentSummary().getSetFlagsList()));
 					// single intent has finish, atg do not has finish
-					if (edge.getSingleIntent().isFinishFlag())
+					if (edge.getIntentSummary().isFinishFlag())
 						desEle.addAttribute("finish", "true");
 				}
 

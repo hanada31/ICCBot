@@ -8,7 +8,7 @@ import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.utils.output.PrintUtils;
 import soot.Unit;
 
-public class SingleFragmentModel extends ObjectSummaryModel {
+public class FragmentSummaryModel extends ObjectSummaryModel {
 	// unit
 	private List<Unit> sendFragment2Start;
 	private List<Unit> getFragmentFromOut;
@@ -18,8 +18,8 @@ public class SingleFragmentModel extends ObjectSummaryModel {
 	private List<String> replaceValueList;
 	private List<String> ListDestinationValueList;
 
-	public SingleFragmentModel(PathSummaryModel singlePath) {
-		super(singlePath);
+	public FragmentSummaryModel(PathSummaryModel pathSummary) {
+		super(pathSummary);
 		setSendFragment2Start(new ArrayList<Unit>());
 		setGetFragmentFromOut(new ArrayList<Unit>());
 
@@ -28,7 +28,7 @@ public class SingleFragmentModel extends ObjectSummaryModel {
 		setSetDestinationList(new ArrayList<String>());
 	}
 
-	public void copy(SingleFragmentModel temp) {
+	public void copy(FragmentSummaryModel temp) {
 		super.copy(temp);
 		setSendFragment2Start(temp.getSendFragment2Start());
 		setGetFragmentFromOut(temp.getGetFragmentFromOut());
@@ -41,7 +41,7 @@ public class SingleFragmentModel extends ObjectSummaryModel {
 	@Override
 	public void merge(ObjectSummaryModel temp) {
 		super.merge(temp);
-		SingleFragmentModel temp2 = (SingleFragmentModel) temp;
+		FragmentSummaryModel temp2 = (FragmentSummaryModel) temp;
 		getSendFragment2Start().addAll(temp2.getSendFragment2Start());
 		getGetFragmentFromOut().addAll(temp2.getGetFragmentFromOut());
 
