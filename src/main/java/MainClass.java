@@ -97,6 +97,9 @@ public class MainClass {
 		System.out.println("using client " + MyConfig.getInstance().getClient());
 		BaseClient client;
 		switch (MyConfig.getInstance().getClient()) {
+			case "ICTGClient":
+				client = new ICTGClient();
+				break;
 			case "MainClient":
 				client = new ICTGClient();
 				break;
@@ -153,7 +156,7 @@ public class MainClass {
 
 		/** analysis config **/
 		options.addOption("client", true, "-client "
-				+ "[default:MainClient]: Resolve ICC and generate component transiton graph.\n"
+				+ "[default: MainClient]: Resolve ICC and generate component transiton graph.\n"
 				+ "IROutputClient: Output soot IR files.\n"
 				+ "ManifestClient: Output manifest.xml file.\n"
 				+ "CallGraphClient: Output call graph files.\n"
@@ -347,9 +350,9 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "IntentFlowBench";
-		String client = "MainClient";
-		client = "ToolEvaluateClient";
+		name = "FragmentBench2";
+		String client = "ICTGClient";
+//		client = "ToolEvaluateClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);

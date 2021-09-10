@@ -175,7 +175,7 @@ public class IC3ClientOutput {
 	}
 
 	/**
-	 * writeSingleIntentModel
+	 * writeIntentSummaryModel
 	 * 
 	 * @param dir
 	 * @param file
@@ -183,15 +183,15 @@ public class IC3ClientOutput {
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
-	public void writeSingleIntentModel(String dir, String file, boolean entryMethod) throws DocumentException,
+	public void writeIntentSummaryModel(String dir, String file, boolean entryMethod) throws DocumentException,
 			IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
 		List<Element> eleList;
 		if (entryMethod) {
-			eleList = result.getXmlStatistic().getEntrySingleIntentEleList();
+			eleList = result.getXmlStatistic().getEntryIntentSummaryEleList();
 		} else {
-			eleList = result.getXmlStatistic().getAllSingleIntentEleList();
+			eleList = result.getXmlStatistic().getAllIntentSummaryEleList();
 		}
 		for (Element e : eleList) {
 			root.add(e);

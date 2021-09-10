@@ -152,7 +152,7 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
 	 * 
 	 * @param methodUnderAnalysis
 	 * @param appModel
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param unit
 	 * @return
 	 */

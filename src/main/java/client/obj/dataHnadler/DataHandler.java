@@ -12,18 +12,18 @@ import main.java.client.obj.dataHnadler.ictg.SetComponentHandler;
 import main.java.client.obj.dataHnadler.ictg.SetDataHandler;
 import main.java.client.obj.dataHnadler.ictg.SetFlagHandler;
 import main.java.client.obj.dataHnadler.ictg.SetTypeHandler;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 public abstract class DataHandler {
 
-	public abstract void handleData(SingleIntentModel singleIntent, String className, Set<String> dataSet);
+	public abstract void handleData(IntentSummaryModel intentSummary, String className, Set<String> dataSet);
 
 	/**
 	 * get the correct handler of target unit
 	 * 
 	 * @param m
 	 * @param appModel
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param u
 	 * @return
 	 */

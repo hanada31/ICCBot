@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,13 +25,14 @@ import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.IntentFilterModel;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.statistic.model.StatisticResult;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultElement;
 
@@ -86,7 +88,7 @@ public class ICTGClientOutput {
 	}
 
 	/**
-	 * writeSingleMethodModel
+	 * writeMethodSummaryModel
 	 * 
 	 * @param entry
 	 * 
@@ -96,15 +98,15 @@ public class ICTGClientOutput {
 	 *            .getInstance()
 	 * @throws IOException
 	 */
-	public void writeSingleMethodModel(String dir, String file, boolean entryMethod) throws DocumentException,
+	public void writeMethodSummaryModel(String dir, String file, boolean entryMethod) throws DocumentException,
 			IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
 		List<Element> eleList = new ArrayList<Element>();
 		if (entryMethod) {
-			eleList = result.getXmlStatistic().getEntrySingleMethodEleList();
+			eleList = result.getXmlStatistic().getEntryMethodSummaryEleList();
 		} else {
-			eleList = result.getXmlStatistic().getAllSingleMethodEleList();
+			eleList = result.getXmlStatistic().getAllMethodSummaryEleList();
 		}
 		for (Element e : eleList) {
 			root.add(e);
@@ -113,7 +115,7 @@ public class ICTGClientOutput {
 	}
 
 	/**
-	 * writeSinglePathModel write info about each icc flow
+	 * writePathSummaryModel write info about each icc flow
 	 * 
 	 * @param dir
 	 * @param file
@@ -121,15 +123,15 @@ public class ICTGClientOutput {
 	 *            .getInstance()
 	 * @param entryMethod
 	 */
-	public void writeSinglePathModel(String dir, String file, boolean entryMethod) throws DocumentException,
+	public void writePathSummaryModel(String dir, String file, boolean entryMethod) throws DocumentException,
 			IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
 		List<Element> eleList;
 		if (entryMethod) {
-			eleList = result.getXmlStatistic().getEntrySinglePathEleList();
+			eleList = result.getXmlStatistic().getEntryPathSummaryEleList();
 		} else {
-			eleList = result.getXmlStatistic().getAllSinglePathEleList();
+			eleList = result.getXmlStatistic().getAllPathSummaryEleList();
 		}
 
 		for (Element e : eleList) {
@@ -139,7 +141,7 @@ public class ICTGClientOutput {
 	}
 
 	/**
-	 * writeSingleIntentModel
+	 * writeIntentSummaryModel
 	 * 
 	 * @param dir
 	 * @param file
@@ -147,15 +149,15 @@ public class ICTGClientOutput {
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
-	public void writeSingleIntentModel(String dir, String file, boolean entryMethod) throws DocumentException,
+	public void writeIntentSummaryModel(String dir, String file, boolean entryMethod) throws DocumentException,
 			IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
 		List<Element> eleList;
 		if (entryMethod) {
-			eleList = result.getXmlStatistic().getEntrySingleIntentEleList();
+			eleList = result.getXmlStatistic().getEntryIntentSummaryEleList();
 		} else {
-			eleList = result.getXmlStatistic().getAllSingleIntentEleList();
+			eleList = result.getXmlStatistic().getAllIntentSummaryEleList();
 		}
 		for (Element e : eleList) {
 			root.add(e);
@@ -187,23 +189,23 @@ public class ICTGClientOutput {
 				desEle.addAttribute("type", edge.getType().name());
 				desEle.addAttribute("method", edge.getMethodSig());
 				desEle.addAttribute("InstructionId", edge.getInstructionId() + "");
-				if (edge.getSingleIntent() != null) {
-					if (edge.getSingleIntent().getSetActionValueList().size() > 0)
+				if (edge.getIntentSummary() != null) {
+					if (edge.getIntentSummary().getSetActionValueList().size() > 0)
 						desEle.addAttribute("action",
-								PrintUtils.printList(edge.getSingleIntent().getSetActionValueList()));
-					if (edge.getSingleIntent().getSetCategoryValueList().size() > 0)
+								PrintUtils.printList(edge.getIntentSummary().getSetActionValueList()));
+					if (edge.getIntentSummary().getSetCategoryValueList().size() > 0)
 						desEle.addAttribute("category",
-								PrintUtils.printList(edge.getSingleIntent().getSetCategoryValueList()));
-					if (edge.getSingleIntent().getSetDataValueList().size() > 0)
-						desEle.addAttribute("data", PrintUtils.printList(edge.getSingleIntent().getSetDataValueList()));
-					if (edge.getSingleIntent().getSetTypeValueList().size() > 0)
-						desEle.addAttribute("type", PrintUtils.printList(edge.getSingleIntent().getSetTypeValueList()));
-					if (edge.getSingleIntent().getSetExtrasValueList() != null)
-						desEle.addAttribute("extras", edge.getSingleIntent().getSetExtrasValueList().toString());
-					if (edge.getSingleIntent().getSetFlagsList() != null)
-						desEle.addAttribute("flags", PrintUtils.printList(edge.getSingleIntent().getSetFlagsList()));
+								PrintUtils.printList(edge.getIntentSummary().getSetCategoryValueList()));
+					if (edge.getIntentSummary().getSetDataValueList().size() > 0)
+						desEle.addAttribute("data", PrintUtils.printList(edge.getIntentSummary().getSetDataValueList()));
+					if (edge.getIntentSummary().getSetTypeValueList().size() > 0)
+						desEle.addAttribute("type", PrintUtils.printList(edge.getIntentSummary().getSetTypeValueList()));
+					if (edge.getIntentSummary().getSetExtrasValueList() != null)
+						desEle.addAttribute("extras", edge.getIntentSummary().getSetExtrasValueList().toString());
+					if (edge.getIntentSummary().getSetFlagsList() != null)
+						desEle.addAttribute("flags", PrintUtils.printList(edge.getIntentSummary().getSetFlagsList()));
 					// single intent has finish, atg do not has finish
-					if (edge.getSingleIntent().isFinishFlag())
+					if (edge.getIntentSummary().isFinishFlag())
 						desEle.addAttribute("finish", "true");
 				}
 
@@ -269,9 +271,9 @@ public class ICTGClientOutput {
 	 * @param key
 	 * @param map
 	 */
-	private void addElementInICC(Element icc, String key, Map<String, Set<SingleIntentModel>> map) {
+	private void addElementInICC(Element icc, String key, Map<String, Set<IntentSummaryModel>> map) {
 		Element ele = icc.addElement(key);
-		for (Entry<String, Set<SingleIntentModel>> en : map.entrySet())
+		for (Entry<String, Set<IntentSummaryModel>> en : map.entrySet())
 			ele.addAttribute(en.getKey(), en.getValue().size() + "");
 	}
 
@@ -530,6 +532,23 @@ public class ICTGClientOutput {
 			}
 		}
 		FileUtils.writeList2File(dir, fn, edges);
+	}
+
+	public void appendInfo(String originDir, String newDir, String file) {
+		try {
+			Document document = FileUtils.xmlWriterBegin(originDir,file, true);
+			Element originRoot = document.getRootElement();
+			SAXReader reader = new SAXReader();
+			Element newRoot = reader.read(newDir+file).getRootElement();
+			Iterator<?> iterator = newRoot.elementIterator();
+			while (iterator.hasNext()) {
+				Element ele = (Element) iterator.next();
+				originRoot.add(ele.detach());
+			}
+			FileUtils.xmlWriteEnd(originDir,file, document);
+		} catch (DocumentException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

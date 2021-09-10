@@ -4,15 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 public class GetCategoryHandler extends DataHandler {
 	@Override
-	public void handleData(SingleIntentModel singleIntent, String key, Set<String> dataSet) {
+	public void handleData(IntentSummaryModel intentSummary, String key, Set<String> dataSet) {
 		Set<String> newDataSet = new HashSet<String>();
 		for (String data : dataSet)
 			newDataSet.add(data.replace("\"", ""));
-		singleIntent.getGetCategoryCandidateList().addAll(newDataSet);
+		intentSummary.getGetCategoryCandidateList().addAll(newDataSet);
 		return;
 	}
 }

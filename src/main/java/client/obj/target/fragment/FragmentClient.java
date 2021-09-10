@@ -66,13 +66,12 @@ public class FragmentClient extends BaseClient {
 
 		FragmentClientOutput outer = new FragmentClientOutput(this.result);
 		/** Method **/
-		outer.writeSingleMethodModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEMETHOD_ENTRY,
-				true);
-		outer.writeSingleMethodModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEMETHOD_ALL, false);
+		outer.writeMethodSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEMETHOD_ENTRY,true);
+		outer.writeMethodSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEMETHOD_ALL, false);
 
 		/** Path **/
-		outer.writeSinglePathModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEPATH_ENTRY, true);
-		outer.writeSinglePathModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEPATH_ALL, false);
+		outer.writePathSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEPATH_ENTRY, true);
+		outer.writePathSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEPATH_ALL, false);
 
 		/** Intent **/
 		outer.writeSingleFragModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEOBJECT_ENTRY, true);

@@ -9,7 +9,7 @@ import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.Counter;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
-import main.java.client.obj.model.fragment.SingleFragmentModel;
+import main.java.client.obj.model.fragment.FragmentSummaryModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.SootClass;
 import soot.jimple.InvokeExpr;
@@ -18,7 +18,7 @@ import soot.jimple.infoflow.android.resources.ARSCFileParser.AbstractResource;
 
 public class LoadFunctionHandler extends UnitHandler {
 	Context context;
-	SingleFragmentModel singleFrag;
+	FragmentSummaryModel singleFrag;
 
 	@Override
 	public void handleSingleObject(ObjectSummaryModel singleObject) {
@@ -28,7 +28,7 @@ public class LoadFunctionHandler extends UnitHandler {
 	@Override
 	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
-		this.singleFrag = (SingleFragmentModel) singleObject;
+		this.singleFrag = (FragmentSummaryModel) singleObject;
 		this.singleFrag.getSendFragment2Start().add(unit);
 		try {
 			loadAnalyze();

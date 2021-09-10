@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.security.auth.x500.X500Principal;
+
 import main.java.Analyzer;
 import main.java.Global;
 import main.java.MyConfig;
@@ -29,7 +31,8 @@ import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.analyze.utils.output.PrintUtils;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.obj.target.fragment.FragmentAnalyzerHelper;
 import main.java.client.obj.target.ictg.ICTGAnalyzer;
 import main.java.client.obj.unitHnadler.UnitHandler;
@@ -87,7 +90,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					System.out.println("This is the method #" + Global.v().id + "/"
 							+ Global.v().getAppModel().getTopoMethodQueue().size());
 			}
-			MethodSummaryModel model = analyzeSingleMethod(m);
+			MethodSummaryModel model = analyzeMethodSummary(m);
 			drawATGandStatistic(model);
 			if (MyConfig.getInstance().isStopFlag())
 				return;
@@ -95,11 +98,11 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	}
 
 	/**
-	 * analyzeSingleMethod to get its summary
+	 * analyzeMethodSummary to get its summary
 	 * 
 	 * @param mc
 	 */
-	protected MethodSummaryModel analyzeSingleMethod(SootMethod methodUnderAnalysis) {
+	protected MethodSummaryModel analyzeMethodSummary(SootMethod methodUnderAnalysis) {
 		appModel.addMethod(methodUnderAnalysis);
 		if (initMethodCheck(methodUnderAnalysis) == false)
 			return null;
@@ -107,40 +110,44 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		this.methodUnderAnalysis = methodUnderAnalysis;
 
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
-		MethodSummaryModel singleMethod = new MethodSummaryModel(className, methodUnderAnalysis);
+		MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
 		String tag = methodUnderAnalysis.getSignature();
+		if(tag.contains("SubActivity6: void onCreate")){
+			System.err.println(tag);
+		}
+//		System.err.println(tag);
 		if (methodUnderAnalysis.getSignature().contains(ConstantUtils.DUMMYMAIN)) {
-			analyzeDummyMain(singleMethod);
-			return singleMethod;
+//			analyzeDummyMain(methodSummary);
+			return methodSummary;
 		}
 		/** get target units -- ICC related units **/
 		Map<Unit, List<Unit>> targetMap = getTargetUnitsOfMethod();
 		if (targetMap.size() == 0)
-			return singleMethod;
+			return methodSummary;
 
-		// System.out.println("getSinglePath");
-		/** analyze singlePaths **/
+		// System.out.println("getPathSummary");
+		/** analyze pathSummarys **/
 		UnitNode treeRoot = getNodeTreeByCFGAnalysis(targetMap);
 
 		Set<List<UnitNode>> nodeListSet = getUnitNodePaths(treeRoot);
-		getSinglePath(singleMethod, nodeListSet);
+		getPathSummary(methodSummary, nodeListSet);
 		// System.out.println("getSingleObject");
 		/** analyze SingleObject **/
-		getSingleObject(singleMethod);
+		getSingleObject(methodSummary);
 
 		// System.out.println("getSingleComponent");
 		/** analyze SingleClass **/
-		getSingleComponent(singleMethod);
+		getSingleComponent(methodSummary);
 
-		return singleMethod;
+		return methodSummary;
 	}
 
 	/**
 	 * do not expand dummy method
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 */
-	private void analyzeDummyMain(MethodSummaryModel singleMethod) {
+	private void analyzeDummyMain(MethodSummaryModel methodSummary) {
 		Iterator<Unit> it = SootUtils.getSootActiveBody(methodUnderAnalysis).getUnits().iterator();
 		while (it.hasNext()) {
 			Unit u = it.next();
@@ -151,14 +158,14 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
 				Set<PathSummaryModel> paths = currentSummaryMap.get(invokedMethod.getSignature()).getPathSet();
 				if (paths.size() > 0) {
-					singleMethod.getPathSet().addAll(paths);
+					methodSummary.getPathSet().addAll(paths);
 				}
 			}
 		}
 
-		if (singleMethod.getPathSet().size() > 0) {
+		if (methodSummary.getPathSet().size() > 0) {
 			if (!MyConfig.getInstance().getMySwithch().getSummaryStrategy().equals(SummaryLevel.none))
-				currentSummaryMap.put(methodUnderAnalysis.getSignature(), singleMethod);
+				currentSummaryMap.put(methodUnderAnalysis.getSignature(), methodSummary);
 		}
 	}
 
@@ -191,17 +198,17 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * creatSingleObject by reflect
 	 * 
-	 * @param singlePath
+	 * @param pathSummary
 	 * @return
 	 */
-	private ObjectSummaryModel creatSingleObject(PathSummaryModel singlePath) {
+	private ObjectSummaryModel creatSingleObject(PathSummaryModel pathSummary) {
 		ObjectSummaryModel singleObj = null;
 		try {
 			Class<?> clazz = Class.forName(objectName);
 			@SuppressWarnings("unchecked")
 			Constructor<ObjectSummaryModel> constructor = (Constructor<ObjectSummaryModel>) clazz
 					.getConstructor(PathSummaryModel.class);
-			singleObj = constructor.newInstance(singlePath);
+			singleObj = constructor.newInstance(pathSummary);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -211,34 +218,34 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * getSingleObjects
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param targetMap
 	 */
-	protected void getSingleObject(MethodSummaryModel singleMethod) {
+	protected void getSingleObject(MethodSummaryModel methodSummary) {
 		if (MyConfig.getInstance().getMySwithch().getSummaryStrategy().equals(SummaryLevel.object)) {
-			getSingleObject_objectLevel(singleMethod);
+			getSingleObject_objectLevel(methodSummary);
 		} else if (MyConfig.getInstance().getMySwithch().getSummaryStrategy().equals(SummaryLevel.path)) {
-			getSingleObject_pathLevel(singleMethod);
+			getSingleObject_pathLevel(methodSummary);
 		} else if (MyConfig.getInstance().getMySwithch().getSummaryStrategy().equals(SummaryLevel.flow)) {
-			getSingleObject_flowLevel(singleMethod);
+			getSingleObject_flowLevel(methodSummary);
 		}
 	}
 
 	/**
 	 * getSingleObject_pathLevel
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 */
-	private void getSingleObject_pathLevel(MethodSummaryModel singleMethod) {
-		for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
+	private void getSingleObject_pathLevel(MethodSummaryModel methodSummary) {
+		for (PathSummaryModel pathSummary : methodSummary.getPathSet()) {
 			Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
-			ObjectSummaryModel singleObj = creatSingleObject(singlePath);
+			ObjectSummaryModel singleObj = creatSingleObject(pathSummary);
 			if (singleObj == null)
 				continue;
 			addedSet.add(singleObj);
 
-			List<UnitNode> workList = singlePath.getNodes();
-			handleWorkList(singlePath, singleObj, workList, addedSet);
+			List<UnitNode> workList = pathSummary.getNodes();
+			handleWorkList(pathSummary, singleObj, workList, addedSet);
 			for (UnitNode node : workList) {
 				// for invoke without intent para
 				if (node.getInterFunNode() != null) {
@@ -246,44 +253,44 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					if (invokedMethod != null) {
 						if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
 							MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
-							singleMethod.getReuseModelSet().add(summary);
+							methodSummary.getReuseModelSet().add(summary);
 						}
 					}
 				}
 			}
 			removeInvalidSingleObject(addedSet);
-			singleMethod.getSingleObjectSet().addAll(addedSet);
+			methodSummary.getSingleObjectSet().addAll(addedSet);
 		}
 	}
 
 	/**
 	 * getSingleObject_flowLevel
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param targetMap
 	 */
-	private void getSingleObject_flowLevel(MethodSummaryModel singleMethod) {
-		PathSummaryModel singlePath = new PathSummaryModel(singleMethod);
-		singlePath.setNodes(singleMethod.getNodePathList());
+	private void getSingleObject_flowLevel(MethodSummaryModel methodSummary) {
+		PathSummaryModel pathSummary = new PathSummaryModel(methodSummary);
+		pathSummary.setNodes(methodSummary.getNodePathList());
 		Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
 		Set<UnitNode> history = new HashSet<UnitNode>();
 		int nodeId = 0;
-		for (UnitNode node : singlePath.getNodes()) {
-			List<String> context = singlePath.getNode2TraceMap().get(nodeId);
+		for (UnitNode node : pathSummary.getNodes()) {
+			List<String> context = pathSummary.getNode2TraceMap().get(nodeId);
 			// avoid repeate add single object to single path
 			if (context == null)
 				context = new ArrayList<String>();
 			if (node.getNodeSetPointToMeMap().containsKey(context) && node.getNodeSetPointToMe(context) != null) {
-				ObjectSummaryModel singleObj = creatSingleObject(singlePath);
+				ObjectSummaryModel singleObj = creatSingleObject(pathSummary);
 				if (singleObj == null)
 					continue;
 				addedSet.add(singleObj);
-				List<UnitNode> workList = singlePath.getNodes();
-				handleWorkList(singlePath, singleObj, workList, addedSet);
+				List<UnitNode> workList = pathSummary.getNodes();
+				handleWorkList(pathSummary, singleObj, workList, addedSet);
 				if (node.getInterFunNode() != null) {
 					MethodSummaryModel interFunMethod = node.getInterFunNode();
 					for (ObjectSummaryModel model : interFunMethod.getSingleObjects()) {
-						ObjectSummaryModel copy = creatSingleObject(singlePath);
+						ObjectSummaryModel copy = creatSingleObject(pathSummary);
 						copy.merge(model);
 						addedSet.add(copy);
 					}
@@ -291,7 +298,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			}
 			nodeId++;
 		}
-		for (UnitNode node : singlePath.getNodes()) {
+		for (UnitNode node : pathSummary.getNodes()) {
 			if (history.contains(node))
 				continue;
 			// for invoke without intent para
@@ -300,41 +307,41 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				if (invokedMethod != null) {
 					if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
 						MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
-						singleMethod.getReuseModelSet().add(summary);
+						methodSummary.getReuseModelSet().add(summary);
 					}
 				}
 			}
 		}
 		removeInvalidSingleObject(addedSet);
-		singleMethod.getSingleObjectSet().addAll(addedSet);
+		methodSummary.getSingleObjectSet().addAll(addedSet);
 	}
 
 	/**
 	 * getSingleObject_objectLevel
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 */
-	private void getSingleObject_objectLevel(MethodSummaryModel singleMethod) {
-		for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
+	private void getSingleObject_objectLevel(MethodSummaryModel methodSummary) {
+		for (PathSummaryModel pathSummary : methodSummary.getPathSet()) {
 			Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
 			Set<UnitNode> history = new HashSet<UnitNode>();
 			int nodeId = 0;
-			for (UnitNode node : singlePath.getNodes()) {
-				List<String> context = singlePath.getNode2TraceMap().get(nodeId);
-				// avoid repeate add single object to single path
+			for (UnitNode node : pathSummary.getNodes()) {
+				List<String> context = pathSummary.getNode2TraceMap().get(nodeId);
+				// avoid repeat add single object to single path
 				if (context == null)
 					context = new ArrayList<String>();
 				if (node.getNodeSetPointToMeMap().containsKey(context) && node.getNodeSetPointToMe(context) != null) {
-					ObjectSummaryModel singleObj = creatSingleObject(singlePath);
+					ObjectSummaryModel singleObj = creatSingleObject(pathSummary);
 					if (singleObj == null)
 						continue;
 					addedSet.add(singleObj);
-					analyzeSingleObject(singlePath, node, singleObj, nodeId, history, 0, addedSet);
+					analyzeSingleObject(pathSummary, node, singleObj, nodeId, history, 0, addedSet);
 				}
 				nodeId++;
 			}
 			if (!MyConfig.getInstance().getMySwithch().isFunctionExpandAllSwitch()) {
-				for (UnitNode node : singlePath.getNodes()) {
+				for (UnitNode node : pathSummary.getNodes()) {
 					if (history.contains(node))
 						continue;
 					// for invoke without intent para
@@ -343,8 +350,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 						if (invokedMethod != null) {
 							if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
 								MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
-								// addedSet.addAll(summary.getSingleObjectSet());
-								singleMethod.getReuseModelSet().add(summary);
+								methodSummary.getReuseModelSet().add(summary);
 							}
 						}
 					}
@@ -353,7 +359,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			// to be tested
 
 			removeInvalidSingleObject(addedSet);
-			singleMethod.getSingleObjectSet().addAll(addedSet);
+			methodSummary.getSingleObjectSet().addAll(addedSet);
 		}
 	}
 
@@ -365,8 +371,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	private void removeInvalidSingleObject(Set<ObjectSummaryModel> inputSet) {
 		Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
 		for (ObjectSummaryModel obj : inputSet) {
-			if (obj instanceof SingleIntentModel) {
-				SingleIntentModel intentObj = (SingleIntentModel) obj;
+			if (obj instanceof IntentSummaryModel) {
+				IntentSummaryModel intentObj = (IntentSummaryModel) obj;
 				if (intentObj.getCreateList().size() > 0 || intentObj.getReceiveFromFromRetValueList().size() > 0
 						|| intentObj.getReceiveFromParaList().size() > 0
 						|| intentObj.getReceiveFromOutList().size() > 0) {
@@ -385,7 +391,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * analyzeSingleObject
 	 * 
-	 * @param singlePath
+	 * @param pathSummary
 	 * @param node
 	 * @param singleObject
 	 * @param singleObject
@@ -393,10 +399,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param history
 	 * @param addedSet
 	 */
-	protected void analyzeSingleObject(PathSummaryModel singlePath, UnitNode node, ObjectSummaryModel singleObject,
+	protected void analyzeSingleObject(PathSummaryModel pathSummary, UnitNode node, ObjectSummaryModel singleObject,
 			int nodeId, Set<UnitNode> history, int depth, Set<ObjectSummaryModel> addedSet) {
 		// System.out.println("analyzeSingleObject "+ node.getUnit());
-		List<String> context = singlePath.getNode2TraceMap().get(nodeId);
+		List<String> context = pathSummary.getNode2TraceMap().get(nodeId);
 		if (context == null)
 			return;
 		history.add(node);
@@ -407,52 +413,53 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				handleStaticFieldInitUnits(node.getUnit(), singleObject);
 			}
 		}
-
-		List<UnitNode> workList = getWorkListofObjectAnalysis(node, singlePath, singleObject, context, addedSet);
-		handleWorkList(singlePath, singleObject, workList, addedSet);
+		List<UnitNode> workList = getWorkListofObjectAnalysis(node, pathSummary, singleObject, context, addedSet);
+		handleWorkList(pathSummary, singleObject, workList, addedSet);
 
 		if (MyConfig.getInstance().getMySwithch().isScenario_stack()) {
-			for (UnitNode pointedToMeNode : singlePath.getNodes()) {
+			for (UnitNode pointedToMeNode : pathSummary.getNodes()) {
 				if (pointedToMeNode.getType().equals("componentReturn")) {
-					singleObject.getNodes().add(pointedToMeNode);
+					singleObject.addNode(pointedToMeNode);
 					singleObject.setFinishFlag(true);
 				}
 			}
 		}
 	}
 
-	private List<UnitNode> getWorkListofObjectAnalysis(UnitNode node, PathSummaryModel singlePath,
+	private List<UnitNode> getWorkListofObjectAnalysis(UnitNode node, PathSummaryModel pathSummary,
 			ObjectSummaryModel singleObject, List<String> context, Set<ObjectSummaryModel> addedSet) {
 		// parameter passing between functions
+		List<UnitNode> workList = new ArrayList<UnitNode>();
 		boolean findPassing = false;
-		List<UnitNode> workList;
 		if (MyConfig.getInstance().getMySwithch().isFunctionExpandSwitch())
-			findPassing = handleParameterPassing(node, singlePath, singleObject);
-
-		if (!findPassing) {
-			// List<UnitNode> tempList = new ArrayList<UnitNode>();
-			workList = node.getNodeSetPointToMe(context);
-			// for(UnitNode n: workList){
-			// if(n.getInterFunNode()!=null){
-			// tempList.addAll(n.getInterFunNode().getNodePathList());
-			// }
-			// }
-			// workList.addAll(tempList);
-		} else {
-			workList = singlePath.getNodes();
-			if (node.getInterFunNode() != null) {
-				MethodSummaryModel interFunMethod = node.getInterFunNode();
-				for (ObjectSummaryModel model : interFunMethod.getSingleObjects()) {
-					ObjectSummaryModel copy = creatSingleObject(singlePath);
-					copy.merge(model);
-					addedSet.add(copy);
+			findPassing = handleParameterPassing(node, pathSummary, singleObject);
+		workList = node.getNodeSetPointToMe(context);
+		for(UnitNode tempNode: workList){
+			if (tempNode.getType().startsWith("ReceiveIntentFrom")) 
+				findPassing = true;
+		}
+		if (findPassing)  {
+			boolean fixpoint = false;
+			while(!fixpoint){
+				fixpoint = true;
+				List<UnitNode> addList = new ArrayList<UnitNode>();
+				for(UnitNode tempNode: workList){
+					if(tempNode.getNodeSetPointToMe(context)!=null){
+						for(UnitNode newNode: tempNode.getNodeSetPointToMe(context)){
+							if(!workList.contains(newNode)){
+								fixpoint = false;
+								addList.add(newNode);
+							}
+						}
+					}
 				}
+				workList.addAll(addList);
 			}
 		}
 		return workList;
 	}
 
-	private void handleWorkList(PathSummaryModel singlePath, ObjectSummaryModel singleObject, List<UnitNode> workList,
+	private void handleWorkList(PathSummaryModel pathSummary, ObjectSummaryModel singleObject, List<UnitNode> workList,
 			Set<ObjectSummaryModel> addedSet) {
 		if (workList == null)
 			return;
@@ -463,13 +470,13 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					handleStaticFieldInitUnits(pointedToMeNode.getUnit(), singleObject);
 				}
 			}
-			if (!singlePath.getNodes().contains(pointedToMeNode))
+			if (!pathSummary.getNodes().contains(pointedToMeNode))
 				continue;
 			UnitHandler handler = helper.getUnitHandler(pointedToMeNode.getUnit());
 			if (handler != null) {
 				handler.init(methodUnderAnalysis, pointedToMeNode.getUnit());
 				handler.handleSingleObject(singleObject);
-				singleObject.getNodes().add(pointedToMeNode);
+				singleObject.addNode(pointedToMeNode);
 			}
 		}
 	}
@@ -478,10 +485,11 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * handleParameterPassing
 	 * 
 	 * @param node
-	 * @param singlePath
+	 * @param pathSummary
 	 * @param singleObject
+	 * @param workList 
 	 */
-	private boolean handleParameterPassing(UnitNode node, PathSummaryModel singlePath, ObjectSummaryModel singleObject) {
+	private boolean handleParameterPassing(UnitNode node, PathSummaryModel pathSummary, ObjectSummaryModel singleObject) {
 		boolean findPassing = false;
 		if (node.getInterFunNode() == null)
 			return false;
@@ -504,19 +512,20 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			boolean findPs = false;
 			if (!handleTarget.getNodeSetPointToMeMap().containsKey((new ArrayList<String>())))
 				return false;
-			for (UnitNode innerNode : handleTarget.getNodeSetPointToMe(new ArrayList<String>())) {
+			List<UnitNode> nodeList = handleTarget.getNodeSetPointToMe(new ArrayList<String>());
+			for (UnitNode innerNode : nodeList) {
 				if (innerNode.toString().equals(handleTarget.toString()))
 					continue;
 				if (appModel.getUnit2ParameterSource().containsKey(innerNode.getUnit())) {
 					findPs = true;
 					handleTarget = innerNode;
-					if (singlePath.getNodes().contains(handleTarget)) {
+					if (pathSummary.getNodes().contains(handleTarget)) {
 						UnitHandler handler2 = helper.getUnitHandler(handleTarget.getUnit());
 						if (handler2 != null) {
 							handler2.init(handleTarget.getMethod(), handleTarget.getUnit());
 							handler2.handleSingleObject(objContext, singleObject, targetUnit);
-							singleObject.getNodes().add(handleTarget);
-							findPassing = true;
+							singleObject.addNode(handleTarget);
+							findPassing =true;
 						}
 					}
 				}
@@ -560,13 +569,13 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				if (handler != null) {
 					handler.init(methodUnderAnalysis, useUnit);
 					handler.handleSingleObject(singleObject);
-					singleObject.getNodes().add(node);
+					singleObject.addNode(node);
 				}
 			}
 		}
 	}
 
-	protected void getSingleComponent(MethodSummaryModel singleMethod) {
+	protected void getSingleComponent(MethodSummaryModel methodSummary) {
 
 	}
 
@@ -756,12 +765,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 						targetNode.addNodeSetPointToMeMap(context, currentNode);
 					}
 				}
-				// else{
-				// UnitNode targetNode = new UnitNode(null, methodUnderAnalysis,
-				// helper.getTypeofUnit(methodUnderAnalysis, null));
-				// currentNode.addBaseNodePointToMap(context, targetNode);
-				// targetNode.addNodeSetPointToMeMap(context, currentNode);
-				// }
 				/** node with InterFunNode **/
 				Stack<String> methodStack = new Stack<String>();
 				methodStack.add(currentBlock.getBody().getMethod().getSignature());
@@ -845,8 +848,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 				}
 
 				/** add summary of invoked method to current node **/
-				// MethodSummaryModel summaries =
-				// currentSummaryMap.get(invokedMethod.getSignature());
 				MethodSummaryModel summaries = getSummaryFromStorage(invokedMethod.getSignature());
 				currentNode.setInterFunNode(summaries);
 				/**
@@ -894,13 +895,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					// TODO
 					/** iteratively handle multiple level inner function **/
 					handleNodewithInnerFunction(methodStack, innerMtdContext, subNode);
-					// if (subNode.getNodeSetPointToMe(innerMtdContext) !=
-					// null){
-					// for(UnitNode subsub:
-					// subNode.getNodeSetPointToMe(innerMtdContext))
-					// currentNode.getBaseNodePointedTo(currentMtdcontext).addNodeSetPointToMeMap(currentMtdcontext,
-					// subsub);
-					// }
 				}
 			}
 		}
@@ -1130,7 +1124,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 				if (SootUtils.hasSootActiveBody(invokedMethod)) {
 					SootMethod oldMethodStore = methodUnderAnalysis;
-					MethodSummaryModel model = analyzeSingleMethod(invokedMethod);
+					MethodSummaryModel model = analyzeMethodSummary(invokedMethod);
 					drawATGandStatistic(model);
 					this.methodUnderAnalysis = oldMethodStore;
 				}
@@ -1179,21 +1173,21 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * analyze each SingleMehodModel to get several single pathes
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param targetUnitListSet
 	 */
-	protected void getSinglePath(MethodSummaryModel singleMethod, Set<List<UnitNode>> targetUnitListSet) {
+	protected void getPathSummary(MethodSummaryModel methodSummary, Set<List<UnitNode>> targetUnitListSet) {
 		// node is single path is repeated
 		Set<String> nodeHistoryForNotExpand = new HashSet<String>();
 		for (List<UnitNode> nodelist : targetUnitListSet) {
 			if (nodelist.size() == 0)
 				continue;
 			for (UnitNode newNode : nodelist) {
-				if (!singleMethod.getNodePathList().contains(newNode))
-					singleMethod.getNodePathList().add(newNode);
+				if (!methodSummary.getNodePathList().contains(newNode))
+					methodSummary.getNodePathList().add(newNode);
 			}
 			Set<PathSummaryModel> pathSet = new HashSet<PathSummaryModel>();
-			PathSummaryModel initPath = new PathSummaryModel(singleMethod);
+			PathSummaryModel initPath = new PathSummaryModel(methodSummary);
 			initPath.getMethodTrace().add(methodUnderAnalysis.getSubSignature());
 			pathSet.add(initPath);
 			for (UnitNode n : nodelist) {
@@ -1206,37 +1200,37 @@ public abstract class ObjectAnalyzer extends Analyzer {
 						String sig = n.getUnit().toString() + n.getMethod().getSignature();
 						if (!nodeHistoryForNotExpand.contains(sig)) {
 							nodeHistoryForNotExpand.add(sig);
-							addAllPathsWithoutExpand(singleMethod, n, pathSet);// path
+							addAllPathsWithoutExpand(methodSummary, n, pathSet);// path
 																				// insensitive
 						}
 					} else {
-						int currentPathNum = singleMethod.getPathSet().size() + pathSet.size();
+						int currentPathNum = methodSummary.getPathSet().size() + pathSet.size();
 						expandAllPaths(n, initPath, pathSet, currentPathNum); // path
 																				// sensitive{
 					}
 				} else {
-					addAllPathsWithoutExpand(singleMethod, n, pathSet);// path
+					addAllPathsWithoutExpand(methodSummary, n, pathSet);// path
 																		// insensitive
 				}
-				int currentPathNum = singleMethod.getPathSet().size() + pathSet.size();
+				int currentPathNum = methodSummary.getPathSet().size() + pathSet.size();
 				if (currentPathNum > MyConfig.getInstance().getMaxPathNumber()) {
 					break;
 				}
 			}
-			singleMethod.getPathSet().addAll(pathSet);
+			methodSummary.getPathSet().addAll(pathSet);
 
-			if (singleMethod.getPathSet().size() > MyConfig.getInstance().getMaxPathNumber()) {
+			if (methodSummary.getPathSet().size() > MyConfig.getInstance().getMaxPathNumber()) {
 				break;
 			}
 		}
-		removePathWithSingleRet(singleMethod);
-		if (singleMethod.getPathSet().size() > 0 || singleMethod.getSingleObjectSet().size() > 0
-				|| singleMethod.getReuseModelSet().size() > 0) {
-			currentSummaryMap.put(methodUnderAnalysis.getSignature(), singleMethod);
+		removePathWithSingleRet(methodSummary);
+		if (methodSummary.getPathSet().size() > 0 || methodSummary.getSingleObjectSet().size() > 0
+				|| methodSummary.getReuseModelSet().size() > 0) {
+			currentSummaryMap.put(methodUnderAnalysis.getSignature(), methodSummary);
 		}
 		// String name =
 		// methodUnderAnalysis.getDeclaringClass().getName()+"__"+methodUnderAnalysis.getName();
-		// System.out.println( name +" = " +singleMethod.getPathSet().size());
+		// System.out.println( name +" = " +methodSummary.getPathSet().size());
 	}
 
 	// new idea
@@ -1267,15 +1261,15 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * addAllPathsWithoutExpand path insensitive
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param n
 	 * @param pathSet
 	 */
-	private void addAllPathsWithoutExpand(MethodSummaryModel singleMethod, UnitNode n, Set<PathSummaryModel> pathSet) {
+	private void addAllPathsWithoutExpand(MethodSummaryModel methodSummary, UnitNode n, Set<PathSummaryModel> pathSet) {
 		MethodSummaryModel interFunMethod = n.getInterFunNode();
 		if (interFunMethod == null)
 			return;
-		singleMethod.getReuseModelSet().add(interFunMethod);
+		methodSummary.getReuseModelSet().add(interFunMethod);
 	}
 
 	/**
@@ -1287,8 +1281,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 */
 	private void forNodeNotFunctionCall(UnitNode n, PathSummaryModel initPath, Set<PathSummaryModel> pathSet) {
 		initPath.getNode2TraceMap().put(initPath.getNode2TraceMap().size(), new ArrayList<String>());
-		for (PathSummaryModel singlePath : pathSet) {
-			singlePath.addNode(n);
+		for (PathSummaryModel pathSummary : pathSet) {
+			pathSummary.addNode(n);
 		}
 	}
 
@@ -1304,28 +1298,27 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	private void expandAllPaths(UnitNode n, PathSummaryModel initPath, Set<PathSummaryModel> pathSet, int currentPathNum) {
 		Set<PathSummaryModel> addedPathSet = new HashSet<PathSummaryModel>();
 		initPath.getNode2TraceMap().put(initPath.getNode2TraceMap().size(), new ArrayList<String>());
-		for (PathSummaryModel singlePath : pathSet) {
-			singlePath.addNode(n);
+		for (PathSummaryModel pathSummary : pathSet) {
+			pathSummary.addNode(n);
 			if (n.getInterFunNode() != null) {
-				String innerSig = n.getUnit().toString() + n.hashCode();
-				if (!singlePath.getMethodTrace().contains(
-						n.getInterFunNode().getMethod().getSignature() + " --- " + n.getUnit())) {
-					singlePath.getMethodTrace().add(
-							n.getInterFunNode().getMethod().getSignature() + " --- " + n.getUnit());
+				String newTrace = n.getInterFunNode().getMethod().getSignature();
+				if (!pathSummary.getMethodTrace().contains(newTrace)) {
+					pathSummary.getMethodTrace().add(newTrace);
 				}
 				MethodSummaryModel interFunMethod = n.getInterFunNode();
 				int id = 0;
-				PathSummaryModel singlePathUpdated = null;
+				PathSummaryModel pathSummaryUpdated = null;
 				for (PathSummaryModel innerPath : interFunMethod.getPathSet()) {
 					id++;
 					if (id == interFunMethod.getPathSet().size())
-						singlePathUpdated = singlePath;
+						pathSummaryUpdated = pathSummary;
 					else {
-						singlePathUpdated = new PathSummaryModel();
-						singlePathUpdated.copy(singlePath);
-						addedPathSet.add(singlePathUpdated);
+						pathSummaryUpdated = new PathSummaryModel();
+						pathSummaryUpdated.copy(pathSummary);
+						addedPathSet.add(pathSummaryUpdated);
 					}
-					singlePathUpdated.merge(innerPath, innerSig);
+					String innerSig = n.getUnit().toString() + n.hashCode();
+					pathSummaryUpdated.merge(innerPath, innerSig);
 				}
 			}
 			if (currentPathNum + addedPathSet.size() > MyConfig.getInstance().getMaxPathNumber()) {
@@ -1339,11 +1332,11 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * removePathWithSingleRet
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 */
-	private void removePathWithSingleRet(MethodSummaryModel singleMethod) {
+	private void removePathWithSingleRet(MethodSummaryModel methodSummary) {
 		Set<PathSummaryModel> deleteSet = new HashSet<PathSummaryModel>();
-		for (PathSummaryModel path : singleMethod.getPathSet()) {
+		for (PathSummaryModel path : methodSummary.getPathSet()) {
 			if (path.getNodes().size() == 1) {
 				if (path.getNodes().get(0).getUnit() instanceof JIdentityStmt) {
 					deleteSet.add(path);
@@ -1353,7 +1346,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			}
 		}
 		for (PathSummaryModel path : deleteSet) {
-			singleMethod.getPathSet().remove(path);
+			methodSummary.getPathSet().remove(path);
 		}
 	}
 

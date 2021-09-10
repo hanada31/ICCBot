@@ -115,13 +115,6 @@ public class CgConstructor extends Analyzer {
 
 		dummyMainMethod = setupApplication.getDummyMainMethod();
 		SootClass sc = dummyMainMethod.getDeclaringClass();
-		// for (SootMethod sm : sc.getMethods()) {
-		// if (!sm.isAbstract()) {
-		// FileUtils.writeText2File(
-		// summary_app_dir+ConstantUtils.DUMMYFOLDETR+sm.getName()+".txt",
-		// sm.getActiveBody().toString(),false);
-		// }
-		// }
 		FileUtils.delFolder("sootOutput");
 
 	}

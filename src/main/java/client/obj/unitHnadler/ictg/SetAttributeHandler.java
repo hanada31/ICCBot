@@ -10,14 +10,14 @@ import main.java.analyze.model.sootAnalysisModel.Counter;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.Unit;
 import soot.Value;
 import soot.toolkits.scalar.UnitValueBoxPair;
 
 public class SetAttributeHandler extends UnitHandler {
-	SingleIntentModel singleIntent;
+	IntentSummaryModel intentSummary;
 
 	@Override
 	public void handleSingleObject(ObjectSummaryModel singleObject) {
@@ -27,16 +27,16 @@ public class SetAttributeHandler extends UnitHandler {
 	@Override
 	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
-		this.singleIntent = (SingleIntentModel) singleObject;
-		this.singleIntent.getDataHandleList().add(unit);
+		this.intentSummary = (IntentSummaryModel) singleObject;
+		this.intentSummary.getDataHandleList().add(unit);
 		setAttriAPIAnalyze(); // acid
 	}
 
 	@Override
 	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
 		this.oldContextwithRealValue = oldContextwithRealValue;
-		this.singleIntent = (SingleIntentModel) singleObject;
-		this.singleIntent.getDataHandleList().add(unit);
+		this.intentSummary = (IntentSummaryModel) singleObject;
+		this.intentSummary.getDataHandleList().add(unit);
 		this.targetUnit = targetUnit;
 		setAttriAPIAnalyze(); // acid
 	}
@@ -124,7 +124,7 @@ public class SetAttributeHandler extends UnitHandler {
 		}
 		ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
 		Set<String> resSet = new HashSet<>(vo.getValueofVar(inputVar, unit, 0).getValues());
-		dataHandler.handleData(singleIntent, SootUtils.getNameofClass(className), resSet);
+		dataHandler.handleData(intentSummary, SootUtils.getNameofClass(className), resSet);
 	}
 
 }

@@ -32,7 +32,7 @@ import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.ExtraData;
 import main.java.client.obj.model.component.IntentFilterModel;
 import main.java.client.obj.model.component.ServiceModel;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.related.ic3.model.IC3Model;
 import main.java.client.statistic.model.DoStatistic;
 import main.java.client.statistic.model.StatisticResult;
@@ -229,9 +229,9 @@ public class IC3DialReader extends Analyzer {
 		if (attributes == null)
 			return;
 		String data = "";
-		SingleIntentModel singleIntent = new SingleIntentModel(null);
-		singleIntent.setTargetType(intentType);
-		singleIntent.setNodes(new ArrayList<UnitNode>());
+		IntentSummaryModel intentSummary = new IntentSummaryModel(null);
+		intentSummary.setTargetType(intentType);
+		intentSummary.setNodes(new ArrayList<UnitNode>());
 		boolean hasDes = false;
 		for (int m = 0; m < attributes.size(); m++) {
 			JSONObject attribute = (JSONObject) attributes.get(m);
@@ -240,22 +240,22 @@ public class IC3DialReader extends Analyzer {
 			String value = attribute.getString("value");
 			if (kind.equals("0") || kind.equals("ACTION")) {// ACTION
 				for (int n = 0; n < values.size(); n++)
-					singleIntent.getSetActionValueList().add(values.getString(n));
+					intentSummary.getSetActionValueList().add(values.getString(n));
 			} else if (kind.equals("1") || kind.equals("CATEGORY")) {// CATEGORY
 				for (int n = 0; n < values.size(); n++)
-					singleIntent.getSetCategoryValueList().add(values.getString(n));
+					intentSummary.getSetCategoryValueList().add(values.getString(n));
 			} else if (kind.equals("2") || kind.equals("PACKAGE")) {// CLASS
 			} else if (kind.equals("3") || kind.equals("CLASS")) {// CLASS
 				String des = values.getString(0).replace("/", ".");
 				if (Global.v().getAppModel().getComponentMap().containsKey(des)) {
-					singleIntent.getSetDestinationList().add(des);
+					intentSummary.getSetDestinationList().add(des);
 					AtgEdge edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method, instructionId, iCCkind);
 					model.getIC3AtgModel().addAtgEdges(src, edge);
-					addToSummaryMap(src, method, singleIntent);
+					addToSummaryMap(src, method, intentSummary);
 				}
 				hasDes = true;
 			} else if (kind.equals("7") || kind.equals("EXTRA")) {
-				BundleType bt = singleIntent.getSetExtrasValueList();
+				BundleType bt = intentSummary.getSetExtrasValueList();
 				List<ExtraData> eds = new ArrayList<ExtraData>();
 				for (int n = 0; n < values.size(); n++) {
 					ExtraData ed = new ExtraData();
@@ -277,7 +277,7 @@ public class IC3DialReader extends Analyzer {
 			else if (kind.equals("11") || kind.equals("PORT"))
 				data += value;
 			if (data.toString().length() > 0) {
-				singleIntent.getSetDataValueList().add(data);
+				intentSummary.getSetDataValueList().add(data);
 			}
 		}
 		if (hasDes)
@@ -287,32 +287,32 @@ public class IC3DialReader extends Analyzer {
 				.contains(
 						"virtualinvoke $r0.<org.anothermonitor.ServiceReader: void sendBroadcast(android.content.Intent)>($r2)"))
 			System.out.println();
-		List<String> resSet = analyzeDesinationByACDT(singleIntent);
+		List<String> resSet = analyzeDesinationByACDT(intentSummary);
 		for (String des : resSet) {
 			// des = des.split("\\.")[des.split("\\.").length-1];
 			AtgEdge edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method, instructionId, iCCkind);
 			model.getIC3AtgModel().addAtgEdges(src, edge);
-			addToSummaryMap(src, method, singleIntent);
+			addToSummaryMap(src, method, intentSummary);
 		}
 
 	}
 
-	private void addToSummaryMap(String src, String method, SingleIntentModel singleIntent) {
+	private void addToSummaryMap(String src, String method, IntentSummaryModel intentSummary) {
 		if (Scene.v().getMethod(method) != null) {
-			MethodSummaryModel singleMethod = summaryMap.get(method);
+			MethodSummaryModel methodSummary = summaryMap.get(method);
 			if (!summaryMap.containsKey(method)) {
-				singleMethod = new MethodSummaryModel(SootUtils.getNameofClass(src), Scene.v().getMethod(method));
-				summaryMap.put(method, singleMethod);
+				methodSummary = new MethodSummaryModel(SootUtils.getNameofClass(src), Scene.v().getMethod(method));
+				summaryMap.put(method, methodSummary);
 			}
-			singleMethod.getSingleObjects().add(singleIntent);
+			methodSummary.getSingleObjects().add(intentSummary);
 		}
 
 	}
 
-	private List<String> analyzeDesinationByACDT(SingleIntentModel singleIntent) {
-		List<String> summaryActionSet = singleIntent.getSetActionValueList();
-		List<String> summaryCateSet = singleIntent.getSetCategoryValueList();
-		List<String> summaryDataSet = singleIntent.getSetDataValueList();
+	private List<String> analyzeDesinationByACDT(IntentSummaryModel intentSummary) {
+		List<String> summaryActionSet = intentSummary.getSetActionValueList();
+		List<String> summaryCateSet = intentSummary.getSetCategoryValueList();
+		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> resSet = new ArrayList<String>();
 		for (ComponentModel component : IC3ComponentMap.values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
@@ -371,7 +371,7 @@ public class IC3DialReader extends Analyzer {
 					}
 				}
 				if ((actionTarget && cateTarget && dataTarget)) {
-					if (component.getComponentType().equals(singleIntent.getTargetType())) {
+					if (component.getComponentType().equals(intentSummary.getTargetType())) {
 						resSet.add(component.getComponetName());
 					}
 				}

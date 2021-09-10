@@ -65,9 +65,9 @@ public class IC3DIALDroidResultEvaluateClient extends BaseClient {
 				+ Global.v().getAppModel().getAppName() + ".json");
 
 		/** Intent **/
-		outer.writeSingleIntentModel(summary_app_dir + ConstantUtils.IC3DIALDROIDFOLDETR,
+		outer.writeIntentSummaryModel(summary_app_dir + ConstantUtils.IC3DIALDROIDFOLDETR,
 				ConstantUtils.SINGLEOBJECT_ENTRY, true);
-		outer.writeSingleIntentModel(summary_app_dir + ConstantUtils.IC3DIALDROIDFOLDETR,
+		outer.writeIntentSummaryModel(summary_app_dir + ConstantUtils.IC3DIALDROIDFOLDETR,
 				ConstantUtils.SINGLEOBJECT_ALL, false);
 	}
 

@@ -4,12 +4,12 @@ import java.util.Set;
 
 import main.java.Global;
 import main.java.analyze.utils.SootUtils;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 public class AtgEdge {
 	private AtgNode source;
 	private AtgNode destnation;
-	private SingleIntentModel singleIntent;
+	private IntentSummaryModel intentSummary;
 	private AtgType type;
 	private String methodSig;
 	private int instructionId;
@@ -127,12 +127,12 @@ public class AtgEdge {
 		this.destnation = destnation;
 	}
 
-	public SingleIntentModel getSingleIntent() {
-		return singleIntent;
+	public IntentSummaryModel getIntentSummary() {
+		return intentSummary;
 	}
 
-	public void setSingleIntent(SingleIntentModel singleIntent) {
-		this.singleIntent = singleIntent;
+	public void setIntentSummary(IntentSummaryModel intentSummary) {
+		this.intentSummary = intentSummary;
 	}
 
 	public AtgType getType() {
@@ -151,7 +151,7 @@ public class AtgEdge {
 			return false;
 		AtgEdge edge = (AtgEdge) obj;
 		if (this.source == edge.source && this.destnation == edge.destnation && this.type == edge.type
-				&& this.singleIntent == edge.singleIntent) {
+				&& this.intentSummary == edge.intentSummary) {
 			return true;
 		}
 		return false;

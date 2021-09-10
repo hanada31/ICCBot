@@ -164,7 +164,7 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 	 * 
 	 * @param methodUnderAnalysis
 	 * @param appModel
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param u
 	 * @return
 	 */

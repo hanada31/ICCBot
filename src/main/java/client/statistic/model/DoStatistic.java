@@ -7,17 +7,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import java_cup.internal_error;
 import main.java.Global;
 import main.java.analyze.model.analyzeModel.MethodSummaryModel;
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.model.analyzeModel.UnitNode;
+import main.java.analyze.utils.RAICCUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.BundleType;
-import main.java.client.obj.model.fragment.SingleFragmentModel;
-import main.java.client.obj.model.ictg.SingleIntentFeatureExtractor;
-import main.java.client.obj.model.ictg.SingleIntentModel;
+import main.java.client.obj.model.component.Flag;
+import main.java.client.obj.model.fragment.FragmentSummaryModel;
+import main.java.client.obj.model.ictg.IntentSummaryFeatureExtractor;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
@@ -28,147 +31,148 @@ import soot.Unit;
 
 public class DoStatistic {
 
-	public static void updateXMLStatisticUseSummayMapForFragment(boolean entryMethod, MethodSummaryModel singleMethod,
+	public static void updateXMLStatisticUseSummayMapForFragment(boolean entryMethod, MethodSummaryModel methodSummary,
 			StatisticResult result) {
 		XmlStatistic statistic = result.getXmlStatistic();
 		if (entryMethod) {
-			SootMethod sm = singleMethod.getMethod();
+			SootMethod sm = methodSummary.getMethod();
 			boolean flag = Global.v().getAppModel().getEntryMethod2Component().containsKey(sm);
+			if (Global.v().getAppModel().getEntryMethod2Component().containsKey(sm))
+				flag = true;
 			if (!flag)
 				return;
 		}
-		if (singleMethod != null) {
-			writeForSingleMethod(singleMethod, entryMethod, statistic);
-			writeForSinglePath(singleMethod, entryMethod, statistic);
-			writeForSingleFragment(singleMethod, entryMethod, statistic);
+		if (methodSummary != null) {
+			writeForMethodSummary(methodSummary, entryMethod, statistic);
+			writeForPathSummary(methodSummary, entryMethod, statistic);
+			writeForFragmentSummary(methodSummary, entryMethod, statistic);
 		}
 	}
 
-	public static void updateXMLStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel singleMethod,
+	public static void updateXMLStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel methodSummary,
 			StatisticResult result) {
 		XmlStatistic statistic = result.getXmlStatistic();
 
 		if (entryMethod) {
-			SootMethod sm = singleMethod.getMethod();
+			SootMethod sm = methodSummary.getMethod();
 			SootClass sc = sm.getDeclaringClass();
 			String source = SootUtils.getNameofClass(sc.getName());
 			boolean flag = Global.v().getAppModel().getComponentMap().containsKey(source);
+			if (Global.v().getAppModel().getEntryMethod2Component().containsKey(sm))
+				flag = true;
 			if (!flag)
 				return;
 		}
-		if (singleMethod != null) {
-			writeForSingleMethod(singleMethod, entryMethod, statistic);
-			writeForSinglePath(singleMethod, entryMethod, statistic);
-			writeForSingleIntent(singleMethod, entryMethod, statistic);
+		if (methodSummary != null) {
+			writeForMethodSummary(methodSummary, entryMethod, statistic);
+			writeForPathSummary(methodSummary, entryMethod, statistic);
+			writeForIntentSummary(methodSummary, entryMethod, statistic);
 		}
 	}
 
 	/**
-	 * writeForSingleIntent
+	 * writeForIntentSummary
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSingleIntent(MethodSummaryModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
-		Element singleIntentEle = new DefaultElement("Component");
-		String sourceStr = SootUtils.getNameofClass(singleMethod.getComponentName());
-		singleIntentEle.addAttribute("source", sourceStr);
-		Set<SingleIntentModel> history = new HashSet<SingleIntentModel>();
-		// for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
-		// for(ObjectSummaryModel singleObject: singlePath.getSingleObjectSet()){
-		for (ObjectSummaryModel singleObject : singleMethod.getSingleObjects()) {
-			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
-			if (history.contains(singleIntent))
+	private static void writeForIntentSummary(MethodSummaryModel methodSummary, boolean entryMethod, XmlStatistic statistic) {
+		Element intentSummaryEle = new DefaultElement("Component");
+		String sourceStr = SootUtils.getNameofClass(methodSummary.getComponentName());
+		intentSummaryEle.addAttribute("source", sourceStr);
+		Set<IntentSummaryModel> history = new HashSet<IntentSummaryModel>();
+		for (ObjectSummaryModel singleObject : methodSummary.getSingleObjects()) {
+			IntentSummaryModel intentSummary = (IntentSummaryModel) singleObject;
+			if (history.contains(intentSummary))
 				continue;
-			if (singleIntent.getSendIntent2ICCList().size() == 0 && singleIntent.getSetDestinationList().size() == 0)
+			if (intentSummary.getSendIntent2ICCList().size() == 0 && intentSummary.getSetDestinationList().size() == 0)
 				continue;
-			history.add(singleIntent);
-			writeSingleIntent(singleIntent, singleIntentEle, singleObject.getSinglePath(), singleMethod);
-			// }
+			history.add(intentSummary);
+			writeIntentSummary(intentSummary, intentSummaryEle, singleObject.getPathSummary(), methodSummary);
 		}
-		if (singleIntentEle.hasContent()) {
+		if (intentSummaryEle.hasContent()) {
 			if (entryMethod)
-				statistic.addEntrySingleIntentEleList(singleIntentEle);
+				statistic.addEntryIntentSummaryEleList(intentSummaryEle);
 			else
-				statistic.addAllSingleIntentEleList(singleIntentEle);
+				statistic.addAllIntentSummaryEleList(intentSummaryEle);
 		}
 	}
 
 	/**
-	 * writeForSingleIntent
+	 * writeForIntentSummary
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSingleFragment(MethodSummaryModel singleMethod, boolean entryMethod,
+	private static void writeForFragmentSummary(MethodSummaryModel methodSummary, boolean entryMethod,
 			XmlStatistic statistic) {
-		Element singleIntentEle = new DefaultElement("Component");
-		String sourceStr = singleMethod.getMethod().getDeclaringClass().getName();
-		singleIntentEle.addAttribute("source", sourceStr);
+		Element intentSummaryEle = new DefaultElement("Component");
+		String sourceStr = methodSummary.getMethod().getDeclaringClass().getName();
+		intentSummaryEle.addAttribute("source", sourceStr);
 		Set<ObjectSummaryModel> history = new HashSet<ObjectSummaryModel>();
-		for (ObjectSummaryModel singleObject : singleMethod.getSingleObjects()) {
-			SingleFragmentModel Singlefrag = (SingleFragmentModel) singleObject;
+		for (ObjectSummaryModel singleObject : methodSummary.getSingleObjects()) {
+			FragmentSummaryModel Singlefrag = (FragmentSummaryModel) singleObject;
 			if (history.contains(Singlefrag))
 				continue;
 			if (Singlefrag.getSendFragment2Start().size() == 0)
 				continue;
 			history.add(Singlefrag);
-			writeSingleFragment(Singlefrag, singleIntentEle, singleObject.getSinglePath(), singleMethod);
+			writeFragmentSummary(Singlefrag, intentSummaryEle, singleObject.getPathSummary(), methodSummary);
 		}
-		if (singleIntentEle.hasContent()) {
+		if (intentSummaryEle.hasContent()) {
 			if (entryMethod)
-				statistic.addEntrySingleIntentEleList(singleIntentEle);
+				statistic.addEntryIntentSummaryEleList(intentSummaryEle);
 			else
-				statistic.addAllSingleIntentEleList(singleIntentEle);
+				statistic.addAllIntentSummaryEleList(intentSummaryEle);
 		}
 	}
 
 	/**
-	 * writeForSinglePath
+	 * writeForPathSummary
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSinglePath(MethodSummaryModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
-		if (singleMethod.getPathSet().size() == 0)
+	private static void writeForPathSummary(MethodSummaryModel methodSummary, boolean entryMethod, XmlStatistic statistic) {
+		if (methodSummary.getPathSet().size() == 0)
 			return;
 
-		Element singlePathEle = new DefaultElement("singleMethod");
-		singlePathEle.addAttribute("source", singleMethod.getMethod().getSignature());
+		Element pathSummaryEle = new DefaultElement("methodSummary");
+		pathSummaryEle.addAttribute("source", methodSummary.getMethod().getSignature());
 
-		for (PathSummaryModel singlePath : singleMethod.getPathSet()) {
-			writeSinglePath(singlePath, singlePathEle);
+		for (PathSummaryModel pathSummary : methodSummary.getPathSet()) {
+			writePathSummary(pathSummary, pathSummaryEle);
 		}
 
-		if (singlePathEle.element("singlePath") != null) {
+		if (pathSummaryEle.element("pathSummary") != null) {
 			if (entryMethod)
-				statistic.addEntrySinglePathEleList(singlePathEle);
+				statistic.addEntryPathSummaryEleList(pathSummaryEle);
 			else
-				statistic.addAllSinglePathEleList(singlePathEle);
+				statistic.addAllPathSummaryEleList(pathSummaryEle);
 		}
 	}
 
 	/**
-	 * writeForSingleMethod
+	 * writeForMethodSummary
 	 * 
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param entryMethod
 	 * @param statistic
 	 */
-	private static void writeForSingleMethod(MethodSummaryModel singleMethod, boolean entryMethod, XmlStatistic statistic) {
-		Element singleMethodEle = new DefaultElement("singleMethod");
-		singleMethodEle.addAttribute("source", singleMethod.getMethod().getSignature());
+	private static void writeForMethodSummary(MethodSummaryModel methodSummary, boolean entryMethod, XmlStatistic statistic) {
+		Element methodSummaryEle = new DefaultElement("methodSummary");
+		methodSummaryEle.addAttribute("source", methodSummary.getMethod().getSignature());
 
-		writeSingleMethod(singleMethodEle, singleMethod);
+		writeMethodSummary(methodSummaryEle, methodSummary);
 
-		if (singleMethodEle.element("node") != null) {
+		if (methodSummaryEle.element("node") != null) {
 			if (entryMethod) {
-				statistic.addEntrySingleMethodEleList(singleMethodEle);
+				statistic.addEntryMethodSummaryEleList(methodSummaryEle);
 			} else {
-				statistic.addAllSingleMethodEleList(singleMethodEle);
+				statistic.addAllMethodSummaryEleList(methodSummaryEle);
 			}
 		}
 
@@ -179,19 +183,19 @@ public class DoStatistic {
 	 * 
 	 * @param stack
 	 * @param path
-	 * @param singleMethod
+	 * @param methodSummary
 	 * @param topSummary
 	 * @param i
 	 */
-	private static void writeSingleMethod(Element path, MethodSummaryModel singleMethod) {
-		List<UnitNode> list = singleMethod.getNodePathList();
+	private static void writeMethodSummary(Element path, MethodSummaryModel methodSummary) {
+		List<UnitNode> list = methodSummary.getNodePathList();
 		for (UnitNode n : list) {
 			if (n.getUnit() == null)
 				continue;
 			Element node = path.addElement("node");
-			node.addAttribute("unit", n.getUnit().toString());
 			if (n.getType().length() > 0)
 				node.addAttribute("type", n.getType());
+			node.addAttribute("unit", n.getUnit().toString());
 			if (n.getCondition() != null) {
 				Element condInfo = node.addElement("condInfo");
 				condInfo.addAttribute("value", n.getCondition().toString());
@@ -200,72 +204,73 @@ public class DoStatistic {
 	}
 
 	/**
-	 * writeSinglePath
+	 * writePathSummary
 	 * 
-	 * @param singlePath
+	 * @param pathSummary
 	 * @param summary
 	 */
-	private static void writeSinglePath(PathSummaryModel singlePath, Element summary) {
-		if (singlePath.getNodes().size() == 0)
+	private static void writePathSummary(PathSummaryModel pathSummary, Element summary) {
+		if (pathSummary.getNodes().size() == 0)
 			return;
-		Element icc = summary.addElement("singlePath");
-		writeMethod(icc, singlePath);
-		writeSinglePathICCNode(new ArrayList<String>(), singlePath, icc);
+		Element icc = summary.addElement("pathSummary");
+		writeMethod(icc, null,pathSummary, null);
+		writePathSummaryICCNode(new ArrayList<String>(), pathSummary, icc);
 	}
 
 	/**
-	 * writeSinglePath
+	 * writePathSummary
 	 * 
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param summary
-	 * @param singlePath
+	 * @param pathSummary
 	 */
-	private static void writeSingleIntent(SingleIntentModel singleIntent, Element summary, PathSummaryModel singlePath,
-			MethodSummaryModel singleMethod) {
-		Element icc = new DefaultElement("singleIntent");
-		// writeICCType(singleIntent, icc);
-		writeMethod(icc, singlePath, singleMethod);
-		writeSource(singleIntent, icc, singleMethod);
-		writeDestnition(singleIntent, icc);
-		writeICCSendReceive(singleIntent, icc);
-		// writeICCFlow(singleIntent, icc);
-		writeSingleObjectICCNode(new ArrayList<String>(), singleIntent, icc);
-		if (icc.element("nodes") != null || icc.element("destinition") != null)
+	private static void writeIntentSummary(IntentSummaryModel intentSummary, Element summary, PathSummaryModel pathSummary,
+			MethodSummaryModel methodSummary) {
+		Element icc = new DefaultElement("intentSummary");
+		// writeICCType(intentSummary, icc);
+		writeMethod(icc, intentSummary, pathSummary, methodSummary);
+		writeSource(intentSummary, icc, methodSummary);
+		writeDestnition(intentSummary, icc);
+		writeICCSendReceive(intentSummary, icc);
+//		writeICCFlow(intentSummary, icc);
+		writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
+		if (icc.element("destinition") != null)
 			summary.add(icc);
 	}
 
-	private static void writeMethod(Element icc, PathSummaryModel singlePath, MethodSummaryModel singleMethod) {
-		Element desElement = icc.addElement("method");
-		desElement.addAttribute("method", singleMethod.getMethod().getSubSignature());
-		if (singlePath != null)
-			desElement.addAttribute("methodtrace", PrintUtils.printList(singlePath.getMethodTrace(), "\n"));
-
-	}
-
-	private static void writeMethod(Element icc, PathSummaryModel singlePath) {
-		Element desElement = icc.addElement("method");
-		// desElement.addAttribute("method",
-		// singleMethod.getMethod().getSignature());
-		desElement.addAttribute("methodtrace", PrintUtils.printList(singlePath.getMethodTrace(), "\n"));
-
-	}
-
-	private static void writeSingleFragment(SingleFragmentModel singlefrag, Element singleIntentEle,
-			PathSummaryModel singlePath, MethodSummaryModel singleMethod) {
+	private static void writeFragmentSummary(FragmentSummaryModel singlefrag, Element intentSummaryEle,
+			PathSummaryModel pathSummary, MethodSummaryModel methodSummary) {
 		if (singlefrag.getSendFragment2Start().size() == 0)
 			return;
-		Element frag = new DefaultElement("SingleFragment");
-		writeMethod(frag, singlePath, singleMethod);
-		writeSource(singlefrag, frag, singleMethod);
+		Element frag = new DefaultElement("FragmentSummary");
+		writeMethod(frag, singlefrag, pathSummary,methodSummary);
+		writeSource(singlefrag, frag, methodSummary);
 		writeDestnition(singlefrag, frag);
-		// writeFragmentFlow(singlefrag, frag);
+//	    writeFragmentFlow(singlefrag, frag);
 		writeSingleObjectICCNode(new ArrayList<String>(), singlefrag, frag);
-		if (frag.element("nodes") != null)
-			singleIntentEle.add(frag);
+		if (frag.element("destinition") != null)
+			intentSummaryEle.add(frag);
 
 	}
 
-	private static void writeFragmentFlow(main.java.client.obj.model.fragment.SingleFragmentModel singlefrag,
+
+	private static void writeMethod(Element icc, ObjectSummaryModel singleObject, PathSummaryModel pathSummary, MethodSummaryModel methodSummary) {
+		Element method = icc.addElement("method");
+		if (methodSummary != null){
+			method.addAttribute("value",methodSummary.getMethod().getSignature());
+		}
+		Element methodtrace = icc.addElement("methodtrace");
+		String methodTraceStr = "";
+		if(singleObject!=null){
+			for (SootMethod reused : singleObject.getReusedMthCallStack()) {
+				methodTraceStr += reused.getSignature()+",";
+			}
+		}
+		methodtrace.addAttribute("value",methodTraceStr + PrintUtils.printList(pathSummary.getMethodTrace()));
+	}
+	
+	
+	private static void writeFragmentFlow(main.java.client.obj.model.fragment.FragmentSummaryModel singlefrag,
 			Element frag) {
 		Element flow = new DefaultElement("flow");
 		List<Unit> getCreateList = singlefrag.getCreateList();
@@ -304,34 +309,34 @@ public class DoStatistic {
 
 	}
 
-	private static void writeICCFlow(SingleIntentModel singleIntent, Element icc) {
+	private static void writeICCFlow(IntentSummaryModel intentSummary, Element icc) {
 		Element flow = new DefaultElement("flow");
-		List<Unit> getCreateList = singleIntent.getCreateList();
+		List<Unit> getCreateList = intentSummary.getCreateList();
 		for (Unit u : getCreateList) {
 			Element createList = flow.addElement("createList");
 			createList.addAttribute("value", u.toString());
 		}
-		List<Unit> getReceiveFromParaList = singleIntent.getReceiveFromParaList();
+		List<Unit> getReceiveFromParaList = intentSummary.getReceiveFromParaList();
 		for (Unit u : getReceiveFromParaList) {
 			Element receiveFromParaList = flow.addElement("receiveFromParaList");
 			receiveFromParaList.addAttribute("value", u.toString());
 		}
-		List<Unit> getReceiveFromOutList = singleIntent.getReceiveFromOutList();
+		List<Unit> getReceiveFromOutList = intentSummary.getReceiveFromOutList();
 		for (Unit u : getReceiveFromOutList) {
 			Element receiveFromOutList = flow.addElement("receiveFromOutList");
 			receiveFromOutList.addAttribute("value", u.toString());
 		}
-		List<Unit> getDataHandleList = singleIntent.getDataHandleList();
+		List<Unit> getDataHandleList = intentSummary.getDataHandleList();
 		for (Unit u : getDataHandleList) {
 			Element dataHandleList = flow.addElement("dataHandleList");
 			dataHandleList.addAttribute("value", u.toString());
 		}
-		List<Unit> getSendIntent2ICCList = singleIntent.getSendIntent2ICCList();
+		List<Unit> getSendIntent2ICCList = intentSummary.getSendIntent2ICCList();
 		for (Unit u : getSendIntent2ICCList) {
 			Element sendIntent2ICCList = flow.addElement("sendIntent2ICCList");
 			sendIntent2ICCList.addAttribute("value", u.toString());
 		}
-		List<Unit> getSendIntent2FunList = singleIntent.getSendIntent2FunList();
+		List<Unit> getSendIntent2FunList = intentSummary.getSendIntent2FunList();
 		for (Unit u : getSendIntent2FunList) {
 			Element sendIntent2FunList = flow.addElement("sendIntent2FunList");
 			sendIntent2FunList.addAttribute("value", u.toString());
@@ -340,8 +345,8 @@ public class DoStatistic {
 			icc.add(flow);
 	}
 
-	private static void writeSinglePathICCNode(List<String> context, PathSummaryModel singlePath, Element icc) {
-		List<UnitNode> nodeList = singlePath.getNodes();
+	private static void writePathSummaryICCNode(List<String> context, PathSummaryModel pathSummary, Element icc) {
+		List<UnitNode> nodeList = pathSummary.getNodes();
 		// how to print node with its context??/
 		int nodeId = 0;
 		for (UnitNode node : nodeList) {
@@ -371,7 +376,7 @@ public class DoStatistic {
 			basic.addAttribute("predsStr", predsStr);
 			basic.addAttribute("succsStr", succsStr);
 
-			context = singlePath.getNode2TraceMap().get(nodeId++);
+			context = pathSummary.getNode2TraceMap().get(nodeId++);
 			basic.addAttribute("context", PrintUtils.printList(context));
 			if (node.getBaseNodePointToMap().containsKey(context) && node.getBaseNodePointedTo(context) != null) {
 				Element unitPointTo = ele.addElement("baseNodePointTo");
@@ -392,12 +397,13 @@ public class DoStatistic {
 	}
 
 	private static void writeSingleObjectICCNode(List<String> context, ObjectSummaryModel singleObject, Element icc) {
-		// if(singleObject.getCreateList().size()==0 &&
-		// singleObject.getReceiveFromFromRetValueList().size()==0 &&
-		// singleObject.getReceiveFromParaList().size()==0) return;
 		Element nodes = new DefaultElement("nodes");
-		List<UnitNode> nodeList = singleObject.getNodes();
-		for (UnitNode node : nodeList) {
+		
+		for (SootMethod method : singleObject.getReusedMthCallStack()) {
+			Element ele = nodes.addElement("node");
+			ele.addAttribute("method", method.getSignature());
+		}
+		for (UnitNode node : singleObject.getNodes()) {
 			Element ele = nodes.addElement("node");
 			ele.addAttribute("method", node.getMethod().getDeclaringClass().getShortName() + " "
 					+ node.getMethod().getName());
@@ -425,14 +431,14 @@ public class DoStatistic {
 
 	}
 
-	private static void writeICCSendReceive(SingleIntentModel singleIntent, Element icc) {
-		List<String> actions = singleIntent.getSetActionValueList();
-		List<String> category = singleIntent.getSetCategoryValueList();
-		List<String> data = singleIntent.getSetDataValueList();
-		List<String> type = singleIntent.getSetTypeValueList();
-		BundleType extras = singleIntent.getSetExtrasValueList();
-		List<String> flags = singleIntent.getSetFlagsList();
-		boolean finish = singleIntent.isFinishFlag();
+	private static void writeICCSendReceive(IntentSummaryModel intentSummary, Element icc) {
+		List<String> actions = intentSummary.getSetActionValueList();
+		List<String> category = intentSummary.getSetCategoryValueList();
+		List<String> data = intentSummary.getSetDataValueList();
+		List<String> type = intentSummary.getSetTypeValueList();
+		BundleType extras = intentSummary.getSetExtrasValueList();
+		List<String> flags = intentSummary.getSetFlagsList();
+		boolean finish = intentSummary.isFinishFlag();
 		Element sender = new DefaultElement("sender");
 		if (actions.size() > 0)
 			sender.addAttribute("action", PrintUtils.printList(actions));
@@ -452,11 +458,11 @@ public class DoStatistic {
 			icc.add(sender);
 
 		// do not output receiver
-		// List<String> actions2 = singleIntent.getGetActionCandidateList();
-		// List<String> category2 = singleIntent.getGetCategoryCandidateList();
-		// List<String> data2 = singleIntent.getGetDataCandidateList();
-		// List<String> type2 = singleIntent.getGetTypeCandidateList();
-		// BundleType extras2 = singleIntent.getGetExtrasCandidateList();
+		// List<String> actions2 = intentSummary.getGetActionCandidateList();
+		// List<String> category2 = intentSummary.getGetCategoryCandidateList();
+		// List<String> data2 = intentSummary.getGetDataCandidateList();
+		// List<String> type2 = intentSummary.getGetTypeCandidateList();
+		// BundleType extras2 = intentSummary.getGetExtrasCandidateList();
 		// Element receiver = new DefaultElement("receiver");
 		// if (actions2.size() > 0)
 		// receiver.addAttribute("action", PrintUtils.printList(actions2));
@@ -472,42 +478,42 @@ public class DoStatistic {
 		// icc.add(receiver);
 	}
 
-	private static void writeSource(ObjectSummaryModel singleObj, Element icc, MethodSummaryModel singleMethod) {
+	private static void writeSource(ObjectSummaryModel singleObj, Element icc, MethodSummaryModel methodSummary) {
 		Element desElement = icc.addElement("source");
-		desElement.addAttribute("name", SootUtils.getNameofClass(singleMethod.getComponentName()));
+		desElement.addAttribute("name", SootUtils.getNameofClass(methodSummary.getComponentName()));
 
 	}
 
 	private static void writeDestnition(ObjectSummaryModel singleObj, Element icc) {
 		List<String> des = null;
-		if (singleObj instanceof SingleIntentModel)
-			des = ((SingleIntentModel) singleObj).getSetDestinationList();
-		if (singleObj instanceof SingleFragmentModel)
-			des = ((SingleFragmentModel) singleObj).getSetDestinationList();
+		if (singleObj instanceof IntentSummaryModel)
+			des = ((IntentSummaryModel) singleObj).getSetDestinationList();
+		if (singleObj instanceof FragmentSummaryModel)
+			des = ((FragmentSummaryModel) singleObj).getSetDestinationList();
 		if (des.size() > 0) {
 			Element desElement = icc.addElement("destinition");
 			desElement.addAttribute("name", PrintUtils.printList(des));
 		}
 	}
 
-	private static void writeICCType(SingleIntentModel singleIntent, Element icc) {
+	private static void writeICCType(IntentSummaryModel intentSummary, Element icc) {
 		Element typeElement = new DefaultElement("summaryType");
-		String summaryType = SingleIntentFeatureExtractor.getSummaryStr(singleIntent);
+		String summaryType = IntentSummaryFeatureExtractor.getSummaryStr(intentSummary);
 		if (summaryType.length() > 0)
 			typeElement.addAttribute("summaryType", summaryType);
-		String summaryReceiveType = SingleIntentFeatureExtractor.getReceiveStr(singleIntent);
+		String summaryReceiveType = IntentSummaryFeatureExtractor.getReceiveStr(intentSummary);
 		if (summaryReceiveType.length() > 0)
 			typeElement.addAttribute("receiveType", summaryReceiveType);
-		String summaryNewType = SingleIntentFeatureExtractor.getNewStr(singleIntent);
+		String summaryNewType = IntentSummaryFeatureExtractor.getNewStr(intentSummary);
 		if (summaryNewType.length() > 0)
 			typeElement.addAttribute("newType", summaryNewType);
-		String summaryUsedType = SingleIntentFeatureExtractor.getUseAttributeStr(singleIntent);
+		String summaryUsedType = IntentSummaryFeatureExtractor.getUseAttributeStr(intentSummary);
 		if (summaryUsedType.length() > 0)
 			typeElement.addAttribute("usedType", summaryUsedType);
-		String summarySetType = SingleIntentFeatureExtractor.getSetAttributeStr(singleIntent);
+		String summarySetType = IntentSummaryFeatureExtractor.getSetAttributeStr(intentSummary);
 		if (summarySetType.length() > 0)
 			typeElement.addAttribute("setType", summarySetType);
-		String summarySendType = SingleIntentFeatureExtractor.getSendStr(singleIntent);
+		String summarySendType = IntentSummaryFeatureExtractor.getSendStr(intentSummary);
 		if (summarySendType.length() > 0)
 			typeElement.addAttribute("sendType", summarySendType);
 		if (typeElement.attributeCount() > 0)
@@ -587,20 +593,6 @@ public class DoStatistic {
 			traceNum += si.getMethodTrace().size() - 1;
 			traceNumSum++;
 		}
-
-		// traceDepth = (en.getValue().size() == 0 ? 0 : traceDepth /
-		// en.getValue().size());
-		// if
-		// (!statistic.getMethodTraceDepth2MethodSet().containsKey(traceDepth))
-		// statistic.getMethodTraceDepth2MethodSet().put(Integer.valueOf(traceDepth),
-		// new HashSet<String>());
-		// statistic.getMethodTraceDepth2MethodSet().get(Integer.valueOf(traceDepth)).add(en.getKey());
-		//
-		// traceNum = (traceNumSum == 0 ? 0 : traceNum / traceNumSum);
-		// if (!statistic.getMethodTraceNum2MethodSet().containsKey(traceNum))
-		// statistic.getMethodTraceNum2MethodSet().put(Integer.valueOf(traceNum),
-		// new HashSet<String>());
-		// statistic.getMethodTraceNum2MethodSet().get(Integer.valueOf(traceNum)).add(en.getKey());
 	}
 
 	/**
@@ -611,7 +603,7 @@ public class DoStatistic {
 	 * @param summaryMap
 	 * @param result
 	 */
-	public static void updateICCStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel intentSummary,
+	public static void updateICCStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel methodSummary,
 			StatisticResult result) {
 		ICCStatistic statistic;
 		if (entryMethod) {
@@ -624,7 +616,7 @@ public class DoStatistic {
 		// summaryMap);
 		// statistic.addICCFlowNum(entryNumber);
 
-		SootMethod sm = intentSummary.getMethod();
+		SootMethod sm = methodSummary.getMethod();
 		if (entryMethod) {
 			boolean flag = Global.v().getAppModel().getEntryMethod2Component().containsKey(sm);
 			if (flag == false)
@@ -633,31 +625,31 @@ public class DoStatistic {
 		if (!statistic.getDestinationMap().containsKey(sm.getSignature())) {
 			statistic.getDestinationMap().put(sm.getSignature(), new HashSet<String>());
 		}
-		for (ObjectSummaryModel singleObject : intentSummary.getSingleObjects()) {
-			SingleIntentModel singleIntent = (SingleIntentModel) singleObject;
+		for (ObjectSummaryModel singleObject : methodSummary.getSingleObjects()) {
+			IntentSummaryModel intentSummary = (IntentSummaryModel) singleObject;
 			Set<String> newDestinationSet = new HashSet<String>();
-			for (String des : singleIntent.getSetDestinationList()) {
+			for (String des : intentSummary.getSetDestinationList()) {
 				newDestinationSet.add(des);
 			}
 			statistic.getDestinationMap().get(sm.getSignature()).addAll(newDestinationSet);
 
-			String summaryType = SingleIntentFeatureExtractor.getSummaryStr(singleIntent);
-			addSummaryType2Map(singleIntent, summaryType, statistic.getIntentSummaryTypeMap());
+			String summaryType = IntentSummaryFeatureExtractor.getSummaryStr(intentSummary);
+			addSummaryType2Map(intentSummary, summaryType, statistic.getIntentSummaryTypeMap());
 
-			String summaryReceiveType = SingleIntentFeatureExtractor.getReceiveStr(singleIntent);
-			addSummaryType2Map(singleIntent, summaryReceiveType, statistic.getIntentSummaryReceiveTypeMap());
+			String summaryReceiveType = IntentSummaryFeatureExtractor.getReceiveStr(intentSummary);
+			addSummaryType2Map(intentSummary, summaryReceiveType, statistic.getIntentSummaryReceiveTypeMap());
 
-			String summaryNewType = SingleIntentFeatureExtractor.getNewStr(singleIntent);
-			addSummaryType2Map(singleIntent, summaryNewType, statistic.getIntentSummaryNewTypeMap());
+			String summaryNewType = IntentSummaryFeatureExtractor.getNewStr(intentSummary);
+			addSummaryType2Map(intentSummary, summaryNewType, statistic.getIntentSummaryNewTypeMap());
 
-			String summaryUsedType = SingleIntentFeatureExtractor.getUseAttributeStr(singleIntent);
-			addSummaryType2Map(singleIntent, summaryUsedType, statistic.getIntentSummaryUsedTypeMap());
+			String summaryUsedType = IntentSummaryFeatureExtractor.getUseAttributeStr(intentSummary);
+			addSummaryType2Map(intentSummary, summaryUsedType, statistic.getIntentSummaryUsedTypeMap());
 
-			String summarySetType = SingleIntentFeatureExtractor.getSetAttributeStr(singleIntent);
-			addSummaryType2Map(singleIntent, summarySetType, statistic.getIntentSummarySetTypeMap());
+			String summarySetType = IntentSummaryFeatureExtractor.getSetAttributeStr(intentSummary);
+			addSummaryType2Map(intentSummary, summarySetType, statistic.getIntentSummarySetTypeMap());
 
-			String summarySendType = SingleIntentFeatureExtractor.getSendStr(singleIntent);
-			addSummaryType2Map(singleIntent, summarySendType, statistic.getIntentSummarySendTypeMap());
+			String summarySendType = IntentSummaryFeatureExtractor.getSendStr(intentSummary);
+			addSummaryType2Map(intentSummary, summarySendType, statistic.getIntentSummarySendTypeMap());
 		}
 
 		for (Entry<String, Set<String>> en : statistic.getDestinationMap().entrySet()) {
@@ -678,17 +670,17 @@ public class DoStatistic {
 	/**
 	 * addSummaryType2Map
 	 * 
-	 * @param singleIntent
+	 * @param intentSummary
 	 * @param type
 	 * @param map
 	 */
-	private static void addSummaryType2Map(SingleIntentModel singleIntent, String type,
-			Map<String, Set<SingleIntentModel>> map) {
+	private static void addSummaryType2Map(IntentSummaryModel intentSummary, String type,
+			Map<String, Set<IntentSummaryModel>> map) {
 		if (type.length() > 0) {
 			if (!map.containsKey(type)) {
-				map.put(type, new HashSet<SingleIntentModel>());
+				map.put(type, new HashSet<IntentSummaryModel>());
 			}
-			map.get(type).add(singleIntent);
+			map.get(type).add(intentSummary);
 		}
 	}
 
