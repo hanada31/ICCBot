@@ -348,11 +348,11 @@ public class MainClass {
 	 *  **/
 	private static void testConfig() {
 		String path;
-		path = "apk/";
+		path = "../apk/";
 		String name;
-		name = "FragmentBench2";
+		name = "org.tasks";
 		String client = "ICTGClient";
-//		client = "ToolEvaluateClient";
+		client = "ToolEvaluateClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);

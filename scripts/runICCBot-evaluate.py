@@ -11,8 +11,8 @@ def analyzeApk(path, sdk):
             if apk[-4:] =="_ins.apk":
                 continue
             if apk[-4:] ==".apk":
-                print("java -jar ICCBot.jar  -path "+ path +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 30 -maxPathNumber 100 -client MainClient    -outputDir "+outputDir+" >> "+logDir+"/"+apk+".txt")
-                os.system("java -jar ICCBot.jar  -path "+ path +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 60 -maxPathNumber 100 -client MainClient -outputDir "+outputDir+" >> "+logDir+"/"+apk+".txt")
+                print("java -jar ICCBot.jar  -path "+ path +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 30 -maxPathNumber 100 -client ToolEvaluateClient -outputDir "+outputDir+" >> "+logDir+"/"+apk+".txt")
+                os.system("java -jar ICCBot.jar  -path "+ path +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 60 -maxPathNumber 100 -client ToolEvaluateClient -outputDir "+outputDir+" >> "+logDir+"/"+apk+".txt")
 
 
 if __name__ == '__main__' :
