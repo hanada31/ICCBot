@@ -21,17 +21,10 @@ public class ICCMsg implements Cloneable, Serializable {
 	private String port;
 	private String type;
 	private Set<String> extra = new HashSet<String>();
-	// private BundleType extraBT = new BundleType();
-	private List<Attribute> attributeList;
-	private String modelString;
-
-	public ICCMsg(String model) {
-		modelString = model;
-	}
+	
 
 	public ICCMsg(String source, String destination, String action, Set<String> category, String data, String scheme,
-			String host, String path, String port, String type, Set<String> extra, List<Attribute> attributeList,
-			String modelString) {
+			String host, String path, String port, String type, Set<String> extra) {
 		this.source = source;
 		this.action = action;
 		this.category = category;
@@ -42,8 +35,9 @@ public class ICCMsg implements Cloneable, Serializable {
 		this.port = port;
 		this.type = type;
 		this.extra = new HashSet<String>(extra);
-		this.attributeList = attributeList;
-		this.modelString = modelString;
+	}
+
+	public ICCMsg() {
 	}
 
 	@Override
@@ -56,8 +50,9 @@ public class ICCMsg implements Cloneable, Serializable {
 		if (action != null && !action.equals("\"\""))
 			res += " ##action:" + action;
 		if (category != null && category.size() > 0)
+			res += " ##category:" ;
 			if (!PrintUtils.printSet(category).equals(""))
-				res += " ##category:" + PrintUtils.printSet(category);
+				res += PrintUtils.printSet(category);
 		if (data != null && !data.equals("\"\""))
 			res += " ##data:" + data;
 		if (scheme != null && !scheme.equals("\"\""))
@@ -71,18 +66,14 @@ public class ICCMsg implements Cloneable, Serializable {
 		if (type != null && !type.equals("\"\""))
 			res += " ##type:" + type;
 		if (extra != null && extra.size() > 0)
+			res += " ##extra:"; 
 			if (!PrintUtils.printSet(extra).equals(""))
-				res += " ##extra:" + PrintUtils.printSet(extra);
+				res += PrintUtils.printSet(extra);
 		if (res.equals(""))
 			return res;
-		// res += "\n ##modelString:"+modelString;
-		// res+= "\n"+Utils.printList(attributeList);
 		return res + "\n";
 	}
 
-	public List<Attribute> getAttList() {
-		return attributeList;
-	}
 
 	@Override
 	public int hashCode() {
@@ -96,53 +87,10 @@ public class ICCMsg implements Cloneable, Serializable {
 
 	@Override
 	public ICCMsg clone() throws CloneNotSupportedException {
-		ICCMsg icc = new ICCMsg(source, destination, action, category, data, scheme, host, path, port, type, extra,
-				attributeList, modelString);
+		ICCMsg icc = new ICCMsg(source, destination, action, category, data, scheme, host, path, port, type, extra);
 		return icc;
 	}
 
-	/**
-	 * get Icc From Model Str
-	 * 
-	 * @param modelStr
-	 * @param globalPath
-	 * @return
-	 */
-	public static ICCMsg getIccFromModelStr(String modelStr, List<Attribute> globalPath) {
-		ICCMsg icc = new ICCMsg(modelStr);
-		String[] attrsStr = modelStr.split("define-fun ");
-		for (String attrStr : attrsStr) {
-			String[] ss = attrStr.split(" ");
-			if (ss.length > 2) {
-				String candi = ss[2];
-				for (int i = 3; i < ss.length; i++) {
-					candi += " " + ss[i];
-				}
-				if (ss[0].equals("action"))
-					icc.action = candi;
-				else if (ss[0].equals("category"))
-					icc.category.add(candi);
-				else if (ss[0].equals("data"))
-					icc.data = candi;
-				else if (ss[0].equals("type"))
-					icc.type = candi;
-				else if (ss[0].equals("scheme"))
-					icc.scheme = candi;
-				else if (ss[0].equals("path"))
-					icc.path = candi;
-				else if (ss[0].equals("port"))
-					icc.port = candi;
-				else if (ss[0].equals("host"))
-					icc.host = candi;
-			}
-		}
-		for (Attribute att : globalPath) {
-			if (att.getType().equals("extra"))
-				icc.extra.add(att.getValue());
-		}
-		icc.attributeList = globalPath;
-		return icc;
-	}
 
 	public String getSource() {
 		return source;
@@ -230,22 +178,6 @@ public class ICCMsg implements Cloneable, Serializable {
 
 	public void setExtra(Set<String> extra) {
 		this.extra = extra;
-	}
-
-	public List<Attribute> getAttributeList() {
-		return attributeList;
-	}
-
-	public void setAttributeList(List<Attribute> attributeList) {
-		this.attributeList = attributeList;
-	}
-
-	public String getModelString() {
-		return modelString;
-	}
-
-	public void setModelString(String modelString) {
-		this.modelString = modelString;
 	}
 
 }

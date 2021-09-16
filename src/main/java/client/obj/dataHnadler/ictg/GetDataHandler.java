@@ -13,6 +13,7 @@ public class GetDataHandler extends DataHandler {
 		Set<String> newDataSet = new HashSet<String>();
 		for (String data : dataSet)
 			newDataSet.add(data.replace("\"", ""));
+		intentSummary.getGetDataCandidateList().clear();
 		intentSummary.getGetDataCandidateList().addAll(newDataSet);
 		return;
 	}

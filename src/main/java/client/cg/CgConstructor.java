@@ -69,7 +69,6 @@ public class CgConstructor extends Analyzer {
 			// collect stub APIs defined for AIDL, their implements are seen as
 			// entries
 			collectStubMethods();
-			System.out.println();
 			collectEntryPoints();
 		}
 
@@ -111,10 +110,6 @@ public class CgConstructor extends Analyzer {
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.DUMMYFOLDETR);
 		callBacks = setupApplication.getCallbackMethods();
 		fragments = setupApplication.getFragmentClasses();
-		SootMethod dummyMainMethod = null;
-
-		dummyMainMethod = setupApplication.getDummyMainMethod();
-		SootClass sc = dummyMainMethod.getDeclaringClass();
 		FileUtils.delFolder("sootOutput");
 
 	}
@@ -300,8 +295,6 @@ public class CgConstructor extends Analyzer {
 							SootMethod realInvolkedMethod = SootUtils.getMethodBySubSignature(targetCls,
 									interfaceMethod.getSubSignature());
 							if (realInvolkedMethod != null) {
-								// if(realInvolkedMethod.getSignature().contains("onMedicineSelected"))
-								// System.out.println();
 								if (!appModel.getEntryMethod2Component().containsKey(realInvolkedMethod)) {
 									appModel.addEntryMethod2Component(realInvolkedMethod, sm.getDeclaringClass());
 									appModel.getEntryMethods().add(realInvolkedMethod);

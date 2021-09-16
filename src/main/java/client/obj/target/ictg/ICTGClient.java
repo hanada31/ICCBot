@@ -42,12 +42,16 @@ import soot.SootMethod;
  */
 public class ICTGClient extends BaseClient {
 
+	
 	/**
 	 * analyze CTG for single app
 	 */
 	@Override
 	protected void clientAnalyze() {
 		result = new StatisticResult();
+		setMySwitch();
+		
+		
 		if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
 			new ManifestClient().start();
 			MyConfig.getInstance().setManifestAnalyzeFinish(true);
@@ -82,7 +86,10 @@ public class ICTGClient extends BaseClient {
 			analyzer.analyze();
 		}
 		System.out.println("Successfully analyze with MainClient.");
+	}
 
+	protected void setMySwitch() {
+		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
 	}
 
 	@Override
@@ -110,20 +117,27 @@ public class ICTGClient extends BaseClient {
 		/** Method **/
 		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ENTRY,true);
 		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ALL, false);
-		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ENTRY);
-		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ALL);
+		if(MyConfig.getInstance().getMySwithch().isFragmentSwitch()){
+			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ENTRY);
+			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ALL);
+		}
 		
 		/** Path **/
 		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ENTRY, true);
 		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ALL, false);
-		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ENTRY);
-		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ALL);
+		if(MyConfig.getInstance().getMySwithch().isFragmentSwitch()){
+			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ENTRY);
+			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ALL);
+		}
 		
 		/** Intent **/
 		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ENTRY,true);
 		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ALL, false);
-		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ENTRY);
-		outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ALL);
+		if(MyConfig.getInstance().getMySwithch().isFragmentSwitch()){
+			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ENTRY);
+			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ALL);
+		}
+		
 		
 		/** ICTG **/
 		// merge frage and component

@@ -12,6 +12,7 @@ import main.java.client.related.gator.GatorATGResultEvaluateClient;
 import main.java.client.related.ic3.IC3ResultEvaluateClient;
 import main.java.client.related.ic3dial.IC3DIALDroidResultEvaluateClient;
 import main.java.client.soot.IROutputClient;
+import main.java.client.testcase.TestGenerationClient;
 import main.java.client.toolEvaluate.ICCBotResultEvaluateClient;
 import main.java.client.toolEvaluate.ToolEvaluateClient;
 
@@ -129,6 +130,9 @@ public class MainClass {
 				break;
 			case "ToolEvaluateClient":
 				client = new ToolEvaluateClient();
+				break;
+			case "TestGenerationClient":
+				client = new TestGenerationClient();
 				break;
 			default:
 				client = new ICTGClient();
@@ -340,7 +344,6 @@ public class MainClass {
 		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.object);
 		MyConfig.getInstance().getMySwithch().setVfgStrategy(true);
 		MyConfig.getInstance().getMySwithch().setCgAnalyzeGroupedStrategy(false);
-		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(false);
 	}
 
 	/** 
@@ -348,11 +351,11 @@ public class MainClass {
 	 *  **/
 	private static void testConfig() {
 		String path;
-		path = "../apk/";
+		path = "apk/";
 		String name;
-		name = "org.tasks";
+		name = "IntentBench";
 		String client = "ICTGClient";
-		client = "ToolEvaluateClient";
+		client = "TestGenerationClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
@@ -362,6 +365,7 @@ public class MainClass {
 		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);
 		MyConfig.getInstance().setTimeLimit(50);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
+		
 	}
 
 
