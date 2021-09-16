@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.security.auth.x500.X500Principal;
+
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.Counter;
@@ -123,7 +125,11 @@ public class SetAttributeHandler extends UnitHandler {
 			objContextInner = constructContextObj(id + 1, unit);
 		}
 		ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
-		Set<String> resSet = new HashSet<>(vo.getValueofVar(inputVar, unit, 0).getValues());
+		List<String> resList = vo.getValueofVar(inputVar, unit, 0).getValues();
+		Set<String> resSet = new HashSet<>();
+		for(String ele: resList){
+			if(ele!=null) resSet.add(ele);
+		}
 		dataHandler.handleData(intentSummary, SootUtils.getNameofClass(className), resSet);
 	}
 

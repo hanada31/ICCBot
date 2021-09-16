@@ -122,6 +122,8 @@ public class FileUtils {
 
 			Files.move(f1, f2);
 		} catch (IOException e) {
+			System.err.println(oldf);
+			System.err.println(newf);
 			e.printStackTrace();
 		}
 	}

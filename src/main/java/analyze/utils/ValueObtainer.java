@@ -381,7 +381,7 @@ public class ValueObtainer {
 				else {
 					Value rv = invokeStmt.getArg(0);
 					for (String l : getValueofVar(lv, u, depth + 1).getValues()) {
-						if (lv == jas1.leftBox.getValue()) {
+						if (u.toString().contains("append") &&lv == jas1.leftBox.getValue()) {
 							resVal.addValue(l);
 							continue;
 						}
