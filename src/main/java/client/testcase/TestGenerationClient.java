@@ -48,7 +48,7 @@ public class TestGenerationClient extends ICTGClient {
 		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(true);
 		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
 		MyConfig.getInstance().getMySwithch().setFragmentSwitch(false);
-		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.flow);
+		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.object);
 		MyConfig.getInstance().getMySwithch().setDummyMainSwitch(true);
 	}
 	
