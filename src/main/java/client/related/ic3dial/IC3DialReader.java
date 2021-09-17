@@ -282,11 +282,6 @@ public class IC3DialReader extends Analyzer {
 		}
 		if (hasDes)
 			return;
-		if (statement
-				.toString()
-				.contains(
-						"virtualinvoke $r0.<org.anothermonitor.ServiceReader: void sendBroadcast(android.content.Intent)>($r2)"))
-			System.out.println();
 		List<String> resSet = analyzeDesinationByACDT(intentSummary);
 		for (String des : resSet) {
 			// des = des.split("\\.")[des.split("\\.").length-1];

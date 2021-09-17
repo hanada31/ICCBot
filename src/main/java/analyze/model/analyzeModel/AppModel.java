@@ -17,6 +17,7 @@ import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.ActivityModel;
 import main.java.client.obj.model.component.ComponentModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Unit;
@@ -56,11 +57,12 @@ public class AppModel implements Serializable {
 	private HashMap<String, ComponentModel> providerMap;
 	private HashMap<String, ComponentModel> receiverMap;
 	private HashMap<String, ComponentModel> exportedComponentMap;
+	
 	private Set<String> FragmentClasses;
 	private Set<String> callbacks;
 	private Set<String> stubs;
 	private Set<String> extendedPkgss;
-
+	
 	// test generation
 	private HashMap<String, ActivityModel> toBeAnalyzedActivityMap;
 
@@ -84,6 +86,8 @@ public class AppModel implements Serializable {
 	private Map<SootClass, SootClass> fragment2Component;
 	private Map<Unit, List<ParameterSource>> unit2ParameterSource;
 
+	
+	
 	public AppModel() {
 		String name = MyConfig.getInstance().getAppName();
 		appPath = MyConfig.getInstance().getAppPath() + name;

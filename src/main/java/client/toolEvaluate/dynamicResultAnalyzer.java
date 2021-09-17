@@ -192,8 +192,6 @@ public class dynamicResultAnalyzer extends Analyzer {
 					AtgEdge edge = new AtgEdge(new AtgNode(lastClass), new AtgNode(className), methodName, -1,
 							classType);
 					boolean add = dyIctgModel.addAtgEdges(lastClass, edge);
-					if (lastClass.contains("ImportKeysActivity") && className.contains("EncryptTextActivity"))
-						System.out.println();
 					if (add && x == 0) {
 						System.out.println(bs.toString());
 						System.out.println(lastClass + "----" + className + "\n");

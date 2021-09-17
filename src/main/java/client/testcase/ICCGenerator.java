@@ -1,73 +1,104 @@
-//package main.java.client.testcase;
-//
-//import java.util.HashSet;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.Set;
-//import java.util.Map.Entry;
-//
-//import main.java.Analyzer;
-//import main.java.analyze.model.analyzeModel.Attribute;
-//import main.java.analyze.utils.CollectionUtils;
-//import main.java.analyze.utils.ConstraintSolver;
-//import main.java.analyze.utils.output.PrintUtils;
-//import main.java.client.obj.model.component.ComponentModel;
-//import main.java.client.obj.model.ictg.ICCMsg;
-//
-//public class ICCGenerator extends Analyzer {
-//
-//	public ICCGenerator() {
-//		super();
-//	}
-//
-//	@Override
-//	public void analyze() {
-//		System.out.println("Start ICC Generator...\n");
-//
-//		try {
-//			generateAUPs2Map();
-//			generateSingleNullAUPs2Map();
-//
-//		} catch (CloneNotSupportedException e) {
-//			e.printStackTrace();
-//		}
-//
-//		// printPathMapAU();
-//		// printPathMapSNV();
-//
-//		System.out.println("End ICC Generator...\n");
-//	}
-//
-//	/**
-//	 * generate ICCs with all used ICC attributes from globalPathMap to
-//	 * appModel.pathMap_AU
-//	 * 
-//	 * @throws CloneNotSupportedException
-//	 */
-//	private void generateAUPs2Map() throws CloneNotSupportedException {
-//		for (ComponentModel component : appModel.getComponentMap().values()) {
-//			for (Entry<String, Set<List<Attribute>>> entry : component.getReceiveModel().getGlobalPathMap().entrySet()) {
-//				String clsName = entry.getKey();
-//				System.out.println(clsName + " " + entry.getValue().size());
-//				for (List<Attribute> globalPath : entry.getValue()) {
-//					Set<String> modelStrs = ConstraintSolver.eliminateConfictedPaths(globalPath);
-//					for (String modelStr : modelStrs) {
-//						if (!modelStr.equals("unsat!")) {
-//							ICCMsg icc = ICCMsg.getIccFromModelStr(modelStr, globalPath);
-//							if (icc.toString().equals(""))
-//								continue;
-//							icc.setSource("unknown");
-//							icc.setDestination(clsName);
-//							component.getReceiveModel().getPathMap().get(clsName).add(icc);
-//						}
-//					}
-//				}
-//			}
-//			Set<ICCMsg> iccs = new HashSet<>(component.getReceiveModel().getPathMap().get(component));
-//			component.getReceiveModel().getPathMap_AU().put(component.getComponetName(), iccs);
-//		}
-//	}
-//
+package main.java.client.testcase;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
+import com.microsoft.z3.Model;
+
+import main.java.Analyzer;
+import main.java.analyze.model.analyzeModel.Attribute;
+import main.java.analyze.utils.CollectionUtils;
+import main.java.analyze.utils.ConstraintSolver;
+import main.java.analyze.utils.output.PrintUtils;
+import main.java.client.obj.model.component.BundleType;
+import main.java.client.obj.model.component.ComponentModel;
+import main.java.client.obj.model.ictg.ICCMsg;
+import main.java.client.obj.model.ictg.IntentRecieveModel;
+
+public class ICCGenerator extends Analyzer {
+	String className;
+	Set<ICCMsg> ICCSet;
+	
+	public ICCGenerator(String className) {
+		super();
+		this.className = className;
+		this.ICCSet = new HashSet<ICCMsg>();
+	}
+
+	@Override
+	public void analyze() {
+		ComponentModel component = appModel.getComponentMap().get(className);
+		IntentRecieveModel receiveModel = component.getReceiveModel();
+		Set<String> actions = receiveModel.getReceivedActionSet();
+		Set<String> categories = receiveModel.getReceivedCategorySet();
+		Set<String> datas = receiveModel.getReceivedDataSet();
+		Set<String> types = receiveModel.getReceivedTypeSet();
+		BundleType extras = receiveModel.getReceivedExtraData();
+		
+		//strategies
+		genereateICCRandomely(actions, categories, datas, types, extras);
+		//genereateICCXXX
+		//genereateICCYYY
+	}
+
+	/**
+	 * randomly generate one ICCMsg
+	 * @param actions
+	 * @param categories
+	 * @param datas
+	 * @param types
+	 * @param extras
+	 */
+	@SuppressWarnings("unchecked")
+	private void genereateICCRandomely(Set<String> actions, Set<String> categories, Set<String> datas,
+		Set<String> types, BundleType extras) {
+		ICCMsg msg = new ICCMsg();
+		msg.setAction( getRandomElementFromSet(actions));
+		msg.setCategory(getRandomElementSetFromSet(categories));
+		msg.setData( getRandomElementFromSet(datas));
+		msg.setType( getRandomElementFromSet(types));
+		msg.setExtra(getRandomElementSetFromSet(extras.getContentSet()));
+		System.out.println(className +"\t"+msg.toString());
+		ICCSet.add(msg);	
+	}
+	
+	/**
+	 * randomly generate one attribute for ICCMsg
+	 * @param s
+	 * @return 
+	 */
+	private String getRandomElementFromSet(Set<String> set){
+		set.add("");
+		Object[] obj =set.toArray();
+		String res =  (String) obj[(int)(Math.random()*obj.length)];
+		return res;
+	}
+	/**
+	 * randomly generate a set of attribute for ICCMsg
+	 * @param s
+	 * @return 
+	 * @return 
+	 */
+	private Set<String> getRandomElementSetFromSet(Set<String> set){
+		set.add(null);
+		HashSet<String> newSet = new HashSet<String>();
+		Object[] obj =set.toArray();
+		newSet.add((String) obj[(int)(Math.random()*obj.length)]);
+		return newSet;
+	}
+	
+	/**
+	 * generate ICC set to test case generator
+	 * @return
+	 */
+	public Set<ICCMsg> getICCSet(){
+		return this.ICCSet;
+	}
+	
+
 //	/**
 //	 * add Single Null to all used paths from appModel.pathMap_AU to
 //	 * appModel.pathMap_SNV
@@ -271,24 +302,5 @@
 //			addExtra = addExtra.substring(0, addExtra.length() - 1);
 //		return addExtra;
 //	}
-//
-//	/**
-//	 * print PathMap all used
-//	 */
-//	public void printPathMapAU() {
-//		for (ComponentModel component : appModel.getComponentMap().values()) {
-//			PrintUtils.printInfo("appModel.pathMap_AU");
-//			PrintUtils.printInfo(PrintUtils.printMap(component.getReceiveModel().getPathMap_AU()) + "\n");
-//		}
-//	}
-//
-//	/**
-//	 * print PathMap single null value
-//	 */
-//	public void printPathMapSNV() {
-//		for (ComponentModel component : appModel.getComponentMap().values()) {
-//			PrintUtils.printInfo("appModel.pathMap_SNV");
-//			PrintUtils.printInfo(PrintUtils.printMap(component.getReceiveModel().getPathMap_SNV()) + "\n");
-//		}
-//	}
-// }
+
+ }

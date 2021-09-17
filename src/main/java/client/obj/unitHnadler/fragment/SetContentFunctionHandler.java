@@ -29,7 +29,6 @@ public class SetContentFunctionHandler extends UnitHandler {
 	public void handleSingleObject(Context context, ObjectSummaryModel singleObject) {
 		this.context = context;
 		this.singleFrag = (FragmentSummaryModel) singleObject;
-		this.singleFrag.getSendFragment2Start().add(unit);
 		try {
 			setContentAnalyze();
 		} catch (IOException e) {
@@ -58,6 +57,7 @@ public class SetContentFunctionHandler extends UnitHandler {
 		if (oldContextwithRealValue != null) {
 			objContextInner = constructContextObj(id + 1, unit);
 		}
+		boolean findFragment = false;
 		ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
 		List<String> ids = vo.getValueofVar(inputVar, unit, 0).getValues();
 		if (ids != null && ids.size() > 0) {
@@ -75,11 +75,15 @@ public class SetContentFunctionHandler extends UnitHandler {
 			AbstractResource resource = resParser.findResource(resourceId);
 			if (resource != null && Global.v().getFragmentModel().getXmlFragmentMap().containsKey(resource.toString())) {
 				List<SootClass> scs = Global.v().getFragmentModel().getXmlFragmentMap().get(resource.toString());
-				for (SootClass sc : scs)
+				for (SootClass sc : scs){
 					this.singleFrag.getSetDestinationList().add(sc.getName());
+					findFragment = true;
+				}
 			}
 		}
-
+		if(findFragment){
+			this.singleFrag.getSendFragment2Start().add(unit);
+		}
 	}
 
 }

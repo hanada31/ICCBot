@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 
+import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.utils.AndroidUtils;
@@ -31,8 +32,8 @@ public class TestGenerationProcess {
 	private String projectPath;
 	private String pro_name;
 
-	public TestGenerationProcess(AppModel appModel) {
-		this.appModel = appModel;
+	public TestGenerationProcess() {
+		this.appModel = Global.v().getAppModel();
 		this.appId = 0;
 		String folder = MyConfig.getInstance().getResultFolder() + ConstantUtils.TESTCASEFOLDER + appModel.getAppName()
 				+ File.separator;
@@ -675,6 +676,20 @@ public class TestGenerationProcess {
 		String oriPath = projectPath + File.separator + "bin" + File.separator + pro_name + "-debug.apk";
 		String desPath = folder + "test.apk";
 		FileUtils.moveFile(oriPath, desPath);
+	}
+
+	/**
+	 * Initialize for test generation
+	 */
+	public void init() {
+		String testCasefolder = MyConfig.getInstance().getResultFolder() + ConstantUtils.TESTCASEFOLDER
+				+ appModel.getAppName() + File.separator;
+		String appProjectFolder = MyConfig.getInstance().getResultFolder() + ConstantUtils.TESTCASEFOLDER
+				+ appModel.getAppName() + File.separator + ConstantUtils.GENERATEDAPPFOLDER;
+
+		FileUtils.createFolder(testCasefolder);
+		FileUtils.delFolder(appProjectFolder);
+		
 	}
 
 }
