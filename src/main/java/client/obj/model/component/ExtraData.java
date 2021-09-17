@@ -87,15 +87,36 @@ public class ExtraData implements Serializable, Cloneable {
 			res = "null-" + n + valueStr;
 		} else if (getType() instanceof String) {
 			if (SootUtils.isParOrSerExtra((String) getType()))
-				res = getType() + "@" + getObjName() + "-" + n + valueStr;
+				res = getType() + "@" + getObjName() + "-" + n + valueStr + ",";
 			else
-				res = getType() + "-" + n + valueStr;
+				res = getType() + "-" + n + valueStr + ",";
 		} else {
 			BundleType bt = (BundleType) getType();
-			res = bt.getType() + "-" + n + ",(," + bt.toString() + ")";
+			res = bt.getType() + "-" + n + ",(," + bt.toString() + "),";
 		}
 		return res;
 	}
+//	
+//	@Override
+//	public String toString() {
+//		String n = "what";
+//		if (name == null)
+//			n = "null";
+//		else
+//			n = name;
+//		if (type == null) {
+//			return "null-" + n + ",";
+//		} else if (type instanceof String) {
+//			// if(((String) type).contains("Parcelable"))
+//			// return type+"@"+objName+"-" +n+",";
+//			return type + "-" + n + ",";
+//		} else {
+//			BundleType bt = (BundleType) type;
+//			return bt.type + "-" + n + ",(," + bt.toString() + "),";
+//		}
+//	}
+//	
+	
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {

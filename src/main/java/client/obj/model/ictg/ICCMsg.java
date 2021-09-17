@@ -68,7 +68,7 @@ public class ICCMsg implements Cloneable, Serializable {
 		if (extra != null && extra.size() > 0)
 			res += " ##extra:"; 
 			if (!PrintUtils.printSet(extra).equals(""))
-				res += PrintUtils.printSet(extra);
+				res += PrintUtils.printSet(extra," ");
 		if (res.equals(""))
 			return res;
 		return res + "\n";

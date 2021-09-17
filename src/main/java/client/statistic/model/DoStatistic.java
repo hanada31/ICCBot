@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import java_cup.internal_error;
 import main.java.Global;
+import main.java.MyConfig;
 import main.java.analyze.model.analyzeModel.MethodSummaryModel;
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.analyzeModel.PathSummaryModel;
@@ -17,11 +18,15 @@ import main.java.analyze.utils.RAICCUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.BundleType;
+import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Flag;
 import main.java.client.obj.model.fragment.FragmentSummaryModel;
+import main.java.client.obj.model.ictg.IntentRecieveModel;
+import main.java.client.obj.model.ictg.IntentSendModel;
 import main.java.client.obj.model.ictg.IntentSummaryFeatureExtractor;
 import main.java.client.obj.model.ictg.IntentSummaryModel;
 
+import org.dom4j.Attribute;
 import org.dom4j.Element;
 import org.dom4j.tree.DefaultElement;
 
@@ -235,6 +240,7 @@ public class DoStatistic {
 //		writeICCFlow(intentSummary, icc);
 		writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
 //		if (icc.element("destinition") != null)
+		if (icc.element("source") != null)
 		summary.add(icc);
 	}
 
@@ -439,48 +445,69 @@ public class DoStatistic {
 		BundleType extras = intentSummary.getSetExtrasValueList();
 		List<String> flags = intentSummary.getSetFlagsList();
 		boolean finish = intentSummary.isFinishFlag();
-		Element sender = new DefaultElement("sender");
-		if (actions.size() > 0)
-			sender.addAttribute("action", PrintUtils.printList(actions));
-		if (category.size() > 0)
-			sender.addAttribute("category", PrintUtils.printList(category));
-		if (data.size() > 0)
-			sender.addAttribute("data", PrintUtils.printList(data));
-		if (type.size() > 0)
-			sender.addAttribute("type", PrintUtils.printList(type));
-		if (extras.toString().length() > 0)
-			sender.addAttribute("extras", extras.toString());
-		if (flags.size() > 0)
-			sender.addAttribute("flags", PrintUtils.printList(flags));
-		if (finish)
-			sender.addAttribute("componentFinish", "true");
-		if (sender.attributeCount() > 0)
-			icc.add(sender);
 		
-		 List<String> actions2 = intentSummary.getGetActionCandidateList();
-		 List<String> category2 = intentSummary.getGetCategoryCandidateList();
-		 List<String> data2 = intentSummary.getGetDataCandidateList();
-		 List<String> type2 = intentSummary.getGetTypeCandidateList();
-		 BundleType extras2 = intentSummary.getGetExtrasCandidateList();
-		 Element receiver = new DefaultElement("receiver");
-		 if (actions2.size() > 0)
-		 receiver.addAttribute("action", PrintUtils.printList(actions2));
-		 if (category2.size() > 0)
-		 receiver.addAttribute("category", PrintUtils.printList(category2));
-		 if (data2.size() > 0)
-		 receiver.addAttribute("data", PrintUtils.printList(data2));
-		 if (type2.size() > 0)
-		 receiver.addAttribute("type", PrintUtils.printList(type2));
-		 if (extras2.toString().length() > 0)
-		 receiver.addAttribute("extras", extras2.toString());
-		 if(receiver.attributeCount()>0)
-		 icc.add(receiver);
+		//ICTG construct
+		if(MyConfig.getInstance().getMySwithch().isSetAttributeStrategy()){
+			Element sender = new DefaultElement("sender");
+			if (actions.size() > 0)
+				sender.addAttribute("action", PrintUtils.printList(actions));
+			if (category.size() > 0)
+				sender.addAttribute("category", PrintUtils.printList(category));
+			if (data.size() > 0)
+				sender.addAttribute("data", PrintUtils.printList(data));
+			if (type.size() > 0)
+				sender.addAttribute("type", PrintUtils.printList(type));
+			if (extras.toString().length() > 0)
+				sender.addAttribute("extras", extras.toString());
+			if (flags.size() > 0)
+				sender.addAttribute("flags", PrintUtils.printList(flags));
+			if (finish)
+				sender.addAttribute("componentFinish", "true");
+			if (sender.attributeCount() > 0)
+				icc.add(sender);
+			if(icc.element("destinition")!=null){
+				Attribute attr = icc.element("destinition").attribute("name");
+				if(attr != null&& Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())){
+					ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
+					IntentRecieveModel receiveModel = component.getReceiveModel();
+					receiveModel.getIntentObjsbyICCMsg().add(intentSummary);
+				}
+			}
+		}
+		//Receive model construct
+		if(MyConfig.getInstance().getMySwithch().isGetAttributeStrategy()){
+			 List<String> actions2 = intentSummary.getGetActionCandidateList();
+			 List<String> category2 = intentSummary.getGetCategoryCandidateList();
+			 List<String> data2 = intentSummary.getGetDataCandidateList();
+			 List<String> type2 = intentSummary.getGetTypeCandidateList();
+			 BundleType extras2 = intentSummary.getGetExtrasCandidateList();
+			 Element receiver = new DefaultElement("receiver");
+			 if (actions2.size() > 0)
+			 receiver.addAttribute("action", PrintUtils.printList(actions2));
+			 if (category2.size() > 0)
+			 receiver.addAttribute("category", PrintUtils.printList(category2));
+			 if (data2.size() > 0)
+			 receiver.addAttribute("data", PrintUtils.printList(data2));
+			 if (type2.size() > 0)
+			 receiver.addAttribute("type", PrintUtils.printList(type2));
+			 if (extras2.toString().length() > 0)
+			 receiver.addAttribute("extras", extras2.toString());
+			 if(receiver.attributeCount()>0)
+			 icc.add(receiver);
+			 Attribute attr = icc.element("source").attribute("name");
+			 if(attr != null && Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())){
+				ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
+				IntentRecieveModel receiveModel = component.getReceiveModel();
+				receiveModel.getIntentObjsbySpec().add(intentSummary);
+			}
+		}
 	}
 
 	private static void writeSource(ObjectSummaryModel singleObj, Element icc, MethodSummaryModel methodSummary) {
 		Element desElement = icc.addElement("source");
-		desElement.addAttribute("name", SootUtils.getNameofClass(methodSummary.getComponentName()));
-
+		String source = SootUtils.getNameofClass(methodSummary.getComponentName());
+		if(source!=null && source.length()>0)
+		desElement.addAttribute("name", source);
 	}
 
 	private static void writeDestnition(ObjectSummaryModel singleObj, Element icc) {

@@ -46,6 +46,7 @@ public class TestGenerationClient extends ICTGClient {
 	@Override
 	protected void setMySwitch() {
 		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(true);
+		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
 		MyConfig.getInstance().getMySwithch().setFragmentSwitch(false);
 		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.flow);
 		MyConfig.getInstance().getMySwithch().setDummyMainSwitch(true);
