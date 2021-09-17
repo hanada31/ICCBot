@@ -160,7 +160,7 @@ public class MainClass {
 
 		/** analysis config **/
 		options.addOption("client", true, "-client "
-				+ "[default: MainClient]: Resolve ICC and generate component transiton graph.\n"
+				+ "[default: MainClient/ICTGClient]: Resolve ICC and generate component transiton graph.\n"
 				+ "IROutputClient: Output soot IR files.\n"
 				+ "ManifestClient: Output manifest.xml file.\n"
 				+ "CallGraphClient: Output call graph files.\n"
