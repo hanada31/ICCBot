@@ -86,8 +86,8 @@ public class DoStatistic {
 			IntentSummaryModel intentSummary = (IntentSummaryModel) singleObject;
 			if (history.contains(intentSummary))
 				continue;
-			if (intentSummary.getSendIntent2ICCList().size() == 0 && intentSummary.getSetDestinationList().size() == 0)
-				continue;
+//			if (intentSummary.getSendIntent2ICCList().size() == 0 && intentSummary.getSetDestinationList().size() == 0)
+//				continue;
 			history.add(intentSummary);
 			writeIntentSummary(intentSummary, intentSummaryEle, singleObject.getPathSummary(), methodSummary);
 		}
@@ -116,8 +116,8 @@ public class DoStatistic {
 			FragmentSummaryModel Singlefrag = (FragmentSummaryModel) singleObject;
 			if (history.contains(Singlefrag))
 				continue;
-			if (Singlefrag.getSendFragment2Start().size() == 0)
-				continue;
+//			if (Singlefrag.getSendFragment2Start().size() == 0)
+//				continue;
 			history.add(Singlefrag);
 			writeFragmentSummary(Singlefrag, intentSummaryEle, singleObject.getPathSummary(), methodSummary);
 		}
@@ -234,8 +234,8 @@ public class DoStatistic {
 		writeICCSendReceive(intentSummary, icc);
 //		writeICCFlow(intentSummary, icc);
 		writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
-		if (icc.element("destinition") != null)
-			summary.add(icc);
+//		if (icc.element("destinition") != null)
+		summary.add(icc);
 	}
 
 	private static void writeFragmentSummary(FragmentSummaryModel singlefrag, Element intentSummaryEle,
@@ -248,8 +248,8 @@ public class DoStatistic {
 		writeDestnition(singlefrag, frag);
 //	    writeFragmentFlow(singlefrag, frag);
 		writeSingleObjectICCNode(new ArrayList<String>(), singlefrag, frag);
-		if (frag.element("destinition") != null)
-			intentSummaryEle.add(frag);
+//		if (frag.element("destinition") != null)
+		intentSummaryEle.add(frag);
 
 	}
 
@@ -456,26 +456,25 @@ public class DoStatistic {
 			sender.addAttribute("componentFinish", "true");
 		if (sender.attributeCount() > 0)
 			icc.add(sender);
-
-		// do not output receiver
-		// List<String> actions2 = intentSummary.getGetActionCandidateList();
-		// List<String> category2 = intentSummary.getGetCategoryCandidateList();
-		// List<String> data2 = intentSummary.getGetDataCandidateList();
-		// List<String> type2 = intentSummary.getGetTypeCandidateList();
-		// BundleType extras2 = intentSummary.getGetExtrasCandidateList();
-		// Element receiver = new DefaultElement("receiver");
-		// if (actions2.size() > 0)
-		// receiver.addAttribute("action", PrintUtils.printList(actions2));
-		// if (category2.size() > 0)
-		// receiver.addAttribute("category", PrintUtils.printList(category2));
-		// if (data2.size() > 0)
-		// receiver.addAttribute("data", PrintUtils.printList(data2));
-		// if (type2.size() > 0)
-		// receiver.addAttribute("type", PrintUtils.printList(type2));
-		// if (extras2.toString().length() > 0)
-		// receiver.addAttribute("extras", extras2.toString());
-		// if(receiver.attributeCount()>0)
-		// icc.add(receiver);
+		
+		 List<String> actions2 = intentSummary.getGetActionCandidateList();
+		 List<String> category2 = intentSummary.getGetCategoryCandidateList();
+		 List<String> data2 = intentSummary.getGetDataCandidateList();
+		 List<String> type2 = intentSummary.getGetTypeCandidateList();
+		 BundleType extras2 = intentSummary.getGetExtrasCandidateList();
+		 Element receiver = new DefaultElement("receiver");
+		 if (actions2.size() > 0)
+		 receiver.addAttribute("action", PrintUtils.printList(actions2));
+		 if (category2.size() > 0)
+		 receiver.addAttribute("category", PrintUtils.printList(category2));
+		 if (data2.size() > 0)
+		 receiver.addAttribute("data", PrintUtils.printList(data2));
+		 if (type2.size() > 0)
+		 receiver.addAttribute("type", PrintUtils.printList(type2));
+		 if (extras2.toString().length() > 0)
+		 receiver.addAttribute("extras", extras2.toString());
+		 if(receiver.attributeCount()>0)
+		 icc.add(receiver);
 	}
 
 	private static void writeSource(ObjectSummaryModel singleObj, Element icc, MethodSummaryModel methodSummary) {

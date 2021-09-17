@@ -36,6 +36,7 @@ public class Switch {
 	
 	//other
 	private boolean getAttributeStrategy;
+	private boolean setAttributeStrategy;
 	private boolean scenario_stack;
 
 	public Switch() {
@@ -60,6 +61,7 @@ public class Switch {
 		vfgStrategy = true;
 		cgAnalyzeGroupedStrategy = false;
 		getAttributeStrategy = false;
+		setAttributeStrategy = false;
 
 		setScenario_stack(false);
 		functionExpandAllSwitch = false;
@@ -369,5 +371,19 @@ public class Switch {
 	 */
 	public void setScenario_stack(boolean scenario_stack) {
 		this.scenario_stack = scenario_stack;
+	}
+
+	/**
+	 * @return the setAttributeStrategy
+	 */
+	public boolean isSetAttributeStrategy() {
+		return setAttributeStrategy;
+	}
+
+	/**
+	 * @param setAttributeStrategy the setAttributeStrategy to set
+	 */
+	public void setSetAttributeStrategy(boolean setAttributeStrategy) {
+		this.setAttributeStrategy = setAttributeStrategy;
 	}
 }

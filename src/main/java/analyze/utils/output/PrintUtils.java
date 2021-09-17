@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import javax.security.auth.x500.X500Principal;
+
 /**
  * Print related IO
  * 
@@ -44,7 +46,8 @@ public class PrintUtils {
 		String res = "";
 		Iterator<?> it1 = set.iterator();
 		while (it1.hasNext()) {
-			res += it1.next().toString() + split;
+			Object ele = it1.next();
+			if(ele!=null) res += ele.toString() + split;
 		}
 		if (res.endsWith(split))
 			res = res.substring(0, res.length() - split.length());
@@ -73,7 +76,7 @@ public class PrintUtils {
 			return "";
 		String res = "";
 		for (Object o : list) {
-			res += o.toString() + split;
+			if(o!=null) res += o.toString() + split;
 		}
 		if (res.length() > 0)
 			res = res.substring(0, res.length() - split.length());

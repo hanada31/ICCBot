@@ -178,12 +178,12 @@ public class ICTGClientOutput {
 	public void writeATGModel(String dir, String file, ATGModel atgModel) throws DocumentException, IOException {
 		Document document = FileUtils.xmlWriterBegin(dir, file, false);
 		Element root = document.getRootElement();
-		for (Entry<String, Set<AtgEdge>> en : atgModel.getAtgEdges().entrySet()) {
-			String className = en.getKey();
+		for (String className: Global.v().getAppModel().getComponentMap().keySet()) {
 			Element source = root.addElement("source");
 			source.addAttribute("name", className);
 			Set<String> addedEdgeStr = new HashSet<String>();
-			for (AtgEdge edge : en.getValue()) {
+			if(!atgModel.getAtgEdges().containsKey(className)) continue;
+			for (AtgEdge edge : atgModel.getAtgEdges().get(className)) {
 				Element desEle = new DefaultElement("destination");
 				desEle.addAttribute("name", edge.getDestnation().getName());
 				desEle.addAttribute("type", edge.getType().name());

@@ -66,17 +66,25 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 	 */
 	@Override
 	public boolean isTopTargetUnit(Unit unit) {
-		if (isCreateMethod(unit)) {
-			return true;
-		} else if (isStaticCreateMethod(unit)) {
-			return true;
-		} else if (isReceiveFromParatMethod(unit)) {
-			return true;
-		} else if (isReceiveFromOutMethod(unit)) {
+		if (MyConfig.getInstance().getMySwithch().isSetAttributeStrategy()) {
+			if (isCreateMethod(unit)) {
+				return true;
+			} else if (isStaticCreateMethod(unit)) {
+				return true;
+			}
+		}
+		if (MyConfig.getInstance().getMySwithch().isGetAttributeStrategy()) {
+			if (isReceiveFromOutMethod(unit)) {
+				return true;
+			}
+		}
+			
+		if (isReceiveFromParatMethod(unit)) {
 			return true;
 		} else if (isReceiveFromRetValue(unit)) {
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -89,12 +97,13 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 	 */
 	@Override
 	public boolean isWarpperTopTargetUnit(Unit unit) {
-		if (MyConfig.getInstance().getMySwithch().isWrapperAPISwitch()) {
-			// newly added
-			if (RAICCUtils.isIntentSenderCreation(unit)) {
-				return true;
-			} else if (RAICCUtils.isPendingIntentCreation(unit)) {
-				return true;
+		if (MyConfig.getInstance().getMySwithch().isSetAttributeStrategy()) {
+			if (MyConfig.getInstance().getMySwithch().isWrapperAPISwitch()) {
+				if (RAICCUtils.isIntentSenderCreation(unit)) {
+					return true;
+				} else if (RAICCUtils.isPendingIntentCreation(unit)) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -113,49 +122,55 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 		if (unit == null)
 			return "";
 
-		// receive
-		if (isCreateMethod(unit)) {
-			return "CreateMethod";
-		} else if (isStaticCreateMethod(unit)) {
-			return "StaticCreateMethod";
-		} else if (isReceiveFromParatMethod(unit)) {
+		// inter-function
+		if (isReceiveFromParatMethod(unit)) {
 			return "ReceiveIntentFromParatMethod";
-		} else if (isReceiveFromOutMethod(unit)) {
-			return "ReceiveIntentFromOutMethod";
 		} else if (isReceiveFromRetValue(unit)) {
 			return "ReceiveIntentFromRetValue";
-		} else if (RAICCUtils.isIntentSenderCreation(unit)) {
-			return "intentSenderCreation";
-		} else if (RAICCUtils.isPendingIntentCreation(unit)) {
-			return "pendingIntentCreation";
-
-			// set
-		} else if (isSetAttributeMethod(unit)) {
-			return "SetAttribute";
-		} else if (isSetIntentExtraMethod(unit)) {
-			return "SetIntentExtra";
+		}else if (isPassOutMethod(unit)) {
+				return "PassOutIntent";
+		}
+		// finish
+		if (MyConfig.getInstance().getMySwithch().isScenario_stack()) {
+			if (isComponentFinishMethods(unit)) {
+				return "componentReturn";
+			}
+		}
+		
+		// set
+		if (MyConfig.getInstance().getMySwithch().isSetAttributeStrategy()) {
+			if (isCreateMethod(unit)) {
+				return "CreateMethod";
+			} else if (isStaticCreateMethod(unit)) {
+				return "StaticCreateMethod";
+			}else if (isSetAttributeMethod(unit)) {
+				return "SetAttribute";
+			} else if (isSetIntentExtraMethod(unit)) {
+				return "SetIntentExtra";
+			} else if (isInitIntentMethod(unit)) {
+				return "InitIntent";
+			// send out
+			} else if (isSendIntent2IccMethod(unit)) {
+				return "SendIntent2ICC";
+			} else if (RAICCUtils.isWrapperMethods(unit)) {
+				return "sendOutWrapperredIntent";
+			} else if (RAICCUtils.isIntentSenderCreation(unit)) {
+				return "intentSenderCreation";
+			} else if (RAICCUtils.isPendingIntentCreation(unit)) {
+				return "pendingIntentCreation";
+			}  
 		}
 		// get
 		if (MyConfig.getInstance().getMySwithch().isGetAttributeStrategy()) {
-			if (isGetAttributeMethod(unit)) {
+			if (isReceiveFromOutMethod(unit)) {
+				return "ReceiveIntentFromOutMethod";
+			}else if (isGetAttributeMethod(unit)) {
 				return "GetAttribute";
 			} else if (isGetIntentExtraMethod(unit)) {
 				return "GetIntentExtra";
 			}
 		}
-		// finish
-		if (isComponentFinishMethods(unit)) {
-			return "componentReturn";
-			// send out
-		} else if (isSendIntent2IccMethod(unit)) {
-			return "SendIntent2ICC";
-		} else if (isInitIntentMethod(unit)) {
-			return "InitIntent";
-		} else if (RAICCUtils.isWrapperMethods(unit)) {
-			return "sendOutWrapperredIntent";
-		} else if (isPassOutMethod(unit)) {
-			return "PassOutIntent";
-		}
+		
 		return "";
 	}
 
@@ -165,53 +180,54 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 	 * @param methodUnderAnalysis
 	 * @param appModel
 	 * @param intentSummary
-	 * @param u
+	 * @param unit
 	 * @return
 	 */
 	@Override
-	public UnitHandler getUnitHandler(Unit u) {
-		if (u == null)
+	public UnitHandler getUnitHandler(Unit unit) {
+		if (unit == null)
 			return null;
-		// receive intent
-		if (isCreateMethod(u)) {
-			return new CreateHandler();
-		} else if (isReceiveFromParatMethod(u)) {
+		
+		// inter-function
+		if (isReceiveFromParatMethod(unit)) {
 			return new ReceiveFromParaHandler();
-		} else if (isReceiveFromRetValue(u)) {
+		} else if (isReceiveFromRetValue(unit)) {
 			return new ReceiveFromRetValueHandler();
-		} else if (RAICCUtils.isIntentSenderCreation(u)) {
-			return new ReceiveFromOutHandler();
-		} else if (RAICCUtils.isPendingIntentCreation(u)) {
-			return new ReceiveFromOutHandler();
-		} else if (isReceiveFromOutMethod(u)) {
-			return new ReceiveFromOutHandler();
-
-		} else if (isSetAttributeMethod(u)) {
+		} else if (isComponentFinishMethods(unit)) {
+			return new MethodReturnHandler();
+		}
+		// set
+		if (isCreateMethod(unit)) {
+			return new CreateHandler();
+		}else if (isSetAttributeMethod(unit)) {
 			return new SetAttributeHandler();
-		} else if (isSetIntentExtraMethod(u)) {
+		} else if (isSetIntentExtraMethod(unit)) {
 			return new SetIntentExtraHandler();
 		}
-		if (MyConfig.getInstance().getMySwithch().isGetAttributeStrategy()) {
-			if (isGetAttributeMethod(u)) {
-				return new GetAttributeHandler();
-			} else if (isGetIntentExtraMethod(u)) {
-				return new GetIntentExtraHandler();
-			}
-		}
-		if (isSendIntent2ActivityMethod(u)) {
+		// send out
+		if (isSendIntent2ActivityMethod(unit)) {
 			return new SendIntent2ActivityHandler();
-		} else if (isSendIntent2ServiceMethod(u)) {
+		} else if (isSendIntent2ServiceMethod(unit)) {
 			return new SendIntent2ServiceHandler();
-		} else if (isSendIntent2ProviderMethod(u)) {
+		} else if (isSendIntent2ProviderMethod(unit)) {
 			return new SendIntent2ProviderHandler();
-		} else if (isSendIntent2ReceiverMethod(u)) {
+		} else if (isSendIntent2ReceiverMethod(unit)) {
 			return new SendIntent2ReceiverHandler();
 		} else if (MyConfig.getInstance().getMySwithch().isWrapperAPISwitch()) {
-			if (RAICCUtils.isWrapperMethods(u))
+			if (RAICCUtils.isWrapperMethods(unit))
 				return new SendIntent2UnkownHandler();
-
-		} else if (isComponentFinishMethods(u)) {
-			return new MethodReturnHandler();
+		} else if (RAICCUtils.isIntentSenderCreation(unit)) {
+			return  new ReceiveFromOutHandler();
+		} else if (RAICCUtils.isPendingIntentCreation(unit)) {
+			return new ReceiveFromOutHandler();
+		}
+		
+		if (isReceiveFromOutMethod(unit)) {
+			return new ReceiveFromOutHandler();
+		}else if (isGetAttributeMethod(unit)) {
+			return new GetAttributeHandler();
+		} else if (isGetIntentExtraMethod(unit)) {
+			return new GetIntentExtraHandler();
 		}
 		return null;
 	}

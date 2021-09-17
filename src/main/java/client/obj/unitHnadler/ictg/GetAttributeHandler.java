@@ -77,7 +77,11 @@ public class GetAttributeHandler extends UnitHandler {
 	}
 
 	private void generatehandler(DataHandler dataHandler, Set<String> resSet) {
-		dataHandler.handleData(intentSummary, className, resSet);
+		Set<String> resSet2 = new HashSet<>();
+		for(String ele: resSet){
+			if(ele!=null) resSet2.add(ele);
+		}
+		dataHandler.handleData(intentSummary, className, resSet2);
 	}
 
 	/**

@@ -280,15 +280,13 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 	 */
 	private void makeStatistic(MethodSummaryModel model) {
 		// computeTraceDepth();
-		DoStatistic.updateTraceStatisticUseSummayMap(false, model, result);
-		DoStatistic.updateTraceStatisticUseSummayMap(true, model, result);
+//		DoStatistic.updateTraceStatisticUseSummayMap(false, model, result);
+//		DoStatistic.updateTraceStatisticUseSummayMap(true, model, result);
 
 		DoStatistic.updateICCStatisticUseSummayMap(false, model, result);
 		DoStatistic.updateICCStatisticUseSummayMap(true, model, result);
 
 		DoStatistic.updateSummaryStatisticUseSummayMap(model, result);
-		if(model.getMethod().getSignature().contains("OneFragment: void onAttach"))
-			System.out.println();
 		DoStatistic.updateXMLStatisticUseSummayMap(true, model, result);
 		DoStatistic.updateXMLStatisticUseSummayMap(false, model, result);
 
