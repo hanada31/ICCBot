@@ -1,5 +1,6 @@
 package main.java.client.testcase;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +10,17 @@ import java.util.Map.Entry;
 import com.microsoft.z3.Model;
 
 import main.java.Analyzer;
+import main.java.Global;
 import main.java.analyze.model.analyzeModel.Attribute;
 import main.java.analyze.utils.CollectionUtils;
 import main.java.analyze.utils.ConstraintSolver;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
+import main.java.client.obj.model.component.ExtraData;
 import main.java.client.obj.model.ictg.ICCMsg;
 import main.java.client.obj.model.ictg.IntentRecieveModel;
+import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 public class ICCGenerator extends Analyzer {
 	String className;
@@ -32,17 +36,26 @@ public class ICCGenerator extends Analyzer {
 	public void analyze() {
 		ComponentModel component = appModel.getComponentMap().get(className);
 		IntentRecieveModel receiveModel = component.getReceiveModel();
-		Set<String> actions = receiveModel.getReceivedActionSet();
-		Set<String> categories = receiveModel.getReceivedCategorySet();
-		Set<String> datas = receiveModel.getReceivedDataSet();
-		Set<String> types = receiveModel.getReceivedTypeSet();
-		BundleType extras = receiveModel.getReceivedExtraData();
+		ICCGenerationFromIntentSummaryModel(receiveModel.getIntentObjsbyICCMsg());
+		ICCGenerationFromIntentSummaryModel(receiveModel.getIntentObjsbySpec());
 		
-		//strategies
-		genereateICCRandomely(actions, categories, datas, types, extras);
-		//genereateICCXXX
-		//genereateICCYYY
 	}
+
+	private void ICCGenerationFromIntentSummaryModel(Set<IntentSummaryModel> modelSet) {
+		
+		for(IntentSummaryModel model: modelSet){
+			List<String> actions = model.getGetActionCandidateList();
+			List<String> categories = model.getGetCategoryCandidateList();
+			List<String> datas = model.getGetDataCandidateList();
+			List<String> types = model.getGetTypeCandidateList();
+			BundleType extras = model.getGetExtrasCandidateList();
+			
+			//strategies
+			genereateICCRandomely(actions, categories, datas, types, extras);
+			//genereateICCXXX
+			//genereateICCYYY
+		}
+	} 
 
 	/**
 	 * randomly generate one ICCMsg
@@ -53,14 +66,18 @@ public class ICCGenerator extends Analyzer {
 	 * @param extras
 	 */
 	@SuppressWarnings("unchecked")
-	private void genereateICCRandomely(Set<String> actions, Set<String> categories, Set<String> datas,
-		Set<String> types, BundleType extras) {
+	private void genereateICCRandomely(List<String> actions, List<String> categories, List<String> datas,
+		List<String> types, BundleType extras) {
 		ICCMsg msg = new ICCMsg();
 		msg.setAction( getRandomElementFromSet(actions));
 		msg.setCategory(getRandomElementSetFromSet(categories));
 		msg.setData( getRandomElementFromSet(datas));
 		msg.setType( getRandomElementFromSet(types));
-		msg.setExtra(getRandomElementSetFromSet(extras.getContentSet()));
+		Set<String> extraSet = new HashSet<String>();
+		for(List<ExtraData> eds: extras.getBundle().values())
+			for(ExtraData ed: eds)
+				extraSet.add(ed.toString());
+		msg.setExtra(extraSet);
 		System.out.println(className +"\t"+msg.toString());
 		ICCSet.add(msg);	
 	}
@@ -68,11 +85,11 @@ public class ICCGenerator extends Analyzer {
 	/**
 	 * randomly generate one attribute for ICCMsg
 	 * @param s
-	 * @return 
+	 * @return  
 	 */
-	private String getRandomElementFromSet(Set<String> set){
-		set.add("");
-		Object[] obj =set.toArray();
+	private String getRandomElementFromSet(List<String> actions){
+		actions.add("");
+		Object[] obj =actions.toArray();
 		String res =  (String) obj[(int)(Math.random()*obj.length)];
 		return res;
 	}
@@ -82,10 +99,10 @@ public class ICCGenerator extends Analyzer {
 	 * @return 
 	 * @return 
 	 */
-	private Set<String> getRandomElementSetFromSet(Set<String> set){
-		set.add(null);
+	private Set<String> getRandomElementSetFromSet(Collection<String> categories){
+		categories.add(null);
 		HashSet<String> newSet = new HashSet<String>();
-		Object[] obj =set.toArray();
+		Object[] obj =categories.toArray();
 		newSet.add((String) obj[(int)(Math.random()*obj.length)]);
 		return newSet;
 	}

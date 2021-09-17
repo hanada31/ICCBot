@@ -54,7 +54,7 @@ public class GetIntentExtraHandler extends UnitHandler {
 		param_list = getParamList(u);
 		if (param_list == null)
 			return;
-		if (SootUtils.isBundleExtra(type)) {
+		if (SootUtils.isBundleExtra(type)||SootUtils.isExtrasExtra(type)) {
 			BundleType bundle_type = null;
 			try {
 				bundle_type = genBundleType(u);
@@ -71,8 +71,23 @@ public class GetIntentExtraHandler extends UnitHandler {
 				for (ExtraData ed : en.getValue())
 					ed.setType(bundle_type);
 			}
-		} else if (SootUtils.isIntentExtra(type)) {
-			// TODO
+		} else if (SootUtils.isExtrasExtra(type)) {
+			BundleType bundle_type = null;
+			try {
+				bundle_type = genBundleType(u);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			if (bundle_type == null) {
+				param_list = null;
+				return;
+			}
+			bundle_type.setType(type);
+			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
+				for (ExtraData ed : en.getValue())
+					ed.setType(bundle_type);
+			}
 
 		} else if (SootUtils.isParOrSerExtra(type)) {
 			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {

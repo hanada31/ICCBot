@@ -23,6 +23,8 @@ public class IntentRecieveModel {
 	private Map<String, Set<ICCMsg>> pathMap_SNV;
 	private Map<String, Set<List<Attribute>>> globalPathMap;
 
+	private Set<IntentSummaryModel> IntentObjsbyICCMsg;
+	private Set<IntentSummaryModel> IntentObjsbySpec;
 	public IntentRecieveModel() {
 		receivedActionSet = new HashSet<String>();
 		receivedCategorySet = new HashSet<String>();
@@ -34,6 +36,9 @@ public class IntentRecieveModel {
 		setPathMap_AU(new HashMap<String, Set<ICCMsg>>());
 		setPathMap_SNV(new HashMap<String, Set<ICCMsg>>());
 		setGlobalPathMap(new HashMap<String, Set<List<Attribute>>>());
+		
+		setIntentObjsbyICCMsg(new HashSet<IntentSummaryModel>());
+		setIntentObjsbySpec(new HashSet<IntentSummaryModel>());
 	}
 
 	public Set<String> getReceivedActionSet() {
@@ -134,5 +139,34 @@ public class IntentRecieveModel {
 			return null;
 		else
 			return componentInstance.getReceiveModel().getPathMap_AU().get(clsname);
+	}
+
+
+	/**
+	 * @return the intentObjsbySpec
+	 */
+	public Set<IntentSummaryModel> getIntentObjsbySpec() {
+		return IntentObjsbySpec;
+	}
+
+	/**
+	 * @param intentObjsbySpec the intentObjsbySpec to set
+	 */
+	public void setIntentObjsbySpec(Set<IntentSummaryModel> intentObjsbySpec) {
+		IntentObjsbySpec = intentObjsbySpec;
+	}
+
+	/**
+	 * @return the intentObjsbyICCMsg
+	 */
+	public Set<IntentSummaryModel> getIntentObjsbyICCMsg() {
+		return IntentObjsbyICCMsg;
+	}
+
+	/**
+	 * @param intentObjsbyICCMsg the intentObjsbyICCMsg to set
+	 */
+	public void setIntentObjsbyICCMsg(Set<IntentSummaryModel> intentObjsbyICCMsg) {
+		IntentObjsbyICCMsg = intentObjsbyICCMsg;
 	}
 }

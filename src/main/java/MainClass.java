@@ -157,7 +157,7 @@ public class MainClass {
 		options.addOption("path", true, "-path: Set the path to the apk under analysis.");
 		options.addOption("androidJar", true, "-androidJar: Set the path of android.jar.");
 		options.addOption("version", true, "-version [default:23]: Version of Android SDK.");
-
+		
 		/** analysis config **/
 		options.addOption("client", true, "-client "
 				+ "[default: MainClient/ICTGClient]: Resolve ICC and generate component transiton graph.\n"
@@ -354,9 +354,9 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "OneTestBench";
+		name = "IntentBench";
 		String client = "ICTGClient";
-//		client = "TestGenerationClient";
+		client = "TestGenerationClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);

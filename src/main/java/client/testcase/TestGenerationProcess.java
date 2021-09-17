@@ -109,7 +109,7 @@ public class TestGenerationProcess {
 						if (extra_type.equals("Extras"))
 							extra_key = extra_type + "Obj";
 						else
-							extra_key = StringUtils.refineString(extra_pair.split("\"")[1]);
+							extra_key = StringUtils.refineString(extra_pair.split("-")[1]);
 
 						if (extra_key.equals(""))
 							extra_key = ConstantUtils.UNKOWN;
@@ -261,6 +261,7 @@ public class TestGenerationProcess {
 		List<String> lines = FileUtils.getListFromFile(java_file_path);
 		FileUtils.writeText2File(java_file_path, "", false);
 		String content = "";
+		boolean startLaunch = false;
 		for (String line : lines) {
 			if (line.contains("public class Activity_ extends Activity"))
 				line = "public class Activity_" + appId + " extends Activity";
@@ -286,14 +287,13 @@ public class TestGenerationProcess {
 
 				FileUtils.writeText2File(java_file_path, content, true);
 			}
-
-			if (line.equals("{")) {
+			if (line.equals("{") && !startLaunch) {
+				startLaunch = true;
 				content = "\tpublic void launch() throws Exception{\n";
-				content += "\t\tLog.i(\"FaxTool\",\"myFax\");\n";
 
 				content += "\t\tIntent intent = new Intent();\n";
 				content += "\t\tintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n";
-				content += "\t\tComponentName cn=new ComponentName(\"" + appModel.getPackageName() + "\",\""
+				content += "\t\tComponentName cn = new ComponentName(\"" + appModel.getPackageName() + "\",\""
 						+ clsname.replace("_dollar_", "$") + "\");\n";
 				content += "\t\tintent.setComponent(cn);\n";
 
@@ -309,18 +309,18 @@ public class TestGenerationProcess {
 					content += "\t\tintent.setData(Uri.parse(\"" + acdtVals[2].replace("\"", "") + "\"));\n";
 				if (!acdtVals[3].equals("null"))
 					content += "\t\tintent.setType(\"" + acdtVals[3].replace("\"", "") + "\");\n";
-
-				FileUtils.writeText2File(java_file_path, content + "\n", true);
-
+				FileUtils.writeText2File(java_file_path, content, true);
+				
 				// new Bundle must show up before its use
 				// generate extra data
 
 				if (acdt.split(";;").length == 5) {
 					String extras = acdt.split(";;")[4];
+//					if(extras.contains("ExtrasObj"))
+//						System.out.println();
 					generateExtrasInJava(decSet, extras, java_file_path, "Intent->intent");
 				}
-				content = "\t\tLog.e(\"eeeeeeeeeeeeeeeee\",\"start\");\n";
-				content += "\t\tstartActivity(intent);\n";
+				content = "\t\tstartActivity(intent);\n";
 				content += "\t\t//" + acdt + "\n";
 				if (icc != null)
 					content += "\t\t//" + icc.getExtra() + "\n";
@@ -437,25 +437,13 @@ public class TestGenerationProcess {
 					// content = "\t\t" + extra_key + " = new Bundle();\n";
 					content = "";
 				}
-			} else if (extra_type.equals("Serializable")) {
+			} else if (extra_type.equals("Serializable") || extra_type.equals("Parcelable")) {
 				if (extra_cls_type.equals("\"" + "SerializableObj" + "\"")) {
 					content = "\t\tMySerializable " + extra_key + " = new MySerializable();\n";
 					if (!decSet.contains(content)) {
 						decSet.add(content);
 					}
-				} else {
-					content = "\t\t" + "Context invokee = this.createPackageContext(\"" + appModel.getPackageName()
-							+ "\"," + "Context.CONTEXT_INCLUDE_CODE|Context.CONTEXT_IGNORE_SECURITY);\n";
-					content += "\t\t" + "ClassLoader loader = invokee.getClassLoader();\n";
-					content += "\t\t" + "Class<?> util = loader.loadClass(" + extra_cls_type + ");\n";
-					content += "\t\tParcelable " + extra_key + " = (Parcelable)util.newInstance();\n";
-					if (!decSet.contains(content)) {
-						decSet.add(content);
-					}
-				}
-
-			} else if (extra_type.equals("Parcelable")) {
-				if (extra_cls_type.equals("\"" + "android.content.Intent" + "\"")) {
+				}else if (extra_cls_type.equals("\"" + "android.content.Intent" + "\"")) {
 					content = "\t\tIntent " + extra_key + " = new Intent();\n";
 					if (!decSet.contains(content)) {
 						decSet.add(content);
@@ -466,36 +454,18 @@ public class TestGenerationProcess {
 						decSet.add(content);
 					}
 				} else {
-					content = "\t\t" + "Context invokee = this.createPackageContext(\"" + appModel.getPackageName()
+					String invokee = "invokee"+Math.abs(extra_cls_type.hashCode());
+					String loader = "loader"+Math.abs(extra_cls_type.hashCode());
+					String util = "util"+Math.abs(extra_cls_type.hashCode());
+					content = "\t\t" + "Context "+invokee+" = this.createPackageContext(\"" + appModel.getPackageName()
 							+ "\"," + "Context.CONTEXT_INCLUDE_CODE|Context.CONTEXT_IGNORE_SECURITY);\n";
-					content += "\t\t" + "ClassLoader loader = invokee.getClassLoader();\n";
-					content += "\t\t" + "Class<?> util = loader.loadClass(" + extra_cls_type + ");\n";
-					content += "\t\tParcelable " + extra_key + " = (Parcelable)util.newInstance();\n";
+					content += "\t\t" + "ClassLoader "+loader+" = "+invokee+".getClassLoader();\n";
+					content += "\t\t" + "Class<?> "+util+" = "+loader+".loadClass(" + extra_cls_type + ");\n";
+					content += "\t\tParcelable " + extra_key + " = (Parcelable)"+util+".newInstance();\n";
 					if (!decSet.contains(content)) {
 						decSet.add(content);
 					}
 				}
-				// }else if (extra_type.equals("ParcelableArray")) {
-				// content = "\t\tParcelable[] " + extra_key +
-				// " = new MyParcelable[1];\n";
-				// if (!decSet.contains(content)) {
-				// decSet.add(content);
-				// } else {
-				// content = "\t\t" + extra_key + " = new MyParcelable[1];\n";
-				// }
-				// content += "\t\t" + extra_key +
-				// "[0] = new MyParcelable();\n";
-				// } else if (extra_type.equals("ParcelableArrayList")) {
-				// content = "\t\tArrayList  " + extra_key +
-				// " = new ArrayList<MyParcelable>();\n";
-				// if (!decSet.contains(content)) {
-				// decSet.add(content);
-				// } else {
-				// content = "\t\t" + extra_key +
-				// " = new ArrayList<MyParcelable>();\n";
-				// }
-				// content += "\t\t" + extra_key +
-				// ".add(new MyParcelable());\n";
 			} else if (extra_type.contains("ArrayList")) {
 				String type = extra_type.replace("ArrayList", "");
 				content = "\t\tArrayList<" + type + "> " + extra_key + " = new ArrayList<" + type + ">();\n";
@@ -534,7 +504,7 @@ public class TestGenerationProcess {
 		String extra_type = ss[0];
 		String content = "";
 		if (extra_type.equals("Extras")) {
-			content += "\t\tgetIntent().putExtras(ExtrasObj);\n";
+			content += "\t\tintent.putExtras(ExtrasObj);\n";
 		} else {
 			String extra_key = StringUtils.refineString(ss[1]);
 			String extra_value = ss[2];
