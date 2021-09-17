@@ -354,7 +354,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "IntentBench";
+		name = "IntentFlowBench2";
 		String client = "ICTGClient";
 		client = "TestGenerationClient";
 
