@@ -336,7 +336,7 @@ public class MainClass {
 		MyConfig.getInstance().getMySwithch().setStaticFieldSwitch(true);
 
 		MyConfig.getInstance().getMySwithch().setFragmentSwitch(true);
-		MyConfig.getInstance().getMySwithch().setLibCodeSwitch(true);
+		MyConfig.getInstance().getMySwithch().setLibCodeSwitch(false);
 		MyConfig.getInstance().getMySwithch().setWrapperAPISwitch(true);
 
 		MyConfig.getInstance().getMySwithch().setImplicitLaunchSwitch(true);
@@ -354,7 +354,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "IntentFlowBench2";
+		name = "base";
 		String client = "ICTGClient";
 		client = "TestGenerationClient";
 
