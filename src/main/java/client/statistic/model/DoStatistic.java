@@ -7,22 +7,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import java_cup.internal_error;
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.model.analyzeModel.MethodSummaryModel;
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.model.analyzeModel.UnitNode;
-import main.java.analyze.utils.RAICCUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
-import main.java.client.obj.model.component.Flag;
 import main.java.client.obj.model.fragment.FragmentSummaryModel;
 import main.java.client.obj.model.ictg.IntentRecieveModel;
-import main.java.client.obj.model.ictg.IntentSendModel;
 import main.java.client.obj.model.ictg.IntentSummaryFeatureExtractor;
 import main.java.client.obj.model.ictg.IntentSummaryModel;
 

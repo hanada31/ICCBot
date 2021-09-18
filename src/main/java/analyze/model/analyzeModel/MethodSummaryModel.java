@@ -7,7 +7,6 @@ import java.util.Set;
 
 import main.java.analyze.utils.output.PrintUtils;
 import soot.SootMethod;
-import soot.Unit;
 
 public class MethodSummaryModel {
 	private SootMethod method;

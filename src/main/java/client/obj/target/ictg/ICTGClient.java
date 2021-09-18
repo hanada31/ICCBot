@@ -25,9 +25,7 @@ import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.atg.AtgType;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.obj.target.ictg.ICTGClient;
-import main.java.client.soot.IROutputClient;
 import main.java.client.statistic.model.StatisticResult;
-import main.java.client.toolEvaluate.ICCBotResultEvaluateClient;
 import main.java.client.toolEvaluate.ToolEvaluateClient;
 
 import org.dom4j.DocumentException;

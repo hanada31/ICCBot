@@ -5,26 +5,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
-
-import com.microsoft.z3.Model;
-
 import main.java.Analyzer;
 import main.java.Global;
-import main.java.analyze.model.analyzeModel.Attribute;
-import main.java.analyze.utils.CollectionUtils;
-import main.java.analyze.utils.ConstraintSolver;
-import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
+import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.ExtraData;
+import main.java.client.obj.model.component.IntentFilterModel;
 import main.java.client.obj.model.ictg.ICCMsg;
 import main.java.client.obj.model.ictg.IntentRecieveModel;
 import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 public class ICCGenerator extends Analyzer {
-	String className;
-	Set<ICCMsg> ICCSet;
+	private String className;
+	private Set<ICCMsg> ICCSet;
+	
 	
 	public ICCGenerator(String className) {
 		super();
@@ -36,13 +31,75 @@ public class ICCGenerator extends Analyzer {
 	public void analyze() {
 		ComponentModel component = appModel.getComponentMap().get(className);
 		IntentRecieveModel receiveModel = component.getReceiveModel();
-		ICCGenerationFromIntentSummaryModel(receiveModel.getIntentObjsbyICCMsg());
-		ICCGenerationFromIntentSummaryModel(receiveModel.getIntentObjsbySpec());
+		ICCGenerationFromReceivedIntentSummaryModel(receiveModel.getIntentObjsbyICCMsg());
+		ICCGenerationFromSpecIntentSummaryModel(receiveModel.getIntentObjsbySpec());
+		ICCGenerationFromManifest(component.getIntentFilters());
 		
 	}
 
-	private void ICCGenerationFromIntentSummaryModel(Set<IntentSummaryModel> modelSet) {
+	/**
+	 * generate ICC messages according to the manifest specification
+	 * @param intentFilters
+	 */
+	private void ICCGenerationFromManifest(List<IntentFilterModel> intentFilters) {
+		for(IntentFilterModel model: intentFilters){
+			Set<String> actions = model.getAction_list();
+			Set<String> categories = model.getCategory_list();
+			Set<Data> datas = model.getData_list();
+			Set<String> types = model.getDatatype_list();
+			BundleType extras = new BundleType();
+			
+			//generate ICCs use different strategies
+			genereateICCRandomely(actions, categories, datas, types, extras);
+			//genereateICCXXX
+			//genereateICCYYY
+		}
 		
+	}
+
+	/**
+	 * generate ICC messages according to intent summary model
+	 * may from the java ICC receiving specification 
+	 * may from the ICC instances received from the ICC callers
+	 * @param modelSet
+	 */
+	private void genereateICCRandomely(Set<String> actions, Set<String> categories, Set<Data> datas, Set<String> types,
+			BundleType extras) {
+		Set<String> dataStrSet = new HashSet<String>();
+		for(Data data: datas){
+			dataStrSet.add(data.toString());
+		}
+		genereateICCRandomely(actions, categories, dataStrSet, types, extras);
+		
+	}
+
+	/**
+	 * generate ICC messages according to intent summary model
+	 * may from the java ICC receiving specification 
+	 * may from the ICC instances received from the ICC callers
+	 * @param modelSet
+	 */
+	private void ICCGenerationFromReceivedIntentSummaryModel(Set<IntentSummaryModel> modelSet) {
+		for(IntentSummaryModel model: modelSet){
+			List<String> actions = model.getSetActionValueList();
+			List<String> categories = model.getSetCategoryValueList();
+			List<String> datas = model.getSetDataValueList();
+			List<String> types = model.getSetTypeValueList();
+			BundleType extras = model.getSetExtrasValueList();
+			
+			//generate ICCs use different strategies
+			genereateICCRandomely(actions, categories, datas, types, extras);
+			//genereateICCXXX
+			//genereateICCYYY
+		}
+	} 
+	/**
+	 * generate ICC messages according to intent summary model
+	 * may from the java ICC receiving specification 
+	 * may from the ICC instances received from the ICC callers
+	 * @param modelSet
+	 */
+	private void ICCGenerationFromSpecIntentSummaryModel(Set<IntentSummaryModel> modelSet) {
 		for(IntentSummaryModel model: modelSet){
 			List<String> actions = model.getGetActionCandidateList();
 			List<String> categories = model.getGetCategoryCandidateList();
@@ -50,7 +107,7 @@ public class ICCGenerator extends Analyzer {
 			List<String> types = model.getGetTypeCandidateList();
 			BundleType extras = model.getGetExtrasCandidateList();
 			
-			//strategies
+			//generate ICCs use different strategies
 			genereateICCRandomely(actions, categories, datas, types, extras);
 			//genereateICCXXX
 			//genereateICCYYY
@@ -66,8 +123,8 @@ public class ICCGenerator extends Analyzer {
 	 * @param extras
 	 */
 	@SuppressWarnings("unchecked")
-	private void genereateICCRandomely(List<String> actions, List<String> categories, List<String> datas,
-		List<String> types, BundleType extras) {
+	private void genereateICCRandomely(Collection<String> actions, Collection<String> categories, Collection<String> datas,
+			Collection<String> types, BundleType extras) {
 		ICCMsg msg = new ICCMsg();
 		msg.setAction( getRandomElementFromSet(actions));
 		msg.setCategory(getRandomElementSetFromSet(categories));
@@ -78,18 +135,19 @@ public class ICCGenerator extends Analyzer {
 			for(ExtraData ed: eds)
 				extraSet.add(ed.toString());
 		msg.setExtra(extraSet);
-		System.out.println(className +"\t"+msg.toString());
-		ICCSet.add(msg);	
+		addToICCSet(msg);
 	}
+	
 	
 	/**
 	 * randomly generate one attribute for ICCMsg
 	 * @param s
 	 * @return  
 	 */
-	private String getRandomElementFromSet(List<String> actions){
-		actions.add("");
-		Object[] obj =actions.toArray();
+	private String getRandomElementFromSet(Collection<String> collection){
+		if(collection == null || collection.size()==0)
+			return "";
+		Object[] obj =collection.toArray();
 		String res =  (String) obj[(int)(Math.random()*obj.length)];
 		return res;
 	}
@@ -99,13 +157,30 @@ public class ICCGenerator extends Analyzer {
 	 * @return 
 	 * @return 
 	 */
-	private Set<String> getRandomElementSetFromSet(Collection<String> categories){
-		categories.add(null);
+	private Set<String> getRandomElementSetFromSet(Collection<String> collection){
+		if(collection == null || collection.size()==0)
+			return new HashSet<String>();
 		HashSet<String> newSet = new HashSet<String>();
-		Object[] obj =categories.toArray();
+		Object[] obj =collection.toArray();
 		newSet.add((String) obj[(int)(Math.random()*obj.length)]);
 		return newSet;
 	}
+	
+	/**
+	 * add to set of ICC, for test generation
+	 * @param msg 
+	 */
+	private void addToICCSet(ICCMsg msg) {
+		Map<String, Set<String>> map = Global.v().getAppModel().getICCStringMap();
+		if(!map.containsKey(className)){
+			map.put(className, new HashSet<String>());
+		}
+		if(map.get(className).contains(msg.toString()))
+			return;
+		map.get(className).add(msg.toString());
+		ICCSet.add(msg);	
+	}
+
 	
 	/**
 	 * generate ICC set to test case generator
