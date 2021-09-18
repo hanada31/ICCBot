@@ -290,7 +290,10 @@ public class TestGenerationProcess {
 			if (line.equals("{") && !startLaunch) {
 				startLaunch = true;
 				content = "\tpublic void launch() throws Exception{\n";
-
+				
+				content += "\t\tClassLoader loader;\n";
+				content += "\t\tContext invokee;\n";
+				content += "\t\tClass<?> util;\n";
 				content += "\t\tIntent intent = new Intent();\n";
 				content += "\t\tintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n";
 				content += "\t\tComponentName cn = new ComponentName(\"" + appModel.getPackageName() + "\",\""
@@ -454,21 +457,21 @@ public class TestGenerationProcess {
 						decSet.add(content);
 					}
 				} else {
-					String invokee = "invokee"+Math.abs(extra_cls_type.hashCode());
-					String loader = "loader"+Math.abs(extra_cls_type.hashCode());
-					String util = "util"+Math.abs(extra_cls_type.hashCode());
-					content = "\t\t" + "Context "+invokee+" = this.createPackageContext(\"" + appModel.getPackageName()
+					content = "\t\t" + "invokee = this.createPackageContext(\"" + appModel.getPackageName()
 							+ "\"," + "Context.CONTEXT_INCLUDE_CODE|Context.CONTEXT_IGNORE_SECURITY);\n";
-					content += "\t\t" + "ClassLoader "+loader+" = "+invokee+".getClassLoader();\n";
-					content += "\t\t" + "Class<?> "+util+" = "+loader+".loadClass(" + extra_cls_type + ");\n";
-					content += "\t\tParcelable " + extra_key + " = (Parcelable)"+util+".newInstance();\n";
+					content += "\t\t" + "loader = invokee.getClassLoader();\n";
+					content += "\t\t" + "util = loader.loadClass(" + extra_cls_type + ");\n";
+					content += "\t\tParcelable " + extra_key + " = (Parcelable)util.newInstance();\n";
 					if (!decSet.contains(content)) {
 						decSet.add(content);
 					}
 				}
 			} else if (extra_type.contains("ArrayList")) {
 				String type = extra_type.replace("ArrayList", "");
-				content = "\t\tArrayList<" + type + "> " + extra_key + " = new ArrayList<" + type + ">();\n";
+				if(type.length()>0)
+					content = "\t\tArrayList<" + type + "> " + extra_key + " = new ArrayList<" + type + ">();\n";
+				else
+					content = "\t\tArrayList<?> " + extra_key + " = new ArrayList();\n";
 				if (!decSet.contains(content)) {
 					decSet.add(content);
 				} else {
