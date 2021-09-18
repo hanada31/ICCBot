@@ -2,10 +2,8 @@ package main.java.client.obj.model.ictg;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import main.java.analyze.model.analyzeModel.Attribute;
 import main.java.analyze.utils.output.PrintUtils;
 
 public class ICCMsg implements Cloneable, Serializable {
@@ -43,27 +41,27 @@ public class ICCMsg implements Cloneable, Serializable {
 	@Override
 	public String toString() {
 		String res = "";
-		if (source != null && !source.equals("\"\""))
+		if (source != null && !source.equals(""))
 			res += " ##source:" + source;
-		if (destination != null && !destination.equals("\"\""))
+		if (destination != null && !destination.equals(""))
 			res += " ##destination:" + destination;
-		if (action != null && !action.equals("\"\""))
+		if (action != null && !action.equals(""))
 			res += " ##action:" + action;
 		if (category != null && category.size() > 0)
 			res += " ##category:" ;
 			if (!PrintUtils.printSet(category).equals(""))
 				res += PrintUtils.printSet(category);
-		if (data != null && !data.equals("\"\""))
+		if (data != null && !data.equals(""))
 			res += " ##data:" + data;
-		if (scheme != null && !scheme.equals("\"\""))
+		if (scheme != null && !scheme.equals(""))
 			res += " ##scheme:" + scheme;
-		if (host != null && !host.equals("\"\""))
+		if (host != null && !host.equals(""))
 			res += " ##host:" + host;
-		if (path != null && !path.equals("\"\""))
+		if (path != null && !path.equals(""))
 			res += " ##path:" + path;
-		if (port != null && !port.equals("\"\""))
+		if (port != null && !port.equals(""))
 			res += " ##port:" + port;
-		if (type != null && !type.equals("\"\""))
+		if (type != null && !type.equals(""))
 			res += " ##type:" + type;
 		if (extra != null && extra.size() > 0)
 			res += " ##extra:"; 
@@ -71,7 +69,7 @@ public class ICCMsg implements Cloneable, Serializable {
 				res += PrintUtils.printSet(extra," ");
 		if (res.equals(""))
 			return res;
-		return res + "\n";
+		return res;
 	}
 
 

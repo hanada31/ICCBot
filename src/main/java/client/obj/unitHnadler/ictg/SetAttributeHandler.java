@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.security.auth.x500.X500Principal;
-
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
 import main.java.analyze.model.sootAnalysisModel.Counter;
