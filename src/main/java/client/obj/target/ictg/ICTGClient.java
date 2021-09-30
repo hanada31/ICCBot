@@ -88,6 +88,7 @@ public class ICTGClient extends BaseClient {
 
 	protected void setMySwitch() {
 		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
+		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(true);
 	}
 
 	@Override
@@ -104,6 +105,7 @@ public class ICTGClient extends BaseClient {
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.CGFOLDETR);
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.FRAGFOLDETR);
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.CGFOLDETR);
+		FileUtils.createFolder(summary_app_dir + ConstantUtils.COMPONENTMODELJSON); 
 
 		ICTGClientOutput outer = new ICTGClientOutput(this.result);
 
@@ -111,7 +113,7 @@ public class ICTGClient extends BaseClient {
 		String fragFolder = summary_app_dir + ConstantUtils.FRAGFOLDETR;
 		/** Component **/
 		outer.writeComponentModel(ictgFolder, ConstantUtils.COMPONENTMODEL);
-		
+		outer.writeComponentModelJson(ictgFolder, ConstantUtils.COMPONENTMODELJSON);
 		/** Method **/
 		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ENTRY,true);
 		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ALL, false);
@@ -163,8 +165,10 @@ public class ICTGClient extends BaseClient {
 
 		// outer.writeIccLinksConfigFile(summary_app_dir +
 		// ConstantUtils.ICTGFOLDETR, ConstantUtils.LINKFILE, ictgOptModel);
+		
 	}
 
+	
 	private ATGModel getIctgOptModel() {
 		ATGModel ictgOptModel = new ATGModel();
 		ATGModel mergedIctgModel = Global.v().getiCTGModel().getOptModel();

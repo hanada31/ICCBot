@@ -19,6 +19,8 @@ import soot.Unit;
 import soot.jimple.StaticFieldRef;
 import soot.jimple.internal.JAssignStmt;
 import soot.jimple.internal.JInstanceFieldRef;
+import soot.tagkit.ConstantValueTag;
+import soot.tagkit.Tag;
 
 public class StaticValueAnalyzer extends Analyzer {
 
@@ -33,6 +35,16 @@ public class StaticValueAnalyzer extends Analyzer {
 	@Override
 	public void analyze() {
 		for (SootClass sc : Scene.v().getApplicationClasses()) {
+			for(SootField field: sc.getFields()){
+				for(Tag tag: field.getTags()){
+					if(tag instanceof ConstantValueTag){
+						if(tag.toString().contains(": ") && tag.toString().split(": ").length>1){
+							String tagVal = tag.toString().split(": ")[1];
+							appModel.getStaticRefSignature2initAssignMap().put(field.getSignature(), tagVal);
+						}
+					}
+				}
+			}
 			for (SootMethod sm : sc.getMethods()) {
 				if (SootUtils.hasSootActiveBody(sm) == false)
 					continue;

@@ -15,6 +15,7 @@ import main.java.client.obj.unitHnadler.MethodReturnHandler;
 import main.java.client.obj.unitHnadler.ReceiveFromParaHandler;
 import main.java.client.obj.unitHnadler.ReceiveFromRetValueHandler;
 import main.java.client.obj.unitHnadler.UnitHandler;
+import main.java.client.obj.unitHnadler.fragment.SetContentFunctionHandler;
 import main.java.client.obj.unitHnadler.ictg.GetAttributeHandler;
 import main.java.client.obj.unitHnadler.ictg.GetIntentExtraHandler;
 import main.java.client.obj.unitHnadler.ictg.ReceiveFromOutHandler;
@@ -53,6 +54,9 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 			if (isComponentFinishMethods(u)) {
 				return true;
 			}
+		}
+		if (isSetContentViewFunction(u)) {
+			return true;
 		}
 		return false;
 	}
@@ -149,6 +153,9 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 				return "SetIntentExtra";
 			} else if (isInitIntentMethod(unit)) {
 				return "InitIntent";
+			} else if (isSetContentViewFunction(unit)) {
+				return "setContentView";
+				
 			// send out
 			} else if (isSendIntent2IccMethod(unit)) {
 				return "SendIntent2ICC";
@@ -158,7 +165,7 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 				return "intentSenderCreation";
 			} else if (RAICCUtils.isPendingIntentCreation(unit)) {
 				return "pendingIntentCreation";
-			}  
+			}
 		}
 		// get
 		if (MyConfig.getInstance().getMySwithch().isGetAttributeStrategy()) {
@@ -204,6 +211,10 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 		} else if (isSetIntentExtraMethod(unit)) {
 			return new SetIntentExtraHandler();
 		}
+		else if (isSetContentViewFunction(unit)) {
+			return new SetContentFunctionHandler();
+
+		} 
 		// send out
 		if (isSendIntent2ActivityMethod(unit)) {
 			return new SendIntent2ActivityHandler();
@@ -365,8 +376,8 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 				return false;
 			if (u.toString().startsWith("if "))
 				return false;
-			for (int i = 0; i < ConstantUtils.setIntnetExtraMethods.length; i++) {
-				if (u.toString().contains(ConstantUtils.setIntnetExtraMethods[i]))
+			for (int i = 0; i < ConstantUtils.putBundlleExtraMethods.length; i++) {
+				if (u.toString().contains(ConstantUtils.putBundlleExtraMethods[i]))
 					return true;
 			}
 		}
@@ -565,6 +576,20 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 	}
 
 	/**
+	 * get_type_of_set_bundle_extra from m
+	 * 
+	 * @param m
+	 * @return
+	 */
+	public static String getTypeOfSetBundleExtra(String m) {
+		for (int i = 0; i < ConstantUtils.putBundlleExtraMethods.length; i++) {
+			if (m.contains(ConstantUtils.putBundlleExtraMethods[i]))
+				return ConstantUtils.bundleExtraMethodTypes[i];
+		}
+		return null;
+	}
+	
+	/**
 	 * judge isSendIntentMethod
 	 * 
 	 * @param u
@@ -639,4 +664,13 @@ public class ICTGAnalyzerHelper implements AnalyzerHelper {
 		return false;
 	}
 
+	public boolean isSetContentViewFunction(Unit unit) {
+		InvokeExpr invMethod = SootUtils.getSingleInvokedMethod(unit);
+		if (invMethod == null)
+			return false;
+		if (invMethod.toString().contains("void setContentView(int)")) {
+			return true;
+		}
+		return false;
+	}
 }

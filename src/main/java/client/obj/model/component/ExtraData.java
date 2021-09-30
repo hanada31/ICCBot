@@ -25,8 +25,7 @@ public class ExtraData implements Serializable, Cloneable {
 	public ExtraData() {
 		this.setName("");
 		this.eaName = "";
-		this.setObjName("");
-		this.setValue(new ArrayList<String>());
+//		this.setValue(new ArrayList<String>());
 
 	}
 
@@ -34,8 +33,7 @@ public class ExtraData implements Serializable, Cloneable {
 		this.setType(type2);
 		this.setName(name2);
 		this.eaName = eaName2;
-		this.setObjName(objName2);
-		this.setValue(new ArrayList<String>());
+//		this.setValue(new ArrayList<String>());
 	}
 
 	public String getName() {
@@ -46,10 +44,18 @@ public class ExtraData implements Serializable, Cloneable {
 		this.name = name;
 	}
 
-	public Object getType() {
+	public Object obtainExtraDataType() {
 		return type;
 	}
+	
 
+	
+	public Object getType() {
+		if(type instanceof BundleType)
+			return "bundle";
+		else
+			return type;
+	}
 	public void setType(Object type) {
 		this.type = type;
 	}
@@ -70,6 +76,11 @@ public class ExtraData implements Serializable, Cloneable {
 		this.value = value;
 	}
 
+	public Object getValueOfBundle() {
+		if(type instanceof BundleType)
+			return ((BundleType)type).getBundle();
+		return null; 
+	}
 	@Override
 	public String toString() {
 		String res = "";
@@ -80,18 +91,18 @@ public class ExtraData implements Serializable, Cloneable {
 			n = getName();
 		String valueStr = "";
 		// extra value, only send icc has value, receive icc has candidate
-		if (getValue().size() > 0)
+		if (getValue()!=null && getValue().size() > 0)
 			valueStr = ":" + PrintUtils.printList(getValue());
 
-		if (getType() == null) {
+		if (obtainExtraDataType() == null) {
 			res = "null-" + n + valueStr;
-		} else if (getType() instanceof String) {
-			if (SootUtils.isParOrSerExtra((String) getType()))
-				res = getType() + "@" + getObjName() + "-" + n + valueStr + ",";
+		} else if (obtainExtraDataType() instanceof String) {
+			if (SootUtils.isParOrSerExtra((String) obtainExtraDataType()))
+				res = obtainExtraDataType() + "@" + getObjName() + "-" + n + valueStr + ",";
 			else
-				res = getType() + "-" + n + valueStr + ",";
+				res = obtainExtraDataType() + "-" + n + valueStr + ",";
 		} else {
-			BundleType bt = (BundleType) getType();
+			BundleType bt = (BundleType) obtainExtraDataType();
 			res = bt.getType() + "-" + n + ",(," + bt.toString() + "),";
 		}
 		return res;
@@ -120,7 +131,7 @@ public class ExtraData implements Serializable, Cloneable {
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
-		ExtraData ed = new ExtraData(getType(), getName(), eaName, getObjName(), getValue());
+		ExtraData ed = new ExtraData(obtainExtraDataType(), getName(), eaName, getObjName(), getValue());
 		return ed;
 	}
 

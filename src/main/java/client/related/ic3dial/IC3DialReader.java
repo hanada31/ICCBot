@@ -261,7 +261,7 @@ public class IC3DialReader extends Analyzer {
 					ExtraData ed = new ExtraData();
 					ed.setName(values.getString(n));
 					eds.add(ed);
-					bt.getBundle().put(values.getString(n), eds);
+					bt.obtainBundle().put(values.getString(n), eds);
 
 				}
 			} else if (kind.equals("4") || kind.equals("TYPE"))

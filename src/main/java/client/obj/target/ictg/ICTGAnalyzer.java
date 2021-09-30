@@ -54,16 +54,16 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 			model.getReceiveModel().getReceivedCategorySet().addAll(intentSummary.getGetCategoryCandidateList());
 			model.getReceiveModel().getReceivedDataSet().addAll(intentSummary.getGetDataCandidateList());
 			model.getReceiveModel().getReceivedTypeSet().addAll(intentSummary.getGetTypeCandidateList());
-			for (Entry<String, List<ExtraData>> entry : intentSummary.getGetExtrasCandidateList().getBundle().entrySet())
-				model.getReceiveModel().getReceivedExtraData().getBundle().put(entry.getKey(), entry.getValue());
+			for (Entry<String, List<ExtraData>> entry : intentSummary.getGetExtrasCandidateList().obtainBundle().entrySet())
+				model.getReceiveModel().getReceivedExtraData().obtainBundle().put(entry.getKey(), entry.getValue());
 
 			model.getSendModel().getSendActionSet().addAll(intentSummary.getSetActionValueList());
 			model.getSendModel().getSendCategorySet().addAll(intentSummary.getSetCategoryValueList());
 			model.getSendModel().getSendDataSet().addAll(intentSummary.getSetDataValueList());
 			model.getSendModel().getSendTypeSet().addAll(intentSummary.getSetTypeValueList());
 			model.getSendModel().getSendFlagSet().addAll(intentSummary.getSetFlagsList());
-			for (Entry<String, List<ExtraData>> entry : intentSummary.getSetExtrasValueList().getBundle().entrySet())
-				model.getSendModel().getSendExtraData().getBundle().put(entry.getKey(), entry.getValue());
+			for (Entry<String, List<ExtraData>> entry : intentSummary.getSetExtrasValueList().obtainBundle().entrySet())
+				model.getSendModel().getSendExtraData().obtainBundle().put(entry.getKey(), entry.getValue());
 
 		}
 	}
