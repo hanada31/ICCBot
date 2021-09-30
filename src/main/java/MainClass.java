@@ -207,7 +207,9 @@ public class MainClass {
 		 "-cgAnalyzeGroup: group cg edges into several groups");
 		 options.addOption("getAttributeStrategy", false,
 		 "-getAttributeStrategy: include the analyze of intent data receiveing.");
-		
+		 options.addOption("setAttributeStrategy", false,
+				 "-setAttributeStrategy: include the analyze of intent data sending.");
+				
 		 options.addOption("scenarioStack", false,
 		 "-scenarioStack: for stack related bug analysis.");
 
@@ -304,6 +306,8 @@ public class MainClass {
 			MyConfig.getInstance().getMySwithch().setCgAnalyzeGroupedStrategy(true);
 		if (mCmd.hasOption("getAttributeStrategy"))
 			MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(true);
+		if (mCmd.hasOption("setAttributeStrategy"))
+			MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
 		if (mCmd.hasOption("scenarioStack")) {
 			MyConfig.getInstance().getMySwithch().setScenario_stack(true);
 			if (MyConfig.getInstance().getMySwithch().isScenario_stack()) {
@@ -354,9 +358,9 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "base";
+		name = "IntentBench";
 		String client = "ICTGClient";
-		client = "TestGenerationClient";
+//		client = "TestGenerationClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);

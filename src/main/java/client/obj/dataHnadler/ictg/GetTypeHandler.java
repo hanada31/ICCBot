@@ -14,7 +14,6 @@ public class GetTypeHandler extends DataHandler {
 		for (String data : dataSet)
 			newDataSet.add(data.replace("\"", ""));
 
-		intentSummary.getGetTypeCandidateList().clear();
 		intentSummary.getGetTypeCandidateList().addAll(newDataSet);
 		return;
 	}

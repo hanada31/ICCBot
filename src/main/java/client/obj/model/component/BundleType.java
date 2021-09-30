@@ -3,6 +3,7 @@ package main.java.client.obj.model.component;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,16 +37,20 @@ public class BundleType implements Serializable, Cloneable {
 		type = type2;
 	}
 
-	public Map<String, List<ExtraData>> getBundle() {
+	public Map<String, List<ExtraData>> obtainBundle() {
 		return bundle;
 	}
-
+	
+	/**
+	 * for json output
+	 * @return
+	 */
+	public Collection<List<ExtraData>> getBundle() {
+		return bundle.values();
+	}
+	
 	public void setBundle(Map<String, List<ExtraData>> bundle) {
 		this.bundle = bundle;
-	}
-
-	public Set<String> getContentSet() {
-		return contentSet;
 	}
 
 	public void setContentSet(Set<String> contentSet) {
@@ -60,19 +65,19 @@ public class BundleType implements Serializable, Cloneable {
 		this.type = type;
 	}
 
-	public void dump() {
-		for (Entry<String, List<ExtraData>> en : bundle.entrySet()) {
-			for (ExtraData ed : en.getValue()) {
-				System.out.println("key: " + ed.getName());
-				if (ed.getType() instanceof String)
-					System.out.println("type: " + ed.getType());
-				else {
-					System.out.println("type: bundle");
-					((BundleType) ed.getType()).dump();
-				}
-			}
-		}
-	}
+//	public void dump() {
+//		for (Entry<String, List<ExtraData>> en : bundle.entrySet()) {
+//			for (ExtraData ed : en.getValue()) {
+//				System.out.println("key: " + ed.getName());
+//				if (ed.getType() instanceof String)
+//					System.out.println("type: " + ed.getType());
+//				else {
+//					System.out.println("type: bundle");
+//					((BundleType) ed.getType()).dump();
+//				}
+//			}
+//		}
+//	}
 
 	@Override
 	public String toString() {
@@ -146,7 +151,7 @@ public class BundleType implements Serializable, Cloneable {
 		}
 	}
 
-	public String getKeyValPairNormal() {
+	private String getKeyValPairNormal() {
 		String res = "";
 		for (Entry<String, List<ExtraData>> en : bundle.entrySet()) {
 			for (ExtraData ed : en.getValue()) {

@@ -130,15 +130,15 @@ public class SetIntentExtraHandler extends UnitHandler {
 			List<ExtraData> eds = new ArrayList<ExtraData>();
 			param_list.put(u.toString(), eds);
 			ExtraData ed = new ExtraData();
-			ed.setName("");
-
 			Context objContextInner = new Context();
 			if (oldContextwithRealValue != null) {
 				objContextInner = constructContextObj(id + 1, unit);
 			}
 			ValueObtainer vo = new ValueObtainer(methodSig, ConstantUtils.FLAGEXTRA, objContextInner, new Counter());
 			List<String> vallist = vo.getValueofVar(val, u, 0).getValues();
-			ed.setValue(vallist);
+			if(vallist.size()>0)
+				ed.setName(vallist.get(0)); 
+//			ed.setValue(vallist);
 			eds.add(ed);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,20 +157,27 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	public BundleType genBundleType(Unit u) throws Exception {
-		// TODO
+	public BundleType genBundleType(Unit bundleUnit) throws Exception {
+		List<Unit> defs = new ArrayList<Unit>();
+		if(SootUtils.getInvokeExp(bundleUnit)!=null && SootUtils.getInvokeExp(bundleUnit).getArgCount()>1){
+			defs = SootUtils.getDefOfLocal(methodSig,SootUtils.getInvokeExp(bundleUnit).getArg(1), bundleUnit);
+		}
 		BundleType bt = new BundleType();
+		if(defs.size() ==0) return bt;
+		
+		Unit u = defs.get(0);
 		List<UnitValueBoxPair> use_var_list = SootUtils.getUseOfLocal(methodSig, u);
-		if (use_var_list == null)
-			return bt;
+		if (use_var_list == null)return bt;
+		
 		for (int i = 0; i < use_var_list.size(); i++) {
 			Unit useUnit = use_var_list.get(i).getUnit();
-			if (!ICTGAnalyzerHelper.isGetBundleExtraMethod(useUnit.toString()))
+			if(useUnit == bundleUnit) continue;
+			if (!ICTGAnalyzerHelper.isSetIntentExtraMethod(useUnit.toString()))
 				continue;
 			Map<String, List<ExtraData>> param_list = getParamList(useUnit);
 			if (param_list == null)
 				continue;
-			String type = ICTGAnalyzerHelper.getTypeOfGetBundleExtra(useUnit.toString());
+			String type = ICTGAnalyzerHelper.getTypeOfSetBundleExtra(useUnit.toString());
 
 			if (!SootUtils.isBundleExtra(type) && !SootUtils.isExtrasExtra(type)) {
 				for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
@@ -416,7 +423,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 			BundleType bundleType) {
 		String res = "";
 		for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
-			if (!bundleType.getBundle().containsKey(en.getKey())) {
+			if (!bundleType.obtainBundle().containsKey(en.getKey())) {
 				bundleType.put(en.getKey(), en.getValue());
 				for (ExtraData ed : en.getValue()) {
 					res += ed.toString().trim();

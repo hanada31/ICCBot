@@ -1,12 +1,21 @@
 package main.java.client.testcase;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.alibaba.fastjson.JSONArray;
+
 import main.java.Analyzer;
 import main.java.Global;
+import main.java.MyConfig;
+import main.java.analyze.utils.ConstantUtils;
+import main.java.analyze.utils.output.FileUtils;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Data;
@@ -30,12 +39,11 @@ public class ICCGenerator extends Analyzer {
 	@Override
 	public void analyze() {
 		ComponentModel component = appModel.getComponentMap().get(className);
-		IntentRecieveModel receiveModel = component.getReceiveModel();
-		ICCGenerationFromReceivedIntentSummaryModel(receiveModel.getIntentObjsbyICCMsg());
-		ICCGenerationFromSpecIntentSummaryModel(receiveModel.getIntentObjsbySpec());
+		ICCGenerationFromReceivedIntentSummaryModel(component.getReceiveModel().getIntentObjsbyICCMsg());
+		ICCGenerationFromSpecIntentSummaryModel(component.getReceiveModel().getIntentObjsbySpec());
 		ICCGenerationFromManifest(component.getIntentFilters());
-		
 	}
+	
 
 	/**
 	 * generate ICC messages according to the manifest specification
@@ -131,7 +139,7 @@ public class ICCGenerator extends Analyzer {
 		msg.setData( getRandomElementFromSet(datas));
 		msg.setType( getRandomElementFromSet(types));
 		Set<String> extraSet = new HashSet<String>();
-		for(List<ExtraData> eds: extras.getBundle().values())
+		for(List<ExtraData> eds: extras.obtainBundle().values())
 			for(ExtraData ed: eds)
 				extraSet.add(ed.toString());
 		msg.setExtra(extraSet);

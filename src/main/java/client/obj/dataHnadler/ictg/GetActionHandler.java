@@ -13,7 +13,6 @@ public class GetActionHandler extends DataHandler {
 		Set<String> newDataSet = new HashSet<String>();
 		for (String data : dataSet)
 			newDataSet.add(data.replace("\"", ""));
-		intentSummary.getGetActionCandidateList().clear();
 		intentSummary.getGetActionCandidateList().addAll(newDataSet);
 		return;
 	}

@@ -88,12 +88,12 @@ public class IntentSummaryModel extends ObjectSummaryModel {
 		getGetCategoryCandidateList().addAll(temp2.getGetCategoryCandidateList());
 		getGetDataCandidateList().addAll(temp2.getGetDataCandidateList());
 		getGetTypeCandidateList().addAll(temp2.getGetTypeCandidateList());
-		Map<String, List<ExtraData>> extraMap = temp2.getGetExtrasCandidateList().getBundle();
+		Map<String, List<ExtraData>> extraMap = temp2.getGetExtrasCandidateList().obtainBundle();
 		for (Entry<String, List<ExtraData>> en : extraMap.entrySet()) {
-			getGetExtrasCandidateList().getBundle().put(en.getKey(), en.getValue());
+			getGetExtrasCandidateList().obtainBundle().put(en.getKey(), en.getValue());
 		}
-		for (Entry<String, List<ExtraData>> entry : temp2.getGetExtrasCandidateList().getBundle().entrySet())
-			getGetExtrasCandidateList().getBundle().put(entry.getKey(), entry.getValue());
+		for (Entry<String, List<ExtraData>> entry : temp2.getGetExtrasCandidateList().obtainBundle().entrySet())
+			getGetExtrasCandidateList().obtainBundle().put(entry.getKey(), entry.getValue());
 
 		getSetActionValueList().addAll(temp2.getSetActionValueList());
 		getSetCategoryValueList().addAll(temp2.getSetCategoryValueList());
@@ -101,8 +101,8 @@ public class IntentSummaryModel extends ObjectSummaryModel {
 		getSetTypeValueList().addAll(temp2.getSetTypeValueList());
 		getSetDestinationList().addAll(temp2.getSetDestinationList());
 		getSetFlagsList().addAll(temp2.getSetFlagsList());
-		for (Entry<String, List<ExtraData>> entry : temp2.getSetExtrasValueList().getBundle().entrySet())
-			getSetExtrasValueList().getBundle().put(entry.getKey(), entry.getValue());
+		for (Entry<String, List<ExtraData>> entry : temp2.getSetExtrasValueList().obtainBundle().entrySet())
+			getSetExtrasValueList().obtainBundle().put(entry.getKey(), entry.getValue());
 		setTargetType(temp2.getTargetType());
 
 	}
@@ -118,7 +118,7 @@ public class IntentSummaryModel extends ObjectSummaryModel {
 		res += PrintUtils.printList(setFlagsList);
 		res += PrintUtils.printList(setFlagsList);
 		res += PrintUtils.printList(setDestinationList);
-		res += setExtrasValueList.getBundle();
+		res += setExtrasValueList.obtainBundle();
 		return res;
 	}
 
@@ -138,7 +138,7 @@ public class IntentSummaryModel extends ObjectSummaryModel {
 		res += "ListCategoryValueList:" + PrintUtils.printList(setCategoryValueList) + "\n";
 		res += "ListDataValueList:" + PrintUtils.printList(setDataValueList) + "\n";
 		res += "ListTypeValueList:" + PrintUtils.printList(setTypeValueList) + "\n";
-		res += "ListExtrasValueList:" + setExtrasValueList.getBundle() + "\n";
+		res += "ListExtrasValueList:" + setExtrasValueList.obtainBundle() + "\n";
 		res += "ListDestinationList:" + PrintUtils.printList(setDestinationList) + "\n";
 		res += "ListFlagsList:" + PrintUtils.printList(setFlagsList) + "\n";
 		return res;

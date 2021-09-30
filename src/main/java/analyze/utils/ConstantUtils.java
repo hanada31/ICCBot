@@ -69,6 +69,8 @@ public class ConstantUtils {
 	public static final String RECEIVE = "Receive";
 	public static final String SEND = "Send";
 	public static final String ACTDEC = "DeclaredModel.txt";
+	
+	public static final String COMPONENTMODELJSON = "ComponentModel";
 
 	// output files folder
 	public static final String TEAMPLATEFOLDER = "template" + File.separator;
@@ -229,6 +231,15 @@ public class ConstantUtils {
 			"boolean", "byteArray", "byte", "charArray", "char", "CharSequenceArray", "CharSequenceArrayList",
 			"CharSequence", "Bundle", "Extras", "String" };
 
+	// put extra method
+	public static final String[] putBundlleExtraMethods = {
+		"putDoubleArray(", "putDouble(", "putFloatArray(", "putFloat(", "putIntArray(", "putInt(", "putIntegerArrayList(",
+		"putLongArray(", "putLong(", "putParcelableArray(", "putParcelableArrayList(", "putParcelable(",
+		"putSerializable(", "putShort(", "putShortArray(", "putStringArray(", "putStringArrayList(", "putString(",
+		"putBooleanArray(", "putBoolean(", "putByteArray(", "putByte(", "putCharArray(", "putChar(",
+		"putCharSequenceArray(", "putCharSequenceArrayList(", "putCharSequence", "putBundle(", "putExtras",
+		"android.os.Bundle: java.lang.Object put" };
+	
 	// get extra method
 	public static final String[] getBundlleExtraMethods = {
 
@@ -246,6 +257,7 @@ public class ConstantUtils {
 			"ParcelableArray", "ParcelableArrayList", "Parcelable", "Serializable", "short", "shortArray",
 			"StringArray", "StringArrayList", "String", "booleanArray", "boolean", "byteArray", "byte", "charArray",
 			"char", "CharSequenceArray", "CharSequenceArrayList", "CharSequence", "Bundle", "Extras", "String" };
+
 
 	public static final String[] comparedMethods = { "contains", "equals", "contentEquals", "equalsIgnoreCase",
 			"startsWith", "endsWith", "!= null", "== null", "isEmpty", "valueOf", "copyValueOf", "==", "!=" };

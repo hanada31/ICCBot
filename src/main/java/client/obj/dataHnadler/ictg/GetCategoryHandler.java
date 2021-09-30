@@ -12,7 +12,6 @@ public class GetCategoryHandler extends DataHandler {
 		Set<String> newDataSet = new HashSet<String>();
 		for (String data : dataSet)
 			newDataSet.add(data.replace("\"", ""));
-		intentSummary.getGetCategoryCandidateList().clear();
 		intentSummary.getGetCategoryCandidateList().addAll(newDataSet);
 		return;
 	}

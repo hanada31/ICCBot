@@ -6,15 +6,22 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import soot.SootMethod;
+import soot.jimple.infoflow.android.iccta.Ic3Data.Application.Component.ExitPoint.Uri;
 import main.java.Global;
+import main.java.MyConfig;
+import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.analyze.utils.output.PrintUtils;
@@ -24,6 +31,7 @@ import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Data;
+import main.java.client.obj.model.component.ExtraData;
 import main.java.client.obj.model.component.IntentFilterModel;
 import main.java.client.obj.model.ictg.IntentSummaryModel;
 import main.java.client.statistic.model.StatisticResult;
@@ -35,6 +43,10 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultElement;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * output analyze result
@@ -549,6 +561,224 @@ public class ICTGClientOutput {
 		} catch (DocumentException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * generate json file for an component
+	 * @param component
+	 */
+	public void writeComponentModelJson(String dir, String file) {
+		List<Object> componentList = new ArrayList<Object>();
+		for (String className : Global.v().getAppModel().getComponentMap().keySet()) {
+			ComponentModel component = Global.v().getAppModel().getComponentMap().get(className);
+	        Map<String, Object> componenetMap = new LinkedHashMap<>();
+	        componentList.add(componenetMap);
+	        
+	        componenetMap.put("className", className);
+	        putAttributeMap2componenetMap(componenetMap, component, "action");
+	        putAttributeMap2componenetMap(componenetMap, component, "category");
+	        putAttributeMap2componenetMap(componenetMap, component, "port");
+	        putAttributeMap2componenetMap(componenetMap, component, "path");
+	        putAttributeMap2componenetMap(componenetMap, component, "host");
+	        putAttributeMap2componenetMap(componenetMap, component, "scheme");
+	        putAttributeMap2componenetMap(componenetMap, component, "type");
+	        putAttributeMap2componenetMap(componenetMap, component, "extra");
+	        
+		}
+		JSONArray jsonObject = (JSONArray) JSONArray.toJSON(componentList);
+        String jsonString = jsonObject.toString();
+        FileUtils.createJsonFile( jsonString, dir, file);
+		
+	}
+
+
+
+	private void putAttributeMap2componenetMap(Map<String, Object> componenetMap, ComponentModel component, String attri) {
+		 Map<String, Object> actionMap = new LinkedHashMap<String, Object>();
+	        actionMap.put("manifest", getManifestAttri(component,attri));
+	        actionMap.put("receviedIntent", getReceviedIntentAttri(component,attri));
+	        actionMap.put("specIntent", getSpecIntentAttri(component,attri));
+	        componenetMap.put(attri+"s", actionMap);
+		
+	}
+
+	private Object getManifestAttri(ComponentModel component, String attri) {
+		Set<String> res = new HashSet<String>();
+		for(IntentFilterModel ifModel: component.getIntentFilters()){
+			switch (attri) {
+				case "action":
+					res.addAll(ifModel.getAction_list());
+					break;
+				case "category":
+					res.addAll(ifModel.getCategory_list());
+					break;
+				case "port":
+					for(Data data: ifModel.getData_list())
+						res.add(data.getPort());
+					break;
+				case "path":
+					for(Data data: ifModel.getData_list())
+						res.add(data.getPath());
+					break;
+				case "scheme":
+					for(Data data: ifModel.getData_list())
+						res.add(data.getScheme());
+					break;
+				case "host":
+					for(Data data: ifModel.getData_list())
+						res.add(data.getHost());
+					break;
+				case "type":
+					for(Data data: ifModel.getData_list())
+						res.add(data.getMime_type());
+					break;
+				default:
+					break;
+			}
+		}
+		return JSONArray.toJSON(res);
+	}
+	/**
+	 * the Intent in the callee
+	 * @param component
+	 * @param attri
+	 * @return
+	 */
+	private Object getSpecIntentAttri(ComponentModel component, String attri) {
+		Set<Object> res = new HashSet<Object>();
+		String dataReg = "(\\w*)(://)?(\\w*):?(\\w*)/?(\\w*)";
+		Pattern pattern = Pattern.compile(dataReg);
+		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbySpec()){
+			switch (attri) {
+				case "action":
+					res.addAll(model.getGetActionCandidateList());
+					break;
+				case "category":
+					res.addAll(model.getGetCategoryCandidateList());
+					break;
+				// <scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]
+				case "scheme":
+					for(String data: model.getGetDataCandidateList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(1)!=null && matcher.group(1).length()>0){
+							res.add(matcher.group(1)); 
+						}
+					}
+					break;
+				case "host":
+					for(String data: model.getGetDataCandidateList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(3)!=null && matcher.group(3).length()>0){
+							res.add(matcher.group(3)); 
+						}
+					}
+					break;
+				case "port":
+					for(String data: model.getGetDataCandidateList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(4)!=null  && matcher.group(4).length()>0){
+							res.add(matcher.group(4)); 
+						}
+					}
+					break;
+				case "path":
+					for(String data: model.getGetDataCandidateList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(5)!=null  && matcher.group(5).length()>0){
+							res.add(matcher.group(5)); 
+						}
+					}
+					break;
+				case "type":
+					res.addAll(model.getGetTypeCandidateList());
+					break;
+				case "extra":
+					BundleType extras = model.getGetExtrasCandidateList();
+					for(List<ExtraData> ed: extras.obtainBundle().values()){
+						JSONArray jsonObject = (JSONArray) JSON.toJSON(ed);
+						res.add(jsonObject);
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		return JSONArray.toJSON(res);
+	}
+	/**
+	 * the Intent form the caller
+	 * @param component
+	 * @param attri
+	 * @return
+	 */
+	private Object getReceviedIntentAttri(ComponentModel component, String attri) {
+		Set<Object> res = new HashSet<Object>();
+		String dataReg = "(\\w*)(://)?(\\w*):?(\\w*)/?(\\w*)";
+		Pattern pattern = Pattern.compile(dataReg);
+		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbyICCMsg()){
+			switch (attri) {
+				case "action":
+					res.addAll(model.getSetActionValueList());
+					break;
+				case "category":
+					res.addAll(model.getSetCategoryValueList());
+					break;
+					// <scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]
+				case "scheme":
+					for(String data: model.getSetDataValueList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(1)!=null && matcher.group(1).length()>0){
+							res.add(matcher.group(1)); 
+						}
+					}
+						
+					break;
+				case "host":
+					for(String data: model.getSetDataValueList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(3)!=null && matcher.group(3).length()>0){
+							res.add(matcher.group(3)); 
+						}
+					}
+					break;
+				case "port":
+					for(String data: model.getSetDataValueList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(4)!=null  && matcher.group(4).length()>0){
+							res.add(matcher.group(4)); 
+						}
+					}
+					break;
+				case "path":
+					for(String data: model.getSetDataValueList()){
+						Matcher matcher = pattern.matcher(data);
+						matcher.find();
+						if(matcher.matches() && matcher.group(5)!=null  && matcher.group(5).length()>0){
+							res.add(matcher.group(5)); 
+						}
+					}
+					break;
+				case "type":
+					res.addAll(model.getSetTypeValueList());
+					break;
+				case "extra":
+					BundleType extras = model.getSetExtrasValueList();
+					for(List<ExtraData> ed: extras.obtainBundle().values()){
+						JSONArray jsonObject = (JSONArray) JSON.toJSON(ed);
+						res.add(jsonObject);
+					}
+				default:
+					break;
+			}
+		}
+		return JSONArray.toJSON(res);
 	}
 
 }

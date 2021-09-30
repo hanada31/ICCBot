@@ -109,14 +109,18 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
 		MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
 		String tag = methodUnderAnalysis.getSignature();
-//		if(tag.contains("ConstantValue: void onCreate")){
+//		if(!tag.contains("settings.SettingsActivity") && !tag.contains("K9Activity")){
+//			return methodSummary;
+//		}
+//		if(tag.contains("settings.SettingsActivity: void onCreate(android.os.")){
 //			System.err.println(tag);
 //		}
-//		System.err.println(tag);
+		
 		if (methodUnderAnalysis.getSignature().contains(ConstantUtils.DUMMYMAIN)) {
 //			analyzeDummyMain(methodSummary);
 			return methodSummary;
 		}
+		int x;
 		/** get target units -- ICC related units **/
 		Map<Unit, List<Unit>> targetMap = getTargetUnitsOfMethod();
 		if (targetMap.size() == 0)
@@ -1085,19 +1089,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			if (helper.isTopTargetUnit(u)) {
 				Unit pointTo = u;
 				if (helper.isStaticCreateMethod(u)) {
-					/**
-					 * repeat show up $r2 =
-					 * r0.<com.iscas.icc_ctrlflow_staticintent.MainActivity:
-					 * android.content.Intent mIntent>; virtualinvoke
-					 * $r2.<android.content.Intent: android.content.Intent
-					 * putExtra
-					 * (java.lang.String,java.lang.String)>("IntentFlow",
-					 * "ctrlFlow_staticIntent"); $r2 =
-					 * r0.<com.iscas.icc_ctrlflow_staticintent.MainActivity:
-					 * android.content.Intent mIntent>; virtualinvoke
-					 * r0.<com.iscas.icc_ctrlflow_staticintent.MainActivity:
-					 * void startActivity(android.content.Intent)>($r2);
-					 **/
 					for (Unit tempUnit : targetMap.keySet()) {
 						if (tempUnit instanceof JAssignStmt) {
 							String s1 = ((JAssignStmt) tempUnit).getRightOp().toString();

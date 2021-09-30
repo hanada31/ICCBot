@@ -110,7 +110,6 @@ public class TestGenerationProcess {
 							extra_key = extra_type + "Obj";
 						else
 							extra_key = StringUtils.refineString(extra_pair.split("-")[1]);
-
 						if (extra_key.equals(""))
 							extra_key = ConstantUtils.UNKOWN;
 						extraSuffix += handleExtraAccordingToTypeAbnormal(extra_type, extra_key);
@@ -294,24 +293,24 @@ public class TestGenerationProcess {
 				content += "\t\tClassLoader loader;\n";
 				content += "\t\tContext invokee;\n";
 				content += "\t\tClass<?> util;\n";
-				content += "\t\tIntent intent = new Intent();\n";
-				content += "\t\tintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n";
+				content += "\t\tIntent mIntent = new Intent();\n";
+				content += "\t\tmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n";
 				content += "\t\tComponentName cn = new ComponentName(\"" + appModel.getPackageName() + "\",\""
 						+ clsname.replace("_dollar_", "$") + "\");\n";
-				content += "\t\tintent.setComponent(cn);\n";
+				content += "\t\tmIntent.setComponent(cn);\n";
 
 				String[] acdtVals = acdt.split(";;");
 				if (!acdtVals[0].equals("null")) {
 					if (acdtVals[0].contains("\\") && !acdtVals[0].contains("\\\\"))
 						acdtVals[0] = acdtVals[0].replace("\\", "");
-					content += "\t\tintent.setAction(\"" + acdtVals[0].replace("\"", "") + "\");\n";
+					content += "\t\tmIntent.setAction(\"" + acdtVals[0].replace("\"", "") + "\");\n";
 				}
 				if (!acdtVals[1].equals("null"))
-					content += "\t\tintent.addCategory(\"" + acdtVals[1].replace("\"", "") + "\");\n";
+					content += "\t\tmIntent.addCategory(\"" + acdtVals[1].replace("\"", "") + "\");\n";
 				if (!acdtVals[2].equals("null"))
-					content += "\t\tintent.setData(Uri.parse(\"" + acdtVals[2].replace("\"", "") + "\"));\n";
+					content += "\t\tmIntent.setData(Uri.parse(\"" + acdtVals[2].replace("\"", "") + "\"));\n";
 				if (!acdtVals[3].equals("null"))
-					content += "\t\tintent.setType(\"" + acdtVals[3].replace("\"", "") + "\");\n";
+					content += "\t\tmIntent.setType(\"" + acdtVals[3].replace("\"", "") + "\");\n";
 				FileUtils.writeText2File(java_file_path, content, true);
 				
 				// new Bundle must show up before its use
@@ -321,9 +320,9 @@ public class TestGenerationProcess {
 					String extras = acdt.split(";;")[4];
 //					if(extras.contains("ExtrasObj"))
 //						System.out.println();
-					generateExtrasInJava(decSet, extras, java_file_path, "Intent->intent");
+					generateExtrasInJava(decSet, extras, java_file_path, "Intent->mIntent");
 				}
-				content = "\t\tstartActivity(intent);\n";
+				content = "\t\tstartActivity(mIntent);\n";
 				content += "\t\t//" + acdt + "\n";
 				if (icc != null)
 					content += "\t\t//" + icc.getExtra() + "\n";
@@ -477,8 +476,8 @@ public class TestGenerationProcess {
 				} else {
 					content = "\t\t" + extra_key + " = new ArrayList<" + type + ">();\n";
 				}
-			} else if (extra_type.contains("Array")) {
-				String type = extra_type.replace("Array", "");
+			} else if (extra_type.contains("Array") || extra_type.contains("[]")) {
+				String type = extra_type.replace("Array", "").replace("[]", "");
 				content = "\t\t" + type + "[] " + extra_key + " = new " + type + "[1];\n";
 				if (!decSet.contains(content)) {
 					decSet.add(content);
@@ -507,7 +506,7 @@ public class TestGenerationProcess {
 		String extra_type = ss[0];
 		String content = "";
 		if (extra_type.equals("Extras")) {
-			content += "\t\tintent.putExtras(ExtrasObj);\n";
+			content += "\t\tmIntent.putExtras(ExtrasObj);\n";
 		} else {
 			String extra_key = StringUtils.refineString(ss[1]);
 			String extra_value = ss[2];
@@ -533,10 +532,12 @@ public class TestGenerationProcess {
 					} else if (extra_type.contains("Array")) {
 						content += "\t\t" + extra_key + "[0] = " + extra_value + ";\n";
 						extra_value = extra_key;
+					} else if (extra_type.contains("[]")) {
+						extra_value = extra_key;
 					}
 				}
 				content += "\t\t" + objName + "." + putAPI + "(\""
-						+ extra_key.replace("_dot_", ".").replace("_maohao_", ":").replace("_line_", "-") + "\", "
+						+ extra_key + "\", "
 						+ extra_value + ");\n";
 			}
 		}
@@ -554,7 +555,7 @@ public class TestGenerationProcess {
 		String putAPI = null;
 		if (SootUtils.isArrayListType(extra_type)) {
 			String suffix = "";
-			if (objName.equals("intent"))
+			if (objName.equals("mIntent"))
 				suffix = "Extra";
 			if (extra_type.equals("IntegerArrayList"))
 				putAPI = "putIntegerArrayList" + suffix;
@@ -563,11 +564,12 @@ public class TestGenerationProcess {
 			else if (extra_type.equals("StringArrayList"))
 				putAPI = "putStringArrayList" + suffix;
 		} else {
-			if (objName.equals("intent"))
+			if (objName.equals("mIntent"))
 				putAPI = "putExtra";
 			else
 				putAPI = "put" + extra_type.substring(0, 1).toUpperCase() + extra_type.substring(1);
 		}
+		putAPI = putAPI.replace("[]", "");
 		return putAPI;
 	}
 
