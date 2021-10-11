@@ -358,7 +358,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "IntentBench";
+		name = "lifecycelyTest";
 		String client = "ICTGClient";
 //		client = "TestGenerationClient";
 
