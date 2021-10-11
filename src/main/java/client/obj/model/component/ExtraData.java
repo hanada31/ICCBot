@@ -15,7 +15,7 @@ public class ExtraData implements Serializable, Cloneable {
 	private String name;
 	private String eaName;
 	private String objName;
-	private List<String> value;
+	private List<String> values;
 
 	public ExtraData(String name) {
 		super();
@@ -68,15 +68,15 @@ public class ExtraData implements Serializable, Cloneable {
 		this.objName = objName;
 	}
 
-	public List<String> getValue() {
-		return value;
+	public List<String> getValues() {
+		return values;
 	}
 
-	public void setValue(List<String> value) {
-		this.value = value;
+	public void setValues(List<String> values) {
+		this.values = values;
 	}
 
-	public Object getValueOfBundle() {
+	public Object getBody() {
 		if(type instanceof BundleType)
 			return ((BundleType)type).getBundle();
 		return null; 
@@ -91,8 +91,8 @@ public class ExtraData implements Serializable, Cloneable {
 			n = getName();
 		String valueStr = "";
 		// extra value, only send icc has value, receive icc has candidate
-		if (getValue()!=null && getValue().size() > 0)
-			valueStr = ":" + PrintUtils.printList(getValue());
+		if (getValues()!=null && getValues().size() > 0)
+			valueStr = ":" + PrintUtils.printList(getValues());
 
 		if (obtainExtraDataType() == null) {
 			res = "null-" + n + valueStr;
@@ -131,7 +131,7 @@ public class ExtraData implements Serializable, Cloneable {
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
-		ExtraData ed = new ExtraData(obtainExtraDataType(), getName(), eaName, getObjName(), getValue());
+		ExtraData ed = new ExtraData(obtainExtraDataType(), getName(), eaName, getObjName(), getValues());
 		return ed;
 	}
 

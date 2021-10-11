@@ -374,7 +374,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 					ExtraData ed = new ExtraData();
 					ed.setName(res);
 					List<String> vallist = voVal.getValueofVar(val, u, 0).getValues();
-					ed.setValue(vallist);
+					ed.setValues(vallist);
 					eds.add(ed);
 				}
 			} else {
