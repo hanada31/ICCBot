@@ -47,6 +47,7 @@ import org.dom4j.tree.DefaultElement;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
  * output analyze result
@@ -575,60 +576,65 @@ public class ICTGClientOutput {
 	        componentList.add(componenetMap);
 	        
 	        componenetMap.put("className", className);
-	        putAttributeMap2componenetMap(componenetMap, component, "action");
-	        putAttributeMap2componenetMap(componenetMap, component, "category");
-	        putAttributeMap2componenetMap(componenetMap, component, "port");
-	        putAttributeMap2componenetMap(componenetMap, component, "path");
-	        putAttributeMap2componenetMap(componenetMap, component, "host");
-	        putAttributeMap2componenetMap(componenetMap, component, "scheme");
-	        putAttributeMap2componenetMap(componenetMap, component, "type");
-	        putAttributeMap2componenetMap(componenetMap, component, "extra");
+	        putAttributeMap2componenetMap(componenetMap, component, "actions");
+	        putAttributeMap2componenetMap(componenetMap, component, "categories");
+	        putAttributeMap2componenetMap(componenetMap, component, "datas");
+	        putAttributeMap2componenetMap(componenetMap, component, "types");
+	        putAttributeMap2componenetMap(componenetMap, component, "extras");
 	        
 		}
 		JSONArray jsonObject = (JSONArray) JSONArray.toJSON(componentList);
-        String jsonString = jsonObject.toString();
-        FileUtils.createJsonFile( jsonString, dir, file);
+        String jsonString = JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat);
+        System.out.println(jsonString);
+        FileUtils.writeText2File(dir+ file+".json", jsonString, false);
 		
 	}
 
 
 
 	private void putAttributeMap2componenetMap(Map<String, Object> componenetMap, ComponentModel component, String attri) {
-		 Map<String, Object> actionMap = new LinkedHashMap<String, Object>();
-	        actionMap.put("manifest", getManifestAttri(component,attri));
-	        actionMap.put("receviedIntent", getReceviedIntentAttri(component,attri));
-	        actionMap.put("specIntent", getSpecIntentAttri(component,attri));
-	        componenetMap.put(attri+"s", actionMap);
-		
+		Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
+		if(attri.equals("datas")){
+			 putAttributeMap2componenetMap(attriMap, component, "ports");
+			 putAttributeMap2componenetMap(attriMap, component, "paths");
+			 putAttributeMap2componenetMap(attriMap, component, "schemes");
+			 putAttributeMap2componenetMap(attriMap, component, "hosts");
+		}else{
+			attriMap.put("manifest", getManifestAttri(component,attri));
+			attriMap.put("sendIntent", getSentIntentAttri(component,attri));
+			attriMap.put("recvIntent", getReceivedIntentAttri(component,attri));
+	       
+		}
+		 componenetMap.put(attri, attriMap);
 	}
 
 	private Object getManifestAttri(ComponentModel component, String attri) {
 		Set<String> res = new HashSet<String>();
 		for(IntentFilterModel ifModel: component.getIntentFilters()){
 			switch (attri) {
-				case "action":
+				case "actions":
 					res.addAll(ifModel.getAction_list());
 					break;
-				case "category":
+				case "categories":
 					res.addAll(ifModel.getCategory_list());
 					break;
-				case "port":
+				case "ports":
 					for(Data data: ifModel.getData_list())
 						res.add(data.getPort());
 					break;
-				case "path":
+				case "paths":
 					for(Data data: ifModel.getData_list())
 						res.add(data.getPath());
 					break;
-				case "scheme":
+				case "schemes":
 					for(Data data: ifModel.getData_list())
 						res.add(data.getScheme());
 					break;
-				case "host":
+				case "hosts":
 					for(Data data: ifModel.getData_list())
 						res.add(data.getHost());
 					break;
-				case "type":
+				case "types":
 					for(Data data: ifModel.getData_list())
 						res.add(data.getMime_type());
 					break;
@@ -644,20 +650,20 @@ public class ICTGClientOutput {
 	 * @param attri
 	 * @return
 	 */
-	private Object getSpecIntentAttri(ComponentModel component, String attri) {
+	private Object getReceivedIntentAttri(ComponentModel component, String attri) {
 		Set<Object> res = new HashSet<Object>();
 		String dataReg = "(\\w*)(://)?(\\w*):?(\\w*)/?(\\w*)";
 		Pattern pattern = Pattern.compile(dataReg);
 		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbySpec()){
 			switch (attri) {
-				case "action":
+				case "actions":
 					res.addAll(model.getGetActionCandidateList());
 					break;
-				case "category":
+				case "categories":
 					res.addAll(model.getGetCategoryCandidateList());
 					break;
 				// <scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]
-				case "scheme":
+				case "schemes":
 					for(String data: model.getGetDataCandidateList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -666,7 +672,7 @@ public class ICTGClientOutput {
 						}
 					}
 					break;
-				case "host":
+				case "hosts":
 					for(String data: model.getGetDataCandidateList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -675,7 +681,7 @@ public class ICTGClientOutput {
 						}
 					}
 					break;
-				case "port":
+				case "ports":
 					for(String data: model.getGetDataCandidateList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -684,7 +690,7 @@ public class ICTGClientOutput {
 						}
 					}
 					break;
-				case "path":
+				case "paths":
 					for(String data: model.getGetDataCandidateList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -693,14 +699,16 @@ public class ICTGClientOutput {
 						}
 					}
 					break;
-				case "type":
+				case "types":
 					res.addAll(model.getGetTypeCandidateList());
 					break;
-				case "extra":
+				case "extras":
 					BundleType extras = model.getGetExtrasCandidateList();
-					for(List<ExtraData> ed: extras.obtainBundle().values()){
-						JSONArray jsonObject = (JSONArray) JSON.toJSON(ed);
-						res.add(jsonObject);
+					for(List<ExtraData> eds: extras.obtainBundle().values()){
+						for(ExtraData ed: eds){
+							JSONObject jsonObject = (JSONObject) JSON.toJSON(ed);
+							res.add(jsonObject);
+						}
 					}
 					break;
 				default:
@@ -715,20 +723,20 @@ public class ICTGClientOutput {
 	 * @param attri
 	 * @return
 	 */
-	private Object getReceviedIntentAttri(ComponentModel component, String attri) {
+	private Object getSentIntentAttri(ComponentModel component, String attri) {
 		Set<Object> res = new HashSet<Object>();
 		String dataReg = "(\\w*)(://)?(\\w*):?(\\w*)/?(\\w*)";
 		Pattern pattern = Pattern.compile(dataReg);
 		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbyICCMsg()){
 			switch (attri) {
-				case "action":
+				case "actions":
 					res.addAll(model.getSetActionValueList());
 					break;
-				case "category":
+				case "categories":
 					res.addAll(model.getSetCategoryValueList());
 					break;
 					// <scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]
-				case "scheme":
+				case "schemes":
 					for(String data: model.getSetDataValueList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -738,7 +746,7 @@ public class ICTGClientOutput {
 					}
 						
 					break;
-				case "host":
+				case "hosts":
 					for(String data: model.getSetDataValueList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -747,7 +755,7 @@ public class ICTGClientOutput {
 						}
 					}
 					break;
-				case "port":
+				case "ports":
 					for(String data: model.getSetDataValueList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -756,7 +764,7 @@ public class ICTGClientOutput {
 						}
 					}
 					break;
-				case "path":
+				case "paths":
 					for(String data: model.getSetDataValueList()){
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
@@ -765,14 +773,16 @@ public class ICTGClientOutput {
 						}
 					}
 					break;
-				case "type":
+				case "types":
 					res.addAll(model.getSetTypeValueList());
 					break;
-				case "extra":
+				case "extras":
 					BundleType extras = model.getSetExtrasValueList();
-					for(List<ExtraData> ed: extras.obtainBundle().values()){
-						JSONArray jsonObject = (JSONArray) JSON.toJSON(ed);
-						res.add(jsonObject);
+					for(List<ExtraData> eds: extras.obtainBundle().values()){
+						for(ExtraData ed: eds){
+							JSONObject jsonObject = (JSONObject) JSON.toJSON(ed);
+							res.add(jsonObject);
+						}
 					}
 				default:
 					break;

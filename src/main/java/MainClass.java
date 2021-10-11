@@ -358,7 +358,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "lifecycelyTest";
+		name = "TestJsonOutput";
 		String client = "ICTGClient";
 //		client = "TestGenerationClient";
 

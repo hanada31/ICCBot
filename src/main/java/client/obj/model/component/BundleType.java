@@ -3,6 +3,7 @@ package main.java.client.obj.model.component;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import main.java.client.obj.model.component.ExtraData;
 
@@ -45,8 +49,14 @@ public class BundleType implements Serializable, Cloneable {
 	 * for json output
 	 * @return
 	 */
-	public Collection<List<ExtraData>> getBundle() {
-		return bundle.values();
+	public List<ExtraData> getBundle() {
+		List<ExtraData> res = new ArrayList<ExtraData>();
+		for(List<ExtraData> eds: bundle.values()){
+			for(ExtraData ed: eds){
+				res.add(ed);
+			}
+		}
+		return res;
 	}
 	
 	public void setBundle(Map<String, List<ExtraData>> bundle) {
