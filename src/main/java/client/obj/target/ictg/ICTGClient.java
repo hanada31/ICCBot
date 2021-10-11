@@ -25,6 +25,7 @@ import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.atg.AtgType;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.obj.target.ictg.ICTGClient;
+import main.java.client.soot.IROutputClient;
 import main.java.client.statistic.model.StatisticResult;
 import main.java.client.toolEvaluate.ToolEvaluateClient;
 
@@ -54,9 +55,9 @@ public class ICTGClient extends BaseClient {
 			new ManifestClient().start();
 			MyConfig.getInstance().setManifestAnalyzeFinish(true);
 		}
-//		if (!MyConfig.getInstance().isWriteSootOutput()) {
-//			new IROutputClient().start();
-//		}
+		if (!MyConfig.getInstance().isWriteSootOutput()) {
+			new IROutputClient().start();
+		}
 		if (!MyConfig.getInstance().isCallGraphAnalyzeFinish()) {
 			new CallGraphClient().start();
 			MyConfig.getInstance().setCallGraphAnalyzeFinish(true);
