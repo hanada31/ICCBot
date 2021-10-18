@@ -27,7 +27,9 @@ public class ComponentModel implements Serializable {
 
 	protected IntentRecieveModel receiveModel;
 	protected IntentSendModel sendModel;
-
+	
+	protected MisExposeModel misEAModel;
+	
 	public ComponentModel(AppModel appModel) {
 		this.appModel = appModel;
 		exported = "";
@@ -35,6 +37,7 @@ public class ComponentModel implements Serializable {
 		intentFilterList = new ArrayList<IntentFilterModel>();
 		receiveModel = new IntentRecieveModel();
 		sendModel = new IntentSendModel();
+		misEAModel = new MisExposeModel(this);
 	}
 
 	public Boolean is_mainAct() {
@@ -130,5 +133,11 @@ public class ComponentModel implements Serializable {
 	public void setSendModel(IntentSendModel sendModel) {
 		this.sendModel = sendModel;
 	}
+	public MisExposeModel getMisEAModel() {
+		return misEAModel;
+	}
 
+	public void setMisEAModel(MisExposeModel misEAModel) {
+		this.misEAModel = misEAModel;
+	}
 }

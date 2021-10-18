@@ -360,10 +360,10 @@ public class MainClass {
 	 *  **/
 	private static void testConfig() {
 		String path;
-		path = "apk/";
+		path = "../test apk/";
 		String name;
-		name = "lifecycelyTest";
-		String client = "ICTGClient";
+		name = "MobileOrg_v0.9.13";
+		String client = "MisEACheckerClient";
 //		client = "TestGenerationClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
