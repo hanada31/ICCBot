@@ -6,6 +6,7 @@ import main.java.analyze.utils.TimeUtilsofProject;
 import main.java.client.BaseClient;
 import main.java.client.cg.CallGraphClient;
 import main.java.client.manifest.ManifestClient;
+import main.java.client.obj.checker.MisEACheckerClient;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.obj.target.ictg.ICTGClient;
 import main.java.client.related.gator.GatorATGResultEvaluateClient;
@@ -133,6 +134,9 @@ public class MainClass {
 				break;
 			case "TestGenerationClient":
 				client = new TestGenerationClient();
+				break;
+			case "MisEACheckerClient":
+				client = new MisEACheckerClient();
 				break;
 			default:
 				client = new ICTGClient();
@@ -358,7 +362,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "TestJsonOutput";
+		name = "lifecycelyTest";
 		String client = "ICTGClient";
 //		client = "TestGenerationClient";
 
