@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -585,7 +586,6 @@ public class ICTGClientOutput {
 		}
 		JSONArray jsonObject = (JSONArray) JSONArray.toJSON(componentList);
         String jsonString = JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat);
-        System.out.println(jsonString);
         FileUtils.writeText2File(dir+ file+".json", jsonString, false);
 		
 	}
@@ -600,50 +600,55 @@ public class ICTGClientOutput {
 			 putAttributeMap2componenetMap(attriMap, component, "schemes");
 			 putAttributeMap2componenetMap(attriMap, component, "hosts");
 		}else{
-			attriMap.put("manifest", getManifestAttri(component,attri));
-			attriMap.put("sendIntent", getSentIntentAttri(component,attri));
-			attriMap.put("recvIntent", getReceivedIntentAttri(component,attri));
+			putToMapIfNotAbsent("manifest", getManifestAttri(component,attri), attriMap);
+			putToMapIfNotAbsent("sendIntent", getSentIntentAttri(component,attri), attriMap);
+			putToMapIfNotAbsent("recvIntent", getReceivedIntentAttri(component,attri), attriMap);
 	       
 		}
-		 componenetMap.put(attri, attriMap);
+		putToMapIfNotAbsent(attri, attriMap, componenetMap);
 	}
+
+
 
 	private Object getManifestAttri(ComponentModel component, String attri) {
 		Set<String> res = new HashSet<String>();
 		for(IntentFilterModel ifModel: component.getIntentFilters()){
 			switch (attri) {
 				case "actions":
-					res.addAll(ifModel.getAction_list());
+					addAllToSetIfNotNull(ifModel.getAction_list(),res);
 					break;
 				case "categories":
-					res.addAll(ifModel.getCategory_list());
+					addAllToSetIfNotNull(ifModel.getCategory_list(),res);
 					break;
 				case "ports":
 					for(Data data: ifModel.getData_list())
-						res.add(data.getPort());
+						addToSetIfNotNull(data.getPort(),res);
 					break;
 				case "paths":
 					for(Data data: ifModel.getData_list())
-						res.add(data.getPath());
+						addToSetIfNotNull(data.getPath(),res);
 					break;
 				case "schemes":
 					for(Data data: ifModel.getData_list())
-						res.add(data.getScheme());
+						addToSetIfNotNull(data.getScheme(),res);
 					break;
 				case "hosts":
 					for(Data data: ifModel.getData_list())
-						res.add(data.getHost());
+						addToSetIfNotNull(data.getHost(),res);
 					break;
 				case "types":
 					for(Data data: ifModel.getData_list())
-						res.add(data.getMime_type());
+						addToSetIfNotNull(data.getMime_type(),res);
 					break;
 				default:
 					break;
 			}
 		}
+		if(res.size()==0) return null;
 		return JSONArray.toJSON(res);
 	}
+	
+
 	/**
 	 * the Intent in the callee
 	 * @param component
@@ -657,10 +662,10 @@ public class ICTGClientOutput {
 		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbySpec()){
 			switch (attri) {
 				case "actions":
-					res.addAll(model.getGetActionCandidateList());
+					addAllToSetIfNotNull(model.getGetActionCandidateList(),res);
 					break;
 				case "categories":
-					res.addAll(model.getGetCategoryCandidateList());
+					addAllToSetIfNotNull(model.getGetCategoryCandidateList(),res);
 					break;
 				// <scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]
 				case "schemes":
@@ -668,7 +673,7 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(1)!=null && matcher.group(1).length()>0){
-							res.add(matcher.group(1)); 
+							addToSetIfNotNull(matcher.group(1),res); 
 						}
 					}
 					break;
@@ -677,7 +682,7 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(3)!=null && matcher.group(3).length()>0){
-							res.add(matcher.group(3)); 
+							addToSetIfNotNull(matcher.group(3),res); 
 						}
 					}
 					break;
@@ -686,7 +691,7 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(4)!=null  && matcher.group(4).length()>0){
-							res.add(matcher.group(4)); 
+							addToSetIfNotNull(matcher.group(4),res); 
 						}
 					}
 					break;
@@ -695,19 +700,19 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(5)!=null  && matcher.group(5).length()>0){
-							res.add(matcher.group(5)); 
+							addToSetIfNotNull(matcher.group(5),res); 
 						}
 					}
 					break;
 				case "types":
-					res.addAll(model.getGetTypeCandidateList());
+					addAllToSetIfNotNull(model.getGetTypeCandidateList(),res);
 					break;
 				case "extras":
 					BundleType extras = model.getGetExtrasCandidateList();
 					for(List<ExtraData> eds: extras.obtainBundle().values()){
 						for(ExtraData ed: eds){
 							JSONObject jsonObject = (JSONObject) JSON.toJSON(ed);
-							res.add(jsonObject);
+							addToSetIfNotNull(jsonObject,res);
 						}
 					}
 					break;
@@ -715,6 +720,7 @@ public class ICTGClientOutput {
 					break;
 			}
 		}
+		if(res.size()==0) return null;
 		return JSONArray.toJSON(res);
 	}
 	/**
@@ -730,10 +736,10 @@ public class ICTGClientOutput {
 		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbyICCMsg()){
 			switch (attri) {
 				case "actions":
-					res.addAll(model.getSetActionValueList());
+					addAllToSetIfNotNull(model.getSetActionValueList(),res);
 					break;
 				case "categories":
-					res.addAll(model.getSetCategoryValueList());
+					addAllToSetIfNotNull(model.getSetCategoryValueList(),res);
 					break;
 					// <scheme>://<host>:<port>/[<path>|<pathPrefix>|<pathPattern>]
 				case "schemes":
@@ -741,7 +747,7 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(1)!=null && matcher.group(1).length()>0){
-							res.add(matcher.group(1)); 
+							addToSetIfNotNull(matcher.group(1),res);
 						}
 					}
 						
@@ -751,7 +757,7 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(3)!=null && matcher.group(3).length()>0){
-							res.add(matcher.group(3)); 
+							addToSetIfNotNull(matcher.group(3),res); 
 						}
 					}
 					break;
@@ -760,7 +766,7 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(4)!=null  && matcher.group(4).length()>0){
-							res.add(matcher.group(4)); 
+							addToSetIfNotNull(matcher.group(4),res);
 						}
 					}
 					break;
@@ -769,26 +775,64 @@ public class ICTGClientOutput {
 						Matcher matcher = pattern.matcher(data);
 						matcher.find();
 						if(matcher.matches() && matcher.group(5)!=null  && matcher.group(5).length()>0){
-							res.add(matcher.group(5)); 
+							addToSetIfNotNull(matcher.group(5),res);
 						}
 					}
 					break;
 				case "types":
-					res.addAll(model.getSetTypeValueList());
+					addAllToSetIfNotNull(model.getSetTypeValueList(),res);
 					break;
 				case "extras":
 					BundleType extras = model.getSetExtrasValueList();
 					for(List<ExtraData> eds: extras.obtainBundle().values()){
 						for(ExtraData ed: eds){
 							JSONObject jsonObject = (JSONObject) JSON.toJSON(ed);
-							res.add(jsonObject);
+							addToSetIfNotNull(jsonObject,res);
 						}
 					}
 				default:
 					break;
 			}
 		}
+		if(res.size()==0) return null;
 		return JSONArray.toJSON(res);
 	}
-
+	
+	/**
+	 * put key value into map if value is not null
+	 * @param key
+	 * @param value
+	 * @param map
+	 */
+	private void putToMapIfNotAbsent(String key, Object value, Map<String, Object> map) {
+		if(value instanceof Collection){
+			if(((Collection) value).size()>0)
+				map.put(key, value);
+		}else if(value instanceof Map){
+			if(((Map) value).size()>0)
+				map.put(key, value);
+		}
+		else if(value!=null){
+			map.put(key, value);
+		}
+	}
+	/**
+	 * merge two sets if value is not null
+	 * @param newSet
+	 * @param oldSet
+	 */
+	private void addAllToSetIfNotNull(Collection newSet, Collection oldSet) {
+		if(newSet.size()>0)
+			oldSet.addAll(newSet);
+	}
+	/**
+	 * put value into set if value is not null
+	 * @param port
+	 * @param res
+	 */
+	private void addToSetIfNotNull(Object value, Set res) {
+		// TODO Auto-generated method stub
+		if(value!=null)
+			res.add(value);
+	}
 }
