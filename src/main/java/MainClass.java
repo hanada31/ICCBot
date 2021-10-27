@@ -360,10 +360,10 @@ public class MainClass {
 	 *  **/
 	private static void testConfig() {
 		String path;
-		path = "../test apk/";
+		path = "apk";
 		String name;
-		name = "MobileOrg_v0.9.13";
-		String client = "MisEACheckerClient";
+		name = "TestJsonOutput";
+		String client = "MainClient";
 //		client = "TestGenerationClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
@@ -372,7 +372,7 @@ public class MainClass {
 		MyConfig.getInstance().setMaxPathNumber(100);
 		MyConfig.getInstance().setResultWarpperFolder("../results" + File.separator);
 		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);
-		MyConfig.getInstance().setTimeLimit(50);
+		MyConfig.getInstance().setTimeLimit(90);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
 		
 	}

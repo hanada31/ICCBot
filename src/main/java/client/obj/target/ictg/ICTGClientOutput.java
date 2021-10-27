@@ -246,11 +246,6 @@ public class ICTGClientOutput {
 				Set<AtgEdge> resList = en.getValue();
 				for (AtgEdge edge : resList) {
 					String edgeStr = "";
-					// edu.mit.icc_componentname_class_constant:
-					// <edu.mit.icc_componentname_class_constant.OutFlowActivity:
-					// void onCreate(android.os.Bundle)> [19-a]
-					// edu.mit.icc_componentname_class_constant.InFlowActivity
-					// {19}
 					String pkg = Global.v().getAppModel().getPackageName();
 					String method = edge.getMethodSig();
 					String instuction = edge.getInstructionId() + "-" + edge.getiCCkind();
@@ -585,24 +580,53 @@ public class ICTGClientOutput {
 	        
 		}
 		JSONArray jsonObject = (JSONArray) JSONArray.toJSON(componentList);
-        String jsonString = JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat);
+        String jsonString = JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect);
         FileUtils.writeText2File(dir+ file+".json", jsonString, false);
 		
 	}
 
 
 
+	@SuppressWarnings("unchecked")
+	/**
+	 * putAttributeMap2componenetMap
+	 * @param componenetMap
+	 * @param component
+	 * @param attri
+	 */
 	private void putAttributeMap2componenetMap(Map<String, Object> componenetMap, ComponentModel component, String attri) {
 		Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
+		
 		if(attri.equals("datas")){
-			 putAttributeMap2componenetMap(attriMap, component, "ports");
-			 putAttributeMap2componenetMap(attriMap, component, "paths");
-			 putAttributeMap2componenetMap(attriMap, component, "schemes");
-			 putAttributeMap2componenetMap(attriMap, component, "hosts");
+			putAttributeMap2componenetMap(attriMap, component, "ports");
+			putAttributeMap2componenetMap(attriMap, component, "paths");
+			putAttributeMap2componenetMap(attriMap, component, "schemes");
+			putAttributeMap2componenetMap(attriMap, component, "hosts");
+		}
+		else if(attri.equals("extras")){
+			Set<ExtraData> sendRes = (Set<ExtraData>)getSentIntentAttri(component,attri);
+			Set<ExtraData> receivetRes = (Set<ExtraData>)getReceivedIntentAttri(component,attri);
+			putToMapIfNotAbsent("sendIntent", JSONArray.toJSON(sendRes), attriMap);
+			putToMapIfNotAbsent("recvIntent", JSONArray.toJSON(receivetRes), attriMap);
+			
+			Set<ExtraData> mixtRes = new HashSet<ExtraData>();
+			if(sendRes != null) ExtraData.merge( mixtRes, sendRes);
+			if(receivetRes != null) ExtraData.merge( mixtRes, receivetRes);
+			putToMapIfNotAbsent("mixIntent",JSONArray.toJSON(mixtRes), attriMap);
+
 		}else{
-			putToMapIfNotAbsent("manifest", getManifestAttri(component,attri), attriMap);
-			putToMapIfNotAbsent("sendIntent", getSentIntentAttri(component,attri), attriMap);
-			putToMapIfNotAbsent("recvIntent", getReceivedIntentAttri(component,attri), attriMap);
+			Set<String> manifestRes = getManifestAttri(component,attri);
+			Set<String> sendRes = (Set<String>)getSentIntentAttri(component,attri);
+			Set<String> receivetRes = (Set<String>)getReceivedIntentAttri(component,attri);
+			putToMapIfNotAbsent("manifest", JSONArray.toJSON(manifestRes), attriMap);
+			putToMapIfNotAbsent("sendIntent", JSONArray.toJSON(sendRes), attriMap);
+			putToMapIfNotAbsent("recvIntent", JSONArray.toJSON(receivetRes), attriMap);
+			
+			Set<String> mixtRes = new HashSet<String>();
+			if(manifestRes != null) mixtRes.addAll(manifestRes);
+			if(sendRes != null) mixtRes.addAll(sendRes);
+			if(receivetRes != null) mixtRes.addAll(receivetRes);
+			putToMapIfNotAbsent("mixIntent", JSONArray.toJSON(mixtRes), attriMap);
 	       
 		}
 		putToMapIfNotAbsent(attri, attriMap, componenetMap);
@@ -610,7 +634,7 @@ public class ICTGClientOutput {
 
 
 
-	private Object getManifestAttri(ComponentModel component, String attri) {
+	private Set<String> getManifestAttri(ComponentModel component, String attri) {
 		Set<String> res = new HashSet<String>();
 		for(IntentFilterModel ifModel: component.getIntentFilters()){
 			switch (attri) {
@@ -645,7 +669,7 @@ public class ICTGClientOutput {
 			}
 		}
 		if(res.size()==0) return null;
-		return JSONArray.toJSON(res);
+		return res;
 	}
 	
 
@@ -655,8 +679,8 @@ public class ICTGClientOutput {
 	 * @param attri
 	 * @return
 	 */
-	private Object getReceivedIntentAttri(ComponentModel component, String attri) {
-		Set<Object> res = new HashSet<Object>();
+	private Set getReceivedIntentAttri(ComponentModel component, String attri) {
+		Set res = new HashSet<Object>();
 		String dataReg = "(\\w*)(://)?(\\w*):?(\\w*)/?(\\w*)";
 		Pattern pattern = Pattern.compile(dataReg);
 		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbySpec()){
@@ -711,8 +735,7 @@ public class ICTGClientOutput {
 					BundleType extras = model.getGetExtrasCandidateList();
 					for(List<ExtraData> eds: extras.obtainBundle().values()){
 						for(ExtraData ed: eds){
-							JSONObject jsonObject = (JSONObject) JSON.toJSON(ed);
-							addToSetIfNotNull(jsonObject,res);
+							addToSetIfNotNull(ed,res);
 						}
 					}
 					break;
@@ -721,7 +744,7 @@ public class ICTGClientOutput {
 			}
 		}
 		if(res.size()==0) return null;
-		return JSONArray.toJSON(res);
+		return res;
 	}
 	/**
 	 * the Intent form the caller
@@ -729,8 +752,8 @@ public class ICTGClientOutput {
 	 * @param attri
 	 * @return
 	 */
-	private Object getSentIntentAttri(ComponentModel component, String attri) {
-		Set<Object> res = new HashSet<Object>();
+	private Set getSentIntentAttri(ComponentModel component, String attri) {
+		Set res = new HashSet<Object>();
 		String dataReg = "(\\w*)(://)?(\\w*):?(\\w*)/?(\\w*)";
 		Pattern pattern = Pattern.compile(dataReg);
 		for(IntentSummaryModel model: component.getReceiveModel().getIntentObjsbyICCMsg()){
@@ -786,8 +809,7 @@ public class ICTGClientOutput {
 					BundleType extras = model.getSetExtrasValueList();
 					for(List<ExtraData> eds: extras.obtainBundle().values()){
 						for(ExtraData ed: eds){
-							JSONObject jsonObject = (JSONObject) JSON.toJSON(ed);
-							addToSetIfNotNull(jsonObject,res);
+							addToSetIfNotNull(ed,res);
 						}
 					}
 				default:
@@ -795,7 +817,7 @@ public class ICTGClientOutput {
 			}
 		}
 		if(res.size()==0) return null;
-		return JSONArray.toJSON(res);
+		return res;
 	}
 	
 	/**
