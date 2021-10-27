@@ -28,11 +28,13 @@ public class BundleType implements Serializable, Cloneable {
 	private Map<String, List<ExtraData>> bundle;
 	private Set<String> contentSet;
 	private String type;
-
+	private Set<ExtraData> extraDatas;
+	
 	public BundleType() {
 		bundle = new HashMap<String, List<ExtraData>>();
 		contentSet = new HashSet<String>();
 		type = "";
+		
 	}
 
 	public BundleType(Map<String, List<ExtraData>> bundle2, Set<String> contentSet2, String type2) {
@@ -49,16 +51,22 @@ public class BundleType implements Serializable, Cloneable {
 	 * for json output
 	 * @return
 	 */
-	public List<ExtraData> getBundle() {
-		List<ExtraData> res = new ArrayList<ExtraData>();
-		for(List<ExtraData> eds: bundle.values()){
-			for(ExtraData ed: eds){
-				res.add(ed);
-			}
-		}
-		return res;
+	public Set<ExtraData> getExtraDatas() {
+		if(extraDatas == null)
+			obtainExtraDatas();
+		return extraDatas;
 	}
 	
+	private void obtainExtraDatas() {
+		extraDatas = new HashSet<ExtraData>();
+		for(List<ExtraData> eds: bundle.values()){
+			for(ExtraData ed: eds){
+				extraDatas.add(ed);
+			}
+		}
+		
+	}
+
 	public void setBundle(Map<String, List<ExtraData>> bundle) {
 		this.bundle = bundle;
 	}
