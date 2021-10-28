@@ -1,7 +1,10 @@
 package main.java.analyze.model.analyzeModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.model.analyzeModel.UnitNode;
@@ -9,20 +12,26 @@ import main.java.analyze.utils.output.PrintUtils;
 import soot.SootMethod;
 import soot.Unit;
 
-public class ObjectSummaryModel {
+public class ObjectSummaryModel implements Serializable, Cloneable {
+	@JSONField(serialize = false)
 	protected List<UnitNode> nodes;
+	@JSONField(serialize = false)
 	protected PathSummaryModel pathSummary;
+	@JSONField(serialize = false)
 	protected SootMethod method;
-
+	@JSONField(serialize = false)
 	protected List<Unit> createList;
+	@JSONField(serialize = false)
 	protected List<Unit> receiveFromParaList;
+	@JSONField(serialize = false)
 	protected List<Unit> receiveFromFromRetValueList;
-
+	@JSONField(serialize = false)
 	protected List<Unit> sendIntent2FunList;
+	@JSONField(serialize = false)
 	protected List<Unit> dataHandleList;
-
+	@JSONField(serialize = false)
 	protected boolean finishFlag;
-
+	@JSONField(serialize = false)
 	protected List<SootMethod> reusedMthCallStack;
 	
 
@@ -123,7 +132,7 @@ public class ObjectSummaryModel {
 		res += "dataHandleList:" + PrintUtils.printList(dataHandleList, "\n") + "\n";
 		return res;
 	}
-
+	@JSONField
 	public List<Unit> getDataHandleList() {
 		return dataHandleList;
 	}

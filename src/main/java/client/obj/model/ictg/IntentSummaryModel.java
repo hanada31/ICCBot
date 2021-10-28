@@ -1,9 +1,14 @@
 package main.java.client.obj.model.ictg;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.annotation.JSONType;
 
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.analyzeModel.PathSummaryModel;
@@ -12,25 +17,38 @@ import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ExtraData;
 import soot.Unit;
 
-public class IntentSummaryModel extends ObjectSummaryModel {
+public class IntentSummaryModel extends ObjectSummaryModel implements Serializable, Cloneable {
 
 	// unit
+	@JSONField(serialize = false)
 	private List<Unit> receiveFromOutList;
+	@JSONField(serialize = false)
 	private List<Unit> sendIntent2ICCList;
 	// value
+	@JSONField(name="action_receive")
 	private List<String> getActionCandidateList;
+	@JSONField(name="categories_receive")
 	private List<String> getCategoryCandidateList;
+	@JSONField(name="data_receive")
 	private List<String> getDataCandidateList;
+	@JSONField(name="type_receive")
 	private List<String> getTypeCandidateList;
+	@JSONField(serialize = false)
 	private BundleType getExtrasCandidateList;
-
+	@JSONField(name="action_send")
 	private List<String> setActionValueList;
+	@JSONField(name="categories_send")
 	private List<String> setCategoryValueList;
+	@JSONField(name="data_send")
 	private List<String> setDataValueList;
+	@JSONField(name="type_send")
 	private List<String> setTypeValueList;
+	@JSONField(serialize = false)
 	private BundleType setExtrasValueList;
+	@JSONField(serialize = false)
 	private List<String> setDestinationList;
 	private List<String> setFlagsList;
+	@JSONField(serialize = false)
 	private String targetType;
 
 	public IntentSummaryModel(PathSummaryModel pathSummary) {
@@ -147,7 +165,20 @@ public class IntentSummaryModel extends ObjectSummaryModel {
 	public BundleType getGetExtrasCandidateList() {
 		return getExtrasCandidateList;
 	}
-
+	
+	//for json seed output
+	public Set<ExtraData> getExtras_Send(){
+		if(setExtrasValueList.getExtraDatas().size()>0)
+			return setExtrasValueList.getExtraDatas();
+		return null;
+	}
+	//for json seed output
+	public Set<ExtraData> getExtras_Receive(){
+		if(getExtrasCandidateList.getExtraDatas().size()>0)
+			return getExtrasCandidateList.getExtraDatas();
+		return null;
+	}
+		
 	public void setGetExtrasCandidateList(BundleType getExtrasCandidateList) {
 		this.getExtrasCandidateList = getExtrasCandidateList;
 	}

@@ -206,8 +206,8 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 				boolean actionTarget = false, cateTarget = true, dataTarget = false, typeTarget = true;
 				// if a action is find same with one action in filer, matched
 				// usually, only one action in summary
-				for (String action : summaryActionSet) {
-					if (filterActionSet.contains(action))
+				for (String action : filterActionSet ) {
+					if (summaryActionSet.contains(action))
 						actionTarget = true;
 				}
 				/**
@@ -216,13 +216,13 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 				 * https://developer.android.com/guide/components
 				 * /intents-filters.html
 				 **/
-				if (component instanceof ActivityModel) {
-					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
-						cateTarget = false;
-				}
+//				if (component instanceof ActivityModel) {
+//					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
+//						cateTarget = false;
+//				}
 				// all the category in a summary must find a match one in filter
-				for (String category : summaryCateSet) {
-					if (!filterCateSet.contains(category))
+				for (String category : filterCateSet ) {
+					if (!summaryCateSet.contains(category))
 						cateTarget = false;
 				}
 				if (filterDataSet.size() == 0)
@@ -251,8 +251,8 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 						}
 					}
 				}
-				for (String type : summaryTypeSet) {
-					if (!filterTypeSet.contains(type))
+				for (String type : filterTypeSet) {
+					if (!summaryTypeSet.contains(type))
 						typeTarget = false;
 				}
 				boolean flag1 = actionTarget && cateTarget && dataTarget && typeTarget;

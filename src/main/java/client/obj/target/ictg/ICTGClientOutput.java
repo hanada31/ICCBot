@@ -1,5 +1,7 @@
 package main.java.client.obj.target.ictg;
 
+import heros.utilities.JsonArray;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +26,7 @@ import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.SootUtils;
+import main.java.analyze.utils.TypeValueUtil;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.atg.ATGModel;
@@ -49,6 +52,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.ValueFilter;
 
 /**
  * output analyze result
@@ -570,26 +574,74 @@ public class ICTGClientOutput {
 			ComponentModel component = Global.v().getAppModel().getComponentMap().get(className);
 	        Map<String, Object> componenetMap = new LinkedHashMap<>();
 	        componentList.add(componenetMap);
-	        
 	        componenetMap.put("className", className);
-	        putAttributeMap2componenetMap(componenetMap, component, "actions");
-	        putAttributeMap2componenetMap(componenetMap, component, "categories");
-	        putAttributeMap2componenetMap(componenetMap, component, "datas");
-	        putAttributeMap2componenetMap(componenetMap, component, "types");
-	        putAttributeMap2componenetMap(componenetMap, component, "extras");
-	        
+	        putAttributeValue2componenetMap(componenetMap, component );
+	        putAttributeSeed2componenetMap(componenetMap, component);
 		}
-		JSONArray jsonObject = (JSONArray) JSONArray.toJSON(componentList);
-        String jsonString = JSON.toJSONString(jsonObject, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect);
-        FileUtils.writeText2File(dir+ file+".json", jsonString, false);
 		
+		JSONArray jsonObject = (JSONArray) JSONArray.toJSON(componentList);
+		ValueFilter filter = new ValueFilter() {
+			@Override
+			public Object process(Object object, String name, Object value) {
+				if(value instanceof Collection){
+					if(((Collection) value).size()==0){
+						value = null;
+					}
+				}
+				if(value instanceof String){
+					if(((String) value).length()==0){
+						value = null;
+					}
+				}
+				return value;
+			}
+		};
+		String jsonString = JSON.toJSONString(jsonObject, filter, SerializerFeature.PrettyFormat, 
+				SerializerFeature.DisableCircularReferenceDetect);
+        FileUtils.writeText2File(dir+ file+".json", jsonString, false);
+        FileUtils.writeText2File(dir+ file+"_typeValue.json", TypeValueUtil.getTypevalueJsonString(), false);
+    
 	}
-
+	
+	/**
+	 * putAttributeValue2componenetMap
+	 * @param componenetMap
+	 * @param component
+	 * @param attri
+	 */
+	private void putAttributeValue2componenetMap(Map<String, Object> componenetMap, ComponentModel component) {
+		Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
+		putAttributeMap2componenetMap(attriMap, component, "actions");
+        putAttributeMap2componenetMap(attriMap, component, "categories");
+        putAttributeMap2componenetMap(attriMap, component, "datas");
+        putAttributeMap2componenetMap(attriMap, component, "types");
+        putAttributeMap2componenetMap(attriMap, component, "extras");
+		putToMapIfNotAbsent("fullValueSet", attriMap, componenetMap);
+	}
+	
+	/**
+	 * putAttributeSeed2componenetMap
+	 * @param componenetMap
+	 * @param component
+	 * @param attri
+	 */
+	private void putAttributeSeed2componenetMap(Map<String, Object> componenetMap, ComponentModel component) {
+		Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
+		
+		Object manifestJson = JSONArray.toJSON(component.getIntentFilters());
+		putToMapIfNotAbsent("manifest", manifestJson, attriMap);
+		Object sendJson = JSONArray.toJSON(component.getReceiveModel().getIntentObjsbyICCMsg());
+		putToMapIfNotAbsent("sendIntentseed", sendJson, attriMap);
+		Object reciveJson = JSONArray.toJSON(component.getReceiveModel().getIntentObjsbySpec());
+		putToMapIfNotAbsent("recvIntent", reciveJson, attriMap);
+		
+		putToMapIfNotAbsent("initSeeds", attriMap, componenetMap);
+	}
 
 
 	@SuppressWarnings("unchecked")
 	/**
-	 * putAttributeMap2componenetMap
+	 * 
 	 * @param componenetMap
 	 * @param component
 	 * @param attri
@@ -627,11 +679,9 @@ public class ICTGClientOutput {
 			if(sendRes != null) mixtRes.addAll(sendRes);
 			if(receivetRes != null) mixtRes.addAll(receivetRes);
 			putToMapIfNotAbsent("mixIntent", JSONArray.toJSON(mixtRes), attriMap);
-	       
 		}
 		putToMapIfNotAbsent(attri, attriMap, componenetMap);
 	}
-
 
 
 	private Set<String> getManifestAttri(ComponentModel component, String attri) {
@@ -852,9 +902,12 @@ public class ICTGClientOutput {
 	 * @param port
 	 * @param res
 	 */
-	private void addToSetIfNotNull(Object value, Set res) {
+	private boolean addToSetIfNotNull(Object value, Set res) {
 		// TODO Auto-generated method stub
-		if(value!=null)
+		if(value!=null){
 			res.add(value);
+			return true;
+		}
+		return false;
 	}
 }

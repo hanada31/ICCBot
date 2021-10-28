@@ -109,10 +109,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
 		MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
 		String tag = methodUnderAnalysis.getSignature();
-//		if(!tag.contains("settings.SettingsActivity") && !tag.contains("K9Activity")){
-//			return methodSummary;
-//		}
-//		if(tag.contains("settings.SettingsActivity: void onCreate(android.os.")){
+//		if(tag.contains("MainActivity: void onStart(")){
 //			System.err.println(tag);
 //		}
 		
@@ -120,7 +117,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 //			analyzeDummyMain(methodSummary);
 			return methodSummary;
 		}
-		int x;
 		/** get target units -- ICC related units **/
 		Map<Unit, List<Unit>> targetMap = getTargetUnitsOfMethod();
 		if (targetMap.size() == 0)
@@ -129,7 +125,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		// System.out.println("getPathSummary");
 		/** analyze pathSummarys **/
 		UnitNode treeRoot = getNodeTreeByCFGAnalysis(targetMap);
-
 		Set<List<UnitNode>> nodeListSet = getUnitNodePaths(treeRoot);
 		getPathSummary(methodSummary, nodeListSet);
 		// System.out.println("getSingleObject");
@@ -182,17 +177,17 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		Body b = SootUtils.getSootActiveBody(methodUnderAnalysis);
 		BlockGraph briefGraph = new ExceptionalBlockGraph(b);
 		Map<Block, Condition> conditionMap = GraphUtils.getConditionOfCFG(briefGraph);
-		BlockGraph vfg = createVFGofGraph(targetMap, briefGraph, targetBlocks, conditionMap);
-		removeCycle(vfg);
 		/** build node tree with vfg and target units **/
 		BlockGraph graphForMethod;
 		if (MyConfig.getInstance().getMySwithch().isVfgStrategy()) {
+			BlockGraph vfg = createVFGofGraph(targetMap, briefGraph, targetBlocks, conditionMap);
+			removeCycle(vfg);
 			graphForMethod = vfg;
 		} else {
 			graphForMethod = briefGraph;
 		}
 		UnitNode treeRoot = generateNodeTree(targetMap, graphForMethod, targetBlocks, conditionMap);
-		// treeRoot.printTree(new HashSet<UnitNode>());
+//		treeRoot.printTree(new HashSet<UnitNode>());
 		return treeRoot;
 	}
 
@@ -232,6 +227,53 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		}
 	}
 
+	/**
+	 * getSingleObject_objectLevel
+	 * 
+	 * @param methodSummary
+	 */
+	private void getSingleObject_objectLevel(MethodSummaryModel methodSummary) {
+		for (PathSummaryModel pathSummary : methodSummary.getPathSet()) {
+			Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
+			Set<UnitNode> history = new HashSet<UnitNode>();
+			int nodeId = 0;
+			for (UnitNode node : pathSummary.getNodes()) {
+				List<String> context = pathSummary.getNode2TraceMap().get(nodeId);
+				// avoid repeat add single object to single path
+				if (context == null)
+					context = new ArrayList<String>();
+				if (node.getNodeSetPointToMeMap().containsKey(context) && node.getNodeSetPointToMe(context) != null) {
+					ObjectSummaryModel singleObj = creatSingleObject(pathSummary);
+					if (singleObj == null)
+						continue;
+					addedSet.add(singleObj);
+					analyzeSingleObject(pathSummary, node, singleObj, nodeId, history, 0, addedSet);
+				}
+				nodeId++;
+			}
+			if (!MyConfig.getInstance().getMySwithch().isFunctionExpandAllSwitch()) {
+				for (UnitNode node : pathSummary.getNodes()) {
+					if (history.contains(node))
+						continue;
+					// for invoke without intent para
+					if (node.getInterFunNode() != null) {
+						SootMethod invokedMethod = node.getInterFunNode().getMethod();
+						if (invokedMethod != null) {
+							if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
+								MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
+								methodSummary.getReuseModelSet().add(summary);
+							}
+						}
+					}
+				}
+			}
+			// to be tested
+
+			removeInvalidSingleObject(addedSet);
+			methodSummary.getSingleObjectSet().addAll(addedSet);
+		}
+	}
+	
 	/**
 	 * getSingleObject_pathLevel
 	 * 
@@ -294,98 +336,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		removeInvalidSingleObject(addedSet);
 		methodSummary.getSingleObjectSet().addAll(addedSet);
 	}
-//		PathSummaryModel pathSummary = new PathSummaryModel(methodSummary);
-//		pathSummary.setNodes(methodSummary.getNodePathList());
-//		Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
-//		Set<UnitNode> history = new HashSet<UnitNode>();
-//		int nodeId = 0;
-//		for (UnitNode node : pathSummary.getNodes()) {
-//			List<String> context = pathSummary.getNode2TraceMap().get(nodeId);
-//			// avoid repeate add single object to single path
-//			if (context == null)
-//				context = new ArrayList<String>();
-//			if (node.getNodeSetPointToMeMap().containsKey(context) && node.getNodeSetPointToMe(context) != null) {
-//				ObjectSummaryModel singleObj = creatSingleObject(pathSummary);
-//				if (singleObj == null)
-//					continue;
-//				addedSet.add(singleObj);
-//				List<UnitNode> workList = pathSummary.getNodes();
-//				handleWorkList(pathSummary, singleObj, workList, addedSet);
-//				if (node.getInterFunNode() != null) {
-//					MethodSummaryModel interFunMethod = node.getInterFunNode();
-//					for (ObjectSummaryModel model : interFunMethod.getSingleObjects()) {
-//						ObjectSummaryModel copy = creatSingleObject(pathSummary);
-//						copy.merge(model);
-//						addedSet.add(copy);
-//					}
-//				}
-//			}
-//			nodeId++;
-//		}
-//		for (UnitNode node : pathSummary.getNodes()) {
-//			if (history.contains(node))
-//				continue;
-//			// for invoke without intent para
-//			if (node.getInterFunNode() != null) {
-//				SootMethod invokedMethod = node.getInterFunNode().getMethod();
-//				if (invokedMethod != null) {
-//					if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-//						MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
-//						methodSummary.getReuseModelSet().add(summary);
-//					}
-//				}
-//			}
-//		}
-//		removeInvalidSingleObject(addedSet);
-//		methodSummary.getSingleObjectSet().addAll(addedSet);
-//	}
 
-	/**
-	 * getSingleObject_objectLevel
-	 * 
-	 * @param methodSummary
-	 */
-	private void getSingleObject_objectLevel(MethodSummaryModel methodSummary) {
-		for (PathSummaryModel pathSummary : methodSummary.getPathSet()) {
-			Set<ObjectSummaryModel> addedSet = new HashSet<ObjectSummaryModel>();
-			Set<UnitNode> history = new HashSet<UnitNode>();
-			int nodeId = 0;
-			for (UnitNode node : pathSummary.getNodes()) {
-				List<String> context = pathSummary.getNode2TraceMap().get(nodeId);
-				// avoid repeat add single object to single path
-				if (context == null)
-					context = new ArrayList<String>();
-				if (node.getNodeSetPointToMeMap().containsKey(context) && node.getNodeSetPointToMe(context) != null) {
-					ObjectSummaryModel singleObj = creatSingleObject(pathSummary);
-					if (singleObj == null)
-						continue;
-					addedSet.add(singleObj);
-					analyzeSingleObject(pathSummary, node, singleObj, nodeId, history, 0, addedSet);
-				}
-				nodeId++;
-			}
-			if (!MyConfig.getInstance().getMySwithch().isFunctionExpandAllSwitch()) {
-				for (UnitNode node : pathSummary.getNodes()) {
-					if (history.contains(node))
-						continue;
-					// for invoke without intent para
-					if (node.getInterFunNode() != null) {
-						SootMethod invokedMethod = node.getInterFunNode().getMethod();
-						if (invokedMethod != null) {
-							if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-								MethodSummaryModel summary = getSummaryFromStorage(invokedMethod.getSignature());
-								methodSummary.getReuseModelSet().add(summary);
-							}
-						}
-					}
-				}
-			}
-			// to be tested
-
-			removeInvalidSingleObject(addedSet);
-			methodSummary.getSingleObjectSet().addAll(addedSet);
-		}
-	}
+	
 
 	/**
 	 * remove invalid singleObject
@@ -682,8 +634,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		return briefGraph;
 	}
 
-	// wrong path
-
+	/**
+	 * avoid cycle in path
+	 * @param briefGraph
+	 */
 	private void removeCycle(BlockGraph briefGraph) {
 		for (Block current : briefGraph.getBlocks()) {
 			// current.getSuccs().remove(current);
