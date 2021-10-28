@@ -4,15 +4,21 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import main.java.analyze.utils.output.PrintUtils;
 
 public class IntentFilterModel implements Serializable {
 	private static final long serialVersionUID = 6L;
-
+	@JSONField(serialize=false)
 	private String priority = "0";
+	@JSONField(name="action_manifest")
 	private Set<String> action_list = new HashSet<String>();
+	@JSONField(name="categories_manifest")
 	private Set<String> category_list = new HashSet<String>();
+	@JSONField(name="type_manifest")
 	private Set<String> datatype_list = new HashSet<String>();
+	@JSONField(name="data_manifest")
 	private Set<Data> data_list = new HashSet<Data>();
 
 	@Override

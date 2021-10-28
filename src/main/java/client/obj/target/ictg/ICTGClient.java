@@ -11,6 +11,7 @@ import java.util.Set;
 
 import main.java.Global;
 import main.java.MyConfig;
+import main.java.SummaryLevel;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.output.FileUtils;
@@ -48,8 +49,6 @@ public class ICTGClient extends BaseClient {
 	@Override
 	protected void clientAnalyze() {
 		result = new StatisticResult();
-		setMySwitch();
-		
 		
 		if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
 			new ManifestClient().start();
@@ -80,6 +79,12 @@ public class ICTGClient extends BaseClient {
 				MyConfig.getInstance().setFragementAnalyzeFinish(true);
 			}
 		}
+		setMySwitch1();
+		for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
+			ObjectAnalyzer analyzer = new ICTGAnalyzer(topoQueue, result);
+			analyzer.analyze();
+		}
+		setMySwitch2();
 		for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
 			ObjectAnalyzer analyzer = new ICTGAnalyzer(topoQueue, result);
 			analyzer.analyze();
@@ -87,11 +92,18 @@ public class ICTGClient extends BaseClient {
 		System.out.println("Successfully analyze with MainClient.");
 	}
 
-	protected void setMySwitch() {
+	protected void setMySwitch1() {
 		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
-		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(true);
+		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(false);
+		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.object);
 	}
 
+	protected void setMySwitch2() {
+		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(false);
+		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(true);
+		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.path);
+
+	}
 	@Override
 	public void clientOutput() throws IOException, DocumentException {
 		outputCTGInfo();
@@ -254,5 +266,10 @@ public class ICTGClient extends BaseClient {
 		}
 
 		return ictgOptModel;
+	}
+
+	protected void setMySwitch() {
+		// TODO Auto-generated method stub
+		
 	}
 }
