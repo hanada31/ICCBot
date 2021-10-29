@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -631,10 +632,28 @@ public class ICTGClientOutput {
 		Object manifestJson = JSONArray.toJSON(component.getIntentFilters());
 		putToMapIfNotAbsent("manifest", manifestJson, attriMap);
 		Object sendJson = JSONArray.toJSON(component.getReceiveModel().getIntentObjsbyICCMsg());
-		putToMapIfNotAbsent("sendIntentseed", sendJson, attriMap);
+		putToMapIfNotAbsent("sendIntent", sendJson, attriMap);
 		Object reciveJson = JSONArray.toJSON(component.getReceiveModel().getIntentObjsbySpec());
 		putToMapIfNotAbsent("recvIntent", reciveJson, attriMap);
 		
+		Set<Serializable> mixModels = new HashSet<Serializable>();
+		Set<Serializable> history = new HashSet<Serializable>();
+		for(IntentFilterModel filter: component.getIntentFilters()){
+			mixModels.add(filter);
+			history.add(JSON.toJSONString(filter)); 
+		}
+		for(IntentSummaryModel sendIntentSummaryModel:component.getReceiveModel().getIntentObjsbyICCMsg()){
+			if(!history.contains(JSON.toJSONString(sendIntentSummaryModel)))
+				history.add(sendIntentSummaryModel);
+			mixModels.add(sendIntentSummaryModel);
+		}
+		for(IntentSummaryModel recvIntentSummaryModel:component.getReceiveModel().getIntentObjsbySpec()){
+			if(!history.contains(JSON.toJSONString(recvIntentSummaryModel)))
+				history.add(recvIntentSummaryModel);
+			mixModels.add(recvIntentSummaryModel);
+		}
+		Object mixJson = JSONArray.toJSON(mixModels);
+		putToMapIfNotAbsent("mixIntent", mixJson, attriMap);
 		putToMapIfNotAbsent("initSeeds", attriMap, componenetMap);
 	}
 

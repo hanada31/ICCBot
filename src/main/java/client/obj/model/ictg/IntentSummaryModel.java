@@ -167,13 +167,13 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
 	}
 	
 	//for json seed output
-	public Set<ExtraData> getExtras_Send(){
+	public Set<ExtraData> getExtras_send(){
 		if(setExtrasValueList.getExtraDatas().size()>0)
 			return setExtrasValueList.getExtraDatas();
 		return null;
 	}
 	//for json seed output
-	public Set<ExtraData> getExtras_Receive(){
+	public Set<ExtraData> getExtras_receive(){
 		if(getExtrasCandidateList.getExtraDatas().size()>0)
 			return getExtrasCandidateList.getExtraDatas();
 		return null;
