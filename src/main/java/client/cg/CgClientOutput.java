@@ -58,6 +58,35 @@ public class CgClientOutput {
 		}
 	}
 
+
+	public static void writeCGToString(String dir, String file, CallGraph cg) {
+		FileUtils.createFolder(dir);
+		File f = new File(dir + file);
+		BufferedWriter writer = null;
+		try {
+			writer = new BufferedWriter(new FileWriter(f));
+			if (cg == null)
+				return;
+			Iterator<Edge> it = cg.iterator();
+			while (it.hasNext()) {
+				Edge edge = it.next();
+				if (SootUtils.hasSootActiveBody(edge.getTgt().method())) {
+					writer.write(edge.toString() + "\n");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	/**
 	 * write the methods in cg according to the topology order
 	 * 
@@ -87,4 +116,5 @@ public class CgClientOutput {
 			}
 		}
 	}
+
 }
