@@ -2,6 +2,7 @@ package main.java.client.gator;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import org.dom4j.DocumentException;
 
@@ -15,6 +16,7 @@ import main.java.client.BaseClient;
 
 public class GatorClient  extends BaseClient {
 	String gatorTmpFolder;
+	PrintStream out = null;
 	@Override
 	protected void clientAnalyze() {
 		gatorTmpFolder = "gator_tmp";
@@ -25,7 +27,7 @@ public class GatorClient  extends BaseClient {
 	}
 
 	private void invokeApkTool() {
-		String[] args= {"decode","-f","--no-src", "--output", gatorTmpFolder, Global.v().getAppModel().getAppPath()};
+		String[] args= {"decode","-f","--no-src", "print2stdout", "--output", gatorTmpFolder, Global.v().getAppModel().getAppPath()};
 		try {
 			brut.apktool.Main.main(args);
 		} catch (IOException e) {
@@ -43,24 +45,28 @@ public class GatorClient  extends BaseClient {
 		try {
 			OS.exec(clearCmd);
 		} catch (BrutException e) {
-			e.printStackTrace();
+			System.out.println("no file to be deleted");
 		}
-		
-		String[] args = {"-sootandroidDir", "lib",
-		           "-sdkDir", "lib",
-		           "-listenerSpecFile", "data/listeners.xml",
-		           "-wtgSpecFile", "data/wtg.xml",
-		           "-resourcePath", gatorTmpFolder+"/res",
-		           "-manifestFile", gatorTmpFolder+"/AndroidManifest.xml",
-		           "-project"
-		           , Global.v().getAppModel().getAppPath(),
-		           "-apiLevel", "android-1",
-		           "-guiAnalysis",
-		           "-benchmarkName", Global.v().getAppModel().getAppName(),
-		           "-libraryPackageListFile", "data/libPackages.txt",
-		           "-android", "lib/platforms/android-1/android.jar",
-		           "-client", MyConfig.getInstance().getGatorClient()};
-		presto.android.Main.main(args);
+		try{
+			String[] args = {"-sootandroidDir", "lib",
+			           "-sdkDir", "lib",
+			           "-listenerSpecFile", "data/listeners.xml",
+			           "-wtgSpecFile", "data/wtg.xml",
+			           "-resourcePath", gatorTmpFolder+"/res",
+			           "-manifestFile", gatorTmpFolder+"/AndroidManifest.xml",
+			           "-project"
+			           , Global.v().getAppModel().getAppPath(),
+			           "-apiLevel", "android-1",
+			           "-guiAnalysis",
+			           "-benchmarkName", Global.v().getAppModel().getAppName(),
+			           "-libraryPackageListFile", "data/libPackages.txt",
+			           "-android", "lib/platforms/android-1/android.jar",
+			           "-client", MyConfig.getInstance().getGatorClient()};
+			presto.android.Main.main(args);
+		}catch(RuntimeException e){
+			System.err.println("gator fails");
+		}
+		out = System.out;
 		FileUtils.delAllFile(gatorTmpFolder);
 		//on linux
 	}
