@@ -50,6 +50,7 @@ public class GatorClient  extends BaseClient {
 					"-client", "GUIHierarchyPrinterClient"};
 		presto.android.Main.main(args);
 		FileUtils.delAllFile(gatorTmpFolder);
+		//on linux
 	}
 
 
