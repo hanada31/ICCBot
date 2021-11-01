@@ -382,6 +382,7 @@ public class MainClass {
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
+		MyConfig.getInstance().setGatorClient("GUIHierarchyPrinterClient");
 		MyConfig.getInstance().setMaxPathNumber(100);
 		MyConfig.getInstance().setResultWarpperFolder("../results" + File.separator);
 		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);

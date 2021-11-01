@@ -14,7 +14,7 @@ public class ConstantUtils {
 	public static final String SOOTOUTPUT = "sootOutput";
 
 	// output files info
-	public static final String GATORFOLDER = "gatorInfo" + File.separator;
+	public static final String GATORFOLDER = "GatorInfo" + File.separator;
 	public static final String DUMMYFOLDETR = "DummyMainInfo" + File.separator;
 	public static final String CGFOLDETR = "CallGraphInfo" + File.separator;
 	public static final String ICTGFOLDETR = "CTGResult" + File.separator;
