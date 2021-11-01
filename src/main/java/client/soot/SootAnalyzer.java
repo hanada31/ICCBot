@@ -55,7 +55,7 @@ public class SootAnalyzer extends Analyzer {
 		Options.v().set_src_prec(Options.src_prec_apk);
 		Options.v().allow_phantom_refs();
 		Options.v().set_whole_program(true);
-		setExcludePackage();
+//		setExcludePackage();
 
 	}
 

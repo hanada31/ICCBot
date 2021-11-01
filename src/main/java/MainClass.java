@@ -350,7 +350,7 @@ public class MainClass {
 		MyConfig.getInstance().getMySwithch().setStaticFieldSwitch(true);
 
 		MyConfig.getInstance().getMySwithch().setFragmentSwitch(true);
-		MyConfig.getInstance().getMySwithch().setLibCodeSwitch(false);
+		MyConfig.getInstance().getMySwithch().setLibCodeSwitch(true);
 		MyConfig.getInstance().getMySwithch().setWrapperAPISwitch(true);
 
 		MyConfig.getInstance().getMySwithch().setImplicitLaunchSwitch(true);
@@ -368,10 +368,12 @@ public class MainClass {
 		String path;
 		path = "apk";
 		String name;
+		name = "scidonthego";
 		name = "TestJsonOutput";
-		String client = "MainClient";
+		String client = "ICTGClient";
 //		client = "TestGenerationClient";
 		client = "GatorClient";
+//		client = "CallGraphClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
