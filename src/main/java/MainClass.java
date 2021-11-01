@@ -17,6 +17,8 @@ import main.java.client.soot.IROutputClient;
 import main.java.client.testcase.TestGenerationClient;
 import main.java.client.toolEvaluate.ICCBotResultEvaluateClient;
 import main.java.client.toolEvaluate.ToolEvaluateClient;
+import presto.android.gui.clients.ActivityTransitionAnalysisClient;
+import presto.android.gui.clients.ata.ActivityTransitionGraph;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -383,6 +385,8 @@ public class MainClass {
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
 		MyConfig.getInstance().setGatorClient("GUIHierarchyPrinterClient");
+		
+		MyConfig.getInstance().setGatorClient("ActivityTransitionAnalysisClient");
 		MyConfig.getInstance().setMaxPathNumber(100);
 		MyConfig.getInstance().setResultWarpperFolder("../results" + File.separator);
 		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);
