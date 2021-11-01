@@ -182,7 +182,8 @@ public class MainClass {
 				+ "MisEACheckerClient: Report the mis-exported activities.\n"
 				+ "GatorClient: Invoke the client in Gator tool.\n"
 			);
-		
+		/** analysis config **/
+		options.addOption("gatorClient", true, "-gatorClient: invoke the client of gator.");
 		options.addOption("time", true, "-time [default:90]: Set the max running time (min).");
 		options.addOption("maxPathNumber", true, "-maxPathNumber [default:10000]: Set the max number of paths.");
 
@@ -255,6 +256,9 @@ public class MainClass {
 
 		String client = mCmd.getOptionValue("client", "MainClient");
 		MyConfig.getInstance().setClient(mCmd.getOptionValue("client", client));
+		
+		String gatorClient = mCmd.getOptionValue("gatorClient", "GUIHierarchyPrinterClient");
+		MyConfig.getInstance().setGatorClient(mCmd.getOptionValue("gatorClient", gatorClient));
 
 		MyConfig.getInstance().setResultFolder(mCmd.getOptionValue("outputDir", "outputDir") + File.separator);
 		String resFolder = mCmd.getOptionValue("outputDir", "results/outputDir");

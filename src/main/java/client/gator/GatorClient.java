@@ -1,11 +1,15 @@
 package main.java.client.gator;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.dom4j.DocumentException;
 
 import brut.common.BrutException;
+import brut.util.OS;
 import main.java.Global;
+import main.java.MyConfig;
+import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 
@@ -35,19 +39,27 @@ public class GatorClient  extends BaseClient {
 	
 
 	private void invokeGator() {
+		String clearCmd[] = {"rm", "/tmp/"+Global.v().getAppModel().getAppName()+"-*.xml"};
+		try {
+			OS.exec(clearCmd);
+		} catch (BrutException e) {
+			e.printStackTrace();
+		}
+		
 		String[] args = {"-sootandroidDir", "lib",
 		           "-sdkDir", "lib",
 		           "-listenerSpecFile", "data/listeners.xml",
 		           "-wtgSpecFile", "data/wtg.xml",
 		           "-resourcePath", gatorTmpFolder+"/res",
 		           "-manifestFile", gatorTmpFolder+"/AndroidManifest.xml",
-		           "-project", Global.v().getAppModel().getAppPath(),
+		           "-project"
+		           , Global.v().getAppModel().getAppPath(),
 		           "-apiLevel", "android-1",
 		           "-guiAnalysis",
 		           "-benchmarkName", Global.v().getAppModel().getAppName(),
 		           "-libraryPackageListFile", "data/libPackages.txt",
 		           "-android", "lib/platforms/android-1/android.jar",
-					"-client", "GUIHierarchyPrinterClient"};
+		           "-client", MyConfig.getInstance().getGatorClient()};
 		presto.android.Main.main(args);
 		FileUtils.delAllFile(gatorTmpFolder);
 		//on linux
@@ -56,7 +68,24 @@ public class GatorClient  extends BaseClient {
 
 	@Override
 	public void clientOutput() throws IOException, DocumentException {
-		// TODO Auto-generated method stub
+		String client =MyConfig.getInstance().getGatorClient();
+		switch (client) {
+		case "GUIHierarchyPrinterClient":
+			String summary_app_dir = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
+					+ File.separator;
+			String gatorDir = summary_app_dir + ConstantUtils.GATORFOLDER+client+File.separator;
+			FileUtils.createFolder(gatorDir);
+			String copyCmd[] = {"cp", "/tmp/"+Global.v().getAppModel().getAppName()+"-*.xml", gatorDir+Global.v().getAppModel().getAppName()+"-"+client+".xml"};
+			try {
+				OS.exec(copyCmd);
+			} catch (BrutException e) {
+				e.printStackTrace();
+			}
+			break;
+
+		default:
+			break;
+		}
 		
 	}
 
