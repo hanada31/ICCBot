@@ -7,22 +7,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-import org.dom4j.DocumentException;
-
 import brut.common.BrutException;
-import brut.util.OS;
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
-import main.java.client.cg.CallGraphClient;
 
 public class GatorClient  extends BaseClient {
 	String gatorTmpFolder;
 	PrintStream out = null;
 	@Override
 	protected void clientAnalyze() {
+		//only linux is allowed for tool Gator
+		String OS = System.getProperty("os.name").toLowerCase();
+	    if (OS.indexOf("win") >= 0) {
+	      throw new RuntimeException("Only Linux is allowed for tool Gator!");
+	    }
+	    
 		gatorTmpFolder = "gator_tmp";
 		//invoke apktool
 		invokeApkTool();

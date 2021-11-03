@@ -374,18 +374,17 @@ public class MainClass {
 		String path;
 		path = "apk";
 		String name;
-		name = "scidonthego";
+//		name = "scidonthego";
 		name = "TestJsonOutput";
 		String client = "ICTGClient";
 //		client = "TestGenerationClient";
-		client = "GatorClient";
+//		client = "GatorClient";
 //		client = "CallGraphClient";
 
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
 		MyConfig.getInstance().setGatorClient("GUIHierarchyPrinterClient");
-		
 		MyConfig.getInstance().setGatorClient("ActivityTransitionAnalysisClient");
 		MyConfig.getInstance().setMaxPathNumber(100);
 		MyConfig.getInstance().setResultWarpperFolder("../results" + File.separator);
