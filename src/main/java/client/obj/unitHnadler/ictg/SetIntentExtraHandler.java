@@ -67,10 +67,13 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 */
 	void setExtraAPIAnalyze(Unit u) {
 		// step1: get type of extra through the assignment
-		InvokeExpr invokStmt = SootUtils.getInvokeExp(u);
-		List<Type> types = invokStmt.getMethodRef().getParameterTypes();
-		String type = types.get(types.size() - 1).toString();
-		type = type.split("\\.")[type.split("\\.").length - 1];
+		String type = ICTGAnalyzerHelper.getTypeOfSetBundleExtra(u.toString());
+		if(type == null){
+			InvokeExpr invokStmt = SootUtils.getInvokeExp(u);
+			List<Type> types = invokStmt.getMethodRef().getParameterTypes();
+			type = types.get(types.size() - 1).toString();
+			type = type.split("\\.")[type.split("\\.").length - 1];
+		}
 		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
 		if (SootUtils.isBundleExtra(type)) {
 			param_list = getParamListBundle(u);
@@ -90,9 +93,21 @@ public class SetIntentExtraHandler extends UnitHandler {
 				for (ExtraData ed : en.getValue())
 					ed.setType(bundle_type);
 			}
-		} else if (SootUtils.isIntentExtra(type)) {
-			// TODO
-
+		} else if (SootUtils.isExtrasExtra(type)) {
+			param_list = getParamListBundle(u);
+			BundleType bundle_type = null;
+			try {
+				bundle_type = genBundleType(u);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			if (bundle_type == null) {
+				param_list = null;
+				return;
+			}
+			List<ExtraData> bundleList = new ArrayList<ExtraData>(bundle_type.getExtraDatas()); 
+			param_list.put(u.toString(), bundleList);
 		} else if (SootUtils.isParOrSerExtra(type)) {
 			param_list = getParamListNormal(u);
 			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
@@ -113,7 +128,65 @@ public class SetIntentExtraHandler extends UnitHandler {
 		// param_list);
 		addExtraValue2Set(methodUnderAnalyze, u, methodSig, param_list, intentSummary.getSetExtrasValueList());
 	}
+	/**
+	 * get param list
+	 * 
+	 * @param u
+	 * @return
+	 */
+	public Map<String, List<ExtraData>> getParamListNormal(Unit u) {
+		Value key = null;
+		Value val = null;
+		int idKey = 0, idVal = 1;
+		Context objContextInnerKey = new Context();
+		if (oldContextwithRealValue != null) {
+			objContextInnerKey = constructContextObj(idKey + 1, unit);
+		}
+		Context objContextInnerVal = new Context();
+		if (oldContextwithRealValue != null) {
+			objContextInnerVal = constructContextObj(idVal + 1, unit);
+		}
+		try {
+			key = getVarInExtraStmt(u, idKey);
+			val = getVarInExtraStmt(u, idVal);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 
+		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
+		try {
+
+			ValueObtainer voKey = new ValueObtainer(methodSig, ConstantUtils.FLAGEXTRA, objContextInnerKey,
+					new Counter());
+			ValueObtainer voVal = new ValueObtainer(methodSig, ConstantUtils.FLAGEXTRA, objContextInnerVal,
+					new Counter());
+			param_list = new HashMap<String, List<ExtraData>>();
+			List<ExtraData> eds = new ArrayList<ExtraData>();
+			param_list.put(u.toString(), eds);
+			if (key != null) {
+				List<String> keylist = voKey.getValueofVar(key, u, 0).getValues();
+				for (String res : keylist) {
+					ExtraData ed = new ExtraData();
+					ed.setName(res);
+					List<String> vallist = voVal.getValueofVar(val, u, 0).getValues();
+					ed.setValues(vallist);
+					eds.add(ed);
+				}
+			} else {
+				ExtraData ed = new ExtraData();
+				eds.add(ed);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		if (param_list == null || param_list.size() == 0) {
+			return null;
+		}
+		return param_list;
+	}
 	public Map<String, List<ExtraData>> getParamListBundle(Unit u) {
 		Value val = null;
 		int id = 0;
@@ -123,7 +196,6 @@ public class SetIntentExtraHandler extends UnitHandler {
 			e.printStackTrace();
 			return null;
 		}
-
 		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
 		try {
 			param_list = new HashMap<String, List<ExtraData>>();
@@ -149,7 +221,55 @@ public class SetIntentExtraHandler extends UnitHandler {
 		}
 		return param_list;
 	}
-
+//	/**
+//	 * get param list
+//	 * 
+//	 * @param u
+//	 * @return
+//	 */
+//	public Map<String, List<ExtraData>> getParamList(Unit u) {
+//		Value var = null;
+//		try {
+//			var = getVarInExtraStmt(u);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//
+//		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
+//		try {
+//			int id = 0;
+//			Context objContextInner = new Context();
+//			if (oldContextwithRealValue != null) {
+//				objContextInner = constructContextObj(id + 1, unit);
+//			}
+//			ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
+//
+//			param_list = new HashMap<String, List<ExtraData>>();
+//			// same u -->multiple str
+//			List<ExtraData> eds = new ArrayList<ExtraData>();
+//			param_list.put(u.toString(), eds);
+//			if (var != null) {
+//				List<String> reslist = vo.getValueofVar(var, u, 0).getValues();
+//				for (String res : reslist) {
+//					ExtraData ed = new ExtraData();
+//					ed.setName(res);
+//					eds.add(ed);
+//				}
+//			} else {
+//				ExtraData ed = new ExtraData();
+//				eds.add(ed);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//
+//		if (param_list == null || param_list.size() == 0) {
+//			return null;
+//		}
+//		return param_list;
+//	}
 	/**
 	 * gen_bundle_type
 	 * 
@@ -158,11 +278,12 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 * @throws Exception
 	 */
 	public BundleType genBundleType(Unit bundleUnit) throws Exception {
-		List<Unit> defs = new ArrayList<Unit>();
-		if(SootUtils.getInvokeExp(bundleUnit)!=null && SootUtils.getInvokeExp(bundleUnit).getArgCount()>1){
-			defs = SootUtils.getDefOfLocal(methodSig,SootUtils.getInvokeExp(bundleUnit).getArg(1), bundleUnit);
-		}
 		BundleType bt = new BundleType();
+		List<Unit> defs = new ArrayList<Unit>();
+		InvokeExpr invokeExpr = SootUtils.getInvokeExp(bundleUnit);
+		if(invokeExpr!=null && invokeExpr.getArgCount()>0){
+			defs = SootUtils.getDefOfLocal(methodSig,SootUtils.getInvokeExp(bundleUnit).getArg(invokeExpr.getArgCount()-1), bundleUnit);
+		}
 		if(defs.size() ==0) return bt;
 		
 		Unit u = defs.get(0);
@@ -174,7 +295,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 			if(useUnit == bundleUnit) continue;
 			if (!ICTGAnalyzerHelper.isSetIntentExtraMethod(useUnit.toString()))
 				continue;
-			Map<String, List<ExtraData>> param_list = getParamList(useUnit);
+			Map<String, List<ExtraData>> param_list = getParamListNormal(useUnit);
 			if (param_list == null)
 				continue;
 			String type = ICTGAnalyzerHelper.getTypeOfSetBundleExtra(useUnit.toString());
@@ -210,55 +331,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 		return bt;
 	}
 
-	/**
-	 * get param list
-	 * 
-	 * @param u
-	 * @return
-	 */
-	public Map<String, List<ExtraData>> getParamList(Unit u) {
-		Value var = null;
-		try {
-			var = getVarInExtraStmt(u);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
-		try {
-			int id = 0;
-			Context objContextInner = new Context();
-			if (oldContextwithRealValue != null) {
-				objContextInner = constructContextObj(id + 1, unit);
-			}
-			ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
-
-			param_list = new HashMap<String, List<ExtraData>>();
-			// same u -->multiple str
-			List<ExtraData> eds = new ArrayList<ExtraData>();
-			param_list.put(u.toString(), eds);
-			if (var != null) {
-				List<String> reslist = vo.getValueofVar(var, u, 0).getValues();
-				for (String res : reslist) {
-					ExtraData ed = new ExtraData();
-					ed.setName(res);
-					eds.add(ed);
-				}
-			} else {
-				ExtraData ed = new ExtraData();
-				eds.add(ed);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		if (param_list == null || param_list.size() == 0) {
-			return null;
-		}
-		return param_list;
-	}
+	
 
 	/**
 	 * 
@@ -332,65 +405,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 		return res;
 	}
 
-	/**
-	 * get param list
-	 * 
-	 * @param u
-	 * @return
-	 */
-	public Map<String, List<ExtraData>> getParamListNormal(Unit u) {
-		Value key = null;
-		Value val = null;
-		int idKey = 0, idVal = 1;
-		Context objContextInnerKey = new Context();
-		if (oldContextwithRealValue != null) {
-			objContextInnerKey = constructContextObj(idKey + 1, unit);
-		}
-		Context objContextInnerVal = new Context();
-		if (oldContextwithRealValue != null) {
-			objContextInnerVal = constructContextObj(idVal + 1, unit);
-		}
-		try {
-			key = getVarInExtraStmt(u, idKey);
-			val = getVarInExtraStmt(u, idVal);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
-		try {
-
-			ValueObtainer voKey = new ValueObtainer(methodSig, ConstantUtils.FLAGEXTRA, objContextInnerKey,
-					new Counter());
-			ValueObtainer voVal = new ValueObtainer(methodSig, ConstantUtils.FLAGEXTRA, objContextInnerVal,
-					new Counter());
-			param_list = new HashMap<String, List<ExtraData>>();
-			List<ExtraData> eds = new ArrayList<ExtraData>();
-			param_list.put(u.toString(), eds);
-			if (key != null) {
-				List<String> keylist = voKey.getValueofVar(key, u, 0).getValues();
-				for (String res : keylist) {
-					ExtraData ed = new ExtraData();
-					ed.setName(res);
-					List<String> vallist = voVal.getValueofVar(val, u, 0).getValues();
-					ed.setValues(vallist);
-					eds.add(ed);
-				}
-			} else {
-				ExtraData ed = new ExtraData();
-				eds.add(ed);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		if (param_list == null || param_list.size() == 0) {
-			return null;
-		}
-		return param_list;
-	}
+	
 
 	/**
 	 * get object name of the par and ser objs

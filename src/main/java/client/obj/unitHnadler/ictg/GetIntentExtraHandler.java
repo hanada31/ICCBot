@@ -49,12 +49,13 @@ public class GetIntentExtraHandler extends UnitHandler {
 	 */
 	void getExtraAPIAnalyze(Unit u) {
 		// for each unit contains extras
+		
 		String type = ICTGAnalyzerHelper.getTypeOfIntentExtra(u.toString());
 		Map<String, List<ExtraData>> param_list;
 		param_list = getParamList(u);
 		if (param_list == null)
 			return;
-		if (SootUtils.isBundleExtra(type)||SootUtils.isExtrasExtra(type)) {
+		if (SootUtils.isBundleExtra(type)) {
 			BundleType bundle_type = null;
 			try {
 				bundle_type = genBundleType(u);
@@ -83,13 +84,9 @@ public class GetIntentExtraHandler extends UnitHandler {
 				param_list = null;
 				return;
 			}
-			bundle_type.setType(type);
-			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
-				for (ExtraData ed : en.getValue())
-					ed.setType(bundle_type);
-			}
-
-		} else if (SootUtils.isParOrSerExtra(type)) {
+			List<ExtraData> bundleList = new ArrayList<ExtraData>(bundle_type.getExtraDatas()); 
+			param_list.put(u.toString(), bundleList);
+		}else if (SootUtils.isParOrSerExtra(type)) {
 			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
 				for (ExtraData ed : en.getValue()) {
 					ed.setType(type);
@@ -223,7 +220,6 @@ public class GetIntentExtraHandler extends UnitHandler {
 	 * @throws Exception
 	 */
 	public BundleType genBundleType(Unit u) throws Exception {
-		// TODO
 		BundleType bt = new BundleType();
 		List<UnitValueBoxPair> use_var_list = SootUtils.getUseOfLocal(methodSig, u);
 		if (use_var_list == null)
