@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConstantUtils {
+	public static final Object VERSION = "1.0";
+
 	public static final String ACTIVITY = "Activity";
 	public static final String SERVICE = "Service";
 	public static final String RECEIVER = "Receiver";
@@ -294,7 +296,7 @@ public class ConstantUtils {
 
 	public static final String[] safePrefix = { "<android.content.Intent",
 			"<android.content.Context: java.lang.Object getSystemService(java.lang.String)>" };
-	public static final String[] exitpoint = { "finish()", "throw " };
+	public static final String[]  exitpoint= { "finish()", "throw " };
 
 	public static String[] fragmentClasses = { "android.app.Fragment",
 			"com.actionbarsherlock.app.SherlockListFragment", "android.support.v4.app.Fragment",

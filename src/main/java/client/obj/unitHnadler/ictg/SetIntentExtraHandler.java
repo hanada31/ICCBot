@@ -64,6 +64,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 * 
 	 * @param u
 	 * @param singleFrag
+	 * @throws Exception 
 	 */
 	void setExtraAPIAnalyze(Unit u) {
 		// step1: get type of extra through the assignment
@@ -77,27 +78,22 @@ public class SetIntentExtraHandler extends UnitHandler {
 		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
 		if (SootUtils.isBundleExtra(type)) {
 			param_list = getParamListBundle(u);
-			BundleType bundle_type = null;
-			try {
-				bundle_type = genBundleType(u);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
-			}
-			if (bundle_type == null) {
-				param_list = null;
-				return;
-			}
-			bundle_type.setType(type);
 			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
-				for (ExtraData ed : en.getValue())
+				for (ExtraData ed : en.getValue()){
+					BundleType bundle_type = genBundleType(u,ed);
+					if (bundle_type == null) {
+						param_list = null;
+						return;
+					}
+					bundle_type.setType(type);
 					ed.setType(bundle_type);
+				}
 			}
 		} else if (SootUtils.isExtrasExtra(type)) {
 			param_list = getParamListBundle(u);
 			BundleType bundle_type = null;
 			try {
-				bundle_type = genBundleType(u);
+				bundle_type = genBundleType(u,null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -277,7 +273,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	public BundleType genBundleType(Unit bundleUnit) throws Exception {
+	public BundleType genBundleType(Unit bundleUnit, ExtraData parent) {
 		BundleType bt = new BundleType();
 		List<Unit> defs = new ArrayList<Unit>();
 		InvokeExpr invokeExpr = SootUtils.getInvokeExp(bundleUnit);
@@ -299,18 +295,18 @@ public class SetIntentExtraHandler extends UnitHandler {
 			if (param_list == null)
 				continue;
 			String type = ICTGAnalyzerHelper.getTypeOfSetBundleExtra(useUnit.toString());
-
 			if (!SootUtils.isBundleExtra(type) && !SootUtils.isExtrasExtra(type)) {
 				for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
 					for (ExtraData ed : en.getValue()) {
 						ed.setType(type);
+						ed.setParent(parent);
 					}
 					bt.put(en.getKey(), en.getValue());
 				}
 			} else {
 				BundleType bundle_type = null;
 				try {
-					bundle_type = genBundleType(useUnit);
+					bundle_type = genBundleType(useUnit, parent);
 				} catch (Exception e) {
 					e.printStackTrace();
 					continue;
@@ -323,6 +319,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 				for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
 					for (ExtraData ed : en.getValue()) {
 						ed.setType(bundle_type);
+						ed.setParent(parent);
 					}
 					bt.put(en.getKey(), en.getValue());
 				}

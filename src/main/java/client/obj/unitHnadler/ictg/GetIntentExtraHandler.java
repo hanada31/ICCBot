@@ -56,26 +56,21 @@ public class GetIntentExtraHandler extends UnitHandler {
 		if (param_list == null)
 			return;
 		if (SootUtils.isBundleExtra(type)) {
-			BundleType bundle_type = null;
-			try {
-				bundle_type = genBundleType(u);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
-			}
-			if (bundle_type == null) {
-				param_list = null;
-				return;
-			}
-			bundle_type.setType(type);
 			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
-				for (ExtraData ed : en.getValue())
+				for (ExtraData ed : en.getValue()){
+					BundleType bundle_type = genBundleType(u,ed);
+					if (bundle_type == null) {
+						param_list = null;
+						return;
+					}
+					bundle_type.setType(type);
 					ed.setType(bundle_type);
+				}
 			}
 		} else if (SootUtils.isExtrasExtra(type)) {
 			BundleType bundle_type = null;
 			try {
-				bundle_type = genBundleType(u);
+				bundle_type = genBundleType(u,null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -219,7 +214,7 @@ public class GetIntentExtraHandler extends UnitHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	public BundleType genBundleType(Unit u) throws Exception {
+	public BundleType genBundleType(Unit u, ExtraData parent) {
 		BundleType bt = new BundleType();
 		List<UnitValueBoxPair> use_var_list = SootUtils.getUseOfLocal(methodSig, u);
 		if (use_var_list == null)
@@ -237,13 +232,14 @@ public class GetIntentExtraHandler extends UnitHandler {
 				for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
 					for (ExtraData ed : en.getValue()) {
 						ed.setType(type);
+						ed.setParent(parent);
 					}
 					bt.put(en.getKey(), en.getValue());
 				}
 			} else {
 				BundleType bundle_type = null;
 				try {
-					bundle_type = genBundleType(useUnit);
+					bundle_type = genBundleType(useUnit,parent);
 				} catch (Exception e) {
 					e.printStackTrace();
 					continue;
@@ -256,6 +252,7 @@ public class GetIntentExtraHandler extends UnitHandler {
 				for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
 					for (ExtraData ed : en.getValue()) {
 						ed.setType(bundle_type);
+						ed.setParent(parent);
 					}
 					bt.put(en.getKey(), en.getValue());
 				}
