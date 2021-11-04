@@ -159,6 +159,9 @@ public class ValueObtainer {
 												depth + 1).getValues());
 										return resList;
 									}
+								}else if(val.toString().contains("getPackageName()")){
+									resList.addValue(Global.v().getAppModel().getPackageName());
+									return resList;
 								}
 								JAssignStmt ass = (JAssignStmt) defUnit;
 								List<Body> bodys = SootUtils.getBodySetofMethod(ass.getInvokeExpr().getMethod());
@@ -394,7 +397,8 @@ public class ValueObtainer {
 			InvokeExpr InvokeExpr = SootUtils.getInvokeExp(u);
 			if (InvokeExpr.getArgCount() > 0) {
 				Value strVal = InvokeExpr.getArg(0);
-				resVal.addValue(strVal.toString());
+				for (String val: getValueofVar(strVal, u, depth + 1).getValues())
+					resVal.addValue(val);
 			}
 		} else if (u.toString().contains("substring")) {
 			JAssignStmt jas1 = (JAssignStmt) u;

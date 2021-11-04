@@ -52,6 +52,7 @@ import org.dom4j.tree.DefaultElement;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.ValueFilter;
 
@@ -570,6 +571,11 @@ public class ICTGClientOutput {
 	 * @param component
 	 */
 	public void writeComponentModelJson(String dir, String file) {
+		JSONObject rootElement = new JSONObject(new LinkedHashMap());
+		rootElement.put("package", new String(Global.v().getAppModel().getPackageName()));
+		rootElement.put("version", ConstantUtils.VERSION);
+		
+		
 		List<Object> componentList = new ArrayList<Object>();
 		for (String className : Global.v().getAppModel().getComponentMap().keySet()) {
 			ComponentModel component = Global.v().getAppModel().getComponentMap().get(className);
@@ -580,7 +586,7 @@ public class ICTGClientOutput {
 	        putAttributeSeed2componenetMap(componenetMap, component);
 		}
 		
-		JSONArray jsonObject = (JSONArray) JSONArray.toJSON(componentList);
+		rootElement.put("components", componentList);
 		ValueFilter filter = new ValueFilter() {
 			@Override
 			public Object process(Object object, String name, Object value) {
@@ -597,7 +603,7 @@ public class ICTGClientOutput {
 				return value;
 			}
 		};
-		String jsonString = JSON.toJSONString(jsonObject, filter, SerializerFeature.PrettyFormat, 
+		String jsonString = JSON.toJSONString(rootElement, filter, SerializerFeature.PrettyFormat, 
 				SerializerFeature.DisableCircularReferenceDetect);
         FileUtils.writeText2File(dir+ file+".json", jsonString, false);
         FileUtils.writeText2File(dir+ file+"_typeValue.json", TypeValueUtil.getTypevalueJsonString(), false);
@@ -682,7 +688,8 @@ public class ICTGClientOutput {
 			
 			Set<ExtraData> mixtRes = new HashSet<ExtraData>();
 			if(sendRes != null) ExtraData.merge( mixtRes, sendRes);
-			if(receivetRes != null) ExtraData.merge( mixtRes, receivetRes);
+			if(receivetRes != null) 
+				ExtraData.merge( mixtRes, receivetRes);
 			putToMapIfNotAbsent("mixIntent",JSONArray.toJSON(mixtRes), attriMap);
 
 		}else{

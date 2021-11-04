@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import main.java.analyze.utils.IntUtil;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
@@ -15,29 +17,45 @@ import main.java.client.obj.model.component.ExtraData;
 
 public class ExtraData implements Serializable, Cloneable {
 	private static final long serialVersionUID = 4L;
+	@JSONField
 	private Object type;
+	private ExtraData parent;
+	@JSONField
 	private String name;
 	private String eaName;
 	private String objName;
+	@JSONField
+	private final int id = ++IntUtil.extraDataId;
+	@JSONField
+	private int parentId;
+	@JSONField
 	private List<String> values;
-	private final int id = IntUtil.extraDataId++;
+	
+	public ExtraData() {
+		this.setName("");
+		this.eaName = "";
+		this.setObjName("");
+		this.setValues(new ArrayList<String>());
 
+	}
 	public ExtraData(String name) {
 		super();
 		this.setName(name);
 	}
 
-	public ExtraData() {
+	public ExtraData(BundleType bundleType, String string, String eaName2, String string2, List<String> list, ExtraData parent2) {
 		this.setName("");
 		this.eaName = "";
+		this.setParent(parent2);
 //		this.setValue(new ArrayList<String>());
 
 	}
 
-	public ExtraData(Object type2, String name2, String eaName2, String objName2, List<String> value2) {
+	public ExtraData(Object type2, String name2, String eaName2, String objName2, List<String> value2, ExtraData parent2) {
 		this.setType(type2);
 		this.setName(name2);
 		this.eaName = eaName2;
+		this.setParent(parent2);
 //		this.setValue(new ArrayList<String>());
 	}
 
@@ -112,37 +130,16 @@ public class ExtraData implements Serializable, Cloneable {
 		}
 		return res;
 	}
-//	
-//	@Override
-//	public String toString() {
-//		String n = "what";
-//		if (name == null)
-//			n = "null";
-//		else
-//			n = name;
-//		if (type == null) {
-//			return "null-" + n + ",";
-//		} else if (type instanceof String) {
-//			// if(((String) type).contains("Parcelable"))
-//			// return type+"@"+objName+"-" +n+",";
-//			return type + "-" + n + ",";
-//		} else {
-//			BundleType bt = (BundleType) type;
-//			return bt.type + "-" + n + ",(," + bt.toString() + "),";
-//		}
-//	}
-//	
-	
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		ExtraData ed;
 		if(obtainExtraDataType() instanceof BundleType){
 			BundleType bt = (BundleType) obtainExtraDataType();
-			ed = new ExtraData(bt.clone(), getName(), eaName, getObjName(), getValues());
+			ed = new ExtraData(bt.clone(), getName(), eaName, getObjName(), getValues(), parent);
 		}
 		else{
-			ed = new ExtraData(obtainExtraDataType(), getName(), eaName, getObjName(), getValues());
+			ed = new ExtraData(obtainExtraDataType(), getName(), eaName, getObjName(), getValues(),parent);
 		}
 		return ed;
 	}
@@ -210,11 +207,11 @@ public class ExtraData implements Serializable, Cloneable {
 	 */
 	public static void merge(Set<ExtraData> oldSet, Set<ExtraData> newSet) {
 		for(ExtraData newExtraData : newSet){
-			whetherAddNewData2TwoOldSet(oldSet,newExtraData);
+			addNewData2OldSet(oldSet,newExtraData);
 		}
 	}
 
-	private static void whetherAddNewData2TwoOldSet(Set<ExtraData> oldSet, ExtraData newExtraData) {
+	private static void addNewData2OldSet(Set<ExtraData> oldSet, ExtraData newExtraData) {
 		boolean addEle = true;
 		for(ExtraData oldExtraData : oldSet){
 			if(oldExtraData.covers(newExtraData)){//do not add new one into oldSet, terminate add
@@ -229,10 +226,11 @@ public class ExtraData implements Serializable, Cloneable {
 						ExtraData mixExtraData = (ExtraData) oldExtraData.clone();
 						BundleType newBt = (BundleType)newExtraData.obtainExtraDataType();
 						BundleType mixBt = (BundleType)mixExtraData.obtainExtraDataType();
-						merge( mixBt.getExtraDatas(), newBt.getExtraDatas());
-						
-						oldSet.remove(oldExtraData);
-						oldSet.add(mixExtraData);
+						if(newBt!=null && mixBt!=null){
+							merge( mixBt.getExtraDatas(), newBt.getExtraDatas());
+							oldSet.remove(oldExtraData);
+							oldSet.add(mixExtraData);
+						}
 					} catch (CloneNotSupportedException e) {
 						e.printStackTrace();
 					}
@@ -250,4 +248,31 @@ public class ExtraData implements Serializable, Cloneable {
 	public int getId() {
 		return id;
 	}
+	
+	/**
+	 * @param parent the parent to set
+	 */
+	public void setParent(ExtraData parent) {
+		this.parent = parent;
+		if(parent==null)
+			this.setParentId(0);
+		else {
+			this.setParentId(parent.getId());
+		}
+	}
+
+	/**
+	 * @return the parentId
+	 */
+	public int getParentId() {
+		return parentId;
+	}
+
+	/**
+	 * @param parentId the parentId to set
+	 */
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
 }

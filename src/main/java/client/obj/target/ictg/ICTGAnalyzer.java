@@ -268,7 +268,7 @@ public class ICTGAnalyzer extends ObjectAnalyzer {
 		if (!findTarget) {
 			String res = "interICC_" + PrintUtils.printList(summaryActionSet) + ", "
 					+ PrintUtils.printList(summaryCateSet);
-			res = res.substring(0, res.length() - 2);
+			res = res.substring(0, res.length());
 			resSet.add(res);
 		}
 	}
