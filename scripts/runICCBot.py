@@ -19,7 +19,7 @@ if __name__ == '__main__' :
     path = "apk/"
     sdk = "lib/"    
     os.system("mvn -f pom.xml clean package")
-    shutil.copy("target/ICCBot-1.0-SNAPSHOT.one-jar.jar", "ICCBot.jar")
+    shutil.copy("target/ICCBot-1.0-SNAPSHOT-jar-with-dependencies", "ICCBot.jar")
     if(not os.path.exists(logDir)): 
         os.makedirs(logDir) 
     analyzeApk(path, sdk)

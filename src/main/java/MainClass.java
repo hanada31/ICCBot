@@ -26,6 +26,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.slf4j.Logger;
 
 /**
  * Main Class of Android ICC Resolution Tool ICCBot
@@ -376,11 +377,11 @@ public class MainClass {
 		String name;
 //		name = "scidonthego";
 		name = "TestJsonOutput";
+		name = "ICCBotDemo";
 		String client = "ICTGClient";
 //		client = "TestGenerationClient";
 //		client = "GatorClient";
 //		client = "CallGraphClient";
-
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
