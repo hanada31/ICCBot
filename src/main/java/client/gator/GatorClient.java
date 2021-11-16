@@ -65,7 +65,7 @@ public class GatorClient  extends BaseClient {
 		           "-libraryPackageListFile", "data/libPackages.txt",
 		           "-android", "lib/platforms/android-1/android.jar",
 		           "-client", MyConfig.getInstance().getGatorClient()};
-		presto.android.Main.main(args);
+//		presto.android.Main.main(args);
 		
 	}
 
