@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public class GetTypeHandler extends DataHandler {
 
@@ -14,7 +14,6 @@ public class GetTypeHandler extends DataHandler {
 		for (String data : dataSet)
 			newDataSet.add(data.replace("\"", ""));
 
-		intentSummary.getGetTypeCandidateList().clear();
 		intentSummary.getGetTypeCandidateList().addAll(newDataSet);
 		return;
 	}

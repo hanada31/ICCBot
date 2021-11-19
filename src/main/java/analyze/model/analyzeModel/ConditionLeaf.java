@@ -75,17 +75,17 @@ public class ConditionLeaf extends Condition {
 	@Override
 	public String toString() {
 		String newCond = null;
-		 if(getUpdatedAttri()==null){
-		 if(!isSatisfy())
-		 newCond = "NOT (" + getConditionNode().toString()+")";
-		 else
-		 newCond = getConditionNode().toString();
-		 }else{
-		 newCond = getUpdatedAttri().toString().replace("\n", "");
-		 }
-		 if(getPointToUnit()!=null)
-		 newCond += ", pointTo: "+ PrintUtils.printList(getPointToUnit())+"-"
-		 + getPointToUnit().hashCode();
+//		 if(getUpdatedAttri()==null){
+//		 if(!isSatisfy())
+//		 newCond = "NOT (" + getConditionNode().toString()+")";
+//		 else
+//		 newCond = getConditionNode().toString();
+//		 }else{
+//		 newCond = getUpdatedAttri().toString().replace("\n", "");
+//		 }
+//		 if(getPointToUnit()!=null)
+//		 newCond += ", pointTo: "+ PrintUtils.printList(getPointToUnit())+"-"
+//		 + getPointToUnit().hashCode();
 		if (getUpdatedAttri() != null) {
 			newCond = getUpdatedAttri().toString().replace("\n", "");
 			if (getPointToUnit() != null)

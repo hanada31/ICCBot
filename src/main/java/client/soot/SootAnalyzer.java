@@ -32,7 +32,7 @@ public class SootAnalyzer extends Analyzer {
 			for (SootClass sc : Scene.v().getApplicationClasses()) {
 				Global.v().getAppModel().addApplicationClassNames(sc.getName());
 			}
-			System.out.println("addApplicationClasses finish");
+			System.out.println("Soot Analysis finish.");
 		}
 	}
 

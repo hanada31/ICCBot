@@ -4,7 +4,7 @@ import java.util.Set;
 
 import main.java.Global;
 import main.java.analyze.utils.SootUtils;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public class AtgEdge {
 	private AtgNode source;

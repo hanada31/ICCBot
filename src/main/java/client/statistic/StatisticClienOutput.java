@@ -7,7 +7,7 @@ import java.util.Set;
 
 import main.java.Global;
 import main.java.analyze.utils.output.FileUtils;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 import main.java.client.statistic.model.ICCStatistic;
 import main.java.client.statistic.model.StatisticResult;
 import main.java.client.statistic.model.SummaryStatistic;

@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import javax.security.auth.x500.X500Principal;
-
 /**
  * Print related IO
  * 
@@ -95,7 +93,7 @@ public class PrintUtils {
 			return "";
 		String res = "";
 		for (Entry<?, ?> en : map.entrySet()) {
-			res += "(" + en.getKey() + ", " + en.getValue() + ")" + split;
+			res += "(Key:" + en.getKey() + "\nValues:" + en.getValue() + ")" + split;
 		}
 		if (res.length() > 0)
 			res = res.substring(0, res.length() - split.length());

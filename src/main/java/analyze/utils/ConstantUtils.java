@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConstantUtils {
+	public static final Object VERSION = "1.0";
+
 	public static final String ACTIVITY = "Activity";
 	public static final String SERVICE = "Service";
 	public static final String RECEIVER = "Receiver";
@@ -14,9 +16,11 @@ public class ConstantUtils {
 	public static final String SOOTOUTPUT = "sootOutput";
 
 	// output files info
+	public static final String GATORFOLDER = "GatorInfo" + File.separator;
 	public static final String DUMMYFOLDETR = "DummyMainInfo" + File.separator;
 	public static final String CGFOLDETR = "CallGraphInfo" + File.separator;
 	public static final String ICTGFOLDETR = "CTGResult" + File.separator;
+	public static final String ICTGSPEC = "ICCSpecification" + File.separator;
 	public static final String IC3FOLDETR = "relatedTools" + File.separator + "IC3" + File.separator;
 	public static final String IC3DIALDROIDFOLDETR = "relatedTools" + File.separator + "IC3-Dial" + File.separator;
 	public static final String GATORFOLDETR = "relatedTools" + File.separator + "GATOR" + File.separator;
@@ -24,6 +28,7 @@ public class ConstantUtils {
 	public static final String MANIFOLDETR = "ManifestInfo" + File.separator;
 	public static final String STATFOLDETR = "statistic" + File.separator;
 	public static final String FRAGFOLDETR = "fragmentInfo" + File.separator;
+	public static final String FRAGTMPFOLDETR = "fragmentTmpInfo" + File.separator;
 	public static final String ORACLEFOLDETR = "CTGEvaluate" + File.separator;
 	public static final String LABELEDORACLEFOLDETR = "labeledOracle" + File.separator;
 
@@ -69,6 +74,8 @@ public class ConstantUtils {
 	public static final String RECEIVE = "Receive";
 	public static final String SEND = "Send";
 	public static final String ACTDEC = "DeclaredModel.txt";
+	
+	public static final String COMPONENTMODELJSON = "ComponentModel";
 
 	// output files folder
 	public static final String TEAMPLATEFOLDER = "template" + File.separator;
@@ -229,6 +236,15 @@ public class ConstantUtils {
 			"boolean", "byteArray", "byte", "charArray", "char", "CharSequenceArray", "CharSequenceArrayList",
 			"CharSequence", "Bundle", "Extras", "String" };
 
+	// put extra method
+	public static final String[] putBundlleExtraMethods = {
+		"putDoubleArray(", "putDouble(", "putFloatArray(", "putFloat(", "putIntArray(", "putInt(", "putIntegerArrayList(",
+		"putLongArray(", "putLong(", "putParcelableArray(", "putParcelableArrayList(", "putParcelable(",
+		"putSerializable(", "putShort(", "putShortArray(", "putStringArray(", "putStringArrayList(", "putString(",
+		"putBooleanArray(", "putBoolean(", "putByteArray(", "putByte(", "putCharArray(", "putChar(",
+		"putCharSequenceArray(", "putCharSequenceArrayList(", "putCharSequence", "putBundle(", "putExtras",
+		"android.os.Bundle: java.lang.Object put" };
+	
 	// get extra method
 	public static final String[] getBundlleExtraMethods = {
 
@@ -246,6 +262,7 @@ public class ConstantUtils {
 			"ParcelableArray", "ParcelableArrayList", "Parcelable", "Serializable", "short", "shortArray",
 			"StringArray", "StringArrayList", "String", "booleanArray", "boolean", "byteArray", "byte", "charArray",
 			"char", "CharSequenceArray", "CharSequenceArrayList", "CharSequence", "Bundle", "Extras", "String" };
+
 
 	public static final String[] comparedMethods = { "contains", "equals", "contentEquals", "equalsIgnoreCase",
 			"startsWith", "endsWith", "!= null", "== null", "isEmpty", "valueOf", "copyValueOf", "==", "!=" };
@@ -281,7 +298,7 @@ public class ConstantUtils {
 
 	public static final String[] safePrefix = { "<android.content.Intent",
 			"<android.content.Context: java.lang.Object getSystemService(java.lang.String)>" };
-	public static final String[] exitpoint = { "finish()", "throw " };
+	public static final String[]  exitpoint= { "finish()", "throw " };
 
 	public static String[] fragmentClasses = { "android.app.Fragment",
 			"com.actionbarsherlock.app.SherlockListFragment", "android.support.v4.app.Fragment",

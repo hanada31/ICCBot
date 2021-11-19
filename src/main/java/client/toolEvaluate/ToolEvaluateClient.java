@@ -18,7 +18,7 @@ import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
-import main.java.client.obj.target.ictg.ICTGReaderClient;
+import main.java.client.obj.target.ctg.CTGReaderClient;
 import main.java.client.related.gator.GatorATGResultEvaluateClient;
 import main.java.client.related.ic3.IC3ResultEvaluateClient;
 import main.java.client.related.ic3dial.IC3DIALDroidResultEvaluateClient;
@@ -39,7 +39,7 @@ public class ToolEvaluateClient extends BaseClient {
 
 		new GatorATGResultEvaluateClient().start();
 
-		new ICTGReaderClient().start();
+		new CTGReaderClient().start();
 
 //		dynamicResultAnalyzer analyzer = new dynamicResultAnalyzer();
 //		analyzer.analyze();

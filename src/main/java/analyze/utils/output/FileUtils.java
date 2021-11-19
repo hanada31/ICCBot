@@ -12,10 +12,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.dom4j.Document;
@@ -349,6 +353,37 @@ public class FileUtils {
 		return list;
 	}
 
+	public static Map<String, Integer> getMapFromFile(String filename) {
+		Map<String, Integer> myMap = new HashMap<String, Integer>();
+		File file = new File(filename);
+		InputStream instream = null ;
+		InputStreamReader inputreader = null;
+		BufferedReader buffreader = null;
+		try {
+			instream = new FileInputStream(file);
+			if (instream != null) {
+				inputreader = new InputStreamReader(instream, "gbk"); 
+				buffreader = new BufferedReader(inputreader);
+				String line;
+				while ((line = buffreader.readLine()) != null) {
+					line = line.replace("\n", "");
+					String ss[] = line.split("\t\t");
+					myMap.put(ss[2], Integer.parseInt(ss[0]));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				buffreader.close();
+				inputreader.close();
+				instream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return myMap;
+	}
 	/**
 	 * output List to file
 	 * 
@@ -519,5 +554,4 @@ public class FileUtils {
 			}
 		}
 	}
-
 }
