@@ -21,9 +21,9 @@ import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.ExtraData;
 import main.java.client.obj.model.component.IntentFilterModel;
-import main.java.client.obj.model.ictg.ICCMsg;
-import main.java.client.obj.model.ictg.IntentRecieveModel;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.ICCMsg;
+import main.java.client.obj.model.ctg.IntentRecieveModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public class ICCGenerator extends Analyzer {
 	private String className;

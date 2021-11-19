@@ -18,7 +18,7 @@ import main.java.analyze.utils.StringUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.ComponentModel;
-import main.java.client.obj.model.ictg.ICCMsg;
+import main.java.client.obj.model.ctg.ICCMsg;
 
 /**
  * This test class shows how to use the API interface of ACTS to build a test

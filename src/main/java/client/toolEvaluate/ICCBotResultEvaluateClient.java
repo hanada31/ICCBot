@@ -4,7 +4,7 @@ import main.java.Global;
 import main.java.MyConfig;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
-import main.java.client.obj.target.ictg.ICTGReaderClient;
+import main.java.client.obj.target.ctg.CTGReaderClient;
 
 /**
  * Analyzer Class
@@ -17,7 +17,7 @@ public class ICCBotResultEvaluateClient extends BaseClient {
 	@Override
 	protected void clientAnalyze() {
 
-		new ICTGReaderClient().start();
+		new CTGReaderClient().start();
 		System.out.println("Successfully analyze with ICCBotResultEvaluateClient.");
 
 	}

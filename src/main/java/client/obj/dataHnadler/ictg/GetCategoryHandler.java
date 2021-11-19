@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public class GetCategoryHandler extends DataHandler {
 	@Override

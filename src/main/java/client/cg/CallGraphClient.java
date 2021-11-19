@@ -28,10 +28,10 @@ public class CallGraphClient extends BaseClient {
 
 		CgConstructor cgAnalyzer = new CgConstructor();
 		cgAnalyzer.analyze();
-		System.out.println("CgConstructor finish");
+		System.out.println("Call Graph Construction finish.");
 		CgModify cgModify = new CgModify();
 		cgModify.analyze();
-		System.out.println("CgModify finish");
+		System.out.println("Call Graph Enhancing finish.");
 
 		System.out.println("Successfully analyze with CallGraphClient.");
 

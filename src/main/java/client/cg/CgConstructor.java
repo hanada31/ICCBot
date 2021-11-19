@@ -92,7 +92,7 @@ public class CgConstructor extends Analyzer {
 		SootAnalyzer.sootInit();
 		sootTransform();
 		SootAnalyzer.sootEnd();
-		System.out.println("Call Graph has " + Scene.v().getCallGraph().size() + " edges.");
+//		System.out.println("Call Graph has " + Scene.v().getCallGraph().size() + " edges.");
 	}
 
 	/**

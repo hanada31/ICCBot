@@ -10,7 +10,7 @@ import main.java.analyze.model.sootAnalysisModel.Counter;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.Unit;
 import soot.Value;

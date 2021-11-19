@@ -6,8 +6,8 @@ import java.util.List;
 import soot.Unit;
 import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.model.labeledOracleModel.LabeledOracleModel;
+import main.java.client.obj.model.ctg.CTGModel;
 import main.java.client.obj.model.fragment.FragmentModel;
-import main.java.client.obj.model.ictg.ICTGModel;
 import main.java.client.related.gator.model.GatorModel;
 import main.java.client.related.ic3.model.IC3Model;
 
@@ -16,7 +16,7 @@ public class Global {
 	private AppModel appModel;
 	private IC3Model iC3Model;
 	private IC3Model iC3DialDroidModel;
-	private ICTGModel iCTGModel;
+	private CTGModel iCTGModel;
 	private GatorModel gatorModel;
 	private LabeledOracleModel labeledOracleModel;
 	private FragmentModel fragmentModel;
@@ -42,7 +42,7 @@ public class Global {
 		iC3Model = new IC3Model();
 		iC3DialDroidModel = new IC3Model();
 		fragmentModel = new FragmentModel();
-		iCTGModel = new ICTGModel();
+		iCTGModel = new CTGModel();
 		setGatorModel(new GatorModel());
 		setInstrumentList(new ArrayList<Unit>());
 		labeledOracleModel = new LabeledOracleModel();
@@ -65,7 +65,7 @@ public class Global {
 	/**
 	 * @return the iCTGModel
 	 */
-	public ICTGModel getiCTGModel() {
+	public CTGModel getiCTGModel() {
 		return iCTGModel;
 	}
 

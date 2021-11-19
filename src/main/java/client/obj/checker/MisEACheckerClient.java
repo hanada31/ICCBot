@@ -17,9 +17,9 @@ import main.java.client.cg.DynamicReceiverCGAnalyzer;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.obj.ObjectAnalyzer;
 import main.java.client.obj.model.component.ComponentModel;
+import main.java.client.obj.target.ctg.CTGAnalyzer;
+import main.java.client.obj.target.ctg.StaticValueAnalyzer;
 import main.java.client.obj.target.fragment.FragmentClient;
-import main.java.client.obj.target.ictg.ICTGAnalyzer;
-import main.java.client.obj.target.ictg.StaticValueAnalyzer;
 import main.java.client.soot.IROutputClient;
 import main.java.client.statistic.model.StatisticResult;
 
@@ -34,7 +34,7 @@ public class MisEACheckerClient  extends BaseClient {
 			new ManifestClient().start();
 			MyConfig.getInstance().setManifestAnalyzeFinish(true);
 		}
-		if (!MyConfig.getInstance().isWriteSootOutput()) {
+		if (MyConfig.getInstance().isWriteSootOutput()) {
 			new IROutputClient().start();
 		}
 

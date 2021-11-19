@@ -15,7 +15,7 @@ import java.util.Set;
 import main.java.analyze.model.analyzeModel.Attribute;
 import main.java.analyze.utils.CollectionUtils;
 import main.java.analyze.utils.MapValueComparator;
-import main.java.client.obj.model.ictg.ICCMsg;
+import main.java.client.obj.model.ctg.ICCMsg;
 
 public class CollectionUtils {
 
