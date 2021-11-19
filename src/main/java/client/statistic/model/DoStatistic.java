@@ -17,10 +17,10 @@ import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
+import main.java.client.obj.model.ctg.IntentRecieveModel;
+import main.java.client.obj.model.ctg.IntentSummaryFeatureExtractor;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 import main.java.client.obj.model.fragment.FragmentSummaryModel;
-import main.java.client.obj.model.ictg.IntentRecieveModel;
-import main.java.client.obj.model.ictg.IntentSummaryFeatureExtractor;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
 
 import org.dom4j.Attribute;
 import org.dom4j.Element;

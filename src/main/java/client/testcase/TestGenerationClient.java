@@ -8,8 +8,8 @@ import main.java.MyConfig;
 import main.java.SummaryLevel;
 import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.utils.output.PrintUtils;
-import main.java.client.obj.model.ictg.ICCMsg;
-import main.java.client.obj.target.ictg.ICTGClient;
+import main.java.client.obj.model.ctg.ICCMsg;
+import main.java.client.obj.target.ctg.CTGClient;
 import main.java.client.testcase.TestGenerationClient;
 
 import org.dom4j.DocumentException;
@@ -22,7 +22,7 @@ import soot.jimple.infoflow.android.iccta.Ic3Data.Application.Component;
  * @author hanada
  * @version 2.0
  */
-public class TestGenerationClient extends ICTGClient {
+public class TestGenerationClient extends CTGClient {
 	AppModel appModel = Global.v().getAppModel();
 	
 	@Override

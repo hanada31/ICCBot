@@ -29,9 +29,9 @@ import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
+import main.java.client.obj.target.ctg.CTGAnalyzer;
 import main.java.client.obj.target.fragment.FragmentAnalyzerHelper;
-import main.java.client.obj.target.ictg.ICTGAnalyzer;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import main.java.client.statistic.model.StatisticResult;
 import soot.Body;
@@ -81,7 +81,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		/** according to the topology order **/
 		Global.v().id = 0;
 		for (SootMethod m : topoQueue) {
-			if (this instanceof ICTGAnalyzer) {
+			if (this instanceof CTGAnalyzer) {
 				Global.v().id++;
 				if (Global.v().id % 200 == 0)
 					System.out.println("This is the method #" + Global.v().id + "/"

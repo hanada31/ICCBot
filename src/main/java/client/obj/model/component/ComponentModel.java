@@ -6,8 +6,8 @@ import java.util.List;
 
 import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.utils.output.PrintUtils;
-import main.java.client.obj.model.ictg.IntentRecieveModel;
-import main.java.client.obj.model.ictg.IntentSendModel;
+import main.java.client.obj.model.ctg.IntentRecieveModel;
+import main.java.client.obj.model.ctg.IntentSendModel;
 
 /**
  * ComponentModel

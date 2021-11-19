@@ -20,6 +20,7 @@ public class ConstantUtils {
 	public static final String DUMMYFOLDETR = "DummyMainInfo" + File.separator;
 	public static final String CGFOLDETR = "CallGraphInfo" + File.separator;
 	public static final String ICTGFOLDETR = "CTGResult" + File.separator;
+	public static final String ICTGSPEC = "ICCSpecification" + File.separator;
 	public static final String IC3FOLDETR = "relatedTools" + File.separator + "IC3" + File.separator;
 	public static final String IC3DIALDROIDFOLDETR = "relatedTools" + File.separator + "IC3-Dial" + File.separator;
 	public static final String GATORFOLDETR = "relatedTools" + File.separator + "GATOR" + File.separator;
@@ -27,6 +28,7 @@ public class ConstantUtils {
 	public static final String MANIFOLDETR = "ManifestInfo" + File.separator;
 	public static final String STATFOLDETR = "statistic" + File.separator;
 	public static final String FRAGFOLDETR = "fragmentInfo" + File.separator;
+	public static final String FRAGTMPFOLDETR = "fragmentTmpInfo" + File.separator;
 	public static final String ORACLEFOLDETR = "CTGEvaluate" + File.separator;
 	public static final String LABELEDORACLEFOLDETR = "labeledOracle" + File.separator;
 

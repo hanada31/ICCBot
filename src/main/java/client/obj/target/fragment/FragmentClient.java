@@ -13,7 +13,7 @@ import main.java.client.BaseClient;
 import main.java.client.cg.CallGraphClient;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.obj.ObjectAnalyzer;
-import main.java.client.obj.target.ictg.StaticValueAnalyzer;
+import main.java.client.obj.target.ctg.StaticValueAnalyzer;
 import main.java.client.statistic.model.StatisticResult;
 
 import org.dom4j.DocumentException;

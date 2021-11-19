@@ -16,8 +16,8 @@ import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ExtraData;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
-import main.java.client.obj.target.ictg.ICTGAnalyzerHelper;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
+import main.java.client.obj.target.ctg.CTGAnalyzerHelper;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.SootMethod;
 import soot.Type;
@@ -68,7 +68,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 */
 	void setExtraAPIAnalyze(Unit u) {
 		// step1: get type of extra through the assignment
-		String type = ICTGAnalyzerHelper.getTypeOfSetBundleExtra(u.toString());
+		String type = CTGAnalyzerHelper.getTypeOfSetBundleExtra(u.toString());
 		if(type == null){
 			InvokeExpr invokStmt = SootUtils.getInvokeExp(u);
 			List<Type> types = invokStmt.getMethodRef().getParameterTypes();
@@ -289,12 +289,12 @@ public class SetIntentExtraHandler extends UnitHandler {
 		for (int i = 0; i < use_var_list.size(); i++) {
 			Unit useUnit = use_var_list.get(i).getUnit();
 			if(useUnit == bundleUnit) continue;
-			if (!ICTGAnalyzerHelper.isSetIntentExtraMethod(useUnit.toString()))
+			if (!CTGAnalyzerHelper.isSetIntentExtraMethod(useUnit.toString()))
 				continue;
 			Map<String, List<ExtraData>> param_list = getParamListNormal(useUnit);
 			if (param_list == null)
 				continue;
-			String type = ICTGAnalyzerHelper.getTypeOfSetBundleExtra(useUnit.toString());
+			String type = CTGAnalyzerHelper.getTypeOfSetBundleExtra(useUnit.toString());
 			if (!SootUtils.isBundleExtra(type) && !SootUtils.isExtrasExtra(type)) {
 				for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
 					for (ExtraData ed : en.getValue()) {

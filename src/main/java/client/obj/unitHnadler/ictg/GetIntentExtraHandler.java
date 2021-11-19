@@ -13,8 +13,8 @@ import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ExtraData;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
-import main.java.client.obj.target.ictg.ICTGAnalyzerHelper;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
+import main.java.client.obj.target.ctg.CTGAnalyzerHelper;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.SootMethod;
 import soot.Unit;
@@ -50,7 +50,7 @@ public class GetIntentExtraHandler extends UnitHandler {
 	void getExtraAPIAnalyze(Unit u) {
 		// for each unit contains extras
 		
-		String type = ICTGAnalyzerHelper.getTypeOfIntentExtra(u.toString());
+		String type = CTGAnalyzerHelper.getTypeOfIntentExtra(u.toString());
 		Map<String, List<ExtraData>> param_list;
 		param_list = getParamList(u);
 		if (param_list == null)
@@ -221,12 +221,12 @@ public class GetIntentExtraHandler extends UnitHandler {
 			return bt;
 		for (int i = 0; i < use_var_list.size(); i++) {
 			Unit useUnit = use_var_list.get(i).getUnit();
-			if (!ICTGAnalyzerHelper.isGetBundleExtraMethod(useUnit.toString()))
+			if (!CTGAnalyzerHelper.isGetBundleExtraMethod(useUnit.toString()))
 				continue;
 			Map<String, List<ExtraData>> param_list = getParamList(useUnit);
 			if (param_list == null)
 				continue;
-			String type = ICTGAnalyzerHelper.getTypeOfGetBundleExtra(useUnit.toString());
+			String type = CTGAnalyzerHelper.getTypeOfGetBundleExtra(useUnit.toString());
 
 			if (!SootUtils.isBundleExtra(type) && !SootUtils.isExtrasExtra(type)) {
 				for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {

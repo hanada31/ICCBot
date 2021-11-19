@@ -18,7 +18,7 @@ import main.java.analyze.utils.StringUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.Unit;
 import soot.Value;
