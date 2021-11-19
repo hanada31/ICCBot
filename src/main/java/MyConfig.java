@@ -23,6 +23,7 @@ public class MyConfig {
 	private String appName;
 	private String appPath;
 	private String client;
+	private String gatorClient;
 	private int timeLimit;
 	private int maxPathNumber;
 	private String androidJar;
@@ -286,5 +287,19 @@ public class MyConfig {
 	 */
 	public void setResultWarpperFolder(String resultWarpperFolder) {
 		this.resultWarpperFolder = resultWarpperFolder;
+	}
+
+	/**
+	 * @return the gatorClient
+	 */
+	public String getGatorClient() {
+		return gatorClient;
+	}
+
+	/**
+	 * @param gatorClient the gatorClient to set
+	 */
+	public void setGatorClient(String gatorClient) {
+		this.gatorClient = gatorClient;
 	}
 }

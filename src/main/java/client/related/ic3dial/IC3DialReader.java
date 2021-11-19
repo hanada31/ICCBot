@@ -32,7 +32,7 @@ import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.ExtraData;
 import main.java.client.obj.model.component.IntentFilterModel;
 import main.java.client.obj.model.component.ServiceModel;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 import main.java.client.related.ic3.model.IC3Model;
 import main.java.client.statistic.model.DoStatistic;
 import main.java.client.statistic.model.StatisticResult;
@@ -261,7 +261,7 @@ public class IC3DialReader extends Analyzer {
 					ExtraData ed = new ExtraData();
 					ed.setName(values.getString(n));
 					eds.add(ed);
-					bt.getBundle().put(values.getString(n), eds);
+					bt.obtainBundle().put(values.getString(n), eds);
 
 				}
 			} else if (kind.equals("4") || kind.equals("TYPE"))
@@ -309,6 +309,8 @@ public class IC3DialReader extends Analyzer {
 		List<String> summaryCateSet = intentSummary.getSetCategoryValueList();
 		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> resSet = new ArrayList<String>();
+		if (!summaryCateSet.contains("android.intent.category.DEFAULT"))
+			summaryCateSet.add("android.intent.category.DEFAULT");
 		for (ComponentModel component : IC3ComponentMap.values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
 				Set<String> filterActionSet = filter.getAction_list();

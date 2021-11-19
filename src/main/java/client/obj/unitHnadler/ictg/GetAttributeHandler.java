@@ -18,7 +18,7 @@ import main.java.analyze.utils.StringUtils;
 import main.java.analyze.utils.ValueObtainer;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 import main.java.client.obj.unitHnadler.UnitHandler;
 import soot.Unit;
 import soot.Value;
@@ -321,13 +321,13 @@ public class GetAttributeHandler extends UnitHandler {
 			}
 		}
 		if (shemeSet.size() == 0)
-			shemeSet.add("s");
+			shemeSet.add("mSheme");
 		if (hostSet.size() == 0)
-			hostSet.add("h");
+			hostSet.add("mHost");
 		if (portSet.size() == 0)
-			portSet.add("1");
+			portSet.add("mPort");
 		if (pathSet.size() == 0)
-			pathSet.add("p");
+			pathSet.add("mPath");
 
 		// <scheme>://<host>:<port>/<path>
 		for (String p1 : shemeSet)
@@ -336,7 +336,7 @@ public class GetAttributeHandler extends UnitHandler {
 					for (String p4 : pathSet)
 						resSet.add(StringUtils.refineString(p1) + "://" + StringUtils.refineString(p2) + ":"
 								+ StringUtils.refineString(p3) + "/" + StringUtils.refineString(p4));
-		resSet.remove("s://h:1/p");
+		resSet.remove("mSheme://mHost:mPort/mPath");
 		return resSet;
 	}
 

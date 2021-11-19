@@ -3,12 +3,17 @@ package main.java.client.obj.model.component;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import main.java.client.obj.model.component.ExtraData;
 
@@ -23,11 +28,13 @@ public class BundleType implements Serializable, Cloneable {
 	private Map<String, List<ExtraData>> bundle;
 	private Set<String> contentSet;
 	private String type;
-
+	private Set<ExtraData> extraDatas;
+	
 	public BundleType() {
 		bundle = new HashMap<String, List<ExtraData>>();
 		contentSet = new HashSet<String>();
 		type = "";
+		
 	}
 
 	public BundleType(Map<String, List<ExtraData>> bundle2, Set<String> contentSet2, String type2) {
@@ -36,16 +43,32 @@ public class BundleType implements Serializable, Cloneable {
 		type = type2;
 	}
 
-	public Map<String, List<ExtraData>> getBundle() {
+	public Map<String, List<ExtraData>> obtainBundle() {
 		return bundle;
+	}
+	
+	/**
+	 * for json output
+	 * @return
+	 */
+	public Set<ExtraData> getExtraDatas() {
+		if(extraDatas == null)
+			obtainExtraDatas();
+		return extraDatas;
+	}
+	
+	private void obtainExtraDatas() {
+		extraDatas = new HashSet<ExtraData>();
+		for(List<ExtraData> eds: bundle.values()){
+			for(ExtraData ed: eds){
+				extraDatas.add(ed);
+			}
+		}
+		
 	}
 
 	public void setBundle(Map<String, List<ExtraData>> bundle) {
 		this.bundle = bundle;
-	}
-
-	public Set<String> getContentSet() {
-		return contentSet;
 	}
 
 	public void setContentSet(Set<String> contentSet) {
@@ -60,19 +83,19 @@ public class BundleType implements Serializable, Cloneable {
 		this.type = type;
 	}
 
-	public void dump() {
-		for (Entry<String, List<ExtraData>> en : bundle.entrySet()) {
-			for (ExtraData ed : en.getValue()) {
-				System.out.println("key: " + ed.getName());
-				if (ed.getType() instanceof String)
-					System.out.println("type: " + ed.getType());
-				else {
-					System.out.println("type: bundle");
-					((BundleType) ed.getType()).dump();
-				}
-			}
-		}
-	}
+//	public void dump() {
+//		for (Entry<String, List<ExtraData>> en : bundle.entrySet()) {
+//			for (ExtraData ed : en.getValue()) {
+//				System.out.println("key: " + ed.getName());
+//				if (ed.getType() instanceof String)
+//					System.out.println("type: " + ed.getType());
+//				else {
+//					System.out.println("type: bundle");
+//					((BundleType) ed.getType()).dump();
+//				}
+//			}
+//		}
+//	}
 
 	@Override
 	public String toString() {
@@ -146,7 +169,7 @@ public class BundleType implements Serializable, Cloneable {
 		}
 	}
 
-	public String getKeyValPairNormal() {
+	private String getKeyValPairNormal() {
 		String res = "";
 		for (Entry<String, List<ExtraData>> en : bundle.entrySet()) {
 			for (ExtraData ed : en.getValue()) {

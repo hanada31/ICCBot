@@ -12,7 +12,7 @@ import main.java.client.obj.dataHnadler.ictg.SetComponentHandler;
 import main.java.client.obj.dataHnadler.ictg.SetDataHandler;
 import main.java.client.obj.dataHnadler.ictg.SetFlagHandler;
 import main.java.client.obj.dataHnadler.ictg.SetTypeHandler;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public abstract class DataHandler {
 

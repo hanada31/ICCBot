@@ -11,9 +11,9 @@ import main.java.analyze.utils.ConstantUtils;
  * @author 79940
  *
  */
-public class ActivityModel extends ComponentModel implements Serializable {
+public class ActivityModel extends ComponentModel implements Serializable, Launchable {
 	private static final long serialVersionUID = 2L;
-	private String launchMode;
+	private String launchMode="";
 	private String taskAffinity;
 
 	@Override

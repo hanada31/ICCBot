@@ -18,7 +18,7 @@ import main.java.analyze.utils.StringUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.ComponentModel;
-import main.java.client.obj.model.ictg.ICCMsg;
+import main.java.client.obj.model.ctg.ICCMsg;
 
 /**
  * This test class shows how to use the API interface of ACTS to build a test
@@ -109,8 +109,7 @@ public class TestGenerationProcess {
 						if (extra_type.equals("Extras"))
 							extra_key = extra_type + "Obj";
 						else
-							extra_key = StringUtils.refineString(extra_pair.split("\"")[1]);
-
+							extra_key = StringUtils.refineString(extra_pair.split("-")[1]);
 						if (extra_key.equals(""))
 							extra_key = ConstantUtils.UNKOWN;
 						extraSuffix += handleExtraAccordingToTypeAbnormal(extra_type, extra_key);
@@ -261,6 +260,7 @@ public class TestGenerationProcess {
 		List<String> lines = FileUtils.getListFromFile(java_file_path);
 		FileUtils.writeText2File(java_file_path, "", false);
 		String content = "";
+		boolean startLaunch = false;
 		for (String line : lines) {
 			if (line.contains("public class Activity_ extends Activity"))
 				line = "public class Activity_" + appId + " extends Activity";
@@ -286,41 +286,43 @@ public class TestGenerationProcess {
 
 				FileUtils.writeText2File(java_file_path, content, true);
 			}
-
-			if (line.equals("{")) {
+			if (line.equals("{") && !startLaunch) {
+				startLaunch = true;
 				content = "\tpublic void launch() throws Exception{\n";
-				content += "\t\tLog.i(\"FaxTool\",\"myFax\");\n";
-
-				content += "\t\tIntent intent = new Intent();\n";
-				content += "\t\tintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n";
-				content += "\t\tComponentName cn=new ComponentName(\"" + appModel.getPackageName() + "\",\""
+				
+				content += "\t\tClassLoader loader;\n";
+				content += "\t\tContext invokee;\n";
+				content += "\t\tClass<?> util;\n";
+				content += "\t\tIntent mIntent = new Intent();\n";
+				content += "\t\tmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\n";
+				content += "\t\tComponentName cn = new ComponentName(\"" + appModel.getPackageName() + "\",\""
 						+ clsname.replace("_dollar_", "$") + "\");\n";
-				content += "\t\tintent.setComponent(cn);\n";
+				content += "\t\tmIntent.setComponent(cn);\n";
 
 				String[] acdtVals = acdt.split(";;");
 				if (!acdtVals[0].equals("null")) {
 					if (acdtVals[0].contains("\\") && !acdtVals[0].contains("\\\\"))
 						acdtVals[0] = acdtVals[0].replace("\\", "");
-					content += "\t\tintent.setAction(\"" + acdtVals[0].replace("\"", "") + "\");\n";
+					content += "\t\tmIntent.setAction(\"" + acdtVals[0].replace("\"", "") + "\");\n";
 				}
 				if (!acdtVals[1].equals("null"))
-					content += "\t\tintent.addCategory(\"" + acdtVals[1].replace("\"", "") + "\");\n";
+					content += "\t\tmIntent.addCategory(\"" + acdtVals[1].replace("\"", "") + "\");\n";
 				if (!acdtVals[2].equals("null"))
-					content += "\t\tintent.setData(Uri.parse(\"" + acdtVals[2].replace("\"", "") + "\"));\n";
+					content += "\t\tmIntent.setData(Uri.parse(\"" + acdtVals[2].replace("\"", "") + "\"));\n";
 				if (!acdtVals[3].equals("null"))
-					content += "\t\tintent.setType(\"" + acdtVals[3].replace("\"", "") + "\");\n";
-
-				FileUtils.writeText2File(java_file_path, content + "\n", true);
-
+					content += "\t\tmIntent.setType(\"" + acdtVals[3].replace("\"", "") + "\");\n";
+				FileUtils.writeText2File(java_file_path, content, true);
+				
 				// new Bundle must show up before its use
 				// generate extra data
 
 				if (acdt.split(";;").length == 5) {
 					String extras = acdt.split(";;")[4];
-					generateExtrasInJava(decSet, extras, java_file_path, "Intent->intent");
+//					if(extras.contains("ExtrasObj"))
+//						System.out.println();
+					generateExtrasInJava(decSet, extras, java_file_path, "Intent->mIntent");
 				}
-				content = "\t\tLog.e(\"eeeeeeeeeeeeeeeee\",\"start\");\n";
-				content += "\t\tstartActivity(intent);\n";
+				content = "\t\tstartActivity(mIntent);\n";
 				content += "\t\t//" + acdt + "\n";
 				if (icc != null)
 					content += "\t\t//" + icc.getExtra() + "\n";
@@ -437,25 +439,13 @@ public class TestGenerationProcess {
 					// content = "\t\t" + extra_key + " = new Bundle();\n";
 					content = "";
 				}
-			} else if (extra_type.equals("Serializable")) {
+			} else if (extra_type.equals("Serializable") || extra_type.equals("Parcelable")) {
 				if (extra_cls_type.equals("\"" + "SerializableObj" + "\"")) {
 					content = "\t\tMySerializable " + extra_key + " = new MySerializable();\n";
 					if (!decSet.contains(content)) {
 						decSet.add(content);
 					}
-				} else {
-					content = "\t\t" + "Context invokee = this.createPackageContext(\"" + appModel.getPackageName()
-							+ "\"," + "Context.CONTEXT_INCLUDE_CODE|Context.CONTEXT_IGNORE_SECURITY);\n";
-					content += "\t\t" + "ClassLoader loader = invokee.getClassLoader();\n";
-					content += "\t\t" + "Class<?> util = loader.loadClass(" + extra_cls_type + ");\n";
-					content += "\t\tParcelable " + extra_key + " = (Parcelable)util.newInstance();\n";
-					if (!decSet.contains(content)) {
-						decSet.add(content);
-					}
-				}
-
-			} else if (extra_type.equals("Parcelable")) {
-				if (extra_cls_type.equals("\"" + "android.content.Intent" + "\"")) {
+				}else if (extra_cls_type.equals("\"" + "android.content.Intent" + "\"")) {
 					content = "\t\tIntent " + extra_key + " = new Intent();\n";
 					if (!decSet.contains(content)) {
 						decSet.add(content);
@@ -466,46 +456,28 @@ public class TestGenerationProcess {
 						decSet.add(content);
 					}
 				} else {
-					content = "\t\t" + "Context invokee = this.createPackageContext(\"" + appModel.getPackageName()
+					content = "\t\t" + "invokee = this.createPackageContext(\"" + appModel.getPackageName()
 							+ "\"," + "Context.CONTEXT_INCLUDE_CODE|Context.CONTEXT_IGNORE_SECURITY);\n";
-					content += "\t\t" + "ClassLoader loader = invokee.getClassLoader();\n";
-					content += "\t\t" + "Class<?> util = loader.loadClass(" + extra_cls_type + ");\n";
+					content += "\t\t" + "loader = invokee.getClassLoader();\n";
+					content += "\t\t" + "util = loader.loadClass(" + extra_cls_type + ");\n";
 					content += "\t\tParcelable " + extra_key + " = (Parcelable)util.newInstance();\n";
 					if (!decSet.contains(content)) {
 						decSet.add(content);
 					}
 				}
-				// }else if (extra_type.equals("ParcelableArray")) {
-				// content = "\t\tParcelable[] " + extra_key +
-				// " = new MyParcelable[1];\n";
-				// if (!decSet.contains(content)) {
-				// decSet.add(content);
-				// } else {
-				// content = "\t\t" + extra_key + " = new MyParcelable[1];\n";
-				// }
-				// content += "\t\t" + extra_key +
-				// "[0] = new MyParcelable();\n";
-				// } else if (extra_type.equals("ParcelableArrayList")) {
-				// content = "\t\tArrayList  " + extra_key +
-				// " = new ArrayList<MyParcelable>();\n";
-				// if (!decSet.contains(content)) {
-				// decSet.add(content);
-				// } else {
-				// content = "\t\t" + extra_key +
-				// " = new ArrayList<MyParcelable>();\n";
-				// }
-				// content += "\t\t" + extra_key +
-				// ".add(new MyParcelable());\n";
 			} else if (extra_type.contains("ArrayList")) {
 				String type = extra_type.replace("ArrayList", "");
-				content = "\t\tArrayList<" + type + "> " + extra_key + " = new ArrayList<" + type + ">();\n";
+				if(type.length()>0)
+					content = "\t\tArrayList<" + type + "> " + extra_key + " = new ArrayList<" + type + ">();\n";
+				else
+					content = "\t\tArrayList<?> " + extra_key + " = new ArrayList();\n";
 				if (!decSet.contains(content)) {
 					decSet.add(content);
 				} else {
 					content = "\t\t" + extra_key + " = new ArrayList<" + type + ">();\n";
 				}
-			} else if (extra_type.contains("Array")) {
-				String type = extra_type.replace("Array", "");
+			} else if (extra_type.contains("Array") || extra_type.contains("[]")) {
+				String type = extra_type.replace("Array", "").replace("[]", "");
 				content = "\t\t" + type + "[] " + extra_key + " = new " + type + "[1];\n";
 				if (!decSet.contains(content)) {
 					decSet.add(content);
@@ -534,7 +506,7 @@ public class TestGenerationProcess {
 		String extra_type = ss[0];
 		String content = "";
 		if (extra_type.equals("Extras")) {
-			content += "\t\tgetIntent().putExtras(ExtrasObj);\n";
+			content += "\t\tmIntent.putExtras(ExtrasObj);\n";
 		} else {
 			String extra_key = StringUtils.refineString(ss[1]);
 			String extra_value = ss[2];
@@ -560,10 +532,12 @@ public class TestGenerationProcess {
 					} else if (extra_type.contains("Array")) {
 						content += "\t\t" + extra_key + "[0] = " + extra_value + ";\n";
 						extra_value = extra_key;
+					} else if (extra_type.contains("[]")) {
+						extra_value = extra_key;
 					}
 				}
 				content += "\t\t" + objName + "." + putAPI + "(\""
-						+ extra_key.replace("_dot_", ".").replace("_maohao_", ":").replace("_line_", "-") + "\", "
+						+ extra_key + "\", "
 						+ extra_value + ");\n";
 			}
 		}
@@ -581,7 +555,7 @@ public class TestGenerationProcess {
 		String putAPI = null;
 		if (SootUtils.isArrayListType(extra_type)) {
 			String suffix = "";
-			if (objName.equals("intent"))
+			if (objName.equals("mIntent"))
 				suffix = "Extra";
 			if (extra_type.equals("IntegerArrayList"))
 				putAPI = "putIntegerArrayList" + suffix;
@@ -590,11 +564,12 @@ public class TestGenerationProcess {
 			else if (extra_type.equals("StringArrayList"))
 				putAPI = "putStringArrayList" + suffix;
 		} else {
-			if (objName.equals("intent"))
+			if (objName.equals("mIntent"))
 				putAPI = "putExtra";
 			else
 				putAPI = "put" + extra_type.substring(0, 1).toUpperCase() + extra_type.substring(1);
 		}
+		putAPI = putAPI.replace("[]", "");
 		return putAPI;
 	}
 

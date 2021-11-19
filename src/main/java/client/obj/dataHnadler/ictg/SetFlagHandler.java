@@ -6,7 +6,7 @@ import java.util.Set;
 import main.java.analyze.utils.StringUtils;
 import main.java.client.obj.dataHnadler.DataHandler;
 import main.java.client.obj.model.component.Flag;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public class SetFlagHandler extends DataHandler {
 

@@ -15,7 +15,7 @@ import com.microsoft.z3.Status;
 import main.java.analyze.model.analyzeModel.Attribute;
 
 public class ConstraintSolver {
-
+	
 	/**
 	 * eliminateConfictedPaths
 	 * 

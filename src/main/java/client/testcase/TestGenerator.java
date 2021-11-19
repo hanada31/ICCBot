@@ -1,24 +1,30 @@
-//package main.java.client.testcase;
-//
-//import java.io.File;
-//import java.util.HashMap;
-//import java.util.HashSet;
-//import java.util.Map;
-//import java.util.Set;
-//
-//import main.java.Analyzer;
-//import main.java.MyConfig;
-//import main.java.analyze.utils.ConstantUtils;
-//import main.java.analyze.utils.output.FileUtils;
-//import main.java.client.obj.model.ictg.ICCMsg;
-//import main.java.client.obj.model.ictg.IntentRecieveModel;
-//import main.java.client.testcase.TestGenerationProcess;
-//
-///**
-// * single null value test case generation
-// *
-// */
-//public class TestGenerator extends Analyzer {
+package main.java.client.testcase;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import main.java.Analyzer;
+import main.java.MyConfig;
+import main.java.analyze.utils.ConstantUtils;
+import main.java.analyze.utils.output.FileUtils;
+import main.java.client.obj.model.ctg.ICCMsg;
+import main.java.client.obj.model.ctg.IntentRecieveModel;
+import main.java.client.testcase.TestGenerationProcess;
+
+/**
+ * single null value test case generation
+ *
+ */
+public class TestGenerator extends Analyzer {
+
+	@Override
+	public void analyze() {
+		// TODO Auto-generated method stub
+		
+	}
 //	Set<String> iccAll = new HashSet<String>();
 //	Map<String, String> key2Value = new HashMap<String, String>();
 //
@@ -91,4 +97,4 @@
 //		return ICCs;
 //	}
 //
-//}
+}

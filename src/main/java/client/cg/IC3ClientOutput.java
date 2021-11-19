@@ -45,7 +45,7 @@ public class IC3ClientOutput {
 			subgraphString += "_Provider[color = " + pColor + "];\n";
 			subgraphString += "_Reciever[color = " + rColor + "];\n";
 			subgraphString += "_Fragment[color = " + fColor + "];\n";
-			subgraphString += "_Main[style=filled, fillcolor=wheat, color = " + bgColor + "];\n";
+			subgraphString += "_Main[style=filled, fillcolor=orange, color = " + bgColor + "];\n";
 			subgraphString += "_Exported[style=filled, fillcolor=lightpink, color = " + bgColor + "];\n";
 			writer.write(subgraphString
 					+ "_Main -> _Exported -> _Activity -> _Service -> _Reciever -> _Provider -> _Fragment; \n}\n");

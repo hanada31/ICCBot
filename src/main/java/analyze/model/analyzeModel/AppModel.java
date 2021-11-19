@@ -17,7 +17,6 @@ import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.component.ActivityModel;
 import main.java.client.obj.model.component.ComponentModel;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Unit;
@@ -85,7 +84,7 @@ public class AppModel implements Serializable {
 	private Map<Pair<SootMethod, Unit>, Set<SootMethod>> entryMethod2MethodAddThisCallBack;
 	private Map<SootClass, SootClass> fragment2Component;
 	private Map<Unit, List<ParameterSource>> unit2ParameterSource;
-
+	private Map<String, Set<String>> ICCStringMap;
 	
 	
 	public AppModel() {
@@ -131,6 +130,7 @@ public class AppModel implements Serializable {
 		fragment2Component = new HashMap<SootClass, SootClass>();
 		unit2ParameterSource = new HashMap<Unit, List<ParameterSource>>();
 		setExtendedPakgs(new HashSet<String>());
+		this.ICCStringMap = new HashMap<String, Set<String>>();
 	}
 
 	@Override
@@ -574,6 +574,20 @@ public class AppModel implements Serializable {
 	 */
 	public void setEntryMethods(Set<SootMethod> entryMethods) {
 		this.entryMethods = entryMethods;
+	}
+
+	/**
+	 * @return the iCCStringMap
+	 */
+	public Map<String, Set<String>> getICCStringMap() {
+		return ICCStringMap;
+	}
+
+	/**
+	 * @param iCCStringMap the iCCStringMap to set
+	 */
+	public void setICCStringMap(Map<String, Set<String>> iCCStringMap) {
+		ICCStringMap = iCCStringMap;
 	}
 
 }

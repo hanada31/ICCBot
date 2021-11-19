@@ -8,8 +8,9 @@ import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
-import main.java.client.obj.target.ictg.ICTGClient;
+import main.java.client.obj.target.ctg.CTGClient;
 import main.java.client.statistic.StatisticClient;
+
 import org.dom4j.DocumentException;
 
 /**
@@ -27,7 +28,7 @@ public class StatisticClient extends BaseClient {
 	 */
 	@Override
 	protected void clientAnalyze() {
-		ICTGClient client = new ICTGClient();
+		CTGClient client = new CTGClient();
 		result = client.getResult();
 		client.start();
 		System.out.println("Successfully analyze with StatisticClient.");

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import main.java.client.obj.dataHnadler.DataHandler;
-import main.java.client.obj.model.ictg.IntentSummaryModel;
+import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public class GetActionHandler extends DataHandler {
 
@@ -13,7 +13,6 @@ public class GetActionHandler extends DataHandler {
 		Set<String> newDataSet = new HashSet<String>();
 		for (String data : dataSet)
 			newDataSet.add(data.replace("\"", ""));
-		intentSummary.getGetActionCandidateList().clear();
 		intentSummary.getGetActionCandidateList().addAll(newDataSet);
 		return;
 	}
