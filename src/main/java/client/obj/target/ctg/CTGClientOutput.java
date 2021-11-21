@@ -449,8 +449,16 @@ public class CTGClientOutput {
 			subgraphString += "_Main[style=filled, fillcolor=orange, color = " + bgColor + "];\n";
 			subgraphString += "_Exported[style=filled, fillcolor=lightpink, color = " + bgColor + "];\n";
 			writer.write(subgraphString
-					+ "_Main -> _Exported -> _Activity -> _Service -> _Reciever -> _Provider -> _Fragment; \n}\n");
-
+					+ "_Main -> _Exported -> _Activity -> _Service -> _Reciever -> _Provider -> _Fragment; "
+					+ "\n}\n");
+			
+			String mainAct = Global.v().getAppModel().getMainActivity();
+			String mainActNode =mainAct.split("\\.")[mainAct.split("\\.").length - 1];
+			mainActNode = AtgNode.getClassName(mainActNode);
+//			writer.write("_Main->"+mainActNode+"[ltail=cluster_component lhead=cluster_legend];\n");
+			
+			writer.write("subgraph cluster_component{ \n"); 
+			
 			for (String component : Global.v().getAppModel().getActivityMap().keySet()) {
 				writeWithColor(writer, component, aColor);
 			}
@@ -488,10 +496,6 @@ public class CTGClientOutput {
 					e = e.split("\\.")[e.split("\\.").length - 1].replace("\"", "").replace("\'", "");
 
 					String endString = ";\n";
-					// if(edge.getType() != AtgType.Act2Act) {
-					// endString = "[style = dashed];\n";
-					// }
-
 					String edgeStr = s + "->" + e + endString;
 
 					if (!histroy.contains(edgeStr)) {
@@ -500,7 +504,7 @@ public class CTGClientOutput {
 					}
 				}
 			}
-			writer.write("}\n");
+			writer.write("}\n}\n");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

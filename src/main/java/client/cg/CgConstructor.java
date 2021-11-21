@@ -107,7 +107,6 @@ public class CgConstructor extends Analyzer {
 
 		String summary_app_dir = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
 				+ File.separator;
-		FileUtils.createFolder(summary_app_dir + ConstantUtils.DUMMYFOLDETR);
 		callBacks = setupApplication.getCallbackMethods();
 		fragments = setupApplication.getFragmentClasses();
 		FileUtils.delFolder("sootOutput");
