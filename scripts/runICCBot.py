@@ -2,26 +2,39 @@ import os
 import sys
 import shutil
 
-jarFile = "ICCBot.jar"
-logDir = "../results/logs"
-outputDir = "../results/output"
-def analyzeApk(path, sdk):
-    if(os.path.exists(path)): 
-        apks = os.listdir(path)
+
+
+def analyzeApk(apkPath, resPath, sdk):
+
+    logDir = resPath+"/logs"
+    outputDir = resPath+"/output"
+    if(not os.path.exists(logDir)): 
+        os.makedirs(logDir) 
+    if(not os.path.exists(outputDir)): 
+        os.makedirs(outputDir) 
+        
+    if(os.path.exists(apkPath)): 
+        apks = os.listdir(apkPath)
+        extraArgs = ""
         for apk in apks:
-            if apk[-4:] =="_ins.apk":
-                continue
             if apk[-4:] ==".apk":
-                print("java -jar "+jarFile+"  -path "+ path +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 30 -maxPathNumber 100 -client MainClient    -outputDir "+outputDir+" >> "+logDir+"/"+apk+".txt")
-                os.system("java -jar "+jarFile+"  -path "+ path +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 60 -maxPathNumber 100 -client MainClient -outputDir "+outputDir+" >> "+logDir+"/"+apk+".txt")
+                print("java -jar "+jarFile+"  -path "+ apkPath +" -name "+apk+" -androidJar "+ sdk +"/platforms  "+ extraArgs +" -time 30 -maxPathNumber 100 -client MainClient  -outputDir "+outputDir+" >> "+logDir+"/"+apk[:-4]+".txt")
+                os.system("java -jar "+jarFile+"  -path "+ apkPath +" -name "+apk+" -androidJar "+ sdk +"/platforms "+ extraArgs +" -time 60 -maxPathNumber 100 -client MainClient -outputDir "+outputDir+" >> "+logDir+"/"+apk[:-4]+".txt")
 
 
 if __name__ == '__main__' :
-    path = "apk2/"
+    apkPath = sys.argv[1]
+    resPath = sys.argv[2]
+    jarFile = "ICCBot.jar"
+    
+    os.system("mvn -f pom.xml package -q")
+    if os.path.exists("target/ICCBot.jar"):
+        print("Successfully build! generate jar-with-dependencies in folder target/")
+        shutil.copy("target/ICCBot.jar", jarFile)
+        print("copy jar to the root directory.")
+    else:
+        print("Fail to build! Please run \"mvn -f pom.xml package\" to see the detail info.")
+    
     sdk = "lib/"    
-    #os.system("mvn -f pom.xml package ")
-    #shutil.copy("target/ICCBot.jar", jarFile)
-    if(not os.path.exists(logDir)): 
-        os.makedirs(logDir) 
-    analyzeApk(path, sdk)
+    analyzeApk(apkPath, resPath, sdk)
     
