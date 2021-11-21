@@ -219,6 +219,7 @@ public class MainClass {
 		options.addOption("noWrapperAPI", false, "-noWrapperAPI: exclude RAICC model");
 		options.addOption("noImplicit", false, "-noImplicit: exclude implict matching");
 		options.addOption("noDynamicBC", false, "-noDynamicBC: exclude dynamic broadcast receiver matching");
+		options.addOption("sootOutput", false, "-sootOutput: Output the sootOutput");
 		
 //		 /** Strategy **/
 //		 options.addOption("summaryStrategy", true,
@@ -262,7 +263,9 @@ public class MainClass {
 		MyConfig.getInstance().setAppPath(mCmd.getOptionValue("path", System.getProperty("user.dir")) + File.separator);
 		MyConfig.getInstance().setAndroidJar(mCmd.getOptionValue("androidJar", "lib") + File.separator);
 		MyConfig.getInstance().setAndroidVersion("android-" + mCmd.getOptionValue("version", "23"));
-
+		if (mCmd.hasOption("sootOutput"))
+			MyConfig.getInstance().setWriteSootOutput(true);
+		
 		int timeLimit = Integer.valueOf(mCmd.getOptionValue("time", "90"));
 		MyConfig.getInstance().setTimeLimit(timeLimit);
 		MyConfig.getInstance().setMaxPathNumber(Integer.valueOf(mCmd.getOptionValue("maxPathNumber", "1000")));
@@ -289,7 +292,7 @@ public class MainClass {
 		if (!mCmd.hasOption("debug") && !mCmd.hasOption("androidJar")) {
 			printHelp("Please input the path of android.jar use -androidJar.");
 		}
-
+		
 		/** analysis config **/
 		if (mCmd.hasOption("onlyDummyMain"))
 			MyConfig.getInstance().getMySwithch().setDummyMainSwitch(true);
@@ -383,10 +386,10 @@ public class MainClass {
 	 *  **/
 	private static void testConfig() {
 		String path;
-		path = "../apk/";
+		path = "apk/";
 		String name;
-		name = "CSipSimple";
-		String client = "ICCSpecClient";
+		name = "ICCbotBench";
+		String client = "CTGClient";
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
@@ -394,8 +397,8 @@ public class MainClass {
 		MyConfig.getInstance().setGatorClient("GUIHierarchyPrinterClient");
 		MyConfig.getInstance().setGatorClient("ActivityTransitionAnalysisClient");
 		MyConfig.getInstance().setMaxPathNumber(100);
-		MyConfig.getInstance().setResultWarpperFolder("../results" + File.separator);
-		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);
+		MyConfig.getInstance().setResultWarpperFolder("results" + File.separator);
+		MyConfig.getInstance().setResultFolder("results" + File.separator + "output" + File.separator);
 		MyConfig.getInstance().setTimeLimit(90);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
 		
