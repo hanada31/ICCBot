@@ -1,22 +1,25 @@
 # ICCBot
-An Key Characteristic-directed and Efficient-friendly ICC Resolution tool.
+An Fragment-Aware and Context-Sensitive ICC Resolution for Android Applications.
 
-build *ICCBot*：
 
+
+build and run *ICCBot* to analyze single apk：：
 ```
 mvn -f pom.xml clean package
-cp target/ICCBot-1.0-SNAPSHOT.one-jar.jar ../ICCBot.jar
+
+cp target/ICCBot.jar ../ICCBot.jar
+
+java -jar ICCBot.jar  -path apk\ -name ICCBotBench.apk -androidJar lib//platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results/output
+```
+or analyze apks under given folder with Python script:
+
+```
+python .\scripts\runICCBot.py [apkPath] [resultPath]
 ```
 
-test *ICCBot*:
-
-```
-python .\scripts\runICCBot.py
-```
 
 
-
-run *ICCBot*:
+Usage of ICCBot.jar:
 
 ```
 java –jar ICCBot.jar –h
@@ -29,11 +32,11 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir]
  -outputDir <arg>       -outputDir: Set the output folder of the apk.
  -client <arg>          -client 
                          "CallGraphClient: Output call graph files."
-				                     "ManifestClient: Output manifest.xml file."
-				                     "IROutputClient: Output soot IR files."
-				                     "FragmentClient: Output the fragment loading results."
-				                     "CTGClient/MainClient: Resolve ICC and generate CTG."
-				                     "ICCSpecClient:  Report ICC specification for each component."
+                         "ManifestClient: Output manifest.xml file."
+                         "IROutputClient: Output soot IR files."
+                         "FragmentClient: Output the fragment loading results."
+                         "CTGClient/MainClient: Resolve ICC and generate CTG."
+                         "ICCSpecClient:  Report ICC specification for each component."
                         
  -androidJar <arg>      -androidJar: Set the path of android.jar.                
  -version <arg>         -version [default:23]: Version of Android SDK.
@@ -59,28 +62,22 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir]
 
 
 
-example:
-
-```
-java -jar ICCBot.jar -path apk/ -name IntentFlowBench.apk -outputDir results  -androidJar lib/platforms
-```
-
-
-
 Input：apk File
 
 Output：ICC resolution results, CTG graph, etc.
 
-Output Files: 
 + CallGraphInfo
-+ DummyMainInfo
+  + Generated extended call graph
 + ManifestInfo
-+ fragmentInfo
-  + fragment loading graph
+  + Extracted AndroidManifest file
++ FragmentInfo
+  + Generated fragment loading graph
 + CTGResult
-  + component transition graph
+  + Generated component transition graph
 + ICCSpecification
-  + ICC specification json file
+  + Generated ICC specification json file
++ SootIRInfo
+  + Generated Soot Jimple IR files 
 
 
 

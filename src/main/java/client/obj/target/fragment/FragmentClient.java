@@ -67,15 +67,15 @@ public class FragmentClient extends BaseClient {
 		FragmentClientOutput outer = new FragmentClientOutput(this.result);
 		/** Method **/
 		outer.writeMethodSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEMETHOD_ENTRY,true);
-		outer.writeMethodSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEMETHOD_ALL, false);
+//		outer.writeMethodSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEMETHOD_ALL, false);
 
 		/** Path **/
 		outer.writePathSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEPATH_ENTRY, true);
-		outer.writePathSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEPATH_ALL, false);
+//		outer.writePathSummaryModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEPATH_ALL, false);
 
 		/** Intent **/
 		outer.writeSingleFragModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEOBJECT_ENTRY, true);
-		outer.writeSingleFragModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEOBJECT_ALL, false);
+//		outer.writeSingleFragModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEOBJECT_ALL, false);
 
 		outer.writeATGModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.ICTGMERGE + ".xml", Global.v()
 				.getFragmentModel().getAtgModel());

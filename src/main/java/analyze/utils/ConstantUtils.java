@@ -13,7 +13,7 @@ public class ConstantUtils {
 	public static final String PROVIDER = "Provider";
 	// soot config
 	public static final String android_jar_path = "lib" + File.separator;
-	public static final String SOOTOUTPUT = "sootOutput";
+	public static final String SOOTOUTPUT = "SootIRInfo";
 
 	// output files info
 	public static final String GATORFOLDER = "GatorInfo" + File.separator;
@@ -27,8 +27,8 @@ public class ConstantUtils {
 	public static final String ICCINFOFOLDETR = "iccInfo" + File.separator;
 	public static final String MANIFOLDETR = "ManifestInfo" + File.separator;
 	public static final String STATFOLDETR = "statistic" + File.separator;
-	public static final String FRAGFOLDETR = "fragmentInfo" + File.separator;
-	public static final String FRAGTMPFOLDETR = "fragmentTmpInfo" + File.separator;
+	public static final String FRAGFOLDETR = "FragmentInfo" + File.separator;
+	public static final String FRAGTMPFOLDETR = "FragmentInfo" + File.separator;
 	public static final String ORACLEFOLDETR = "CTGEvaluate" + File.separator;
 	public static final String LABELEDORACLEFOLDETR = "labeledOracle" + File.separator;
 
@@ -37,7 +37,7 @@ public class ConstantUtils {
 	public static final String RECEICEDINTENTMODEL = "receivedIntentModel.txt";
 	public static final String SENDINTENTMODEL = "sendIntentModel.txt";
 	public static final String AUPFILE = "paths.txt";
-	public static final String ICTGMERGE = "CTG_InnerEdge";
+	public static final String ICTGMERGE = "CTGwithFragment";
 	public static final String ICTGOPT = "CTG";
 	public static final String ICTGOPTFRAG = "CTG_Fragment";
 	public static final String ICTGDYNAMIC = "CTGDynamic";

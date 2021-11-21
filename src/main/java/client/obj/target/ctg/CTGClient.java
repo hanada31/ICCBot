@@ -117,7 +117,6 @@ public class CTGClient extends BaseClient {
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.CGFOLDETR);
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.FRAGFOLDETR);
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.CGFOLDETR);
-		FileUtils.createFolder(summary_app_dir + ConstantUtils.COMPONENTMODELJSON); 
 
 		CTGClientOutput outer = new CTGClientOutput(this.result);
 
@@ -125,13 +124,12 @@ public class CTGClient extends BaseClient {
 		String fragFolder = summary_app_dir + ConstantUtils.FRAGFOLDETR;
 		/** Component **/
 		outer.writeComponentModel(ictgFolder, ConstantUtils.COMPONENTMODEL);
-		outer.writeComponentModelJson(ictgFolder, ConstantUtils.COMPONENTMODELJSON);
 		/** Method **/
 		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ENTRY,true);
-		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ALL, false);
+//		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ALL, false);
 		if(MyConfig.getInstance().getMySwithch().isFragmentSwitch()){
 			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ENTRY);
-			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ALL);
+//			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ALL);
 		}
 		
 		/** Path **/
@@ -139,15 +137,15 @@ public class CTGClient extends BaseClient {
 		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ALL, false);
 		if(MyConfig.getInstance().getMySwithch().isFragmentSwitch()){
 			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ENTRY);
-			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ALL);
+//			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ALL);
 		}
 		
 		/** Intent **/
 		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ENTRY,true);
-		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ALL, false);
+//		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ALL, false);
 		if(MyConfig.getInstance().getMySwithch().isFragmentSwitch()){
 			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ENTRY);
-			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ALL);
+//			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ALL);
 		}
 		
 		
