@@ -1,0 +1,19 @@
+Analyzing ICCBotBench.apk
+using client ICCSpecClient
+Soot Analysis finish.
+Successfully analyze with ManifestClient.
+Call Graph Construction finish.
+Call Graph has 205 edges.
+Call Graph Enhancing finish.
+Successfully analyze with CallGraphClient.
+StaticValueAnalyzer finish.
+Successfully analyze with FragmentClient.
+Analyzing ICC sending.
+Analyzing ICC receiving.
+Successfully analyze with ICCSpecClient.
+---------------------------------------
+Analyzing ICCBotBench.apk Finish...
+
+ICCSpecClient time = 3 seconds
+ICC Resolution Finish...
+

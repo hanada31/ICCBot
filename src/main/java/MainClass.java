@@ -388,7 +388,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "ICCbotBench";
+		name = "CSipSimple";
 		String client = "CTGClient";
 		
 		MyConfig.getInstance().setAppName(name + ".apk");

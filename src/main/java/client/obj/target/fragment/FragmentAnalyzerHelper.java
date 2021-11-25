@@ -218,7 +218,9 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
 			return true;
 		} else if (invMethod.toString().contains("app.FragmentManager getFragmentManager()")) {
 			return true;
-		}
+		} else if (invMethod.toString().contains("app.FragmentManager getChildFragmentManager()")) {
+			return true;
+		} 
 		return false;
 	}
 

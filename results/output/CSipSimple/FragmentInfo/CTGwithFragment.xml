@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <source name="com.csipsimple.ui.prefs.hc.MainPrefs">
+    <destination name="com.csipsimple.ui.prefs.hc.PrefsLoaderFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.prefs.hc.MainPrefs: void onBuildHeaders(java.util.List)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.calllog.CallLogListFragment">
+    <destination name="com.csipsimple.ui.calllog.CallLogDetailsFragment" type="Frag2Frag" method="&lt;com.csipsimple.ui.calllog.CallLogListFragment: void viewDetails(int,long[])&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.SipHome">
+    <destination name="com.csipsimple.ui.warnings.WarningFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.SipHome: void refreshWarningTabDisplay()&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.dialpad.DialerAutocompleteDetailsFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.dialpad.DialerFragment: void onVisibilityChanged(boolean)&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.help.Help" type="Act2Frag" method="&lt;com.csipsimple.ui.SipHome: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.messages.ConversationsListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.SipHome: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.calllog.CallLogDetailsFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.calllog.CallLogListFragment: void viewDetails(int,long[])&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.messages.MessageFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,java.lang.String,java.lang.String)&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.favorites.FavListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.SipHome: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.dialpad.DialerFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.SipHome: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.calllog.CallLogListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.SipHome: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.calllog.CallLogDetailsActivity">
+    <destination name="com.csipsimple.ui.calllog.CallLogDetailsFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.calllog.CallLogDetailsActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.prefs.Codecs">
+    <destination name="com.csipsimple.ui.prefs.CodecsFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.prefs.Codecs: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.filters.AccountFilters">
+    <destination name="com.csipsimple.ui.filters.AccountFiltersListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.filters.AccountFilters: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.messages.ConversationsListFragment">
+    <destination name="com.csipsimple.ui.messages.MessageFragment" type="Frag2Frag" method="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,java.lang.String,java.lang.String)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.prefs.PrefsFilters">
+    <destination name="com.csipsimple.ui.account.AccountsChooserListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.dialpad.DialerFragment">
+    <destination name="com.csipsimple.ui.dialpad.DialerAutocompleteDetailsFragment" type="Frag2Frag" method="&lt;com.csipsimple.ui.dialpad.DialerFragment: void onVisibilityChanged(boolean)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.widgets.AccountWidgetConfigure">
+    <destination name="com.csipsimple.ui.account.AccountsChooserListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.messages.MessageActivity">
+    <destination name="com.csipsimple.ui.messages.MessageFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.messages.MessageActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.outgoingcall.OutgoingCallChooser">
+    <destination name="com.csipsimple.ui.outgoingcall.OutgoingCallListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.outgoingcall.OutgoingCallChooser: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.account.AccountsChooserListActivity">
+    <destination name="com.csipsimple.ui.account.AccountsChooserListFragment" type="Class2Any" method="&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.help.Help">
+    <destination name="com.csipsimple.ui.help.Faq" type="Frag2Frag" method="&lt;com.csipsimple.ui.help.Help: void onItemClick(android.widget.AdapterView,android.view.View,int,long)&gt;" InstructionId="-1"/>
+    <destination name="com.csipsimple.ui.help.Legal" type="Frag2Frag" method="&lt;com.csipsimple.ui.help.Help: void onItemClick(android.widget.AdapterView,android.view.View,int,long)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.incall.InCallActivity">
+    <destination name="com.csipsimple.ui.incall.DtmfDialogFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.incall.InCallActivity: void showDialpad(int)&gt;" InstructionId="-1"/>
+  </source>
+  <source name="com.csipsimple.ui.account.AccountsEditList">
+    <destination name="com.csipsimple.ui.account.AccountsEditListFragment" type="Act2Frag" method="&lt;com.csipsimple.ui.account.AccountsEditList: void onCreate(android.os.Bundle)&gt;" InstructionId="-1"/>
+  </source>
+</root>
