@@ -1,0 +1,506 @@
+manifest
+- installLocation: 0
+- package: com.csipsimple
+- versionName: 0.04-01
+- versionCode: 1841
+	supports-screens
+	- normalScreens: true
+	- smallScreens: true
+	- anyDensity: true
+	- largeScreens: true
+	- xlargeScreens: true
+	uses-sdk
+	- minSdkVersion: 4
+	- targetSdkVersion: 16
+	uses-permission
+	- name: android.permission.INTERNET
+	uses-permission
+	- name: android.permission.RECORD_AUDIO
+	uses-permission
+	- name: android.permission.MODIFY_AUDIO_SETTINGS
+	uses-permission
+	- name: android.permission.PROCESS_OUTGOING_CALLS
+	uses-permission
+	- name: android.permission.WRITE_SETTINGS
+	uses-permission
+	- name: android.permission.READ_PHONE_STATE
+	uses-permission
+	- name: android.permission.ACCESS_WIFI_STATE
+	uses-permission
+	- name: android.permission.ACCESS_NETWORK_STATE
+	uses-permission
+	- name: android.permission.RECEIVE_BOOT_COMPLETED
+	uses-permission
+	- name: android.permission.READ_CONTACTS
+	uses-permission
+	- name: android.permission.WRITE_CONTACTS
+	uses-permission
+	- name: android.permission.CALL_PHONE
+	uses-permission
+	- name: android.permission.CALL_PRIVILEGED
+	uses-permission
+	- name: android.permission.WAKE_LOCK
+	uses-permission
+	- name: android.permission.DISABLE_KEYGUARD
+	uses-permission
+	- name: android.permission.VIBRATE
+	uses-permission
+	- name: android.permission.BLUETOOTH
+	uses-permission
+	- name: android.permission.READ_LOGS
+	uses-permission
+	- name: android.permission.USE_SIP
+	uses-permission
+	- name: android.permission.CONFIGURE_SIP
+	uses-permission
+	- name: android.permission.WRITE_EXTERNAL_STORAGE
+	uses-permission
+	- name: android.permission.CAMERA
+	uses-permission
+	- name: android.permission.BROADCAST_STICKY
+	uses-permission
+	- name: android.permission.READ_PROFILE
+	uses-permission
+	- name: android.permission.WRITE_CALL_LOG
+	permission
+	- name: android.permission.USE_SIP
+	- description: 2131427347
+	- label: 2131427346
+	- protectionLevel: 1
+	- permissionGroup: android.permission-group.COST_MONEY
+	permission
+	- name: android.permission.CONFIGURE_SIP
+	- description: 2131427349
+	- label: 2131427348
+	- protectionLevel: 1
+	- permissionGroup: android.permission-group.COST_MONEY
+	uses-feature
+	- name: android.hardware.wifi
+	- required: false
+	uses-feature
+	- name: android.hardware.telephony
+	- required: false
+	uses-feature
+	- name: android.hardware.microphone
+	- required: true
+	uses-feature
+	- name: android.hardware.touchscreen
+	- required: false
+	uses-feature
+	- name: android.hardware.bluetooth
+	- required: false
+	uses-feature
+	- name: android.hardware.screen.portrait
+	- required: false
+	uses-feature
+	- name: android.hardware.camera
+	- required: false
+	uses-feature
+	- name: android.hardware.camera.autofocus
+	- required: false
+	uses-feature
+	- name: android.hardware.camera.flash
+	- required: false
+	uses-feature
+	- name: android.hardware.camera.front
+	- required: false
+	application
+	- icon: 2130837686
+	- label: 2131427345
+	- allowBackup: false
+	- hardwareAccelerated: true
+		meta-data
+		- name: app_type
+		- value: release
+		meta-data
+		- name: app_channel
+		- value: stable
+		activity
+		- name: com.csipsimple.ui.SipHome
+		- launchMode: 2
+		- theme: 2131492953
+		- label: 2131427345
+		- uiOptions: 1
+			intent-filter
+				action
+				- name: android.intent.action.MAIN
+				category
+				- name: android.intent.category.LAUNCHER
+			intent-filter
+			- priority: 10
+				action
+				- name: com.csipsimple.phone.action.DIALER
+				category
+				- name: android.intent.category.DEFAULT
+			intent-filter
+			- priority: 10
+				action
+				- name: android.intent.action.DIAL
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- scheme: sip
+				data
+				- scheme: csip
+			intent-filter
+			- priority: 10
+				action
+				- name: com.csipsimple.phone.action.CALLLOG
+				category
+				- name: android.intent.category.DEFAULT
+			intent-filter
+			- priority: 10
+				action
+				- name: com.csipsimple.phone.action.FAVORITES
+				category
+				- name: android.intent.category.DEFAULT
+			intent-filter
+			- priority: 10
+				action
+				- name: com.csipsimple.phone.action.MESSAGES
+				category
+				- name: android.intent.category.DEFAULT
+		service
+		- exported: true
+		- name: com.csipsimple.service.SipService
+		- process: :sipStack
+		- permission: android.permission.CONFIGURE_SIP
+			intent-filter
+				action
+				- name: com.csipsimple.service.SipService
+				action
+				- name: com.csipsimple.service.SipConfiguration
+		service
+		- name: .service.Downloader
+		receiver
+		- name: com.csipsimple.service.DeviceStateReceiver
+		- process: :sipStack
+			intent-filter
+				action
+				- name: android.net.conn.CONNECTIVITY_CHANGE
+				action
+				- name: android.intent.action.BOOT_COMPLETED
+			intent-filter
+				action
+				- name: android.intent.action.PACKAGE_ADDED
+				action
+				- name: android.intent.action.PACKAGE_REMOVED
+				data
+				- scheme: package
+		receiver
+		- name: com.csipsimple.service.DeviceStateReceiver
+		- process: :sipStack
+		- permission: android.permission.CONFIGURE_SIP
+			intent-filter
+				action
+				- name: com.csipsimple.accounts.activate
+		activity
+		- name: com.csipsimple.ui.calllog.CallLogDetailsActivity
+		- theme: 2131492953
+		activity
+		- name: com.csipsimple.ui.filters.AccountFilters
+		- configChanges: 128
+		- theme: 2131492953
+		- label: 2131427796
+		activity
+		- name: com.csipsimple.ui.filters.EditFilter
+		- configChanges: 128
+		- theme: 2131492953
+		- label: 2131427796
+		activity
+		- name: com.csipsimple.wizards.WizardChooser
+		- configChanges: 128
+		- theme: 2131492969
+		- label: 2131427790
+		activity
+		- name: com.csipsimple.ui.prefs.hc.MainPrefs
+		- configChanges: 128
+		- theme: 2131492953
+		- permission: android.permission.CONFIGURE_SIP
+		- label: 2131427476
+		- enabled: 2131165190
+			intent-filter
+				action
+				- name: com.csipsimple.ui.action.PREFS_GLOBAL
+				category
+				- name: android.intent.category.DEFAULT
+		activity
+		- name: com.csipsimple.ui.prefs.cupcake.MainPrefs
+		- configChanges: 128
+		- theme: 2131492953
+		- permission: android.permission.CONFIGURE_SIP
+		- label: 2131427476
+		- enabled: 2131165191
+			intent-filter
+				action
+				- name: com.csipsimple.ui.action.PREFS_GLOBAL
+				category
+				- name: android.intent.category.DEFAULT
+		activity
+		- name: com.csipsimple.ui.prefs.cupcake.PrefsLoaderActivity
+		- theme: 2131492953
+		- label: 
+		activity
+		- name: com.csipsimple.ui.prefs.PrefsFilters
+		- configChanges: 128
+		- theme: 2131492953
+		- label: 2131427796
+		activity
+		- name: com.csipsimple.ui.prefs.PrefsFast
+		- configChanges: 128
+		- theme: 2131492969
+		- permission: android.permission.CONFIGURE_SIP
+		- label: 2131427477
+			intent-filter
+				action
+				- name: com.csipsimple.ui.action.PREFS_FAST
+				category
+				- name: android.intent.category.DEFAULT
+		activity
+		- name: com.csipsimple.ui.prefs.Codecs
+		- configChanges: 128
+		- theme: 2131492953
+		- label: 2131427606
+		activity
+		- name: com.csipsimple.ui.prefs.AudioTester
+		- theme: 2131492969
+		- label: 2131427869
+		- screenOrientation: 1
+		activity
+		- name: com.csipsimple.wizards.BasePrefsWizard
+		- configChanges: 128
+		- theme: 2131492953
+		receiver
+		- name: com.csipsimple.service.OutgoingCall
+		- process: :sipStack
+			intent-filter
+			- priority: 0
+				action
+				- name: android.intent.action.NEW_OUTGOING_CALL
+		activity
+		- process: :sipStack
+		- name: com.csipsimple.ui.outgoingcall.OutgoingCallChooser
+		- launchMode: 2
+		- configChanges: 128
+		- theme: 2131492969
+		- excludeFromRecents: true
+		- label: 2131427416
+		- taskAffinity: 
+		- allowTaskReparenting: false
+			intent-filter
+				action
+				- name: android.intent.action.CALL
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- scheme: csip
+				data
+				- scheme: sip
+				data
+				- scheme: sips
+			intent-filter
+				action
+				- name: android.intent.action.VIEW
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- scheme: csip
+				data
+				- scheme: sip
+				data
+				- scheme: sips
+			intent-filter
+			- priority: 10
+				action
+				- name: android.phone.extra.NEW_CALL_INTENT
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- scheme: csip
+				data
+				- scheme: sip
+				data
+				- scheme: sips
+			intent-filter
+				action
+				- name: android.intent.action.SENDTO
+				action
+				- name: android.intent.action.VIEW
+				category
+				- name: android.intent.category.DEFAULT
+				category
+				- name: android.intent.category.BROWSABLE
+				data
+				- scheme: csip
+				data
+				- scheme: sip
+				data
+				- scheme: sips
+				data
+				- scheme: imto
+				- host: csip
+				data
+				- scheme: imto
+				- host: sip
+				data
+				- scheme: imto
+				- host: skype
+		activity-alias
+		- targetActivity: com.csipsimple.ui.outgoingcall.OutgoingCallChooser
+		- name: com.csipsimple.ui.PrivilegedOutgoingSipCallBroadcaster
+		- launchMode: 2
+		- configChanges: 128
+		- theme: 2131492969
+		- permission: android.permission.CALL_PRIVILEGED
+		- excludeFromRecents: true
+			intent-filter
+				action
+				- name: android.intent.action.CALL_PRIVILEGED
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- scheme: sip
+		activity-alias
+		- targetActivity: com.csipsimple.ui.outgoingcall.OutgoingCallChooser
+		- name: com.csipsimple.ui.PrivilegedOutgoingCallBroadcaster
+		- launchMode: 2
+		- configChanges: 128
+		- theme: 2131492969
+		- permission: android.permission.CALL_PRIVILEGED
+		- excludeFromRecents: true
+		- label: 2131427417
+		- enabled: false
+			intent-filter
+				action
+				- name: android.intent.action.CALL_PRIVILEGED
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- scheme: tel
+			intent-filter
+				action
+				- name: android.intent.action.CALL_PRIVILEGED
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- mimeType: vnd.android.cursor.item/phone
+				data
+				- mimeType: vnd.android.cursor.item/phone_v2
+				data
+				- mimeType: vnd.android.cursor.item/person
+			intent-filter
+				action
+				- name: android.intent.action.SENDTO
+				category
+				- name: android.intent.category.DEFAULT
+				data
+				- scheme: smsto
+		activity
+		- process: :sipStack
+		- name: com.csipsimple.ui.incall.InCallActivity
+		- launchMode: 2
+		- configChanges: 128
+		- theme: 2131492970
+		- permission: android.permission.CONFIGURE_SIP
+		- excludeFromRecents: true
+		- taskAffinity: 
+		- allowTaskReparenting: true
+			intent-filter
+			- priority: 10
+				action
+				- name: com.csipsimple.phone.action.INCALL
+				category
+				- name: android.intent.category.DEFAULT
+		activity
+		- name: com.csipsimple.ui.PickupSipUri
+		- configChanges: 128
+		- theme: 2131492953
+		- label: 2131427828
+		activity
+		- name: com.csipsimple.ui.incall.InCallMediaControl
+		- configChanges: 128
+		- theme: 2131492969
+		- label: 2131427481
+		- taskAffinity: com.csipsimple.ui.incall.InCallActivity
+		receiver
+		- name: com.csipsimple.service.HeadsetButtonReceiver
+		receiver
+		- icon: 2130837595
+		- name: com.csipsimple.widgets.AccountWidgetProvider
+		- label: 2131427827
+			intent-filter
+				action
+				- name: android.appwidget.action.APPWIDGET_UPDATE
+				action
+				- name: com.csipsimple.service.ACCOUNT_CHANGED
+				action
+				- name: com.csipsimple.service.REGISTRATION_CHANGED
+			meta-data
+			- name: android.appwidget.provider
+			- resource: 2131034113
+		activity
+		- name: com.csipsimple.widgets.AccountWidgetConfigure
+		- theme: 2131492953
+			intent-filter
+				action
+				- name: android.appwidget.action.APPWIDGET_CONFIGURE
+		receiver
+		- icon: 2130837655
+		- name: com.csipsimple.widgets.ShortcutWidgetProvider
+		- label: 2131427855
+			intent-filter
+				action
+				- name: android.appwidget.action.APPWIDGET_UPDATE
+			meta-data
+			- name: android.appwidget.provider
+			- resource: 2131034112
+		activity
+		- name: com.csipsimple.widgets.ShortcutWidgetConfigure
+		- theme: 2131492953
+			intent-filter
+				action
+				- name: android.appwidget.action.APPWIDGET_CONFIGURE
+		activity
+		- name: com.csipsimple.ui.messages.MessageActivity
+		- launchMode: 1
+		- windowSoftInputMode: 2
+		- configChanges: 128
+		- theme: 2131492953
+		receiver
+		- name: com.csipsimple.plugins.telephony.CallHandler
+		- process: :sipStack
+		- permission: android.permission.PROCESS_OUTGOING_CALLS
+			intent-filter
+				action
+				- name: com.csipsimple.phone.action.HANDLE_CALL
+		provider
+		- name: com.csipsimple.service.PreferenceProvider
+		- permission: android.permission.CONFIGURE_SIP
+		- authorities: com.csipsimple.prefs
+		provider
+		- name: com.csipsimple.db.DBProvider
+		- process: :sipStack
+		- permission: android.permission.CONFIGURE_SIP
+		- authorities: com.csipsimple.db
+		activity
+		- name: com.csipsimple.ui.account.AccountsEditList
+		- theme: 2131492953
+		- label: 2131427781
+		activity
+		- name: com.csipsimple.ui.account.AccountEdit
+		- theme: 2131492953
+		receiver
+		- name: com.csipsimple.plugins.codecs.ReceiverSilk
+		- permission: android.permission.CONFIGURE_SIP
+			meta-data
+			- name: lib_name
+			- value: libpj_silk_codec.so
+			meta-data
+			- name: init_factory
+			- value: pjmedia_codec_silk_init
+			intent-filter
+				action
+				- name: com.csipsimple.codecs.action.REGISTER_CODEC
+		activity
+		- name: com.csipsimple.wizards.impl.MondotalkCreate
+		- theme: 2131492953

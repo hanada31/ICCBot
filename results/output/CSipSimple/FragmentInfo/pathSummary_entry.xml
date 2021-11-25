@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallMediaControl: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="InCallMediaControl onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.incall.InCallMediaControl: void setContentView(int)&gt;(2130903104)">
+        <nodeInfo nodeId="1823894285" predsStr="605242260" succsStr="" context=""/>
+        <baseNodePointTo value="1823894285" context=""/>
+        <nodeSetPointToMe value="1823894285," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: void onTabUnselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onTabUnselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)"/>
+      <node type="getFragment" method="ActionBarWrapper$TabWrapper onTabUnselected" unit="$r8 = virtualinvoke $r7.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1364373403" predsStr="40514793" succsStr="557267702" context=""/>
+        <baseNodePointTo value="1364373403" context=""/>
+        <nodeSetPointToMe value="1364373403,557267702," context=""/>
+      </node>
+      <node type="beginTransaction" method="ActionBarWrapper$TabWrapper onTabUnselected" unit="r4 = virtualinvoke $r8.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="557267702" predsStr="1364373403" succsStr="1923714885" context=""/>
+        <baseNodePointTo value="1364373403" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.view.View)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void &lt;init&gt;(android.content.Context,android.view.View)"/>
+      <node type="setContentView" method="HorizontalQuickActionWindow &lt;init&gt;" unit="specialinvoke r0.&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void setContentView(int)&gt;(2130903113)">
+        <nodeInfo nodeId="1450707252" predsStr="637453945" succsStr="" context=""/>
+        <baseNodePointTo value="1450707252" context=""/>
+        <nodeSetPointToMe value="1450707252," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: void onTabReselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onTabReselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)"/>
+      <node type="commit" method="ActionBarWrapper$TabWrapper onTabReselected" unit="virtualinvoke r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="841391487" predsStr="249968069" succsStr="1040718387" context=""/>
+        <baseNodePointTo value="1936177638" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onTabReselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)"/>
+      <node type="getFragment" method="ActionBarWrapper$TabWrapper onTabReselected" unit="$r8 = virtualinvoke $r7.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1936177638" predsStr="249968069" succsStr="1272476957" context=""/>
+        <baseNodePointTo value="1936177638" context=""/>
+        <nodeSetPointToMe value="1936177638,1272476957,1894659393,841391487," context=""/>
+      </node>
+      <node type="beginTransaction" method="ActionBarWrapper$TabWrapper onTabReselected" unit="r4 = virtualinvoke $r8.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1272476957" predsStr="1936177638" succsStr="1327069562, 1894659393" context=""/>
+        <baseNodePointTo value="1936177638" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onTabReselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)"/>
+      <node type="getFragment" method="ActionBarWrapper$TabWrapper onTabReselected" unit="$r8 = virtualinvoke $r7.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1936177638" predsStr="249968069" succsStr="1272476957" context=""/>
+        <baseNodePointTo value="1936177638" context=""/>
+        <nodeSetPointToMe value="1936177638,1272476957,1894659393,841391487," context=""/>
+      </node>
+      <node type="beginTransaction" method="ActionBarWrapper$TabWrapper onTabReselected" unit="r4 = virtualinvoke $r8.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1272476957" predsStr="1936177638" succsStr="1327069562, 1894659393" context=""/>
+        <baseNodePointTo value="1936177638" context=""/>
+      </node>
+      <node type="commit" method="ActionBarWrapper$TabWrapper onTabReselected" unit="virtualinvoke r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="1894659393" predsStr="1272476957" succsStr="1040718387" context=""/>
+        <baseNodePointTo value="1936177638" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.dialpad.DialerFragment: void onVisibilityChanged(boolean)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onVisibilityChanged(boolean)"/>
+      <node type="getFragment" method="DialerFragment onVisibilityChanged" unit="$r7 = virtualinvoke r0.&lt;com.csipsimple.ui.dialpad.DialerFragment: android.support.v4.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="701877863" predsStr="751018140" succsStr="2051171561" context=""/>
+        <baseNodePointTo value="701877863" context=""/>
+        <nodeSetPointToMe value="701877863,2051171561,1261759613,76032543," context=""/>
+      </node>
+      <node type="beginTransaction" method="DialerFragment onVisibilityChanged" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="2051171561" predsStr="701877863" succsStr="1261759613" context=""/>
+        <baseNodePointTo value="701877863" context=""/>
+      </node>
+      <node type="replaceFunction" method="DialerFragment onVisibilityChanged" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, $r3, &quot;autocomplete_dial_side_frag&quot;)">
+        <nodeInfo nodeId="1261759613" predsStr="2051171561" succsStr="76032543" context=""/>
+        <baseNodePointTo value="701877863" context=""/>
+      </node>
+      <node type="commit" method="DialerFragment onVisibilityChanged" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: int commitAllowingStateLoss()&gt;()">
+        <nodeInfo nodeId="76032543" predsStr="1261759613" succsStr="53045791" context=""/>
+        <baseNodePointTo value="701877863" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.hc.MainPrefs: void onBuildHeaders(java.util.List)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onBuildHeaders(java.util.List)"/>
+      <node type="LoadFunction" method="MainPrefs onBuildHeaders" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.hc.MainPrefs: void loadHeadersFromResource(int,java.util.List)&gt;(2131034115, r1)">
+        <nodeInfo nodeId="474421538" predsStr="617830409" succsStr="1784576962" context=""/>
+        <baseNodePointTo value="474421538" context=""/>
+        <nodeSetPointToMe value="474421538," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.AudioTester: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="AudioTester onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.AudioTester: void setContentView(int)&gt;(2130903071)">
+        <nodeInfo nodeId="1194927562" predsStr="43384692" succsStr="" context=""/>
+        <baseNodePointTo value="1194927562" context=""/>
+        <nodeSetPointToMe value="1194927562," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome$TabsAdapter: void clearDetails()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void clearDetails()"/>
+      <node type="getFragment" method="SipHome$TabsAdapter clearDetails" unit="$r3 = virtualinvoke $r2.&lt;com.csipsimple.ui.SipHome: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="586252143" predsStr="1733241727" succsStr="354533141" context=""/>
+        <baseNodePointTo value="586252143" context=""/>
+        <nodeSetPointToMe value="586252143,354533141,931154350,696944882," context=""/>
+      </node>
+      <node type="beginTransaction" method="SipHome$TabsAdapter clearDetails" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="354533141" predsStr="586252143" succsStr="931154350" context=""/>
+        <baseNodePointTo value="586252143" context=""/>
+      </node>
+      <node type="replaceFunction" method="SipHome$TabsAdapter clearDetails" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, $r1, null)">
+        <nodeInfo nodeId="931154350" predsStr="354533141" succsStr="696944882" context=""/>
+        <baseNodePointTo value="586252143" context=""/>
+      </node>
+      <node type="commit" method="SipHome$TabsAdapter clearDetails" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="696944882" predsStr="931154350" succsStr="11108523" context=""/>
+        <baseNodePointTo value="586252143" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: void onTabSelected(android.app.ActionBar$Tab,android.app.FragmentTransaction)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onTabSelected(android.app.ActionBar$Tab,android.app.FragmentTransaction)"/>
+      <node type="getFragment" method="ActionBarWrapper$TabWrapper onTabSelected" unit="$r9 = virtualinvoke $r8.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="8115159" predsStr="2075821132" succsStr="11534167" context=""/>
+        <baseNodePointTo value="8115159" context=""/>
+        <nodeSetPointToMe value="8115159,11534167," context=""/>
+      </node>
+      <node type="beginTransaction" method="ActionBarWrapper$TabWrapper onTabSelected" unit="$r5 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="11534167" predsStr="8115159" succsStr="790139882" context=""/>
+        <baseNodePointTo value="8115159" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallActivity: void showDialpad(int)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void showDialpad(int)"/>
+      <node type="getFragment" method="InCallActivity showDialpad" unit="$r2 = virtualinvoke r0.&lt;com.csipsimple.ui.incall.InCallActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="550637876" predsStr="214760955" succsStr="888125644" context=""/>
+        <baseNodePointTo value="550637876" context=""/>
+        <nodeSetPointToMe value="550637876,888125644," context=""/>
+      </node>
+      <node type="dialogShow" method="InCallActivity showDialpad" unit="virtualinvoke $r1.&lt;com.csipsimple.ui.incall.DtmfDialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r2, &quot;dialog&quot;)">
+        <nodeInfo nodeId="888125644" predsStr="550637876" succsStr="" context=""/>
+        <baseNodePointTo value="550637876" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void &lt;init&gt;(com.csipsimple.ui.prefs.Codecs,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void &lt;init&gt;(com.csipsimple.ui.prefs.Codecs,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)"/>
+      <node type="getFragment" method="Codecs$TabsAdapter &lt;init&gt;" unit="$r5 = virtualinvoke $r2.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1267800221" predsStr="720944126" succsStr="" context=""/>
+        <baseNodePointTo value="1267800221" context=""/>
+        <nodeSetPointToMe value="1267800221," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome$TabsAdapter: void &lt;init&gt;(com.csipsimple.ui.SipHome,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void &lt;init&gt;(com.csipsimple.ui.SipHome,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)"/>
+      <node type="getFragment" method="SipHome$TabsAdapter &lt;init&gt;" unit="$r5 = virtualinvoke $r2.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1520122002" predsStr="516602694" succsStr="1112551608" context=""/>
+        <baseNodePointTo value="1520122002" context=""/>
+        <nodeSetPointToMe value="1520122002," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void selectTab(com.actionbarsherlock.app.ActionBar$Tab)"/>
+      <node type="commit" method="ActionBarImpl selectTab" unit="virtualinvoke r2.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="1286413447" predsStr="1543755045" succsStr="" context=""/>
+        <baseNodePointTo value="255533802" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void selectTab(com.actionbarsherlock.app.ActionBar$Tab)"/>
+      <node type="getFragment" method="ActionBarImpl selectTab" unit="$r5 = virtualinvoke $r4.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="255533802" predsStr="1543755045" succsStr="1275481291" context=""/>
+        <baseNodePointTo value="255533802" context=""/>
+        <nodeSetPointToMe value="255533802,1275481291,2011993888,1286413447," context=""/>
+      </node>
+      <node type="beginTransaction" method="ActionBarImpl selectTab" unit="r2 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1275481291" predsStr="255533802" succsStr="897898056, 2011993888" context=""/>
+        <baseNodePointTo value="255533802" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void selectTab(com.actionbarsherlock.app.ActionBar$Tab)"/>
+      <node type="getFragment" method="ActionBarImpl selectTab" unit="$r5 = virtualinvoke $r4.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="255533802" predsStr="1543755045" succsStr="1275481291" context=""/>
+        <baseNodePointTo value="255533802" context=""/>
+        <nodeSetPointToMe value="255533802,1275481291,2011993888,1286413447," context=""/>
+      </node>
+      <node type="beginTransaction" method="ActionBarImpl selectTab" unit="r2 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1275481291" predsStr="255533802" succsStr="897898056, 2011993888" context=""/>
+        <baseNodePointTo value="255533802" context=""/>
+      </node>
+      <node type="commit" method="ActionBarImpl selectTab" unit="virtualinvoke r2.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="2011993888" predsStr="1275481291" succsStr="" context=""/>
+        <baseNodePointTo value="255533802" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockFragmentActivity: void setContentView(int)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void setContentView(int)"/>
+      <node type="setContentView" method="SherlockFragmentActivity setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)">
+        <nodeInfo nodeId="92953940" predsStr="1692098954" succsStr="" context=""/>
+        <baseNodePointTo value="92953940" context=""/>
+        <nodeSetPointToMe value="92953940," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,java.lang.String,java.lang.String)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void viewDetails(int,java.lang.String,java.lang.String)"/>
+      <node type="getFragment" method="ConversationsListFragment viewDetails" unit="$r6 = virtualinvoke r0.&lt;com.csipsimple.ui.messages.ConversationsListFragment: android.support.v4.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1806055440" predsStr="384736328" succsStr="860471807" context=""/>
+        <baseNodePointTo value="1806055440" context=""/>
+        <nodeSetPointToMe value="1806055440,860471807,599373278,1096245565," context=""/>
+      </node>
+      <node type="beginTransaction" method="ConversationsListFragment viewDetails" unit="$r7 = virtualinvoke $r6.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="860471807" predsStr="1806055440" succsStr="599373278" context=""/>
+        <baseNodePointTo value="1806055440" context=""/>
+      </node>
+      <node type="replaceFunction" method="ConversationsListFragment viewDetails" unit="virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, r3, null)">
+        <nodeInfo nodeId="599373278" predsStr="860471807" succsStr="1096245565" context=""/>
+        <baseNodePointTo value="1806055440" context=""/>
+      </node>
+      <node type="commit" method="ConversationsListFragment viewDetails" unit="virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="1096245565" predsStr="599373278" succsStr="" context=""/>
+        <baseNodePointTo value="1806055440" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: void refreshWarningTabDisplay()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void refreshWarningTabDisplay()"/>
+      <node type="AddTab" method="SipHome refreshWarningTabDisplay" unit="virtualinvoke $r5.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r9, class &quot;Lcom/csipsimple/ui/warnings/WarningFragment;&quot;, 4)">
+        <nodeInfo nodeId="27890064" predsStr="711349275" succsStr="" context=""/>
+        <baseNodePointTo value="27890064" context=""/>
+        <nodeSetPointToMe value="27890064," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="AccountsChooserListActivity onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void setContentView(int)&gt;(2130903064)">
+        <nodeInfo nodeId="1878522861" predsStr="1015137341" succsStr="537780503" context=""/>
+        <baseNodePointTo value="1878522861" context=""/>
+        <nodeSetPointToMe value="1878522861," context=""/>
+      </node>
+      <node type="getFragment" method="AccountsChooserListActivity onCreate" unit="$r2 = virtualinvoke r0.&lt;com.csipsimple.ui.account.AccountsChooserListActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="537780503" predsStr="1878522861" succsStr="" context=""/>
+        <baseNodePointTo value="537780503" context=""/>
+        <nodeSetPointToMe value="537780503," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockListActivity: void setContentView(int)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void setContentView(int)"/>
+      <node type="setContentView" method="SherlockListActivity setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)">
+        <nodeInfo nodeId="2010886766" predsStr="1196431479" succsStr="" context=""/>
+        <baseNodePointTo value="2010886766" context=""/>
+        <nodeSetPointToMe value="2010886766," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockExpandableListActivity: void setContentView(int)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void setContentView(int)"/>
+      <node type="setContentView" method="SherlockExpandableListActivity setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)">
+        <nodeInfo nodeId="1488513575" predsStr="110820751" succsStr="" context=""/>
+        <baseNodePointTo value="1488513575" context=""/>
+        <nodeSetPointToMe value="1488513575," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.wizards.WizardChooser: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="WizardChooser onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.wizards.WizardChooser: void setContentView(int)&gt;(2130903068)">
+        <nodeInfo nodeId="1080314294" predsStr="731014034" succsStr="" context=""/>
+        <baseNodePointTo value="1080314294" context=""/>
+        <nodeSetPointToMe value="1080314294," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.filters.EditFilter: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="EditFilter onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.filters.EditFilter: void setContentView(int)&gt;(2130903088)">
+        <nodeInfo nodeId="1510380039" predsStr="1625500079" succsStr="" context=""/>
+        <baseNodePointTo value="1510380039" context=""/>
+        <nodeSetPointToMe value="1510380039," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockActivity: void setContentView(int)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void setContentView(int)"/>
+      <node type="setContentView" method="SherlockActivity setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)">
+        <nodeInfo nodeId="1856525118" predsStr="456601422" succsStr="" context=""/>
+        <baseNodePointTo value="1856525118" context=""/>
+        <nodeSetPointToMe value="1856525118," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogListFragment: void viewDetails(int,long[])&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void viewDetails(int,long[])"/>
+      <node type="getFragment" method="CallLogListFragment viewDetails" unit="$r7 = virtualinvoke r0.&lt;com.csipsimple.ui.calllog.CallLogListFragment: android.support.v4.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1334169139" predsStr="2003928024" succsStr="1013823723" context=""/>
+        <baseNodePointTo value="1334169139" context=""/>
+        <nodeSetPointToMe value="1334169139,1013823723,1199150077,2018871337," context=""/>
+      </node>
+      <node type="beginTransaction" method="CallLogListFragment viewDetails" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1013823723" predsStr="1334169139" succsStr="1199150077" context=""/>
+        <baseNodePointTo value="1334169139" context=""/>
+      </node>
+      <node type="replaceFunction" method="CallLogListFragment viewDetails" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, r3, null)">
+        <nodeInfo nodeId="1199150077" predsStr="1013823723" succsStr="2018871337" context=""/>
+        <baseNodePointTo value="1334169139" context=""/>
+      </node>
+      <node type="commit" method="CallLogListFragment viewDetails" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="2018871337" predsStr="1199150077" succsStr="" context=""/>
+        <baseNodePointTo value="1334169139" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.PickupSipUri: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="PickupSipUri onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.PickupSipUri: void setContentView(int)&gt;(2130903112)">
+        <nodeInfo nodeId="229653130" predsStr="1616033699" succsStr="" context=""/>
+        <baseNodePointTo value="229653130" context=""/>
+        <nodeSetPointToMe value="229653130," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockPreferenceActivity: void setContentView(int)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void setContentView(int)"/>
+      <node type="setContentView" method="SherlockPreferenceActivity setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)">
+        <nodeInfo nodeId="1871364203" predsStr="487177315" succsStr="" context=""/>
+        <baseNodePointTo value="1871364203" context=""/>
+        <nodeSetPointToMe value="1871364203," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.wizards.BasePrefsWizard: void beforeBuildPrefs()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void beforeBuildPrefs()"/>
+      <node type="setContentView" method="BasePrefsWizard beforeBuildPrefs" unit="virtualinvoke r0.&lt;com.csipsimple.wizards.BasePrefsWizard: void setContentView(int)&gt;(2130903132)">
+        <nodeInfo nodeId="1430088871" predsStr="1649733561" succsStr="" context=""/>
+        <baseNodePointTo value="1430088871" context=""/>
+        <nodeSetPointToMe value="1430088871," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)"/>
+      <node type="getFragment" method="SipHome onOptionsItemSelected" unit="$r12 = virtualinvoke r0.&lt;com.csipsimple.ui.SipHome: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="124822211" predsStr="543473076" succsStr="22666728" context=""/>
+        <baseNodePointTo value="124822211" context=""/>
+        <nodeSetPointToMe value="124822211,22666728," context=""/>
+      </node>
+      <node type="dialogShow" method="SipHome onOptionsItemSelected" unit="virtualinvoke $r11.&lt;android.support.v4.app.DialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r12, &quot;dialog&quot;)">
+        <nodeInfo nodeId="22666728" predsStr="124822211" succsStr="" context=""/>
+        <baseNodePointTo value="124822211" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.filters.AccountFilters: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="AccountFilters onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.filters.AccountFilters: void setContentView(int)&gt;(2130903061)">
+        <nodeInfo nodeId="1149146551" predsStr="311057937" succsStr="1408096327" context=""/>
+        <baseNodePointTo value="1149146551" context=""/>
+        <nodeSetPointToMe value="1149146551," context=""/>
+      </node>
+      <node type="getFragment" method="AccountFilters onCreate" unit="$r3 = virtualinvoke r0.&lt;com.csipsimple.ui.filters.AccountFilters: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1408096327" predsStr="1149146551" succsStr="" context=""/>
+        <baseNodePointTo value="1408096327" context=""/>
+        <nodeSetPointToMe value="1408096327," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.MessageActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="getFragment" method="MessageActivity onCreate" unit="$r4 = virtualinvoke r0.&lt;com.csipsimple.ui.messages.MessageActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="285823645" predsStr="903725622" succsStr="758330465" context=""/>
+        <baseNodePointTo value="285823645" context=""/>
+        <nodeSetPointToMe value="285823645,758330465,1135986917,413298391," context=""/>
+      </node>
+      <node type="beginTransaction" method="MessageActivity onCreate" unit="$r5 = virtualinvoke $r4.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="758330465" predsStr="285823645" succsStr="1135986917" context=""/>
+        <baseNodePointTo value="285823645" context=""/>
+      </node>
+      <node type="addFunction" method="MessageActivity onCreate" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(16908290, r2)">
+        <nodeInfo nodeId="1135986917" predsStr="758330465" succsStr="413298391" context=""/>
+        <baseNodePointTo value="285823645" context=""/>
+      </node>
+      <node type="commit" method="MessageActivity onCreate" unit="virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="413298391" predsStr="1135986917" succsStr="2000744149" context=""/>
+        <baseNodePointTo value="285823645" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.help.Help: void onItemClick(android.widget.AdapterView,android.view.View,int,long)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onItemClick(android.widget.AdapterView,android.view.View,int,long)"/>
+      <node type="getFragment" method="Help onItemClick" unit="$r14 = virtualinvoke r0.&lt;com.csipsimple.ui.help.Help: android.support.v4.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1949978038" predsStr="569554712" succsStr="1078230622" context=""/>
+        <baseNodePointTo value="1949978038" context=""/>
+        <nodeSetPointToMe value="1949978038,1078230622," context=""/>
+      </node>
+      <node type="dialogShow" method="Help onItemClick" unit="virtualinvoke $r15.&lt;com.actionbarsherlock.app.SherlockDialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r14, &quot;issues&quot;)">
+        <nodeInfo nodeId="1078230622" predsStr="1949978038" succsStr="" context=""/>
+        <baseNodePointTo value="1949978038" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onItemClick(android.widget.AdapterView,android.view.View,int,long)"/>
+      <node type="getFragment" method="Help onItemClick" unit="$r14 = virtualinvoke r0.&lt;com.csipsimple.ui.help.Help: android.support.v4.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="145662925" predsStr="569554712" succsStr="1523266207" context=""/>
+        <baseNodePointTo value="145662925" context=""/>
+        <nodeSetPointToMe value="145662925,1523266207," context=""/>
+      </node>
+      <node type="dialogShow" method="Help onItemClick" unit="virtualinvoke $r13.&lt;com.actionbarsherlock.app.SherlockDialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r14, &quot;faq&quot;)">
+        <nodeInfo nodeId="1523266207" predsStr="145662925" succsStr="" context=""/>
+        <baseNodePointTo value="145662925" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.outgoingcall.OutgoingCallChooser: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="OutgoingCallChooser onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.outgoingcall.OutgoingCallChooser: void setContentView(int)&gt;(2130903111)">
+        <nodeInfo nodeId="1073986393" predsStr="1946019550" succsStr="" context=""/>
+        <baseNodePointTo value="1073986393" context=""/>
+        <nodeSetPointToMe value="1073986393," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.Codecs: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Codecs onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.Codecs: void setContentView(int)&gt;(2130903078)">
+        <nodeInfo nodeId="773050221" predsStr="791255144" succsStr="871335205" context=""/>
+        <baseNodePointTo value="773050221" context=""/>
+        <nodeSetPointToMe value="773050221," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r8, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="748775990" predsStr="871335205" succsStr="477737064" context=""/>
+        <baseNodePointTo value="748775990" context=""/>
+        <nodeSetPointToMe value="748775990," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="477737064" predsStr="748775990" succsStr="1583261739, 2110003838" context=""/>
+        <baseNodePointTo value="477737064" context=""/>
+        <nodeSetPointToMe value="477737064," context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Codecs onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.Codecs: void setContentView(int)&gt;(2130903078)">
+        <nodeInfo nodeId="773050221" predsStr="791255144" succsStr="871335205" context=""/>
+        <baseNodePointTo value="773050221" context=""/>
+        <nodeSetPointToMe value="773050221," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="1661257782" predsStr="871335205" succsStr="381994195, 37081516" context=""/>
+        <baseNodePointTo value="1661257782" context=""/>
+        <nodeSetPointToMe value="1661257782," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="37081516" predsStr="1661257782" succsStr="1405416421" context=""/>
+        <baseNodePointTo value="37081516" context=""/>
+        <nodeSetPointToMe value="37081516," context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Codecs onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.Codecs: void setContentView(int)&gt;(2130903078)">
+        <nodeInfo nodeId="773050221" predsStr="791255144" succsStr="871335205" context=""/>
+        <baseNodePointTo value="773050221" context=""/>
+        <nodeSetPointToMe value="773050221," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r8, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="748775990" predsStr="871335205" succsStr="477737064" context=""/>
+        <baseNodePointTo value="748775990" context=""/>
+        <nodeSetPointToMe value="748775990," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="477737064" predsStr="748775990" succsStr="1583261739, 2110003838" context=""/>
+        <baseNodePointTo value="477737064" context=""/>
+        <nodeSetPointToMe value="477737064," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r8, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="1583261739" predsStr="477737064" succsStr="2030672140" context=""/>
+        <baseNodePointTo value="1583261739" context=""/>
+        <nodeSetPointToMe value="1583261739," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="2030672140" predsStr="1583261739" succsStr="" context=""/>
+        <baseNodePointTo value="2030672140" context=""/>
+        <nodeSetPointToMe value="2030672140," context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Codecs onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.Codecs: void setContentView(int)&gt;(2130903078)">
+        <nodeInfo nodeId="773050221" predsStr="791255144" succsStr="871335205" context=""/>
+        <baseNodePointTo value="773050221" context=""/>
+        <nodeSetPointToMe value="773050221," context=""/>
+      </node>
+      <node type="AddTab" method="Codecs onCreate" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)">
+        <nodeInfo nodeId="1661257782" predsStr="871335205" succsStr="381994195, 37081516" context=""/>
+        <baseNodePointTo value="1661257782" context=""/>
+        <nodeSetPointToMe value="1661257782," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.wizards.impl.MondotalkCreate: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MondotalkCreate onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.wizards.impl.MondotalkCreate: void setContentView(int)&gt;(2130903123)">
+        <nodeInfo nodeId="725771481" predsStr="1113219279" succsStr="" context=""/>
+        <baseNodePointTo value="725771481" context=""/>
+        <nodeSetPointToMe value="725771481," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.PrefsFast: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="PrefsFast onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.PrefsFast: void setContentView(int)&gt;(2130903091)">
+        <nodeInfo nodeId="1302616444" predsStr="1456148781" succsStr="" context=""/>
+        <baseNodePointTo value="1302616444" context=""/>
+        <nodeSetPointToMe value="1302616444," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.account.AccountsEditList: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="AccountsEditList onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.account.AccountsEditList: void setContentView(int)&gt;(2130903067)">
+        <nodeInfo nodeId="1156002506" predsStr="654753784" succsStr="" context=""/>
+        <baseNodePointTo value="1156002506" context=""/>
+        <nodeSetPointToMe value="1156002506," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogDetailsActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="getFragment" method="CallLogDetailsActivity onCreate" unit="$r4 = virtualinvoke r0.&lt;com.csipsimple.ui.calllog.CallLogDetailsActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="2077358845" predsStr="338294946" succsStr="2013164164" context=""/>
+        <baseNodePointTo value="2077358845" context=""/>
+        <nodeSetPointToMe value="2077358845,2013164164,2058750707,562106863," context=""/>
+      </node>
+      <node type="beginTransaction" method="CallLogDetailsActivity onCreate" unit="$r5 = virtualinvoke $r4.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="2013164164" predsStr="2077358845" succsStr="2058750707" context=""/>
+        <baseNodePointTo value="2077358845" context=""/>
+      </node>
+      <node type="addFunction" method="CallLogDetailsActivity onCreate" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(16908290, r2)">
+        <nodeInfo nodeId="2058750707" predsStr="2013164164" succsStr="562106863" context=""/>
+        <baseNodePointTo value="2077358845" context=""/>
+      </node>
+      <node type="commit" method="CallLogDetailsActivity onCreate" unit="virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="562106863" predsStr="2058750707" succsStr="1360868184" context=""/>
+        <baseNodePointTo value="2077358845" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.ActionBarSherlockNative: void setContentView(int)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void setContentView(int)"/>
+      <node type="setContentView" method="ActionBarSherlockNative setContentView" unit="virtualinvoke $r1.&lt;android.view.Window: void setContentView(int)&gt;($i0)">
+        <nodeInfo nodeId="1052518729" predsStr="1315841542" succsStr="" context=""/>
+        <baseNodePointTo value="1052518729" context=""/>
+        <nodeSetPointToMe value="1052518729," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="InCallActivity onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.incall.InCallActivity: void setContentView(int)&gt;(2130903103)">
+        <nodeInfo nodeId="518496643" predsStr="1424699801" succsStr="1012049866" context=""/>
+        <baseNodePointTo value="518496643" context=""/>
+        <nodeSetPointToMe value="518496643," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SipHome onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.SipHome: void setContentView(int)&gt;(2130903134)">
+        <nodeInfo nodeId="1541239458" predsStr="394126972" succsStr="946860373" context=""/>
+        <baseNodePointTo value="1541239458" context=""/>
+        <nodeSetPointToMe value="1541239458," context=""/>
+      </node>
+      <node type="AddTab" method="SipHome onCreate" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r4, class &quot;Lcom/csipsimple/ui/dialpad/DialerFragment;&quot;, 0)">
+        <nodeInfo nodeId="1198004370" predsStr="946860373" succsStr="1071536133" context=""/>
+        <baseNodePointTo value="1198004370" context=""/>
+        <nodeSetPointToMe value="1198004370," context=""/>
+      </node>
+      <node type="AddTab" method="SipHome onCreate" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r5, class &quot;Lcom/csipsimple/ui/calllog/CallLogListFragment;&quot;, 1)">
+        <nodeInfo nodeId="1071536133" predsStr="1198004370" succsStr="262563134" context=""/>
+        <baseNodePointTo value="1071536133" context=""/>
+        <nodeSetPointToMe value="1071536133," context=""/>
+      </node>
+      <node type="AddTab" method="SipHome onCreate" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r6, class &quot;Lcom/csipsimple/ui/favorites/FavListFragment;&quot;, 2)">
+        <nodeInfo nodeId="262563134" predsStr="1071536133" succsStr="1216661702, 1328539084" context=""/>
+        <baseNodePointTo value="262563134" context=""/>
+        <nodeSetPointToMe value="262563134," context=""/>
+      </node>
+      <node type="AddTab" method="SipHome onCreate" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;(r7, class &quot;Lcom/csipsimple/ui/messages/ConversationsListFragment;&quot;, 3)">
+        <nodeInfo nodeId="1328539084" predsStr="262563134" succsStr="41714268" context=""/>
+        <baseNodePointTo value="1328539084" context=""/>
+        <nodeSetPointToMe value="1328539084," context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SipHome onCreate" unit="virtualinvoke r0.&lt;com.csipsimple.ui.SipHome: void setContentView(int)&gt;(2130903134)">
+        <nodeInfo nodeId="1541239458" predsStr="394126972" succsStr="946860373" context=""/>
+        <baseNodePointTo value="1541239458" context=""/>
+        <nodeSetPointToMe value="1541239458," context=""/>
+      </node>
+      <node type="AddTab" method="SipHome onCreate" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r4, class &quot;Lcom/csipsimple/ui/dialpad/DialerFragment;&quot;, 0)">
+        <nodeInfo nodeId="1198004370" predsStr="946860373" succsStr="1071536133" context=""/>
+        <baseNodePointTo value="1198004370" context=""/>
+        <nodeSetPointToMe value="1198004370," context=""/>
+      </node>
+      <node type="AddTab" method="SipHome onCreate" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r5, class &quot;Lcom/csipsimple/ui/calllog/CallLogListFragment;&quot;, 1)">
+        <nodeInfo nodeId="1071536133" predsStr="1198004370" succsStr="262563134" context=""/>
+        <baseNodePointTo value="1071536133" context=""/>
+        <nodeSetPointToMe value="1071536133," context=""/>
+      </node>
+      <node type="AddTab" method="SipHome onCreate" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r6, class &quot;Lcom/csipsimple/ui/favorites/FavListFragment;&quot;, 2)">
+        <nodeInfo nodeId="262563134" predsStr="1071536133" succsStr="1216661702, 1328539084" context=""/>
+        <baseNodePointTo value="262563134" context=""/>
+        <nodeSetPointToMe value="262563134," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+</root>
