@@ -149,7 +149,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 				return "StaticCreateMethod";
 			}else if (isSetAttributeMethod(unit)) {
 				return "SetAttribute";
-			} else if (isSetIntentExtraMethod(unit)) {
+			} else if (!MyConfig.getInstance().getMySwithch().isSetDesRelatedAttributeOnlyStrategy() && isSetIntentExtraMethod(unit)) {
 				return "SetIntentExtra";
 			} else if (isInitIntentMethod(unit)) {
 				return "InitIntent";

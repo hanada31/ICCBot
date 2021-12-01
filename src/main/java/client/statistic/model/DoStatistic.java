@@ -237,7 +237,7 @@ public class DoStatistic {
 		writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
 //		if (icc.element("destinition") != null)
 		if (icc.element("source") != null)
-		summary.add(icc);
+			summary.add(icc);
 	}
 
 	private static void writeFragmentSummary(FragmentSummaryModel singlefrag, Element intentSummaryEle,
@@ -453,7 +453,7 @@ public class DoStatistic {
 					sender.addAttribute("data", PrintUtils.printList(data));
 				if (type.size() > 0)
 					sender.addAttribute("type", PrintUtils.printList(type));
-				 if(extras.getExtraDatas().size()>0 )
+				if(extras.getExtraDatas().size()>0 )
 					sender.addAttribute("extras", extras.toString());
 				if (flags.size() > 0)
 					sender.addAttribute("flags", PrintUtils.printList(flags));
@@ -506,7 +506,7 @@ public class DoStatistic {
 		Element desElement = icc.addElement("source");
 		String source = SootUtils.getNameofClass(methodSummary.getComponentName());
 		if(source!=null && source.length()>0)
-		desElement.addAttribute("name", source);
+			desElement.addAttribute("name", source);
 	}
 
 	private static void writeDestnition(ObjectSummaryModel singleObj, Element icc) {

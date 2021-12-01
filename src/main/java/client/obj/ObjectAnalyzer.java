@@ -109,10 +109,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
 		MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
 		String tag = methodUnderAnalysis.getSignature();
-		if(tag.contains("Activity3: void onCreate(")){
-			System.err.println(tag);
-		}
-		
+//		if(tag.contains("SshAuthenticationService$1: android.content.Intent execute")){
+//			System.err.println(tag);
+//		}
+//		System.err.println(tag);
 		if (methodUnderAnalysis.getSignature().contains(ConstantUtils.DUMMYMAIN)) {
 //			analyzeDummyMain(methodSummary);
 			return methodSummary;
@@ -131,7 +131,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		/** analyze SingleObject **/
 		getSingleObject(methodSummary);
 
-		// System.out.println("getSingleComponent");
+//		 System.out.println("getSingleComponent");
 		/** analyze SingleClass **/
 		getSingleComponent(methodSummary);
 
@@ -390,6 +390,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			}
 		}
 		List<UnitNode> workList = getWorkListofObjectAnalysis(node, pathSummary, singleObject, context, addedSet);
+//		System.out.println(workList.size());
 		handleWorkList(pathSummary, singleObject, workList, addedSet);
 
 		if (MyConfig.getInstance().getMySwithch().isScenario_stack()) {
@@ -424,7 +425,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 						for(UnitNode newNode: tempNode.getNodeSetPointToMe(context)){
 							if(!workList.contains(newNode)){
 								fixpoint = false;
-								addList.add(newNode);
+								if(!workList.contains(newNode) && !addList.contains(newNode))
+									addList.add(newNode);
 							}
 						}
 					}
@@ -787,6 +789,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 */
 	private void handleNodewithInnerFunction(Stack<String> methodStack, List<String> currentMtdcontext,
 			UnitNode currentNode) {
+		if(methodStack.size()>MyConfig.getInstance().getMaxFunctionExpandNumber())
+			return;
 		InvokeExpr exp = SootUtils.getInvokeExp(currentNode.getUnit());
 		if (exp == null)
 			return;
@@ -851,8 +855,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					// remove point to relation for invoke without object
 					// transfer
 					if (currentNode.getBaseNodePointedTo(currentMtdcontext) != null) {
-						currentNode.getBaseNodePointedTo(currentMtdcontext).addNodeSetPointToMeMap(currentMtdcontext,
-								subNode);
+						currentNode.getBaseNodePointedTo(currentMtdcontext).addNodeSetPointToMeMap(currentMtdcontext,subNode);
 					}
 				}
 				if (!flag)
