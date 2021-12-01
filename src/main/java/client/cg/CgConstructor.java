@@ -319,12 +319,12 @@ public class CgConstructor extends Analyzer {
 	 * add transforms for analyzing
 	 */
 	private void sootTransform() {
-		CallgraphAlgorithm algo = CallgraphAlgorithm.SPARK;
+		String algo = MyConfig.getInstance().getCallgraphAlgorithm();
 		switch (algo) {
-		case CHA:
+		case "CHA":
 			Options.v().setPhaseOption("cg.cha", "on");
 			break;
-		case SPARK:
+		case "SPARK":
 			Options.v().setPhaseOption("cg.spark", "on");
 			Options.v().setPhaseOption("cg.spark", "string-constants:true");
 			break;

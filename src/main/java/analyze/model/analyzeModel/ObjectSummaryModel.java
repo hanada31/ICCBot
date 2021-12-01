@@ -82,10 +82,10 @@ public class ObjectSummaryModel implements Serializable, Cloneable {
 		this.finishFlag = this.finishFlag | temp.finishFlag;
 	}
 
-	@Override
-	public int hashCode() {
-		return this.toString().length();
-	}
+//	@Override
+//	public int hashCode() {
+//		return this.toString().length();
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

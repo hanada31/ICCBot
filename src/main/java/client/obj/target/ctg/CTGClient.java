@@ -84,15 +84,11 @@ public class CTGClient extends BaseClient {
 			ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
 			analyzer.analyze();
 		}
-//		setMySwitch2();
-//		for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
-//			ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
-//			analyzer.analyze();
-//		}
 		System.out.println("Successfully analyze with CTGClient.");
 	}
 
 	protected void setMySwitch1() {
+		MyConfig.getInstance().getMySwithch().setSetDesRelatedAttributeOnlyStrategy(true);
 		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
 		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(false);
 		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.object);

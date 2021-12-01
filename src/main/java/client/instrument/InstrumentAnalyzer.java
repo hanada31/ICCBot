@@ -183,6 +183,8 @@ public class InstrumentAnalyzer extends Analyzer {
 			e.printStackTrace();
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
+		}finally{
+			manifestManager.close();
 		}
 	}
 
@@ -226,6 +228,8 @@ public class InstrumentAnalyzer extends Analyzer {
 			manifestManager.getApk().addFilesToApk(files, paths);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			manifestManager.close();
 		}
 	}
 }

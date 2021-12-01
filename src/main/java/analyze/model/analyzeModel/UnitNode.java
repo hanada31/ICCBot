@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import main.java.MyConfig;
 import soot.SootMethod;
 import soot.Unit;
 
@@ -145,7 +146,8 @@ public class UnitNode {
 		if (!nodeSetPointToMeMap.containsKey(context)) {
 			nodeSetPointToMeMap.put(context, new ArrayList<UnitNode>());
 		}
-		nodeSetPointToMeMap.get(context).add(baseNodePointTo);
+		if(nodeSetPointToMeMap.get(context).size()< MyConfig.getInstance().getMaxObjectSummarySize())
+			nodeSetPointToMeMap.get(context).add(baseNodePointTo);
 	}
 
 	public String getCondition() {
