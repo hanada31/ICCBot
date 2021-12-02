@@ -309,8 +309,7 @@ public class IC3DialReader extends Analyzer {
 		List<String> summaryCateSet = intentSummary.getSetCategoryValueList();
 		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> resSet = new ArrayList<String>();
-		if (!summaryCateSet.contains("android.intent.category.DEFAULT"))
-			summaryCateSet.add("android.intent.category.DEFAULT");
+
 		for (ComponentModel component : IC3ComponentMap.values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
 				Set<String> filterActionSet = filter.getAction_list();
@@ -332,15 +331,22 @@ public class IC3DialReader extends Analyzer {
 				 * https://developer.android.com/guide/components
 				 * /intents-filters.html
 				 **/
+				boolean addDefault = false;
 				if (component instanceof ActivityModel) {
+					if (!summaryCateSet.contains("android.intent.category.DEFAULT")){
+						summaryCateSet.add("android.intent.category.DEFAULT");
+						addDefault = true;
+					}
 					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
 						cateTarget = false;
 				}
 				// all the category in a summary must find a match one in filter
-				for (String category : summaryCateSet) {
-					if (!filterCateSet.contains(category))
+				for (String category : filterCateSet ) {
+					if (!summaryCateSet.contains(category))
 						cateTarget = false;
 				}
+				if(addDefault)
+					summaryCateSet.remove("android.intent.category.DEFAULT");
 				if (filterDataSet.size() == 0)
 					dataTarget = true;
 				else {
