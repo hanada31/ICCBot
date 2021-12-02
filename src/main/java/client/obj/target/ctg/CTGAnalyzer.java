@@ -193,8 +193,6 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> summaryTypeSet = intentSummary.getSetTypeValueList();
 		List<String> resSet = intentSummary.getSetDestinationList();
-		if (!summaryCateSet.contains("android.intent.category.DEFAULT"))
-			summaryCateSet.add("android.intent.category.DEFAULT");
 		boolean findTarget = false;
 		for (ComponentModel component : appModel.getComponentMap().values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
@@ -218,7 +216,12 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 				 * https://developer.android.com/guide/components
 				 * /intents-filters.html
 				 **/
+				boolean addDefault = false;
 				if (component instanceof ActivityModel) {
+					if (!summaryCateSet.contains("android.intent.category.DEFAULT")){
+						summaryCateSet.add("android.intent.category.DEFAULT");
+						addDefault = true;
+					}
 					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
 						cateTarget = false;
 				}
@@ -227,6 +230,8 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 					if (!summaryCateSet.contains(category))
 						cateTarget = false;
 				}
+				if(addDefault)
+					summaryCateSet.remove("android.intent.category.DEFAULT");
 				if (filterDataSet.size() == 0)
 					dataTarget = true;
 				else {
@@ -258,8 +263,8 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 						typeTarget = false;
 				}
 				boolean flag1 = actionTarget && cateTarget && dataTarget && typeTarget;
-				boolean flag2 = (summaryActionSet.size() == 0) && cateTarget && dataTarget && typeTarget;
-				if (flag1 || flag2) {
+				boolean flag2 = (summaryActionSet.size() == 0);
+				if (flag1 && !flag2) {
 					if (component.getComponentType().contains(intentSummary.getTargetType())) {
 						findTarget = true;
 						resSet.add(component.getComponetName());

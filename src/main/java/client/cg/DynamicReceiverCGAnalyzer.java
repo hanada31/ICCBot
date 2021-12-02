@@ -64,9 +64,9 @@ public class DynamicReceiverCGAnalyzer extends Analyzer {
 							} else {
 								receiverName = sc.getName() + "_dynamicReceiver";
 								if (appModel.getComponentMap().containsKey(receiverName)) {
-									if (appModel.getActivityMap().get(receiverName) != null) {
-										filterModel.getCategory_list().add("android.intent.category.DEFAULT");
-									}
+//									if (appModel.getActivityMap().get(receiverName) != null) {
+//										filterModel.getCategory_list().add("android.intent.category.DEFAULT");
+//									}
 									appModel.getComponentMap().get(receiverName).addIntentFilter(filterModel);
 								}
 							}

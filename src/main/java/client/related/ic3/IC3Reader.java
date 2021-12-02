@@ -241,8 +241,9 @@ public class IC3Reader extends Analyzer {
 				for (int n = 0; n < values.size(); n++)
 					intentSummary.getSetActionValueList().add(values.getString(n));
 			} else if (kind.equals("1") || kind.equals("CATEGORY")) {// CATEGORY
-				for (int n = 0; n < values.size(); n++)
+				for (int n = 0; n < values.size(); n++){
 					intentSummary.getSetCategoryValueList().add(values.getString(n));
+				}
 			} else if (kind.equals("2") || kind.equals("PACKAGE")) {// CLASS
 			} else if (kind.equals("3") || kind.equals("CLASS")) {// CLASS
 				String des = values.getString(0).replace("/", ".");
@@ -281,7 +282,7 @@ public class IC3Reader extends Analyzer {
 		}
 		if (hasDes)
 			return;
-		List<String> resSet = analyzeDesinationByACDT(intentSummary);
+		List<String> resSet = analyzeDesinationByACDT(src, intentSummary);
 		for (String des : resSet) {
 			// des = des.split("\\.")[des.split("\\.").length-1];
 			AtgEdge edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method, instructionId, iCCkind);
@@ -303,13 +304,12 @@ public class IC3Reader extends Analyzer {
 
 	}
 
-	private List<String> analyzeDesinationByACDT(IntentSummaryModel intentSummary) {
+	private List<String> analyzeDesinationByACDT(String src, IntentSummaryModel intentSummary) {
 		List<String> summaryActionSet = intentSummary.getSetActionValueList();
 		List<String> summaryCateSet = intentSummary.getSetCategoryValueList();
 		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> resSet = new ArrayList<String>();
-		if (!summaryCateSet.contains("android.intent.category.DEFAULT"))
-			summaryCateSet.add("android.intent.category.DEFAULT");
+		
 		for (ComponentModel component : IC3ComponentMap.values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
 				Set<String> filterActionSet = filter.getAction_list();
@@ -331,15 +331,22 @@ public class IC3Reader extends Analyzer {
 				 * https://developer.android.com/guide/components
 				 * /intents-filters.html
 				 **/
+				boolean addDefault = false;
 				if (component instanceof ActivityModel) {
+					if (!summaryCateSet.contains("android.intent.category.DEFAULT")){
+						summaryCateSet.add("android.intent.category.DEFAULT");
+						addDefault = true;
+					}
 					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
 						cateTarget = false;
 				}
 				// all the category in a summary must find a match one in filter
-				for (String category : summaryCateSet) {
-					if (!filterCateSet.contains(category))
+				for (String category : filterCateSet ) {
+					if (!summaryCateSet.contains(category))
 						cateTarget = false;
 				}
+				if(addDefault)
+					summaryCateSet.remove("android.intent.category.DEFAULT");
 				if (filterDataSet.size() == 0)
 					dataTarget = true;
 				else {

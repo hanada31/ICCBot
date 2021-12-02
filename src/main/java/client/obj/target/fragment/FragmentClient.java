@@ -75,7 +75,7 @@ public class FragmentClient extends BaseClient {
 
 		/** Intent **/
 		outer.writeSingleFragModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEOBJECT_ENTRY, true);
-//		outer.writeSingleFragModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEOBJECT_ALL, false);
+		outer.writeSingleFragModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.SINGLEOBJECT_ALL, false);
 
 		outer.writeATGModel(summary_app_dir + ConstantUtils.FRAGFOLDETR, ConstantUtils.ICTGMERGE + ".xml", Global.v()
 				.getFragmentModel().getAtgModel());

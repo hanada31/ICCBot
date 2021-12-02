@@ -1,0 +1,11 @@
+修改：
+1.csipsimple
++ com.csipsimple.ui.prefs.AudioTester --> com.csipsimple.service.SipService
+- com.csipsimple.ui.prefs.AudioTester --> com.csipsimple.ui.prefs.Codecs：未找到
+
+2. SteamGifts
+net.mabako.steamgifts.receivers.CheckForNewMessages 前面多了个空格
+
+3.fr.ybo.transportsrennes
+这个apk中只含有fr.ybo.transportsrennes的内容。所有的 fr.ybo.transportsbordeaux 改成 fr.ybo.transportsrennes
+- fr.ybo.transportsrennes.activity.TransportsBordeaux --> fr.ybo.transportsrennes.activity.bus.ListNotif

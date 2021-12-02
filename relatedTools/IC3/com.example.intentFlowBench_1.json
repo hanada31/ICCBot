@@ -1,0 +1,694 @@
+{
+    "name": "com.example.intentFlowBench",
+    "version": 1,
+    "used_permissions": [
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+    ],
+    "components": [
+        {
+            "name": "com.example.intentFlowBench.SubActivity1",
+            "kind": 0,
+            "exported": true,
+            "extras": [
+                {
+                    "extra": "source",
+                    "instruction": {
+                        "statement": "r4 = virtualinvoke r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(r3)",
+                        "class_name": "com.example.intentFlowBench.SubActivity1",
+                        "method": "<com.example.intentFlowBench.SubActivity1: void analyzeIntent()>",
+                        "id": 4
+                    }
+                }
+            ],
+            "intent_filters": [
+                {
+                    "attributes": [
+                        {
+                            "kind": 0,
+                            "value": [
+                                "intent_sub1"
+                            ]
+                        },
+                        {
+                            "kind": 1,
+                            "value": [
+                                "android.intent.category.DEFAULT"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r17.<com.example.intentFlowBench.SubActivity1: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.SubActivity1$1",
+                        "method": "<com.example.intentFlowBench.SubActivity1$1: void onClick(android.view.View)>",
+                        "id": 21
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "sub1Action_left"
+                                    ]
+                                },
+                                {
+                                    "kind": 1,
+                                    "value": [
+                                        "sub1Category_left"
+                                    ]
+                                },
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "Sub1",
+                                        "source"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity4"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "sub1Action_right"
+                                    ]
+                                },
+                                {
+                                    "kind": 1,
+                                    "value": [
+                                        "sub1Category_right"
+                                    ]
+                                },
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "Sub1",
+                                        "source"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity4"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity4",
+            "kind": 0,
+            "exported": false,
+            "extras": [
+                {
+                    "extra": "source",
+                    "instruction": {
+                        "statement": "r4 = virtualinvoke r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(r3)",
+                        "class_name": "com.example.intentFlowBench.SubActivity4",
+                        "method": "<com.example.intentFlowBench.SubActivity4: void analyzeIntent()>",
+                        "id": 5
+                    }
+                },
+                {
+                    "extra": "Sub3",
+                    "instruction": {
+                        "statement": "z4 = virtualinvoke r1.<android.content.Intent: boolean getBooleanExtra(java.lang.String,boolean)>(r14, z0)",
+                        "class_name": "com.example.intentFlowBench.SubActivity4",
+                        "method": "<com.example.intentFlowBench.SubActivity4: void analyzeIntent()>",
+                        "id": 24
+                    }
+                },
+                {
+                    "extra": "Sub1",
+                    "instruction": {
+                        "statement": "z2 = virtualinvoke r1.<android.content.Intent: boolean getBooleanExtra(java.lang.String,boolean)>(r8, z0)",
+                        "class_name": "com.example.intentFlowBench.SubActivity4",
+                        "method": "<com.example.intentFlowBench.SubActivity4: void analyzeIntent()>",
+                        "id": 13
+                    }
+                }
+            ],
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r8.<com.example.intentFlowBench.SubActivity4: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.SubActivity4$2",
+                        "method": "<com.example.intentFlowBench.SubActivity4$2: void onClick(android.view.View)>",
+                        "id": 10
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "source"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity5"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r11.<com.example.intentFlowBench.SubActivity4: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.SubActivity4$1",
+                        "method": "<com.example.intentFlowBench.SubActivity4$1: void onClick(android.view.View)>",
+                        "id": 13
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "Sub4",
+                                        "source"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity2"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity5",
+            "kind": 0,
+            "exported": false,
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r0.<com.example.intentFlowBench.SubActivity5: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.SubActivity5",
+                        "method": "<com.example.intentFlowBench.SubActivity5: void analyzeIntent(java.lang.String)>",
+                        "id": 5
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub2"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub3"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity2",
+            "kind": 0,
+            "exported": true,
+            "extras": [
+                {
+                    "extra": "source",
+                    "instruction": {
+                        "statement": "r4 = virtualinvoke r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(r3)",
+                        "class_name": "com.example.intentFlowBench.SubActivity2",
+                        "method": "<com.example.intentFlowBench.SubActivity2: void analyzeIntent()>",
+                        "id": 4
+                    }
+                }
+            ],
+            "intent_filters": [
+                {
+                    "attributes": [
+                        {
+                            "kind": 0,
+                            "value": [
+                                "intent_sub2"
+                            ]
+                        },
+                        {
+                            "kind": 1,
+                            "value": [
+                                "android.intent.category.DEFAULT"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r10.<com.example.intentFlowBench.SubActivity2: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.SubActivity2$1",
+                        "method": "<com.example.intentFlowBench.SubActivity2$1: void onClick(android.view.View)>",
+                        "id": 13
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "Sub2",
+                                        "source"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity3"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity3",
+            "kind": 0,
+            "exported": true,
+            "extras": [
+                {
+                    "extra": "source",
+                    "instruction": {
+                        "statement": "r4 = virtualinvoke r1.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>(r3)",
+                        "class_name": "com.example.intentFlowBench.SubActivity3",
+                        "method": "<com.example.intentFlowBench.SubActivity3: void analyzeIntent()>",
+                        "id": 5
+                    }
+                }
+            ],
+            "intent_filters": [
+                {
+                    "attributes": [
+                        {
+                            "kind": 0,
+                            "value": [
+                                "intent_sub3"
+                            ]
+                        },
+                        {
+                            "kind": 1,
+                            "value": [
+                                "android.intent.category.DEFAULT"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r10.<com.example.intentFlowBench.SubActivity3: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.SubActivity3$2",
+                        "method": "<com.example.intentFlowBench.SubActivity3$2: void onClick(android.view.View)>",
+                        "id": 13
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "Sub3",
+                                        "source"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity4"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.AbstractActivity",
+            "kind": 0,
+            "exported": false
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity8",
+            "kind": 0,
+            "exported": false
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity6",
+            "kind": 0,
+            "exported": false,
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r0.<com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.SubActivity6",
+                        "method": "<com.example.intentFlowBench.SubActivity6: void analyzeIntentSub3()>",
+                        "id": 7
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "(.*)"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r0.<com.example.intentFlowBench.SubActivity6: void startActivity(android.content.Intent)>(r1)",
+                        "class_name": "com.example.intentFlowBench.SubActivity6",
+                        "method": "<com.example.intentFlowBench.SubActivity6: void analyzeIntentSub2(android.content.Intent)>",
+                        "id": 5
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub1"
+                                    ]
+                                },
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "call_11",
+                                        "call_22"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub2"
+                                    ]
+                                },
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "call_22"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity7",
+            "kind": 0,
+            "exported": false,
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r0.<com.example.intentFlowBench.SubActivity7: void startActivity(android.content.Intent)>(r1)",
+                        "class_name": "com.example.intentFlowBench.SubActivity7",
+                        "method": "<com.example.intentFlowBench.SubActivity7: void secondLevel()>",
+                        "id": 7
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub1"
+                                    ]
+                                },
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "call_1"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity9_1",
+            "kind": 0,
+            "exported": false,
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r1.<android.content.Context: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.ContextSensi",
+                        "method": "<com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)>",
+                        "id": 3
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub2"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub1"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.SubActivity9_2",
+            "kind": 0,
+            "exported": false,
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r1.<android.content.Context: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.ContextSensi",
+                        "method": "<com.example.intentFlowBench.ContextSensi: void analyzeIntent(android.content.Context,android.content.Intent)>",
+                        "id": 3
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub2"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 0,
+                                    "value": [
+                                        "intent_sub1"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "com.example.intentFlowBench.MainActivity",
+            "kind": 0,
+            "exported": true,
+            "intent_filters": [
+                {
+                    "attributes": [
+                        {
+                            "kind": 0,
+                            "value": [
+                                "android.intent.action.MAIN"
+                            ]
+                        },
+                        {
+                            "kind": 1,
+                            "value": [
+                                "android.intent.category.LAUNCHER"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "exit_points": [
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r11.<com.example.intentFlowBench.MainActivity: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.MainActivity$2",
+                        "method": "<com.example.intentFlowBench.MainActivity$2: void onClick(android.view.View)>",
+                        "id": 13
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "source",
+                                        "Main"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity2"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "instruction": {
+                        "statement": "virtualinvoke r10.<com.example.intentFlowBench.MainActivity: void startActivity(android.content.Intent)>(r2)",
+                        "class_name": "com.example.intentFlowBench.MainActivity$3",
+                        "method": "<com.example.intentFlowBench.MainActivity$3: void onClick(android.view.View)>",
+                        "id": 13
+                    },
+                    "kind": 0,
+                    "intents": [
+                        {
+                            "attributes": [
+                                {
+                                    "kind": 7,
+                                    "value": [
+                                        "source",
+                                        "Main"
+                                    ]
+                                },
+                                {
+                                    "kind": 3,
+                                    "value": [
+                                        "com/example/intentFlowBench/SubActivity3"
+                                    ]
+                                },
+                                {
+                                    "kind": 2,
+                                    "value": [
+                                        "com.example.intentFlowBench"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "analysis_start": 1618474083,
+    "analysis_end": 1618474086
+}

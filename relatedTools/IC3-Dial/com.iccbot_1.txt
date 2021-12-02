@@ -1,0 +1,679 @@
+name: "com.iccbot"
+version: 1
+components {
+  name: "com.iccbot.withFragCtx.Des2WithFragCtx"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "action.second.fragctx"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "android.intent.category.DEFAULT"
+      value: "category.fragctx"
+    }
+  }
+}
+components {
+  name: "com.iccbot.withCtx.Source3WithCtx"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r1)"
+      class_name: "com.iccbot.withCtx.Utils"
+      method: "<com.iccbot.withCtx.Utils: void startIntent(android.content.Context,android.content.Intent)>"
+      id: 2
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+  }
+}
+components {
+  name: "com.iccbot.withCtx.Source1WithCtx"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.iccbot.withCtx.Source1WithCtx: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withCtx.Source1WithCtx"
+      method: "<com.iccbot.withCtx.Source1WithCtx: void doWithAction(java.lang.String)>"
+      id: 5
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+  }
+}
+components {
+  name: "com.iccbot.withCtx.Source2WithCtx"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<com.iccbot.withCtx.Source2WithCtx: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withCtx.Source2WithCtx"
+      method: "<com.iccbot.withCtx.Source2WithCtx: void doWithAction(java.lang.String)>"
+      id: 5
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+}
+components {
+  name: "com.iccbot.withCtx.Source4WithCtx"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r1)"
+      class_name: "com.iccbot.withCtx.Utils"
+      method: "<com.iccbot.withCtx.Utils: void startIntent(android.content.Context,android.content.Intent)>"
+      id: 2
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+  }
+}
+components {
+  name: "com.iccbot.withFrag.Des1WithFrag"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "action.first.frag"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "category.frag"
+      value: "android.intent.category.DEFAULT"
+    }
+  }
+}
+components {
+  name: "com.iccbot.withCtx.Des2WithCtx"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "action.second.ctx"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "category.ctx"
+      value: "android.intent.category.DEFAULT"
+    }
+  }
+}
+components {
+  name: "com.iccbot.withCtx.Source5WithCtx"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r1)"
+      class_name: "com.iccbot.withCtx.Utils"
+      method: "<com.iccbot.withCtx.Utils: void startIntent(android.content.Context,android.content.Intent)>"
+      id: 2
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.ctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.ctx"
+      }
+    }
+  }
+}
+components {
+  name: "com.iccbot.withCtx.Des1WithCtx"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "action.first.ctx"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "category.ctx"
+      value: "android.intent.category.DEFAULT"
+    }
+  }
+}
+components {
+  name: "com.iccbot.withFrag.Source1WithFrag"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+}
+components {
+  name: "com.iccbot.withFragCtx.Des1WithFragCtx"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "action.first.fragctx"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "android.intent.category.DEFAULT"
+      value: "category.fragctx"
+    }
+  }
+}
+components {
+  name: "com.iccbot.withFrag.Source2WithFrag"
+  kind: ACTIVITY
+  exported: false
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+}
+components {
+  name: "com.iccbot.withFrag.Des2WithFrag"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "action.second.frag"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "category.frag"
+      value: "android.intent.category.DEFAULT"
+    }
+  }
+}
+components {
+  name: "com.iccbot.withFragCtx.SourceWithFragCtx"
+  kind: ACTIVITY
+  exported: true
+  intent_filters {
+    attributes {
+      kind: ACTION
+      value: "android.intent.action.MAIN"
+    }
+    attributes {
+      kind: CATEGORY
+      value: "android.intent.category.LAUNCHER"
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFragCtx.FragWithFragCtx"
+      method: "<com.iccbot.withFragCtx.FragWithFragCtx: void doWithAction(java.lang.String)>"
+      id: 6
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.first.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+    intents {
+      attributes {
+        kind: ACTION
+        value: "action.second.fragctx"
+      }
+      attributes {
+        kind: CATEGORY
+        value: "category.fragctx"
+      }
+    }
+  }
+  exit_points {
+    instruction {
+      statement: "virtualinvoke $r3.<android.support.v4.app.FragmentActivity: void startActivity(android.content.Intent)>($r2)"
+      class_name: "com.iccbot.withFrag.Frag1WithFrag"
+      method: "<com.iccbot.withFrag.Frag1WithFrag: void onAttach(android.app.Activity)>"
+      id: 7
+    }
+    kind: ACTIVITY
+    intents {
+      attributes {
+        kind: CLASS
+        value: "com/iccbot/withFrag/Des1WithFrag"
+      }
+      attributes {
+        kind: PACKAGE
+        value: "com.iccbot"
+      }
+    }
+  }
+}
+analysis_start: 1638413224
+analysis_end: 1638413232
