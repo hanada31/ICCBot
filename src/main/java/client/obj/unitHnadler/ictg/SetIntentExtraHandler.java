@@ -133,6 +133,8 @@ public class SetIntentExtraHandler extends UnitHandler {
 	public Map<String, List<ExtraData>> getParamListNormal(Unit u) {
 		Value key = null;
 		Value val = null;
+		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
+		
 		int idKey = 0, idVal = 1;
 		Context objContextInnerKey = new Context();
 		if (oldContextwithRealValue != null) {
@@ -142,15 +144,12 @@ public class SetIntentExtraHandler extends UnitHandler {
 		if (oldContextwithRealValue != null) {
 			objContextInnerVal = constructContextObj(idVal + 1, unit);
 		}
-		try {
-			key = getVarInExtraStmt(u, idKey);
-			val = getVarInExtraStmt(u, idVal);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		key = getVarInExtraStmt(u, idKey);
+		val = getVarInExtraStmt(u, idVal);
+		if(key ==null | val ==null ){
+			return param_list;
 		}
-
-		Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
+		
 		try {
 
 			ValueObtainer voKey = new ValueObtainer(methodSig, ConstantUtils.FLAGEXTRA, objContextInnerKey,
@@ -371,7 +370,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	private Value getVarInExtraStmt(Unit u, int id) throws Exception {
+	private Value getVarInExtraStmt(Unit u, int id) {
 		Value res = null;
 		if (u instanceof JAssignStmt) {
 			JAssignStmt jas = (JAssignStmt) u;
@@ -379,10 +378,11 @@ public class SetIntentExtraHandler extends UnitHandler {
 			Value v = ads.getValue();
 			if (v instanceof JVirtualInvokeExpr) {
 				JVirtualInvokeExpr jvie = (JVirtualInvokeExpr) v;
-				if (jvie.getArgCount() == 0)
+				if (jvie.getArgCount()<=id)
 					res = null;
-				else
+				else{
 					res = jvie.getArg(id);
+				}
 			}
 		} else if (u instanceof JVirtualInvokeExpr) {
 			JVirtualInvokeExpr jvie = (JVirtualInvokeExpr) u;
@@ -392,7 +392,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 				res = jvie.getArg(id);
 		} else if (u instanceof JInvokeStmt) {
 			JInvokeStmt jis = (JInvokeStmt) u;
-			if (jis.getInvokeExpr().getArgCount() == 0)
+			if (jis.getInvokeExpr().getArgCount()<=id)
 				res = null;
 			else {
 				res = jis.getInvokeExpr().getArg(id);
@@ -402,7 +402,6 @@ public class SetIntentExtraHandler extends UnitHandler {
 		return res;
 	}
 
-	
 
 	/**
 	 * get object name of the par and ser objs

@@ -65,7 +65,7 @@ public class CgModify extends Analyzer {
 			addTopoForSupplySingle();
 		}
 
-		System.out.println("Call Graph has " + Scene.v().getCallGraph().size() + " edges.");
+		System.out.println("Call Graph has " + appModel.getCg().size() + " edges.");
 	}
 
 	/**

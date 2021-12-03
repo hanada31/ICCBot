@@ -362,8 +362,9 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			if (u.toString().startsWith("if "))
 				return false;
 			for (int i = 0; i < ConstantUtils.setIntnetExtraMethods.length; i++) {
-				if (u.toString().contains(ConstantUtils.setIntnetExtraMethods[i]))
+				if (u.toString().contains(ConstantUtils.setIntnetExtraMethods[i])){
 					return true;
+				}
 			}
 		}
 		return false;
@@ -377,8 +378,9 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			if (u.toString().startsWith("if "))
 				return false;
 			for (int i = 0; i < ConstantUtils.putBundlleExtraMethods.length; i++) {
-				if (u.toString().contains(ConstantUtils.putBundlleExtraMethods[i]))
+				if (u.toString().contains(ConstantUtils.putBundlleExtraMethods[i])){
 					return true;
+				}
 			}
 		}
 		return false;

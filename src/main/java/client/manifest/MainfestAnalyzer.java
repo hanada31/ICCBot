@@ -3,6 +3,7 @@ package main.java.client.manifest;
 import java.util.HashMap;
 import java.util.List;
 
+
 //import jymbolic.android.resources.controls.ProcessManifest;
 //import jymbolic.android.resources.xml.AXmlNode;
 import main.java.Analyzer;
@@ -16,7 +17,6 @@ import main.java.client.obj.model.component.ContentProviderModel;
 import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.IntentFilterModel;
 import main.java.client.obj.model.component.ServiceModel;
-
 import soot.jimple.infoflow.android.axml.AXmlNode;
 import soot.jimple.infoflow.android.manifest.ProcessManifest;
 
@@ -45,6 +45,7 @@ public class MainfestAnalyzer extends Analyzer {
 			appModel.setManifestString(getManifestString());
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException("no manifest is available.");
 		}
 		if (manifestManager == null)
 			return;

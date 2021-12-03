@@ -30,6 +30,7 @@ import soot.jimple.infoflow.android.SetupApplication;
 import soot.jimple.infoflow.android.callbacks.AndroidCallbackDefinition;
 import soot.jimple.infoflow.android.resources.ARSCFileParser;
 import soot.jimple.infoflow.android.resources.LayoutFileParser;
+import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.options.Options;
 import soot.util.HashMultiMap;
 import soot.util.MultiMap;
@@ -81,9 +82,14 @@ public class CgConstructor extends Analyzer {
 		} else {
 			resetFragmentClasses();
 		}
-		appModel.setCg(Scene.v().getCallGraph());
-		// System.out.println("Call Graph has " +
-		// Scene.v().getCallGraph().size() + " edges.");
+		if(!Scene.v().hasCallGraph()){
+			System.out.println("Call Graph is empty.");
+			appModel.setCg(new CallGraph());
+		}else{
+			appModel.setCg(Scene.v().getCallGraph());
+			// System.out.println("Call Graph has " +
+			// Scene.v().getCallGraph().size() + " edges.");
+		}
 	}
 
 	private void constructBySoot() {
@@ -231,7 +237,8 @@ public class CgConstructor extends Analyzer {
 			}
 		}
 		for (SootClass sClass : Scene.v().getApplicationClasses()) {
-			for (SootMethod sMethod : sClass.getMethods()) {
+			for (int i =0; i< sClass.getMethods().size(); i++) {
+				SootMethod sMethod  =  sClass.getMethods().get(i);
 				String tag = sMethod.getSignature();
 				// collect callbacks
 				if (!SootUtils.hasSootActiveBody(sMethod))
@@ -276,7 +283,6 @@ public class CgConstructor extends Analyzer {
 	 * @param invoke
 	 */
 	private void collectUserCustumizedListeners(SootMethod sm, Unit u, InvokeExpr invoke) {
-
 		SootMethod invMethod = invoke.getMethod();
 		int id = 0;
 		for (Type type : invMethod.getParameterTypes()) {

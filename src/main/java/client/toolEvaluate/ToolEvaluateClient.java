@@ -19,6 +19,8 @@ import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.target.ctg.CTGReaderClient;
+import main.java.client.related.a3e.A3EReader;
+import main.java.client.related.a3e.A3EResultEvaluateClient;
 import main.java.client.related.gator.GatorATGResultEvaluateClient;
 import main.java.client.related.ic3.IC3ResultEvaluateClient;
 import main.java.client.related.ic3dial.IC3DIALDroidResultEvaluateClient;
@@ -39,7 +41,10 @@ public class ToolEvaluateClient extends BaseClient {
 
 		new GatorATGResultEvaluateClient().start();
 
+		new A3EResultEvaluateClient().start();
+		
 		new CTGReaderClient().start();
+		
 
 //		dynamicResultAnalyzer analyzer = new dynamicResultAnalyzer();
 //		analyzer.analyze();
@@ -70,6 +75,7 @@ public class ToolEvaluateClient extends BaseClient {
 		IC3Evaluate(sb);
 		IC3DialEvaluate(sb);
 		GatorEvaluate(sb);
+		A3EEvaluate(sb);
 
 //		FilterAndEnhanceEvaluate(sb);
 
@@ -79,6 +85,7 @@ public class ToolEvaluateClient extends BaseClient {
 		FileUtils.writeText2File(summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.SCORERECORD,
 				content, true);
 	}
+
 
 	private void FilterAndEnhanceEvaluate(StringBuilder sb) {
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
@@ -101,6 +108,7 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
 		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
 		ATGModel gatorModel = Global.v().getGatorModel().getGatorAtgModel();
+		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(Global.v().getAppModel().getComponentMap().size() + "\t");
@@ -117,28 +125,34 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append(String.format("%.2f", ic3Model.getCompletenessScore()) + "\t");
 		sb.append(String.format("%.2f", IC3DialModel.getCompletenessScore()) + "\t");
 		sb.append(String.format("%.2f", gatorModel.getCompletenessScore()) + "\t");
+		sb.append(String.format("%.2f", a3eModel.getCompletenessScore()) + "\t");
 
 		sb.append(String.format("%.2f", optModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", IC3DialModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", gatorModel.getConnectionScore()) + "\t");
+		sb.append(String.format("%.2f", a3eModel.getConnectionScore()) + "\t");
 
 		sb.append(optModel.getConnectionSize() + "\t");
 		sb.append(ic3Model.getConnectionSize() + "\t");
 		sb.append(IC3DialModel.getConnectionSize() + "\t");
 		sb.append(gatorModel.getConnectionSize() + "\t");
+		sb.append(a3eModel.getConnectionSize() + "\t");
 
+		//oracle
 		sb.append(optModel.getOracleEdgeSize() + "\t");
 
 		sb.append(optModel.getFnEdgeSize() + "\t");
 		sb.append(ic3Model.getFnEdgeSize() + "\t");
 		sb.append(IC3DialModel.getFnEdgeSize() + "\t");
 		sb.append(gatorModel.getFnEdgeSize() + "\t");
+		sb.append(a3eModel.getFnEdgeSize() + "\t");
 
 		sb.append(String.format("%.2f", optModel.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore()) + "\t");
-		sb.append(String.format("%.2f", gatorModel.getFalsenegativeScore()));
+		sb.append(String.format("%.2f", gatorModel.getFalsenegativeScore())+ "\t");
+		sb.append(String.format("%.2f", a3eModel.getFalsenegativeScore()));
 
 		System.out.println(sb.toString());
 		FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "oracleResult.txt", Global.v().getAppModel().getAppName()
@@ -345,6 +359,34 @@ public class ToolEvaluateClient extends BaseClient {
 			sb.append(hint);
 			System.out.println(hint);
 		}
+	}
+	
+
+	private void A3EEvaluate(StringBuilder sb) {
+		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
+		if(a3eModel.isExist()){
+			initStringBuilderComplete("A3E         ", sb);
+			a3eModel.evaluateCompleteness("A3E         ", sb);
+	
+			initStringBuilderConnection("A3E         ", sb);
+			a3eModel.evaluateConnectivity("A3E         ", sb);
+	
+			if (oracleModel.getAtgEdges().size() > 0) {
+				initStringBuilderFN("A3E         ", sb);
+				a3eModel.evaluateFalseNegative("A3E         ", oracleModel, sb);
+			}else{
+				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
+				sb.append(hint);
+				System.out.println(hint);
+			}
+			System.out.println();
+		}else{
+			String hint = "The results for tool A3E doesn't exist, please add files into folder /relatedTools/A3E\n";
+			sb.append(hint);
+			System.out.println(hint);
+		}
+		
 	}
 
 	/**
