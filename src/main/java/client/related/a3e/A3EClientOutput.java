@@ -1,12 +1,17 @@
-package main.java.client.related.gator;
+package main.java.client.related.a3e;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
 
 import main.java.Global;
 import main.java.analyze.utils.SootUtils;
@@ -22,13 +27,14 @@ import main.java.client.statistic.model.StatisticResult;
  * @author 79940
  *
  */
-public class GatorClientOutput {
+public class A3EClientOutput {
 	StatisticResult result;
-	public GatorClientOutput(StatisticResult result) {
+
+	public A3EClientOutput(StatisticResult result) {
 		this.result = result;
 	}
 
-	public static void writeDotFileofGator(String dir, String file, ATGModel atgModel) {
+	public static void writeDotFileofA3E(String dir, String file, ATGModel atgModel) {
 		FileUtils.createFolder(dir);
 		Set<String> histroy = new HashSet<String>();
 		File f = new File(dir + file + ".dot");
@@ -123,4 +129,30 @@ public class GatorClientOutput {
 			writer.write(res + "[color = " + color + "];\n");
 	}
 
+	
+	/**
+	 * writeIntentSummaryModel
+	 * 
+	 * @param dir
+	 * @param file
+	 * @param entryMethod
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
+	public void writeIntentSummaryModel(String dir, String file, boolean entryMethod) throws DocumentException,
+			IOException {
+		Document document = FileUtils.xmlWriterBegin(dir, file, false);
+		Element root = document.getRootElement();
+		List<Element> eleList;
+		if (entryMethod) {
+			eleList = result.getXmlStatistic().getEntryIntentSummaryEleList();
+		} else {
+			eleList = result.getXmlStatistic().getAllIntentSummaryEleList();
+		}
+		for (Element e : eleList) {
+			root.add(e);
+		}
+		FileUtils.xmlWriteEnd(dir, file, document);
+
+	}
 }

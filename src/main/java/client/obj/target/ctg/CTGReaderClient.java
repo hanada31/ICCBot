@@ -32,7 +32,6 @@ public class CTGReaderClient extends BaseClient {
 		model.setATGFilePath(MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
 				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName() + "_"
 				+ ConstantUtils.ICTGOPT + ".txt");
-		System.out.println(model.getATGFilePath());
 		ATGReader reader = new ATGReader(model);
 		reader.analyze();
 		System.out.println("Successfully analyze with ICTGGraphClient.");
