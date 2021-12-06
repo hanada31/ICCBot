@@ -395,7 +395,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "tranquvis.simplesmsremote";
+		name = "com.flxrs.dankchat";
 		String client = "CTGClient";
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
