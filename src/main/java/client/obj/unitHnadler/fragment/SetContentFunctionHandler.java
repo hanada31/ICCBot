@@ -41,6 +41,7 @@ public class SetContentFunctionHandler extends UnitHandler {
 
 	@Override
 	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
+		this.objectModel = singleObject;
 		this.oldContextwithRealValue = oldContextwithRealValue;
 		singleObject.getDataHandleList().add(unit);
 		this.targetUnit = targetUnit;
