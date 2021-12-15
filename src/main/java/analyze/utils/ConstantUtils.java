@@ -23,6 +23,7 @@ public class ConstantUtils {
 	public static final String ICTGSPEC = "ICCSpecification" + File.separator;
 	public static final String IC3FOLDETR = "relatedTools" + File.separator + "IC3" + File.separator;
 	public static final String A3EFOLDETR = "relatedTools" + File.separator + "A3E" + File.separator;
+	public static final String STORYFOLDETR = "relatedTools" + File.separator + "StoryDistiller" + File.separator;
 	public static final String IC3DIALDROIDFOLDETR = "relatedTools" + File.separator + "IC3-Dial" + File.separator;
 	public static final String GATORFOLDETR = "relatedTools" + File.separator + "GATOR" + File.separator;
 	public static final String ICCINFOFOLDETR = "iccInfo" + File.separator;
@@ -49,6 +50,7 @@ public class ConstantUtils {
 	public static final String ICTGFRAG = "fragLoad";
 	public static final String ATGDOT_IC3 = "atg@ic3";
 	public static final String ATGDOT_A3E = "atg@a3e";
+	public static final String ATGDOT_STORY = "atg@story";
 	public static final String ATGDOT_IC3DIAL = "atg@ic3-dial";
 	public static final String ATGDOT_GATOR = "atg@gator";
 	public static final String CG = "cg.txt";

@@ -1,7 +1,12 @@
 package main.java.client.related.gator;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import main.java.Analyzer;
 import main.java.Global;
@@ -9,6 +14,7 @@ import main.java.analyze.utils.output.FileUtils;
 import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.model.atg.AtgEdge;
 import main.java.client.obj.model.atg.AtgNode;
+import main.java.client.obj.model.atg.AtgType;
 
 public class ATGReader extends Analyzer {
 	ATGModel model;
@@ -19,8 +25,9 @@ public class ATGReader extends Analyzer {
 
 	@Override
 	public void analyze() {
-		if(obtainATGfromFile())
+		if(obtainATGfromFile()){
 			constructModel();
+		}
 	}
 	
 	private boolean obtainATGfromFile() {
@@ -37,6 +44,7 @@ public class ATGReader extends Analyzer {
 			line = line.trim();
 			line = line.replace("Node(", "");
 			line = line.replace(")", "");
+			System.out.println(line);
 			if (line.split(" -> ").length == 2) {
 				String source = line.split(" -> ")[0];
 				String target = line.split(" -> ")[1];
@@ -50,11 +58,11 @@ public class ATGReader extends Analyzer {
 				if (sNode != null && tNode != null) {
 					AtgEdge edge = new AtgEdge(sNode, tNode, "", -1, "");
 					model.addAtgEdges(sNode.getClassName(), edge);
+					System.out.println(edge);
 				}
 			}
 		}
 	}
 
-
-
+	
 }

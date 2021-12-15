@@ -51,8 +51,9 @@ public class IC3DialReader extends Analyzer {
 	@Override
 	public void analyze() {
 		model = Global.v().getiC3DialDroidModel();
-		model.setIC3FilePath(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getPackageName() + "_"
-				+ appModel.getVersionCode() + ".json");
+//		model.setIC3FilePath(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getPackageName() + "_"
+//				+ appModel.getVersionCode() + ".json");
+		model.setIC3FilePath(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getAppName()+ ".json");
 		componentAnalyze();
 		ICCAnalyze();
 	}

@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.jf.smali.smaliParser.local_directive_return;
 
 import main.java.Global;
 import main.java.MyConfig;
@@ -35,11 +38,13 @@ import soot.jimple.Stmt;
 import soot.jimple.ThisRef;
 import soot.jimple.internal.AbstractDefinitionStmt;
 import soot.jimple.internal.AbstractInstanceInvokeExpr;
+import soot.jimple.internal.AbstractInvokeExpr;
 import soot.jimple.internal.JAssignStmt;
 import soot.jimple.internal.JCastExpr;
 import soot.jimple.internal.JIdentityStmt;
 import soot.jimple.internal.JInstanceFieldRef;
 import soot.jimple.internal.JInvokeStmt;
+import soot.jimple.internal.JLookupSwitchStmt;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JRetStmt;
 import soot.jimple.internal.JReturnStmt;
@@ -177,6 +182,7 @@ public class SootUtils {
 	 * @param sc
 	 */
 	public static boolean isFragmentClass(SootClass sc) {
+		if(sc==null) return false;
 		if (!MyConfig.getInstance().getMySwithch().allowLibCodeSwitch() && !SootUtils.isNonLibClass(sc.getName()))
 			return false;
 		if (Global.v().getAppModel().getComponentMap().containsKey(sc.getName()))
@@ -803,16 +809,7 @@ public class SootUtils {
 				continue;
 			}
 			visitiedSootMethods.add(sootMethod);
-			Body body = null;
-			try {
-				body = sootMethod.getActiveBody();
-			} catch (Exception e) {
-			}
-			if (body == null) {
-				continue;
-			}
-
-			for (Unit unit : body.getUnits()) {
+			for (Unit unit : getUnitListFromMethod(sootMethod)) {
 				if (unit instanceof Stmt) {
 					Stmt stmt = (Stmt) unit;
 					if (stmt.containsInvokeExpr()) {
@@ -894,15 +891,19 @@ public class SootUtils {
 	 */
 	protected static SootMethod transformpostDelayed2Run(SootMethod sm, InvokeExpr invoke, Unit u) {
 		String runSignature = "";
-		List<Unit> defs = SootUtils.getDefOfLocal(sm.getSignature(), ((JVirtualInvokeExpr) invoke).getArg(0), u);
-		for (Unit def : defs) {
-			String type = SootUtils.getTargetClassOfUnit(sm, def);
-			runSignature = "<" + type + ": void run()>";
-		}
-		if (runSignature.length() > 0) {
-			SootMethod runMethod = SootUtils.getSootMethodBySignature(runSignature);
-			if (runMethod != null) {
-				return runMethod;
+		Value val = null;
+		if(invoke instanceof AbstractInvokeExpr){
+			val = ((AbstractInvokeExpr) invoke).getArg(0);
+			List<Unit> defs = SootUtils.getDefOfLocal(sm.getSignature(),val , u);
+			for (Unit def : defs) {
+				String type = SootUtils.getTargetClassOfUnit(sm, def);
+				runSignature = "<" + type + ": void run()>";
+			}
+			if (runSignature.length() > 0) {
+				SootMethod runMethod = SootUtils.getSootMethodBySignature(runSignature);
+				if (runMethod != null) {
+					return runMethod;
+				}
 			}
 		}
 		return null;
@@ -1023,7 +1024,7 @@ public class SootUtils {
 		List<Unit> rets = null;
 		if (hasSootActiveBody(sm)) {
 			rets = new ArrayList<Unit>();
-			for (Unit ret_u : getSootActiveBody(sm).getUnits()) {
+			for (Unit ret_u : getUnitListFromMethod(sm)) {
 				if (ret_u instanceof JReturnStmt) {
 					rets.add(ret_u);
 				}
@@ -1299,7 +1300,7 @@ public class SootUtils {
 	public static int getIdForUnit(String statement, String method) {
 		SootMethod sm = SootUtils.getSootMethodBySignature(method);
 		int id = 0;
-		for (Unit currentUnit : sm.getActiveBody().getUnits()) {
+		for (Unit currentUnit : getUnitListFromMethod(sm)) {
 			if (currentUnit.toString().equals(statement)) {
 				return id;
 			}
@@ -1311,10 +1312,10 @@ public class SootUtils {
 
 	public static int getIdForUnit(Unit unit, SootMethod sm) {
 		int id = 0;
-		Body body = SootUtils.getSootActiveBody(sm);
+		Body body = getSootActiveBody(sm);
 		if (body == null)
 			return -1;
-		for (Unit currentUnit : body.getUnits()) {
+		for (Unit currentUnit : getUnitListFromMethod(sm)) {
 			if (currentUnit == unit) {
 				return id;
 			}
@@ -1422,9 +1423,31 @@ public class SootUtils {
 		return cgMap;
 	}
 
-	// public static int getTypeForUnit(Unit unit) {
-	// if(unit)
-	// return 0;
-	// }
+	/**
+	 * get units from a method
+	 * soot has StackOverflowError bug for lookup unit
+	 * @param m
+	 * @return
+	 */
+	public static List<Unit> getUnitListFromMethod(SootMethod m) {
+		List<Unit> units = new ArrayList<Unit>();
+		if (m == null || SootUtils.hasSootActiveBody(m) == false)
+			return units;
+		Iterator<Unit> it = SootUtils.getSootActiveBody(m).getUnits().iterator();
+		while (it.hasNext()) {
+			Unit u = null;
+			try{
+				u = it.next();
+				if(u instanceof JLookupSwitchStmt){
+					u.toString(); //drop it for a bug in soot.jar
+				}
+			}catch(StackOverflowError e){
+//				e.printStackTrace();
+				continue;
+			}
+			units.add(u);
+		}
+		return units;
+	}
 
 }
