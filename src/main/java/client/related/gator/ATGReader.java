@@ -44,7 +44,6 @@ public class ATGReader extends Analyzer {
 			line = line.trim();
 			line = line.replace("Node(", "");
 			line = line.replace(")", "");
-			System.out.println(line);
 			if (line.split(" -> ").length == 2) {
 				String source = line.split(" -> ")[0];
 				String target = line.split(" -> ")[1];

@@ -395,7 +395,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "com.anipt.lwptyrannosaurusrex";
+		name = "project.freetime.th.usmallsound.gththeseries";
 		String client = "CTGClient";
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
@@ -408,7 +408,7 @@ public class MainClass {
 		MyConfig.getInstance().setMaxObjectSummarySize(100);
 		MyConfig.getInstance().setResultWarpperFolder("results" + File.separator);
 		MyConfig.getInstance().setResultFolder("results" + File.separator + "output" + File.separator);
-		MyConfig.getInstance().setTimeLimit(900);
+		MyConfig.getInstance().setTimeLimit(30);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
 		
 	}
