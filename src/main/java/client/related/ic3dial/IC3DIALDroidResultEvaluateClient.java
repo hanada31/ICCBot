@@ -32,11 +32,11 @@ public class IC3DIALDroidResultEvaluateClient extends BaseClient {
 	@Override
 	protected void clientAnalyze() {
 		result = new StatisticResult();
-		if (!MyConfig.getInstance().isSootAnalyzeFinish()) {
-			SootAnalyzer analyzer = new SootAnalyzer();
-			analyzer.analyze();
-			MyConfig.getInstance().setSootAnalyzeFinish(true);
-		}
+//		if (!MyConfig.getInstance().isSootAnalyzeFinish()) {
+//			SootAnalyzer analyzer = new SootAnalyzer();
+//			analyzer.analyze();
+//			MyConfig.getInstance().setSootAnalyzeFinish(true);
+//		}
 		if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
 			new ManifestClient().start();
 			MyConfig.getInstance().setManifestAnalyzeFinish(true);
