@@ -15,6 +15,7 @@ import main.java.MyConfig;
 import main.java.analyze.model.labeledOracleModel.LabeledOracleReader;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.GraphUtils;
+import main.java.analyze.utils.OracleUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
@@ -24,6 +25,7 @@ import main.java.client.related.a3e.A3EResultEvaluateClient;
 import main.java.client.related.gator.GatorATGResultEvaluateClient;
 import main.java.client.related.ic3.IC3ResultEvaluateClient;
 import main.java.client.related.ic3dial.IC3DIALDroidResultEvaluateClient;
+import main.java.client.related.story.StoryResultEvaluateClient;
 
 /**
  * Analyzer Class
@@ -35,6 +37,8 @@ public class ToolEvaluateClient extends BaseClient {
 
 	@Override
 	protected void clientAnalyze() {
+		new CTGReaderClient().start();
+		
 		new IC3ResultEvaluateClient().start();
 
 		new IC3DIALDroidResultEvaluateClient().start();
@@ -43,7 +47,7 @@ public class ToolEvaluateClient extends BaseClient {
 
 		new A3EResultEvaluateClient().start();
 		
-		new CTGReaderClient().start();
+		new StoryResultEvaluateClient().start();
 		
 
 //		dynamicResultAnalyzer analyzer = new dynamicResultAnalyzer();
@@ -75,7 +79,8 @@ public class ToolEvaluateClient extends BaseClient {
 		IC3Evaluate(sb);
 		IC3DialEvaluate(sb);
 		GatorEvaluate(sb);
-		A3EEvaluate(sb);
+		A3EEvaluate(sb); 
+		StoryEvaluate(sb);
 
 //		FilterAndEnhanceEvaluate(sb);
 
@@ -109,6 +114,7 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
 		ATGModel gatorModel = Global.v().getGatorModel().getGatorAtgModel();
 		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
+		ATGModel storyModel = Global.v().getStoryModel().getStoryAtgModel();
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(Global.v().getAppModel().getComponentMap().size() + "\t");
@@ -126,18 +132,21 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append(String.format("%.2f", IC3DialModel.getCompletenessScore()) + "\t");
 		sb.append(String.format("%.2f", gatorModel.getCompletenessScore()) + "\t");
 		sb.append(String.format("%.2f", a3eModel.getCompletenessScore()) + "\t");
+		sb.append(String.format("%.2f", storyModel.getCompletenessScore()) + "\t");
 
 		sb.append(String.format("%.2f", optModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", IC3DialModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", gatorModel.getConnectionScore()) + "\t");
 		sb.append(String.format("%.2f", a3eModel.getConnectionScore()) + "\t");
+		sb.append(String.format("%.2f", storyModel.getConnectionScore()) + "\t");
 
 		sb.append(optModel.getConnectionSize() + "\t");
 		sb.append(ic3Model.getConnectionSize() + "\t");
 		sb.append(IC3DialModel.getConnectionSize() + "\t");
 		sb.append(gatorModel.getConnectionSize() + "\t");
 		sb.append(a3eModel.getConnectionSize() + "\t");
+		sb.append(storyModel.getConnectionSize() + "\t");
 
 		//oracle
 		sb.append(optModel.getOracleEdgeSize() + "\t");
@@ -147,12 +156,14 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append(IC3DialModel.getFnEdgeSize() + "\t");
 		sb.append(gatorModel.getFnEdgeSize() + "\t");
 		sb.append(a3eModel.getFnEdgeSize() + "\t");
+		sb.append(storyModel.getFnEdgeSize() + "\t");
 
 		sb.append(String.format("%.2f", optModel.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", gatorModel.getFalsenegativeScore())+ "\t");
-		sb.append(String.format("%.2f", a3eModel.getFalsenegativeScore()));
+		sb.append(String.format("%.2f", a3eModel.getFalsenegativeScore())+ "\t");
+		sb.append(String.format("%.2f", storyModel.getFalsenegativeScore()));
 
 		System.out.println(sb.toString());
 		FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "oracleResult.txt", Global.v().getAppModel().getAppName()
@@ -217,7 +228,7 @@ public class ToolEvaluateClient extends BaseClient {
 		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR, dotname3, oracleModel, false);
 		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR + dotname3, "pdf");
 		initStringBuilderComplete("oracle", sb);
-		writeTagedOracleFile(summary_app_dir, appName);
+		OracleUtils.writeTagedOracleFile(summary_app_dir, appName);
 		oracleModel.evaluateCompleteness("whole oracle", sb);
 	}
 
@@ -388,6 +399,34 @@ public class ToolEvaluateClient extends BaseClient {
 		}
 		
 	}
+	
+	private void StoryEvaluate(StringBuilder sb) {
+		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+		ATGModel storyModel = Global.v().getStoryModel().getStoryAtgModel();
+		if(storyModel.isExist()){
+			initStringBuilderComplete("Story         ", sb);
+			storyModel.evaluateCompleteness("Story         ", sb);
+	
+			initStringBuilderConnection("Story         ", sb);
+			storyModel.evaluateConnectivity("Story         ", sb);
+	
+			if (oracleModel.getAtgEdges().size() > 0) {
+				initStringBuilderFN("Story         ", sb);
+				storyModel.evaluateFalseNegative("Story         ", oracleModel, sb);
+			}else{
+				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
+				sb.append(hint);
+				System.out.println(hint);
+			}
+			System.out.println();
+		}else{
+			String hint = "The results for tool Story doesn't exist, please add files into folder /relatedTools/StoryDistiller\n";
+			sb.append(hint);
+			System.out.println(hint);
+		}
+		
+	}
+	
 
 	/**
 	 * inital sb for output
@@ -433,116 +472,6 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append("FalseNegativeScore\n");
 	}
 
-	/**
-	 * write oracle.txt
-	 * 
-	 * @param summary_app_dir
-	 * @param appName
-	 */
-	private void writeTagedOracleFile(String summary_app_dir, String appName) {
-		String manualOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.ORACLEMANU;
-		String dynaOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.ORACLEDYNA;
-
-		List<String> resList = new ArrayList<String>();
-		for (String s : FileUtils.getListFromFile(manualOracle)) {
-			if (s.length() > 2 && !resList.contains(s.substring(2)))
-				resList.add(s.substring(2));
-		}
-		for (String s : FileUtils.getListFromFile(dynaOracle)) {
-			if (!resList.contains(s))
-				resList.add(s);
-		}
-		try {
-			writeOracleModel(summary_app_dir + ConstantUtils.ORACLEFOLDETR, appName + ConstantUtils.ORACLETEXT, resList);
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * writeIntentSummaryModel
-	 * 
-	 * @param dir
-	 * @param file
-	 * @param resList
-	 * @param entryMethod
-	 * @throws DocumentException
-	 * @throws IOException
-	 */
-	public void writeOracleModel(String dir, String file, List<String> resList) throws DocumentException, IOException {
-		Document document = FileUtils.xmlWriterBegin(dir, file, false);
-		Element root = document.getRootElement();
-		List<Element> eleList = new ArrayList<Element>();
-		for (String line : resList) {
-			if (line.startsWith("##") || !line.contains(" --> "))
-				continue;
-			Element e = new DefaultElement("OracleEdge");
-			eleList.add(e);
-			e.addAttribute("source", line.split(" --> ")[0]);
-			e.addAttribute("destination", line.split(" --> ")[1]);
-			e.addAttribute("method", "xxx");
-			Element correctness = e.addElement("correctness");
-			correctness.addAttribute("correctness", "true");
-			correctness.addAttribute("incorrectType", "No.");
-			correctness.addAttribute("incorrectReason", "");
-			Element nodes = e.addElement("nodes");
-			Element node = nodes.addElement("node");
-			node.addAttribute("method", "");
-			node.addAttribute("type", "");
-			node.addAttribute("unit", "");
-			Element tags = e.addElement("tags");
-			Element entryMethod = tags.addElement("entryMethod");
-			entryMethod.addAttribute("isLifeCycle", "");
-			entryMethod.addAttribute("isNormalCallBack", "");
-			entryMethod.addAttribute("isStaticCallBack", "");
-			entryMethod.addAttribute("isOtherComplexCallBack", "");
-
-			Element exitMethod = tags.addElement("exitMethod");
-			exitMethod.addAttribute("isNormalSendICC", "");
-			exitMethod.addAttribute("isWarpperSendICC", "");
-
-			Element intentMatch = tags.addElement("intentMatch");
-			intentMatch.addAttribute("isExplicit", "");
-			intentMatch.addAttribute("isImplicit", "");
-
-			Element analyzeScope = tags.addElement("analyzeScope");
-			Element componentScope = analyzeScope.addElement("componentScope");
-			componentScope.addAttribute("isActivity", "");
-			componentScope.addAttribute("isService", "");
-			componentScope.addAttribute("isBroadCast", "");
-			componentScope.addAttribute("isDynamicBroadCast", "");
-
-			Element nonComponentScope = analyzeScope.addElement("nonComponentScope");
-			nonComponentScope.addAttribute("isFragment", "");
-			nonComponentScope.addAttribute("isAdapter", "");
-			nonComponentScope.addAttribute("isOtherClass", "");
-
-			Element methodScope = analyzeScope.addElement("methodScope");
-			methodScope.addAttribute("isLibraryInvocation", "");
-			methodScope.addAttribute("isMultipleInvocation", "");
-			methodScope.addAttribute("isBasicInvocation", "");
-			methodScope.addAttribute("isAsyncInvocation", "");
-			methodScope.addAttribute("isListenerInvocation", "");
-
-			Element objectcope = analyzeScope.addElement("objectScope");
-			objectcope.addAttribute("isStaticVal", "");
-			objectcope.addAttribute("isStringOp", "");
-			objectcope.addAttribute("isPolymorphic", "");
-
-			Element sensitivity = analyzeScope.addElement("sensitivityScope");
-			sensitivity.addAttribute("flow", "");
-			sensitivity.addAttribute("path", "");
-			sensitivity.addAttribute("context", "");
-			sensitivity.addAttribute("object", "");
-			sensitivity.addAttribute("field", "");
-		}
-		for (Element e : eleList) {
-			root.add(e);
-		}
-		FileUtils.xmlWriteEnd(dir, file, document);
-
-	}
+	
 
 }

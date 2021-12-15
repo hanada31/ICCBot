@@ -20,6 +20,8 @@ def analyzeApk(apkPath, resPath, sdk):
             if apk[-4:] ==".apk":
                 print("java -jar "+jarFile+"  -path "+ apkPath +" -name "+apk+" -androidJar "+ sdk +"/platforms  "+ extraArgs +" -time 30 -maxPathNumber 100 -client MainClient  -outputDir "+outputDir+" >> "+logDir+"/"+apk[:-4]+".txt")
                 os.system("java -jar "+jarFile+"  -path "+ apkPath +" -name "+apk+" -androidJar "+ sdk +"/platforms "+ extraArgs +" -time 30 -maxPathNumber 100 -client MainClient -outputDir "+outputDir+" >> "+logDir+"/"+apk[:-4]+".txt")
+                print("java -jar ICCBot.jar  -path "+ apkPath +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 30 -maxPathNumber 100 -client ToolEvaluateClient -outputDir "+outputDir+" >> "+logDir+"/"+apk[:-4]+".txt")
+                os.system("java -jar ICCBot.jar  -path "+ apkPath +" -name "+apk+" -androidJar "+ sdk +"/platforms -time 60 -maxPathNumber 100 -client ToolEvaluateClient -outputDir "+outputDir+" >> "+logDir+"/"+apk[:-4]+".txt")
 
 
 if __name__ == '__main__' :
@@ -27,13 +29,13 @@ if __name__ == '__main__' :
     resPath = sys.argv[2]
     jarFile = "ICCBot.jar"
     
-    os.system("mvn -f pom.xml package -q")
-    if os.path.exists("target/ICCBot.jar"):
-        print("Successfully build! generate jar-with-dependencies in folder target/")
-        shutil.copy("target/ICCBot.jar", jarFile)
-        print("copy jar to the root directory.")
-    else:
-        print("Fail to build! Please run \"mvn -f pom.xml package\" to see the detail info.")
+    # os.system("mvn -f pom.xml package -q")
+    # if os.path.exists("target/ICCBot.jar"):
+        # print("Successfully build! generate jar-with-dependencies in folder target/")
+        # shutil.copy("target/ICCBot.jar", jarFile)
+        # print("copy jar to the root directory.")
+    # else:
+        # print("Fail to build! Please run \"mvn -f pom.xml package\" to see the detail info.")
     
     sdk = "lib/"    
     analyzeApk(apkPath, resPath, sdk)

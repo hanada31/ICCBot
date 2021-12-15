@@ -139,7 +139,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 		for (String des : intentSummary.getSetDestinationList()) {
 			ComponentModel comp = appModel.getComponentMap().get(des);
 			AtgEdge edge;
-			if (comp == null || !method.getActiveBody().getUnits().contains(unit))
+			if (comp == null || !SootUtils.getUnitListFromMethod(methodUnderAnalysis).contains(unit))
 				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
 			else
 				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,

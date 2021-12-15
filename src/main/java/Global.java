@@ -11,11 +11,13 @@ import main.java.client.obj.model.fragment.FragmentModel;
 import main.java.client.related.a3e.model.A3EModel;
 import main.java.client.related.gator.model.GatorModel;
 import main.java.client.related.ic3.model.IC3Model;
+import main.java.client.related.story.model.StoryModel;
 
 public class Global {
 	private static final Global instance = new Global();
 	private AppModel appModel;
 	private A3EModel a3eModel;
+	private StoryModel storyModel;
 	private IC3Model iC3Model;
 	private IC3Model iC3DialDroidModel;
 	private CTGModel iCTGModel;
@@ -42,6 +44,7 @@ public class Global {
 	private Global() {
 		appModel = new AppModel();
 		a3eModel = new A3EModel();
+		storyModel = new StoryModel();
 		iC3Model = new IC3Model();
 		iC3DialDroidModel = new IC3Model();
 		fragmentModel = new FragmentModel();
@@ -159,6 +162,20 @@ public class Global {
 	 */
 	public void setA3eModel(A3EModel a3eModel) {
 		this.a3eModel = a3eModel;
+	}
+
+	/**
+	 * @return the storyModel
+	 */
+	public StoryModel getStoryModel() {
+		return storyModel;
+	}
+
+	/**
+	 * @param storyModel the storyModel to set
+	 */
+	public void setStoryModel(StoryModel storyModel) {
+		this.storyModel = storyModel;
 	}
 
 }

@@ -558,13 +558,16 @@ public class CTGClientOutput {
 			Document document = FileUtils.xmlWriterBegin(originDir,file, true);
 			Element originRoot = document.getRootElement();
 			SAXReader reader = new SAXReader();
-			Element newRoot = reader.read(newDir+file).getRootElement();
-			Iterator<?> iterator = newRoot.elementIterator();
-			while (iterator.hasNext()) {
-				Element ele = (Element) iterator.next();
-				originRoot.add(ele.detach());
+			File f = new File(newDir+file);
+			if(f.exists()){
+				Element newRoot = reader.read(newDir+file).getRootElement();
+				Iterator<?> iterator = newRoot.elementIterator();
+				while (iterator.hasNext()) {
+					Element ele = (Element) iterator.next();
+					originRoot.add(ele.detach());
+				}
+				FileUtils.xmlWriteEnd(originDir,file, document);
 			}
-			FileUtils.xmlWriteEnd(originDir,file, document);
 		} catch (DocumentException | IOException e) {
 			e.printStackTrace();
 		}

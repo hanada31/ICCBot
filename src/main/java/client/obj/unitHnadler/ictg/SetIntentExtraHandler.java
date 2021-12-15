@@ -80,7 +80,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 			param_list = getParamListBundle(u);
 			for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
 				for (ExtraData ed : en.getValue()){
-					BundleType bundle_type = genBundleType(u,ed);
+					BundleType bundle_type = genBundleType(u,ed,0);
 					if (bundle_type == null) {
 						param_list = null;
 						return;
@@ -93,7 +93,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 			param_list = getParamListBundle(u);
 			BundleType bundle_type = null;
 			try {
-				bundle_type = genBundleType(u,null);
+				bundle_type = genBundleType(u,null,0);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -272,8 +272,10 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	public BundleType genBundleType(Unit bundleUnit, ExtraData parent) {
+	public BundleType genBundleType(Unit bundleUnit, ExtraData parent, int depth) {
 		BundleType bt = new BundleType();
+		if(depth>10) 
+			return bt;
 		List<Unit> defs = new ArrayList<Unit>();
 		InvokeExpr invokeExpr = SootUtils.getInvokeExp(bundleUnit);
 		if(invokeExpr!=null && invokeExpr.getArgCount()>0){
@@ -304,12 +306,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 				}
 			} else {
 				BundleType bundle_type = null;
-				try {
-					bundle_type = genBundleType(useUnit, parent);
-				} catch (Exception e) {
-					e.printStackTrace();
-					continue;
-				}
+				bundle_type = genBundleType(useUnit, parent, depth+1);
 				if (bundle_type == null) {
 					param_list = null;
 					continue;

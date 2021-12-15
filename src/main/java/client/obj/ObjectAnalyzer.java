@@ -144,9 +144,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param methodSummary
 	 */
 	private void analyzeDummyMain(MethodSummaryModel methodSummary) {
-		Iterator<Unit> it = SootUtils.getSootActiveBody(methodUnderAnalysis).getUnits().iterator();
-		while (it.hasNext()) {
-			Unit u = it.next();
+		List<Unit> units = SootUtils.getUnitListFromMethod(methodUnderAnalysis);
+		for(Unit u: units){
 			InvokeExpr exp = SootUtils.getInvokeExp(u);
 			if (exp == null)
 				continue;
@@ -529,7 +528,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			if (infos == null)
 				return;
 			for (StaticFiledInfo info : infos) {
-				for (Unit unit : info.getSootMethod().getActiveBody().getUnits()) {
+				List<Unit> units = SootUtils.getUnitListFromMethod(info.getSootMethod());
+				for(Unit unit: units){
 					for (ValueBox valBox : unit.getUseAndDefBoxes()) {
 						Value value = valBox.getValue();
 						if (value == info.getValue()) {
@@ -1028,10 +1028,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 */
 	private Map<Unit, List<Unit>> getTargetUnitsOfMethod() {
 		Map<Unit, List<Unit>> targetMap = new HashMap<Unit, List<Unit>>();
-		Iterator<Unit> it = SootUtils.getSootActiveBody(methodUnderAnalysis).getUnits().iterator();
+		List<Unit> units = SootUtils.getUnitListFromMethod(methodUnderAnalysis);
+		
 		List<Unit> unitList = new ArrayList<Unit>();
-		while (it.hasNext()) {
-			Unit u = it.next();
+		for(Unit u: units){
 			if (u instanceof JLookupSwitchStmt) {
 				JLookupSwitchStmt lookUp = (JLookupSwitchStmt) u;
 				for (UnitBox temp : lookUp.getDefaultTarget().getUnitBoxes())

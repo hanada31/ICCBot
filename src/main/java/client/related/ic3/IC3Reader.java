@@ -51,8 +51,9 @@ public class IC3Reader extends Analyzer {
 	@Override
 	public void analyze() {
 		model = Global.v().getiC3Model();
-		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getPackageName() + "_" + appModel.getVersionCode()
-				+ ".json");
+//		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getPackageName() + "_"
+//		+ appModel.getVersionCode() + ".json");
+		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getAppName()+ ".json");
 		componentAnalyze();
 		ICCAnalyze();
 	}

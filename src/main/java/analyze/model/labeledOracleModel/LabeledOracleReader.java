@@ -24,7 +24,7 @@ public class LabeledOracleReader extends Analyzer {
 	public void analyze() {
 		this.appName = appModel.getAppName();
 		this.labeledOracleFolder = ConstantUtils.LABELEDORACLEFOLDETR;
-		this.filePath = labeledOracleFolder + appName + "_oracle.xml";
+		this.filePath = labeledOracleFolder + appName + ConstantUtils.ORACLETEXT;
 
 		Global.v().setLabeledOracleModel(readLabeledOracleModelFromFile());
 	}
