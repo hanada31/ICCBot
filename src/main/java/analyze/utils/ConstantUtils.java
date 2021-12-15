@@ -21,9 +21,11 @@ public class ConstantUtils {
 	public static final String CGFOLDETR = "CallGraphInfo" + File.separator;
 	public static final String ICTGFOLDETR = "CTGResult" + File.separator;
 	public static final String ICTGSPEC = "ICCSpecification" + File.separator;
+	public static final String IC3TMPFOLDETR = "relatedTools" + File.separator + "IC3_tmp" + File.separator;
 	public static final String IC3FOLDETR = "relatedTools" + File.separator + "IC3" + File.separator;
 	public static final String A3EFOLDETR = "relatedTools" + File.separator + "A3E" + File.separator;
 	public static final String STORYFOLDETR = "relatedTools" + File.separator + "StoryDistiller" + File.separator;
+	public static final String IC3DIALDROIDTMPFOLDETR = "relatedTools" + File.separator + "IC3-Dialt_tmp" + File.separator;
 	public static final String IC3DIALDROIDFOLDETR = "relatedTools" + File.separator + "IC3-Dial" + File.separator;
 	public static final String GATORFOLDETR = "relatedTools" + File.separator + "GATOR" + File.separator;
 	public static final String ICCINFOFOLDETR = "iccInfo" + File.separator;

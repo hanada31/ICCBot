@@ -1,5 +1,6 @@
 package main.java.client.related.ic3;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import org.dom4j.DocumentException;
 
 import soot.Scene;
 
@@ -53,18 +56,50 @@ public class IC3Reader extends Analyzer {
 		model = Global.v().getiC3Model();
 //		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getPackageName() + "_"
 //		+ appModel.getVersionCode() + ".json");
+		File oldf = new File(ConstantUtils.IC3TMPFOLDETR + appModel.getPackageName() + "_"+ appModel.getVersionCode() + ".json");
+		if(oldf.exists()){
+			File newf = new File(ConstantUtils.IC3FOLDETR + appModel.getAppName()+ ".json");
+			oldf.renameTo(newf);
+		}
 		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getAppName()+ ".json");
-		componentAnalyze();
-		ICCAnalyze();
+		if(obtainATGfromFile()){
+			long time = runtimeAnalyze();
+			if(time>=0 && time<=30*60){
+				componentAnalyze();
+				ICCAnalyze();
+			}
+		}
 	}
-
+	private boolean obtainATGfromFile() {
+		File file = new File(model.getIC3FilePath());
+		if (!file.exists()) {
+			model.getIC3AtgModel().setExist(false);
+			return false;
+		}
+		return true;
+	}
+	
 	private void makeStatistic() {
 		for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
 			DoStatistic.updateXMLStatisticUseSummayMap(true, en.getValue(), result);
 			DoStatistic.updateXMLStatisticUseSummayMap(false, en.getValue(), result);
 		}
 	}
-
+	
+	/**
+	 * extract the analysis time of IC3
+	 * @return
+	 */
+	private long runtimeAnalyze() {
+		String s = FileUtils.readJsonFile(model.getIC3FilePath());
+		JSONObject jobj = JSON.parseObject(s);
+		if (jobj != null) {
+			Long start = jobj.getLong("analysis_start");
+			Long end = jobj.getLong("analysis_end");
+			return end - start;
+		}
+		return -1;
+	}
 	private void componentAnalyze() {
 		String s = FileUtils.readJsonFile(model.getIC3FilePath());
 		JSONObject jobj = JSON.parseObject(s);
