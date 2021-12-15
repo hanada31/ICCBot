@@ -59,7 +59,6 @@ public class A3EReader extends Analyzer {
 	@Override
 	public void analyze() {
 		model = Global.v().getA3eModel();
-		System.out.println(ConstantUtils.A3EFOLDETR + appModel.getAppName() + ".g.xml");
 		model.seta3eFilePath(ConstantUtils.A3EFOLDETR + appModel.getAppName() + ".g.xml");
 		if(obtainATGfromFile())
 			try {
