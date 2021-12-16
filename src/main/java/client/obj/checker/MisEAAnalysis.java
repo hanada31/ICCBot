@@ -1,6 +1,5 @@
 package main.java.client.obj.checker;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

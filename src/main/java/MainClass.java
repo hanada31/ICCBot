@@ -27,8 +27,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import soot.jimple.infoflow.InfoflowConfiguration.CallgraphAlgorithm;
-
 /**
  * Main Class of Android ICC Resolution Tool ICCBot
  * 
@@ -393,10 +391,10 @@ public class MainClass {
 	 *  **/
 	private static void testConfig() {
 		String path;
-		path = "apk/";
+		path = "../apk/";
 		String name;
-		name = "games.wawa";
-		String client = "CTGClient";
+		name = "1Sheeld";
+		String client = "ToolEvaluateClient";
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
@@ -406,9 +404,9 @@ public class MainClass {
 		MyConfig.getInstance().setMaxPathNumber(30);
 		MyConfig.getInstance().setMaxFunctionExpandNumber(5); //10?
 		MyConfig.getInstance().setMaxObjectSummarySize(100);
-		MyConfig.getInstance().setResultWarpperFolder("results" + File.separator);
-		MyConfig.getInstance().setResultFolder("results" + File.separator + "output" + File.separator);
-		MyConfig.getInstance().setTimeLimit(30);
+		MyConfig.getInstance().setResultWarpperFolder("../results" + File.separator);
+		MyConfig.getInstance().setResultFolder("../results" + File.separator + "output" + File.separator);
+		MyConfig.getInstance().setTimeLimit(10);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
 		
 	}

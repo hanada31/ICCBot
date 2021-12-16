@@ -12,8 +12,6 @@ import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.obj.model.atg.ATGModel;
-import main.java.client.related.a3e.A3EClientOutput;
-import main.java.client.related.a3e.model.A3EModel;
 import main.java.client.related.gator.model.GatorModel;
 
 import org.dom4j.DocumentException;
@@ -40,7 +38,9 @@ public class GatorATGResultEvaluateClient extends BaseClient {
 		ATGModel model = Global.v().getGatorModel().getGatorAtgModel();
 		model.setATGFilePath(ConstantUtils.GATORFOLDETR + Global.v().getAppModel().getAppName() + "_wtg.txt");
 		ATGReader reader = new ATGReader(model);
-		reader.analyze();
+		if(reader.obtainATGfromFile()){
+			reader.constructModelForGator();
+		}
 		System.out.println("Successfully analyze with GatorGraphClient.");
 	}
 

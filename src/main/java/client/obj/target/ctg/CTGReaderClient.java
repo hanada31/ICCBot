@@ -10,7 +10,6 @@ import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.OracleUtils;
-import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.obj.model.atg.ATGModel;
@@ -43,10 +42,22 @@ public class CTGReaderClient extends BaseClient {
 		ATGModel model = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		String fn = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
 				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName() + "_"
-				+ ConstantUtils.ICTGOPT + ".txt";
+				+ ConstantUtils.ICTGOPT + ".dot";
 		model.setATGFilePath(fn);
 		ATGReader reader = new ATGReader(model);
-		reader.analyze();
+		if(reader.obtainATGfromFile()){
+			reader.constructModelForICCBot();
+		}
+		
+		ATGModel model2 = Global.v().getiCTGModel().getOptModel();
+		String fn2 = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
+				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName() + "_"
+				+ ConstantUtils.ICTGMERGE + ".dot";
+		model2.setATGFilePath(fn2);
+		ATGReader reader2 = new ATGReader(model2);
+		if(reader2.obtainATGfromFile()){
+			reader2.constructModelForICCBot();
+		}
 		System.out.println("Successfully analyze with CTGReaderClient.");
 	}
 

@@ -1,7 +1,5 @@
 package main.java.client.obj.target.ctg;
 
-import heros.utilities.JsonArray;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,7 +8,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -22,9 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import soot.SootMethod;
-import soot.jimple.infoflow.android.iccta.Ic3Data.Application.Component.ExitPoint.Uri;
 import main.java.Global;
-import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.TypeValueUtil;
@@ -52,7 +47,6 @@ import org.dom4j.tree.DefaultElement;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.ValueFilter;
 
@@ -129,7 +123,11 @@ public class CTGClientOutput {
 			eleList = result.getXmlStatistic().getAllMethodSummaryEleList();
 		}
 		for (Element e : eleList) {
-			root.add(e);
+			try{
+				root.add(e);
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
 	}
@@ -155,7 +153,11 @@ public class CTGClientOutput {
 		}
 
 		for (Element e : eleList) {
-			root.add(e);
+			try{
+				root.add(e);
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
 	}
@@ -180,7 +182,10 @@ public class CTGClientOutput {
 			eleList = result.getXmlStatistic().getAllIntentSummaryEleList();
 		}
 		for (Element e : eleList) {
-			root.add(e);
+			try{
+				root.add(e);
+			}catch(Exception e1){
+			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
 
@@ -642,11 +647,11 @@ public class CTGClientOutput {
 	private void putAttributeSeed2componenetMap(Map<String, Object> componenetMap, ComponentModel component) {
 		Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
 		
-		Object manifestJson = JSONArray.toJSON(component.getIntentFilters());
+		Object manifestJson = JSON.toJSON(component.getIntentFilters());
 		putToMapIfNotAbsent("manifest", manifestJson, attriMap);
-		Object sendJson = JSONArray.toJSON(component.getReceiveModel().getIntentObjsbyICCMsg());
+		Object sendJson = JSON.toJSON(component.getReceiveModel().getIntentObjsbyICCMsg());
 		putToMapIfNotAbsent("sendIntent", sendJson, attriMap);
-		Object reciveJson = JSONArray.toJSON(component.getReceiveModel().getIntentObjsbySpec());
+		Object reciveJson = JSON.toJSON(component.getReceiveModel().getIntentObjsbySpec());
 		putToMapIfNotAbsent("recvIntent", reciveJson, attriMap);
 		
 		Set<Serializable> mixModels = new HashSet<Serializable>();
@@ -665,7 +670,7 @@ public class CTGClientOutput {
 				history.add(recvIntentSummaryModel);
 			mixModels.add(recvIntentSummaryModel);
 		}
-		Object mixJson = JSONArray.toJSON(mixModels);
+		Object mixJson = JSON.toJSON(mixModels);
 //		putToMapIfNotAbsent("mixIntent", mixJson, attriMap);
 //		putToMapIfNotAbsent("initSeeds", attriMap, componenetMap);
 	}
@@ -688,10 +693,10 @@ public class CTGClientOutput {
 			putAttributeMap2componenetMap(attriMap, component, "hosts");
 		}
 		else if(attri.equals("extras")){
-			Set<ExtraData> sendRes = (Set<ExtraData>)getSentIntentAttri(component,attri);
-			Set<ExtraData> receivetRes = (Set<ExtraData>)getReceivedIntentAttri(component,attri);
-			putToMapIfNotAbsent("sendIntent", JSONArray.toJSON(sendRes), attriMap);
-			putToMapIfNotAbsent("recvIntent", JSONArray.toJSON(receivetRes), attriMap);
+			Set<ExtraData> sendRes = getSentIntentAttri(component,attri);
+			Set<ExtraData> receivetRes = getReceivedIntentAttri(component,attri);
+			putToMapIfNotAbsent("sendIntent", JSON.toJSON(sendRes), attriMap);
+			putToMapIfNotAbsent("recvIntent", JSON.toJSON(receivetRes), attriMap);
 			
 			Set<ExtraData> mixtRes = new HashSet<ExtraData>();
 			if(sendRes != null) ExtraData.merge( mixtRes, sendRes);
@@ -701,11 +706,11 @@ public class CTGClientOutput {
 
 		}else{
 			Set<String> manifestRes = getManifestAttri(component,attri);
-			Set<String> sendRes = (Set<String>)getSentIntentAttri(component,attri);
-			Set<String> receivetRes = (Set<String>)getReceivedIntentAttri(component,attri);
-			putToMapIfNotAbsent("manifest", JSONArray.toJSON(manifestRes), attriMap);
-			putToMapIfNotAbsent("sendIntent", JSONArray.toJSON(sendRes), attriMap);
-			putToMapIfNotAbsent("recvIntent", JSONArray.toJSON(receivetRes), attriMap);
+			Set<String> sendRes = getSentIntentAttri(component,attri);
+			Set<String> receivetRes = getReceivedIntentAttri(component,attri);
+			putToMapIfNotAbsent("manifest", JSON.toJSON(manifestRes), attriMap);
+			putToMapIfNotAbsent("sendIntent", JSON.toJSON(sendRes), attriMap);
+			putToMapIfNotAbsent("recvIntent", JSON.toJSON(receivetRes), attriMap);
 			
 			Set<String> mixtRes = new HashSet<String>();
 			if(manifestRes != null) mixtRes.addAll(manifestRes);

@@ -1,52 +1,24 @@
 package main.java.client.related.story;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.dom4j.Attribute;
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
-import soot.Scene;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import main.java.Analyzer;
 import main.java.Global;
 import main.java.analyze.model.analyzeModel.MethodSummaryModel;
-import main.java.analyze.model.analyzeModel.UnitNode;
 import main.java.analyze.utils.ConstantUtils;
-import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.model.atg.AtgEdge;
 import main.java.client.obj.model.atg.AtgNode;
 import main.java.client.obj.model.atg.AtgType;
-import main.java.client.obj.model.component.ActivityModel;
-import main.java.client.obj.model.component.BroadcastReceiverModel;
-import main.java.client.obj.model.component.BundleType;
-import main.java.client.obj.model.component.ComponentModel;
-import main.java.client.obj.model.component.ContentProviderModel;
-import main.java.client.obj.model.component.Data;
-import main.java.client.obj.model.component.ExtraData;
-import main.java.client.obj.model.component.IntentFilterModel;
-import main.java.client.obj.model.component.ServiceModel;
-import main.java.client.obj.model.ctg.IntentSummaryModel;
-import main.java.client.related.a3e.model.A3EModel;
-import main.java.client.related.ic3.model.IC3Model;
 import main.java.client.related.story.model.StoryModel;
-import main.java.client.statistic.model.DoStatistic;
 import main.java.client.statistic.model.StatisticResult;
 
 public class StoryReader extends Analyzer {
@@ -77,7 +49,7 @@ public class StoryReader extends Analyzer {
 	private boolean obtainATGfromFile() {
 		File file = new File(model.getStoryFilePath());
 		if (!file.exists()) {
-			model.getStoryAtgModel().setExist(false);
+			model.getStoryAtgModelWithoutFrag().setExist(false);
 			return false;
 		}
 		return true;
@@ -89,13 +61,6 @@ public class StoryReader extends Analyzer {
 			if (line.split("-->").length == 2) {
 				String source = line.split("-->")[0];
 				String target = line.split("-->")[1];
-//				AtgNode sNode = null, tNode = null;
-//				for (String name : Global.v().getAppModel().getComponentMap().keySet()) {
-//					if (name.endsWith(source))
-//						sNode = new AtgNode(name);
-//					if (name.endsWith(target))
-//						tNode = new AtgNode(name);
-//				}
 				AtgNode sNode = new AtgNode(source);
 				AtgNode tNode = new AtgNode(target);
 				if (sNode != null && tNode != null) {
@@ -105,8 +70,9 @@ public class StoryReader extends Analyzer {
 			}
         }
 	}
+	
 	private void getStoryOptModel() {
-		ATGModel optModel = new ATGModel();
+		ATGModel optModel = model.getStoryAtgModelWithoutFrag();
 		ATGModel mergedIctgModel = model.getStoryAtgModel();
 		Map<String, Set<String>> desfrag2StratcomMap = new HashMap<String, Set<String>>();
 		// System.out.println(PrintUtils.printMap(mergedIctgModel.getAtgEdges()));
@@ -187,6 +153,6 @@ public class StoryReader extends Analyzer {
 				}
 			}
 		}
-		model.setStoryAtgModel(optModel);
+		model.setStoryAtgModelWithoutFrag(optModel);
 	}
 }

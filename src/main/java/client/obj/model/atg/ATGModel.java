@@ -22,7 +22,8 @@ public class ATGModel {
 	private double connectionScore;
 	private double falsenegativeScore;
 	private double completenessScore;
-	private int connectionSize;
+	private int Comp2CompSize;
+	private int Act2ActSize;
 	private int oracleEdgeSize;
 	private int fnEdgeSize;
 	private int enhancedNum;
@@ -31,21 +32,40 @@ public class ATGModel {
 	private int filteredReceiverNum;
 	private boolean exist = true;
 
-	public int getConnectionSize() {
-		if (connectionSize > 0)
-			return connectionSize;
-
+	public int getComp2CompSize() {
+		if (Comp2CompSize > 0)
+			return Comp2CompSize;
 		Set<String> history = new HashSet<String>();
 		for (Set<AtgEdge> edges : atgEdges.values()) {
 			for (AtgEdge edge : edges) {
 				if (!history.contains(edge.getDescribtion())) {
 					history.add(edge.getDescribtion());
-					connectionSize += 1;
+					Comp2CompSize += 1;
 				}
 			}
 		}
-		return connectionSize;
+		return Comp2CompSize;
 	}
+
+	/**
+	 * @return the act2ActSize
+	 */
+	public int getAct2ActSize() {
+		if (Act2ActSize > 0)
+			return Act2ActSize;
+		Set<String> history = new HashSet<String>();
+		for (Set<AtgEdge> edges : atgEdges.values()) {
+			for (AtgEdge edge : edges) {
+				if (!history.contains(edge.getDescribtion())) {
+					history.add(edge.getDescribtion());
+					if(edge.getType().equals(AtgType.Act2Act))
+						Act2ActSize += 1;
+				}
+			}
+		}
+		return Act2ActSize;
+	}
+
 
 	public ATGModel() {
 		atgEdges = new HashMap<String, Set<AtgEdge>>();
@@ -300,12 +320,12 @@ public class ATGModel {
 		int wholeSize = comNum;
 		if (wholeSize == 0)
 			return 0;
-		connectionScore = 2.0 * getConnectionSize() / wholeSize;
-		sb.append(getConnectionSize() + "\t");
+		connectionScore = 2.0 * getComp2CompSize() / wholeSize;
+		sb.append(getComp2CompSize() + "\t");
 		sb.append(wholeSize + "\t");
 		sb.append(String.format("%.2f", connectionScore) + "\n");
 
-		System.out.println(tag + " connectivity score details: " + getConnectionSize() + " / " + wholeSize);
+		System.out.println(tag + " connectivity score details: " + getComp2CompSize() + " / " + wholeSize);
 		System.out.println(tag + " connectivity score t = " + connectionScore);
 		return connectionScore;
 	}
@@ -565,5 +585,8 @@ public class ATGModel {
 	public void setFilteredReceiverNum(int filteredReceiverNum) {
 		this.filteredReceiverNum = filteredReceiverNum;
 	}
+
+
+
 
 }

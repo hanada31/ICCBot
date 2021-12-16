@@ -28,8 +28,6 @@ import main.java.client.obj.target.ctg.CTGClient;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.soot.IROutputClient;
 import main.java.client.statistic.model.StatisticResult;
-import main.java.client.toolEvaluate.ToolEvaluateClient;
-
 import org.dom4j.DocumentException;
 
 import soot.SootMethod;
@@ -130,7 +128,7 @@ public class CTGClient extends BaseClient {
 		
 		/** Path **/
 		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ENTRY, true);
-		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ALL, false);
+//		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ALL, false);
 		if(MyConfig.getInstance().getMySwithch().isFragmentSwitch()){
 			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ENTRY);
 //			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ALL);
@@ -155,7 +153,7 @@ public class CTGClient extends BaseClient {
 				ictgMergedModel);
 		String dotname = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGMERGE;
 		outer.writeDotFile(ictgFolder, dotname, ictgMergedModel, true);
-		if (ictgMergedModel.getConnectionSize() < 1800)
+		if (ictgMergedModel.getComp2CompSize() < 1800)
 			GraphUtils.generateDotFile(ictgFolder + dotname, "pdf");
 
 		Global.v().getiCTGModel().setOptModelwithoutFrag(getIctgOptModel());
@@ -166,7 +164,7 @@ public class CTGClient extends BaseClient {
 		outer.writeAtgModeTxtFile(ictgFolder, txtName, ictgOptModel, false);
 		String dotname2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT;
 		outer.writeDotFile(ictgFolder, dotname2, ictgOptModel, false);
-		if (ictgMergedModel.getConnectionSize() < 1800)
+		if (ictgMergedModel.getComp2CompSize() < 1800)
 			GraphUtils.generateDotFile(ictgFolder + dotname2, "pdf");
 
 		// outer.writeIccLinksConfigFile(summary_app_dir +

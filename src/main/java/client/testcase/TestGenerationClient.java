@@ -7,14 +7,11 @@ import main.java.Global;
 import main.java.MyConfig;
 import main.java.SummaryLevel;
 import main.java.analyze.model.analyzeModel.AppModel;
-import main.java.analyze.utils.output.PrintUtils;
 import main.java.client.obj.model.ctg.ICCMsg;
 import main.java.client.obj.target.ctg.CTGClient;
 import main.java.client.testcase.TestGenerationClient;
 
 import org.dom4j.DocumentException;
-
-import soot.jimple.infoflow.android.iccta.Ic3Data.Application.Component;
 
 /**
  * Analyzer Class

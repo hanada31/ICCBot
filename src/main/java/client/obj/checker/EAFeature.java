@@ -1,14 +1,5 @@
 package main.java.client.obj.checker;
 
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DecimalFormat;
-
-import java_cup.parse_action;
-
 public class EAFeature  {
 
 	public int d1_EAnumber = 0;

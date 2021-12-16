@@ -59,7 +59,11 @@ public class FragmentClientOutput {
 			eleList = result.getXmlStatistic().getAllMethodSummaryEleList();
 		}
 		for (Element e : eleList) {
-			root.add(e);
+			try{
+				root.add(e);
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
 	}
@@ -85,7 +89,11 @@ public class FragmentClientOutput {
 		}
 
 		for (Element e : eleList) {
-			root.add(e);
+			try{
+				root.add(e);
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
 	}
@@ -110,7 +118,11 @@ public class FragmentClientOutput {
 			eleList = result.getXmlStatistic().getAllIntentSummaryEleList();
 		}
 		for (Element e : eleList) {
-			root.add(e);
+			try{
+				root.add(e);
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
 

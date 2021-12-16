@@ -1,7 +1,6 @@
 package main.java.client.obj.target.ctg;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import main.java.Analyzer;

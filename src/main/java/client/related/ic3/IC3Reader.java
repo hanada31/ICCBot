@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.dom4j.DocumentException;
-
 import soot.Scene;
 
 import com.alibaba.fastjson.JSON;
