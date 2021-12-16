@@ -1,28 +1,19 @@
 package main.java.client.testcase;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.alibaba.fastjson.JSONArray;
-
 import main.java.Analyzer;
 import main.java.Global;
-import main.java.MyConfig;
-import main.java.analyze.utils.ConstantUtils;
-import main.java.analyze.utils.output.FileUtils;
 import main.java.client.obj.model.component.BundleType;
 import main.java.client.obj.model.component.ComponentModel;
 import main.java.client.obj.model.component.Data;
 import main.java.client.obj.model.component.ExtraData;
 import main.java.client.obj.model.component.IntentFilterModel;
 import main.java.client.obj.model.ctg.ICCMsg;
-import main.java.client.obj.model.ctg.IntentRecieveModel;
 import main.java.client.obj.model.ctg.IntentSummaryModel;
 
 public class ICCGenerator extends Analyzer {

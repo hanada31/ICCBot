@@ -11,8 +11,6 @@ import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.related.a3e.model.A3EModel;
-import main.java.client.related.ic3.IC3ResultEvaluateClient;
-import main.java.client.related.ic3.model.IC3Model;
 import main.java.client.soot.SootAnalyzer;
 import main.java.client.statistic.model.StatisticResult;
 

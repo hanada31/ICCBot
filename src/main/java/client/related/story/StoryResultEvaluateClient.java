@@ -56,7 +56,7 @@ public class StoryResultEvaluateClient extends BaseClient {
 		FileUtils.createFolder(summary_app_dir + ConstantUtils.STORYFOLDETR);
 
 		String dotname = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ATGDOT_STORY;
-		StoryClientOutput.writeDotFile(summary_app_dir + ConstantUtils.STORYFOLDETR, dotname, model.getStoryAtgModel());
+		StoryClientOutput.writeDotFile(summary_app_dir + ConstantUtils.STORYFOLDETR, dotname, model.getStoryAtgModelWithoutFrag());
 		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.STORYFOLDETR + dotname, "pdf");
 		FileUtils.copyFile(model.getStoryFilePath(), summary_app_dir + ConstantUtils.STORYFOLDETR
 				+ Global.v().getAppModel().getAppName() + ".txt");

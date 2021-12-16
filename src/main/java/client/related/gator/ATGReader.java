@@ -1,20 +1,13 @@
 package main.java.client.related.gator;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-
 import main.java.Analyzer;
 import main.java.Global;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.model.atg.AtgEdge;
 import main.java.client.obj.model.atg.AtgNode;
-import main.java.client.obj.model.atg.AtgType;
 
 public class ATGReader extends Analyzer {
 	ATGModel model;
@@ -25,12 +18,9 @@ public class ATGReader extends Analyzer {
 
 	@Override
 	public void analyze() {
-		if(obtainATGfromFile()){
-			constructModel();
-		}
 	}
 	
-	private boolean obtainATGfromFile() {
+	public boolean obtainATGfromFile() {
 		File file = new File(model.getATGFilePath());
 		if (!file.exists()) {
 			model.setExist(false);
@@ -38,15 +28,17 @@ public class ATGReader extends Analyzer {
 		}
 		return true;
 	}
-	private void constructModel() {
+	public void constructModelForGator() {
 		List<String> lines = FileUtils.getListFromFile(model.getATGFilePath());
 		for (String line : lines) {
 			line = line.trim();
 			line = line.replace("Node(", "");
 			line = line.replace(")", "");
-			if (line.split(" -> ").length == 2) {
-				String source = line.split(" -> ")[0];
-				String target = line.split(" -> ")[1];
+			line = line.replace(";", "");
+			line = line.replace(" -> ", "->");
+			if (line.split("->").length == 2) {
+				String source = line.split("->")[0];
+				String target = line.split("->")[1];
 				AtgNode sNode = null, tNode = null;
 				for (String name : Global.v().getAppModel().getComponentMap().keySet()) {
 					if (name.endsWith(source))
@@ -63,5 +55,26 @@ public class ATGReader extends Analyzer {
 		}
 	}
 
-	
+	public void constructModelForICCBot() {
+		List<String> lines = FileUtils.getListFromFile(model.getATGFilePath());
+		for (String line : lines) {
+			line = line.trim();
+			line = line.replace("Node(", "");
+			line = line.replace(")", "");
+			line = line.replace(";", "");
+			line = line.replace(" -> ", "->");
+			if (line.split("->").length == 2) {
+				String source = line.split("->")[0];
+				String target = line.split("->")[1];
+				AtgNode sNode = null, tNode = null;
+				sNode = new AtgNode(source);
+				tNode = new AtgNode(target);
+				if (sNode != null && tNode != null) {
+					AtgEdge edge = new AtgEdge(sNode, tNode, "", -1, "");
+					model.addAtgEdges(sNode.getClassName(), edge);
+					System.out.println(edge);
+				}
+			}
+		}
+	}
 }
