@@ -37,21 +37,22 @@ public class ToolEvaluateClient extends BaseClient {
 
 	@Override
 	protected void clientAnalyze() {
-//		new CTGReaderClient().start();
+		new CTGReaderClient().start();
 		
 		new IC3ResultEvaluateClient().start();
 
 		new IC3DIALDroidResultEvaluateClient().start();
 
-//		new GatorATGResultEvaluateClient().start();
-//
-//		new A3EResultEvaluateClient().start();
-//		
-//		new StoryResultEvaluateClient().start();
+		new GatorATGResultEvaluateClient().start();
+
+		new A3EResultEvaluateClient().start();
+		
+		new StoryResultEvaluateClient().start();
 		
 
 //		dynamicResultAnalyzer analyzer = new dynamicResultAnalyzer();
 //		analyzer.analyze();
+//
 //		manualResultAnalyzer analyzer2 = new manualResultAnalyzer();
 //		analyzer2.analyze();
 
@@ -64,30 +65,30 @@ public class ToolEvaluateClient extends BaseClient {
 
 	@Override
 	public void clientOutput() {
-//		String appName = Global.v().getAppModel().getAppName();
-//		String summary_app_dir = MyConfig.getInstance().getResultFolder() + appName + File.separator;
-//		FileUtils.createFolder(summary_app_dir + ConstantUtils.ORACLEFOLDETR);
-//		StringBuilder sb = new StringBuilder(MyConfig.getInstance().getMySwithch().toString());
-//
-////		dynamicModelContruction(sb, appName, summary_app_dir);
-////		manualModelContruction(sb, appName, summary_app_dir);
-////		oracleModelContruction(sb, appName, summary_app_dir);
-//		
-//		oracleEvaluate(sb);
-//		ICCBotEvaluate(sb);
-//		IC3Evaluate(sb);
-//		IC3DialEvaluate(sb);
-//		GatorEvaluate(sb);
-//		A3EEvaluate(sb); 
-//		StoryEvaluate(sb);
-//
-////		FilterAndEnhanceEvaluate(sb);
-//
-//		outputForExcel();
-//
-//		String content = sb.toString();
-//		FileUtils.writeText2File(summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.SCORERECORD,
-//				content, true);
+		String appName = Global.v().getAppModel().getAppName();
+		String summary_app_dir = MyConfig.getInstance().getResultFolder() + appName + File.separator;
+		FileUtils.createFolder(summary_app_dir + ConstantUtils.ORACLEFOLDETR);
+		StringBuilder sb = new StringBuilder(MyConfig.getInstance().getMySwithch().toString());
+
+//		dynamicModelContruction(sb, appName, summary_app_dir);
+//		manualModelContruction(sb, appName, summary_app_dir);
+//		oracleModelContruction(sb, appName, summary_app_dir);
+		
+		oracleEvaluate(sb);
+		ICCBotEvaluate(sb);
+		IC3Evaluate(sb);
+		IC3DialEvaluate(sb);
+		GatorEvaluate(sb);
+		A3EEvaluate(sb); 
+		StoryEvaluate(sb);
+
+//		FilterAndEnhanceEvaluate(sb);
+
+		outputForExcel();
+
+		String content = sb.toString();
+		FileUtils.writeText2File(summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.SCORERECORD,
+				content, true);
 	}
 
 

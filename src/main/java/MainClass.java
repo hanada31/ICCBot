@@ -395,7 +395,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "project.freetime.th.usmallsound.gththeseries";
+		name = "games.wawa";
 		String client = "CTGClient";
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
