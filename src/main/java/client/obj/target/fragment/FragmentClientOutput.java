@@ -62,7 +62,6 @@ public class FragmentClientOutput {
 			try{
 				root.add(e);
 			}catch(Exception e1){
-				e1.printStackTrace();
 			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
@@ -92,7 +91,6 @@ public class FragmentClientOutput {
 			try{
 				root.add(e);
 			}catch(Exception e1){
-				e1.printStackTrace();
 			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);
@@ -121,7 +119,6 @@ public class FragmentClientOutput {
 			try{
 				root.add(e);
 			}catch(Exception e1){
-				e1.printStackTrace();
 			}
 		}
 		FileUtils.xmlWriteEnd(dir, file, document);

@@ -41,22 +41,28 @@ public class CTGReaderClient extends BaseClient {
 		
 		ATGModel model = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		String fn = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
-				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName() + "_"
-				+ ConstantUtils.ICTGOPT + ".dot";
+				+ File.separator + ConstantUtils.ICTGFOLDETR + "CTG.xml";
 		model.setATGFilePath(fn);
 		ATGReader reader = new ATGReader(model);
 		if(reader.obtainATGfromFile()){
-			reader.constructModelForICCBot();
+			try {
+				reader.constructModelForICCBot();
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		ATGModel model2 = Global.v().getiCTGModel().getOptModel();
 		String fn2 = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
-				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName() + "_"
-				+ ConstantUtils.ICTGMERGE + ".dot";
+				+ File.separator + ConstantUtils.ICTGFOLDETR + "CTGwithFragment.xml";
 		model2.setATGFilePath(fn2);
 		ATGReader reader2 = new ATGReader(model2);
 		if(reader2.obtainATGfromFile()){
-			reader2.constructModelForICCBot();
+			try {
+				reader2.constructModelForICCBot();
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			}
 		}
 		System.out.println("Successfully analyze with CTGReaderClient.");
 	}
