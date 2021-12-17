@@ -151,6 +151,8 @@ public class CTGClient extends BaseClient {
 		// ictgMergedModel
 		outer.writeATGModel(ictgFolder, ConstantUtils.ICTGMERGE + ".xml",
 				ictgMergedModel);
+		String txtName = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGMERGE + ".txt";
+		outer.writeAtgModeTxtFile(ictgFolder, txtName, ictgMergedModel, false);
 		String dotname = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGMERGE;
 		outer.writeDotFile(ictgFolder, dotname, ictgMergedModel, true);
 		if (ictgMergedModel.getComp2CompSize() < 1800)
@@ -160,8 +162,8 @@ public class CTGClient extends BaseClient {
 		ATGModel ictgOptModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		// ictgOptModel
 		outer.writeATGModel(ictgFolder, ConstantUtils.ICTGOPT + ".xml", ictgOptModel);
-		String txtName = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT + ".txt";
-		outer.writeAtgModeTxtFile(ictgFolder, txtName, ictgOptModel, false);
+		String txtName2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT + ".txt";
+		outer.writeAtgModeTxtFile(ictgFolder, txtName2, ictgOptModel, false);
 		String dotname2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT;
 		outer.writeDotFile(ictgFolder, dotname2, ictgOptModel, false);
 		if (ictgMergedModel.getComp2CompSize() < 1800)

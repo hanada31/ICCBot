@@ -195,14 +195,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 		if (unit == null)
 			return null;
 		
-		// inter-function
-		if (isReceiveFromParatMethod(unit)) {
-			return new ReceiveFromParaHandler();
-		} else if (isReceiveFromRetValue(unit)) {
-			return new ReceiveFromRetValueHandler();
-		} else if (isComponentFinishMethods(unit)) {
-			return new MethodReturnHandler();
-		}
+		
 		// set
 		if (isCreateMethod(unit)) {
 			return new CreateHandler();
@@ -231,6 +224,14 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			return  new ReceiveFromOutHandler();
 		} else if (RAICCUtils.isPendingIntentCreation(unit)) {
 			return new ReceiveFromOutHandler();
+		}
+		// inter-function
+		if (isReceiveFromParatMethod(unit)) {
+			return new ReceiveFromParaHandler();
+		} else if (isReceiveFromRetValue(unit)) {
+			return new ReceiveFromRetValueHandler();
+		} else if (isComponentFinishMethods(unit)) {
+			return new MethodReturnHandler();
 		}
 		
 		if (isReceiveFromOutMethod(unit)) {

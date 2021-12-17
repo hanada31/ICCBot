@@ -220,8 +220,8 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore()) + "\t");
 		sb.append(String.format("%.2f", a3eModel.getFalsenegativeScore())+ "\t");
-		sb.append(String.format("%.2f", storyModelnoFrag.getFalsenegativeScore()));
-		sb.append(String.format("%.2f", iccBotModelnoFrag.getFalsenegativeScore()) + "\t");
+		sb.append(String.format("%.2f", storyModelnoFrag.getFalsenegativeScore())+ "\t");
+		sb.append(String.format("%.2f", iccBotModelnoFrag.getFalsenegativeScore()));
 		
 		System.out.println(sb.toString());
 		
