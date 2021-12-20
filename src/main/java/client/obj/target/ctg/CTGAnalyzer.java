@@ -139,14 +139,18 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 		for (String des : intentSummary.getSetDestinationList()) {
 			ComponentModel comp = appModel.getComponentMap().get(des);
 			AtgEdge edge;
-			if (comp == null || !SootUtils.getUnitListFromMethod(methodUnderAnalysis).contains(unit))
-				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
-			else
+			if (comp != null && SootUtils.getUnitListFromMethod(methodUnderAnalysis).contains(unit)){
 				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
 						comp.getComponentType());
-
-			edge.setIntentSummary(intentSummary);
-			Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+				edge.setIntentSummary(intentSummary);
+				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+			}else {
+//				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+//				edge.setIntentSummary(intentSummary);
+//				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+			}
+			
+			
 
 			String name = SootUtils.getNameofClass(src);
 			ComponentModel sourceComponent = Global.v().getAppModel().getComponentMap().get(name);

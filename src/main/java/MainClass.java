@@ -17,7 +17,6 @@ import main.java.client.related.ic3.IC3ResultEvaluateClient;
 import main.java.client.related.ic3dial.IC3DIALDroidResultEvaluateClient;
 import main.java.client.soot.IROutputClient;
 import main.java.client.testcase.TestGenerationClient;
-import main.java.client.toolEvaluate.ICCBotResultEvaluateClient;
 import main.java.client.toolEvaluate.ToolEvaluateClient;
 
 import org.apache.commons.cli.CommandLine;
@@ -122,9 +121,6 @@ public class MainClass {
 				break;
 			case "FragmentClient":
 				client = new FragmentClient();
-				break;
-			case "ICCBotResultEvaluateClient":
-				client = new ICCBotResultEvaluateClient();
 				break;
 			case "StoryResultEvaluateClient":
 				client = new IC3ResultEvaluateClient();
@@ -393,8 +389,9 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "ICCBotBench";
+		name = "betcoin.viphfft";
 		String client = "CTGClient"; 
+//		client = "ToolEvaluateClient"; 
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
@@ -404,9 +401,9 @@ public class MainClass {
 		MyConfig.getInstance().setMaxPathNumber(30);
 		MyConfig.getInstance().setMaxFunctionExpandNumber(5); //10?
 		MyConfig.getInstance().setMaxObjectSummarySize(100);
-		MyConfig.getInstance().setResultWarpperFolder("results" + File.separator);
-		MyConfig.getInstance().setResultFolder("results" + File.separator + "output" + File.separator);
-		MyConfig.getInstance().setTimeLimit(5);
+		MyConfig.getInstance().setResultWarpperFolder("results/" + File.separator);
+		MyConfig.getInstance().setResultFolder(MyConfig.getInstance().getResultWarpperFolder()+ "output" + File.separator);
+		MyConfig.getInstance().setTimeLimit(10);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
 		
 	}

@@ -389,12 +389,12 @@ public class FileUtils {
 	 * @param name
 	 * @param resList
 	 */
-	public static void writeList2File(String sta_res_dir, String name, List<String> resList) {
+	public static void writeList2File(String sta_res_dir, String name, List<String> resList, boolean flag) {
 		String filename = sta_res_dir + File.separator + name;
 		File f = new File(filename);
 		BufferedWriter writer = null;
 		try {
-			writer = new BufferedWriter(new FileWriter(f));
+			writer = new BufferedWriter(new FileWriter(f,flag));
 			for (String s : resList) {
 				writer.write(s + "\n");
 			}

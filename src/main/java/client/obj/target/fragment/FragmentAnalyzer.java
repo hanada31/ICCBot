@@ -97,12 +97,15 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 		for (String des : singleFrag.getSetDestinationList()) {
 			ComponentModel comp = appModel.getComponentMap().get(des);
 			AtgEdge edge;
-			if (comp == null || !SootUtils.getUnitListFromMethod(method).contains(unit))
-				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
-			else
+			if (comp != null && SootUtils.getUnitListFromMethod(methodUnderAnalysis).contains(unit)){
 				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
 						comp.getComponentType());
-			Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
+				Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
+			}else {
+//				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+//				Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
+			}
+			
 			String name = SootUtils.getNameofClass(singleFrag.getPathSummary().getMethodSummary().getComponentName());
 			ComponentModel sourceComponent = Global.v().getAppModel().getComponentMap().get(name);
 			if (sourceComponent != null) {

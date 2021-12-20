@@ -63,10 +63,13 @@ public class ConstantUtils {
 	public static final String LINKFILE = "IccLinksConfigFile.txt";
 
 	public static final String SINGLEMETHOD_ALL = "methodSummary_all.xml";
-	public static final String SINGLEMETHOD_ENTRY = "methodSummary_entry.xml";
+	public static final String SINGLEMETHOD_ENTRY = "methodSummary_frag_entry.xml";
+	public static final String SINGLEMETHODFRAG_ENTRY = "methodSummary_frag_entry.xml";
 	public static final String SINGLEPATH_ENTRY = "pathSummary_entry.xml";
+	public static final String SINGLEPATHFRAG_ENTRY = "pathSummary_entry.xml";
 	public static final String SINGLEPATH_ALL = "pathSummary_all.xml";
 	public static final String SINGLEOBJECT_ENTRY = "objectSummary_entry.xml";
+	public static final String SINGLEOBJECTFRAG_ENTRY = "objectSummary_frag_entry.xml";
 	public static final String SINGLEOBJECT_ALL = "objectSummary_all.xml";
 	public static final String COMPONENTMODEL = "componentInfo.xml";
 	public static final String STATISTIC = "statisticResult.xml";
