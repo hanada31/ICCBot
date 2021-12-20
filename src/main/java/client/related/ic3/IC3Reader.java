@@ -62,10 +62,8 @@ public class IC3Reader extends Analyzer {
 		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getAppName()+ ".json");
 		if(obtainATGfromFile()){
 			long time = runtimeAnalyze();
-			if(time>=0 && time<=30*60){
-				componentAnalyze();
-				ICCAnalyze();
-			}
+			componentAnalyze();
+			ICCAnalyze();
 		}
 	}
 	private boolean obtainATGfromFile() {

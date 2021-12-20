@@ -40,29 +40,27 @@ public class CTGReaderClient extends BaseClient {
 		}
 		
 		ATGModel model = Global.v().getiCTGModel().getOptModelwithoutFrag();
-		String fn = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
-				+ File.separator + ConstantUtils.ICTGFOLDETR + "CTG.xml";
-		model.setATGFilePath(fn);
 		ATGReader reader = new ATGReader(model);
+		String fn = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
+				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName()+"_CTG.txt";
+		model.setATGFilePath(fn);
 		if(reader.obtainATGfromFile()){
-			try {
-				reader.constructModelForICCBot();
-			} catch (DocumentException e) {
-				e.printStackTrace();
-			}
+			reader.constructModelForICCBot();
 		}
 		
 		ATGModel model2 = Global.v().getiCTGModel().getOptModel();
-		String fn2 = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
-				+ File.separator + ConstantUtils.ICTGFOLDETR + "CTGwithFragment.xml";
-		model2.setATGFilePath(fn2);
 		ATGReader reader2 = new ATGReader(model2);
+		String fn2 = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
+				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName()+"_CTGwithFragment.txt11";
+		if(new File(fn2).exists()){
+			model2.setATGFilePath(fn2);
+		}else {
+			//the old version do not have txt file 
+			model2.setATGFilePath(MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
+					+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName()+"_CTGwithFragment.dot");
+		}
 		if(reader2.obtainATGfromFile()){
-			try {
-				reader2.constructModelForICCBot();
-			} catch (DocumentException e) {
-				e.printStackTrace();
-			}
+			reader2.constructModelForICCBot();
 		}
 		System.out.println("Successfully analyze with CTGReaderClient.");
 	}
