@@ -102,8 +102,8 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 						comp.getComponentType());
 				Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
 			}else {
-//				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
-//				Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
+				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+				Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
 			}
 			
 			String name = SootUtils.getNameofClass(singleFrag.getPathSummary().getMethodSummary().getComponentName());

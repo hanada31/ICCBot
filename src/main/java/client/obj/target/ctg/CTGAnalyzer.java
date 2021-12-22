@@ -145,9 +145,9 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 				edge.setIntentSummary(intentSummary);
 				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
 			}else {
-//				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
-//				edge.setIntentSummary(intentSummary);
-//				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+				edge.setIntentSummary(intentSummary);
+				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
 			}
 			
 			

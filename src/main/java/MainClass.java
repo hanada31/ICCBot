@@ -389,9 +389,9 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "betcoin.viphfft";
+		name = "ICCBotBench";
 		String client = "CTGClient"; 
-//		client = "ToolEvaluateClient"; 
+		client = "ToolEvaluateClient"; 
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
