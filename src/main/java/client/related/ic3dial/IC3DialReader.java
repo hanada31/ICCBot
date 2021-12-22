@@ -62,10 +62,10 @@ public class IC3DialReader extends Analyzer {
 		model.setIC3FilePath(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getAppName()+ ".json");
 		if(obtainATGfromFile()){
 			long time = runtimeAnalyze();
-			if(time>=0 && time<=30*60){
-				componentAnalyze();
-				ICCAnalyze();
-			}
+//			if(time>=0 && time<=30*60){
+			componentAnalyze();
+			ICCAnalyze();
+//			}
 		}
 	}
 	private boolean obtainATGfromFile() {
