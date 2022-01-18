@@ -15,7 +15,7 @@ def analyzeApk(apkPath, resPath, sdk):
         
     if(os.path.exists(apkPath)): 
         apks = os.listdir(apkPath)
-        extraArgs = ""# -noLibCode 
+        extraArgs = "-noFunctionExpand" #"-noLibCode "# 
         for apk in apks:
             if apk[-4:] ==".apk":
                 id+=1

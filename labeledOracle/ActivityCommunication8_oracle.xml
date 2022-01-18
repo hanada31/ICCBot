@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root srcCodeBase="/benchmarks/DroidBench">
+   <OracleEdge source="edu.mit.icc_pass_action_string_through_api.OutFlowActivity" destination="edu.mit.icc_pass_action_string_through_api.InFlowActivity" method="xxx">
+    <comment>OutFlowActivity.onCreate() -&gt; List&lt;String&gt;.get() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/ActivityCommunication8/src/edu/mit/icc_pass_action_string_through_api/OutFlowActivity.java" start="31" end="34"/>
+      <line src="/ActivityCommunication8/src/edu/mit/icc_pass_action_string_through_api/OutFlowActivity.java" start="36" end="39"/>
+      <line src="/ActivityCommunication8/AndroidManifest.xml" start="26" end="33"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="false" isImplicit="true"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="true" isBasicInvocation="false" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="false"/>
+        <sensitivityScope flow="false" path="false" context="false" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+</root>

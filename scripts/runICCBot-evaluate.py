@@ -2,10 +2,10 @@ import os
 import sys
 import shutil
 
-def analyzeApk(apkPath, resPath, sdk):
+def analyzeApk(apkPath, resPath, sdk, tag):
 
-    logDir = resPath+"/logs"
-    outputDir = resPath+"/output"
+    logDir = resPath+"/logs"+tag
+    outputDir = resPath+"/output"+tag
     if(not os.path.exists(logDir)): 
         os.makedirs(logDir) 
     if(not os.path.exists(outputDir)): 
@@ -22,6 +22,8 @@ def analyzeApk(apkPath, resPath, sdk):
 if __name__ == '__main__' :
     apkPath = sys.argv[1]
     resPath = sys.argv[2]
+    tag =""
+    
     jarFile = "ICCBot.jar"
     
     os.system("mvn -f pom.xml package -q")
@@ -33,5 +35,5 @@ if __name__ == '__main__' :
         print("Fail to build! Please run \"mvn -f pom.xml package\" to see the detail info.")
     
     sdk = "lib/"    
-    analyzeApk(apkPath, resPath, sdk)
+    analyzeApk(apkPath, resPath, sdk,tag)
     

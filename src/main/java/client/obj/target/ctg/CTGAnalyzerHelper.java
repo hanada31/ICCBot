@@ -131,8 +131,6 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			return "ReceiveIntentFromParatMethod";
 		} else if (isReceiveFromRetValue(unit)) {
 			return "ReceiveIntentFromRetValue";
-		}else if (isPassOutMethod(unit)) {
-				return "PassOutIntent";
 		}
 		// finish
 		if (MyConfig.getInstance().getMySwithch().isScenario_stack()) {
@@ -165,6 +163,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 				return "intentSenderCreation";
 			} else if (RAICCUtils.isPendingIntentCreation(unit)) {
 				return "pendingIntentCreation";
+			}else if (isPassOutMethod(unit)) {
+				return "PassOutIntent";
 			}
 		}
 		// get
@@ -175,6 +175,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 				return "GetAttribute";
 			} else if (isGetIntentExtraMethod(unit)) {
 				return "GetIntentExtra";
+			}else if (isPassOutMethod(unit)) {
+				return "PassOutIntent";
 			}
 		}
 		

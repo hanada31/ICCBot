@@ -357,6 +357,8 @@ public class IC3Reader extends Analyzer {
 					if (filterActionSet.contains(action))
 						actionTarget = true;
 				}
+				if(!filterActionSet.isEmpty() && summaryActionSet.isEmpty())
+					actionTarget = true;
 				/**
 				 * android will add android.intent.category.DEFAULT to all
 				 * implicit Activity ICC.
@@ -373,8 +375,8 @@ public class IC3Reader extends Analyzer {
 						cateTarget = false;
 				}
 				// all the category in a summary must find a match one in filter
-				for (String category : filterCateSet ) {
-					if (!summaryCateSet.contains(category))
+				for (String category : summaryCateSet  ) {
+					if (!filterCateSet.contains(category))
 						cateTarget = false;
 				}
 				if(addDefault)

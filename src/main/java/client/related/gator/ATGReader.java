@@ -64,7 +64,6 @@ public class ATGReader extends Analyzer {
 				if (sNode != null && tNode != null) {
 					AtgEdge edge = new AtgEdge(sNode, tNode, "", -1, "");
 					model.addAtgEdges(sNode.getClassName(), edge);
-					System.out.println(edge);
 				}
 			}
 		}

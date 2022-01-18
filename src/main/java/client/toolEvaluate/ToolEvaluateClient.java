@@ -426,7 +426,7 @@ public class ToolEvaluateClient extends BaseClient {
 		if(iccBotModelnoFrag.isExist()){
 			iccBotModelnoFrag.evaluateGraphCount("ICCBot      ");
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
+			if (oracleModel.isExist()) {
 				iccBotModelnoFrag.evaluateFalseNegative("ICCBot      ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, for false negative evaluation, please add files into folder /labeledOracle\n";
@@ -449,11 +449,11 @@ public class ToolEvaluateClient extends BaseClient {
 	private void IC3Evaluate(StringBuilder sb) {
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
-		if(ic3Model.isExist()){
+		if(ic3Model.isExist()) {
 			ic3Model.evaluateGraphCount("IC3         ");
 	
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
+			if (oracleModel.isExist()) {
 				ic3Model.evaluateFalseNegative("IC3         ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, for false negative evaluation, please add files into folder /labeledOracle\n";
@@ -480,7 +480,7 @@ public class ToolEvaluateClient extends BaseClient {
 			ic3Model.evaluateGraphCount("IC3Dial     ");
 	
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
+			if (oracleModel.isExist()) {
 				ic3Model.evaluateFalseNegative("IC3Dial     ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, for false negative evaluation, please add files into folder /labeledOracle\n";
@@ -507,7 +507,7 @@ public class ToolEvaluateClient extends BaseClient {
 			GatorModel.evaluateGraphCount("Gator         ");
 	
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
+			if (oracleModel.isExist()) {
 				GatorModel.evaluateFalseNegative("Gator         ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
@@ -530,7 +530,7 @@ public class ToolEvaluateClient extends BaseClient {
 			a3eModel.evaluateGraphCount("A3E         ");
 	
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
+			if (oracleModel.isExist()) {
 				a3eModel.evaluateFalseNegative("A3E         ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
@@ -553,7 +553,7 @@ public class ToolEvaluateClient extends BaseClient {
 			storyModelnoFrag.evaluateGraphCount("Story         ");
 	
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
+			if (oracleModel.isExist()) {
 				storyModelnoFrag.evaluateFalseNegative("Story         ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
