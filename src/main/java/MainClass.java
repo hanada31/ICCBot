@@ -393,6 +393,7 @@ public class MainClass {
 		String client = "CTGClient"; 
 //		client = "IROutputClient"; 
 //		client = "ToolEvaluateClient"; 
+
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
