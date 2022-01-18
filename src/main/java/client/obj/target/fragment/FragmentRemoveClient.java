@@ -50,9 +50,7 @@ public class FragmentRemoveClient extends BaseClient {
 				List<Unit> units = SootUtils.getUnitListFromMethod(sMethod);
 				for(Unit u: units){
 					if(u.toString().contains("app.FragmentTransaction remove(")){
-						System.out.println(u);
 						content += sMethod.getSignature() +"\t"+ u.toString()+"\n";
-						
 					}
 						
 				}

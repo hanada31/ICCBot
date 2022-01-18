@@ -34,7 +34,7 @@ public class StoryReader extends Analyzer {
 	@Override
 	public void analyze() {
 		model = Global.v().getStoryModel();
-		System.out.println(ConstantUtils.STORYFOLDETR + appModel.getAppName() + ".txt");
+//		System.out.println(ConstantUtils.STORYFOLDETR + appModel.getAppName() + ".txt");
 		model.setStoryFilePath(ConstantUtils.STORYFOLDETR + appModel.getAppName() + ".txt");
 		if(obtainATGfromFile()){
 			try {

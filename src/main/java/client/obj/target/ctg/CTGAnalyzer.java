@@ -145,9 +145,9 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 				edge.setIntentSummary(intentSummary);
 				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
 			}else {
-//				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
-//				edge.setIntentSummary(intentSummary);
-//				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+				edge.setIntentSummary(intentSummary);
+				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
 			}
 			
 			
@@ -210,10 +210,13 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 				boolean actionTarget = false, cateTarget = true, dataTarget = false, typeTarget = true;
 				// if a action is find same with one action in filer, matched
 				// usually, only one action in summary
+				//如果该过滤器未列出任何操作，则 Intent 没有任何匹配项，因此所有 Intent 均无法通过测试。但是，如果 Intent 未指定操作，则只要过滤器内包含至少一项操作，就可以通过测试。
 				for (String action : filterActionSet ) {
 					if (summaryActionSet.contains(action))
 						actionTarget = true;
 				}
+				if(!filterActionSet.isEmpty() && summaryActionSet.isEmpty())
+					actionTarget = true;
 				/**
 				 * android will add android.intent.category.DEFAULT to all
 				 * implicit Activity ICC.
@@ -230,8 +233,8 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 						cateTarget = false;
 				}
 				// all the category in a summary must find a match one in filter
-				for (String category : filterCateSet ) {
-					if (!summaryCateSet.contains(category))
+				for (String category : summaryCateSet  ) {
+					if (!filterCateSet.contains(category))
 						cateTarget = false;
 				}
 				if(addDefault)
@@ -267,8 +270,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 						typeTarget = false;
 				}
 				boolean flag1 = actionTarget && cateTarget && dataTarget && typeTarget;
-				boolean flag2 = (summaryActionSet.size() == 0);
-				if (flag1 && !flag2) {
+				if (flag1) {
 					if (component.getComponentType().contains(intentSummary.getTargetType())) {
 						findTarget = true;
 						resSet.add(component.getComponetName());

@@ -389,8 +389,9 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "betcoin.viphfft";
+		name = "app-debug-32";
 		String client = "CTGClient"; 
+//		client = "IROutputClient"; 
 //		client = "ToolEvaluateClient"; 
 		
 		MyConfig.getInstance().setAppName(name + ".apk");

@@ -1,7 +1,6 @@
 Node(eu.siacs.conversations.ui.ManageAccountActivity) -> Node(eu.siacs.conversations.ui.ContactDetailsActivity)
 Node(eu.siacs.conversations.ui.ManageAccountActivity) -> Node(eu.siacs.conversations.ui.BlocklistActivity)
 Node(eu.siacs.conversations.ui.ManageAccountActivity) -> Node(eu.siacs.conversations.ui.ShareWithActivity)
-Node(eu.siacs.conversations.ui.ManageAccountActivity) -> Node(eu.siacs.conversations.ui.EditAccountActivity)
 Node(eu.siacs.conversations.ui.ManageAccountActivity) -> Node(eu.siacs.conversations.ui.ChannelDiscoveryActivity)
 Node(eu.siacs.conversations.ui.ManageAccountActivity) -> Node(eu.siacs.conversations.ui.ConferenceDetailsActivity)
 Node(eu.siacs.conversations.ui.ManageAccountActivity) -> Node(eu.siacs.conversations.ui.ChangePasswordActivity)

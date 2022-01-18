@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root srcCodeBase="/benchmarks/storyBoard">
+<OracleEdge source="com.test.ui.transition.MainActivity" destination="com.test.ui.transition.NextActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>MainActivity.onCreate() -&gt; TextView.setOnClickListener() -&gt; *View.OnClickListener.onClick() -&gt; MainActivity.goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/innerclass_1-dex2jar.jar.src/com/test/ui/transition/MainActivity.java" start="18" end="18"/>
+      <line src="/innerclass_1-dex2jar.jar.src/com/test/ui/transition/MainActivity.java" start="20" end="20"/>
+      <line src="/innerclass_1-dex2jar.jar.src/com/test/ui/transition/MainActivity.java" start="12" end="12"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="true" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="true" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+</root>

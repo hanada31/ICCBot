@@ -445,6 +445,7 @@ public class ATGModel {
 			if(exist.getDescribtion().equals(edge.getDescribtion()))
 				return false;
 		}
+		edges.add(edge);
 		return true;
 	}
 
