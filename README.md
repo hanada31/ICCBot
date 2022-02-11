@@ -3,6 +3,16 @@ A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applicati
 
 
 
+Requirements：
+
+1. Python 3+
+
+2. Java 1.8+
+
+3. Install GraphViz (http://www.graphviz.org/download/) 
+
+   
+
 build and run *ICCBot* to analyze single apk: : 
 ```
 mvn -f pom.xml clean package

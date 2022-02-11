@@ -108,11 +108,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
 		MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
-		String tag = methodUnderAnalysis.getSignature();
-		if(tag.contains("com.iccbot.withCtx.Source1WithCtx$1: void onClick")){
-			System.err.println(tag);
-		}
-//		System.err.println(tag);
+
 		if (methodUnderAnalysis.getSignature().contains(ConstantUtils.DUMMYMAIN)) {
 //			analyzeDummyMain(methodSummary);
 			return methodSummary;
