@@ -1,8 +1,6 @@
 # ICCBot
 A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
 
-
-
 Requirements：
 
 1. Python 3+
@@ -11,7 +9,6 @@ Requirements：
 
 3. Install GraphViz (http://www.graphviz.org/download/) 
 
-   
 
 build and run *ICCBot* to analyze single apk: : 
 ```
