@@ -16,13 +16,18 @@ public abstract class BaseClient {
 	protected StatisticResult result;
 
 	public void start() {
-		clientAnalyze();
+		
 		try {
+			clientAnalyze();
 			clientOutput();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DocumentException e) {
 			e.printStackTrace();
+		}catch (RuntimeException e) {
+			e.printStackTrace();
+			System.err.println("The analysis is stopped, caused by "+ e.getMessage());
+			System.exit(0);
 		}
 	}
 

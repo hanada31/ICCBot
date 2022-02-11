@@ -74,6 +74,7 @@ public class GatorClient  extends BaseClient {
 	 */
 	private void addShutdownOperation() {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
 			public void run() {
 				FileUtils.delAllFile(gatorTmpFolder);
 				System.out.println("addShutdownHook");

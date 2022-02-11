@@ -3,6 +3,7 @@ package main.java.analyze.model.labeledOracleModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import fj.P;
 import main.java.analyze.utils.output.PrintUtils;
 
 public class IccTag {
@@ -68,7 +69,9 @@ public class IccTag {
 	private boolean isLibonly;
 	private boolean isAsynconly;
 	private boolean isPolymonly;
-
+	private boolean isStaticValOnly;
+	private boolean isStringOpOnly;
+	
 	public IccTag(String source, String destination) {
 		this.source = source;
 		this.destination = destination;
@@ -77,61 +80,78 @@ public class IccTag {
 	}
 
 	public void postAnalyzeTags() {
-		if (isStaticCallBack && !isDynamicCallBack && !isImpliciyCallBack && !isWarpperSendICC && !isImplicit
-				&& !isNonActivity && !isNonComponent && !isContextSensitive && !isLibraryInvocation
-				&& !isAsyncInvocation && !isPolymorphic)
+		if (isStaticCallBack && !isDynamicCallBack && !isImpliciyCallBack && !isWarpperSendICC && !isImplicit && !isStaticVal && !isStringOp
+				&& !isNonActivity && !isNonComponent && !isContextSensitive && !isLibraryInvocation&& !isAsyncInvocation && !isPolymorphic)
 			isStaticCallBackonly = true;
-		if (!isStaticCallBack && isDynamicCallBack && !isImpliciyCallBack && !isWarpperSendICC && !isImplicit
-				&& !isNonActivity && !isNonComponent && !isContextSensitive && !isLibraryInvocation
-				&& !isAsyncInvocation && !isPolymorphic)
+		if (!isStaticCallBack && isDynamicCallBack && !isImpliciyCallBack && !isWarpperSendICC && !isImplicit && !isStaticVal && !isStringOp
+				&& !isNonActivity && !isNonComponent && !isContextSensitive && !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isDynamicCallBackonly = true;
-		if (!isStaticCallBack && !isDynamicCallBack && isImpliciyCallBack && !isWarpperSendICC && !isImplicit
-				&& !isNonActivity && !isNonComponent && !isContextSensitive && !isLibraryInvocation
-				&& !isAsyncInvocation && !isPolymorphic)
+		if (!isStaticCallBack && !isDynamicCallBack && isImpliciyCallBack && !isWarpperSendICC && !isImplicit && !isStaticVal && !isStringOp
+				&& !isNonActivity && !isNonComponent && !isContextSensitive && !isLibraryInvocation&& !isAsyncInvocation && !isPolymorphic)
 			isImplicitCallBackonly = true;
 
-		if (!isWarpperSendICC && !isImplicit && isNonActivity && !isNonComponent && !isContextSensitive
+		if (!isWarpperSendICC && !isImplicit && isNonActivity && !isNonComponent && !isContextSensitive && !isStaticVal && !isStringOp
 				&& !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isNonActonly = true;
 
-		if (isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isLibraryInvocation
+		if (isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isLibraryInvocation && !isStaticVal && !isStringOp
 				&& !isAsyncInvocation && !isPolymorphic)
 			isWarrperonly = true;
 
-		if (!isWarpperSendICC && isImplicit && !isNonComponent && !isContextSensitive && !isNonActivity
+		if (!isWarpperSendICC && isImplicit &&  !isContextSensitive   && !isStaticVal && !isStringOp
 				&& !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isImplicitICConly = true;
-		if (!isWarpperSendICC && !isImplicit && isNonComponent && !isContextSensitive && !isNonActivity
+		
+		if (!isWarpperSendICC && !isImplicit && isNonComponent && !isContextSensitive && !isNonActivity && !isStaticVal && !isStringOp
 				&& !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isNonComponentonly = true;
-		if (!isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isNonActivity
+		if (!isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isNonActivity && !isStaticVal && !isStringOp
 				&& isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isLibonly = true;
-		if (!isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isNonActivity
+		if (!isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isNonActivity && !isStaticVal && !isStringOp
 				&& !isLibraryInvocation && isAsyncInvocation && !isPolymorphic)
 			isAsynconly = true;
-		if (!isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isNonActivity
+		if (!isWarpperSendICC && !isImplicit && !isNonComponent && !isContextSensitive && !isNonActivity && !isStaticVal && !isStringOp
 				&& !isLibraryInvocation && !isAsyncInvocation && isPolymorphic)
 			isPolymonly = true;
 
-		if (!isWarpperSendICC && !isImplicit && !isNonComponent && isContextSensitive && !isNonActivity
+		if (!isWarpperSendICC && !isImplicit && !isNonComponent && isContextSensitive && !isNonActivity && !isStaticVal && !isStringOp
 				&& !isFieldSensitive && !isFlowSensitive && !isPathSensitive && !isObjectSensitive
 				&& !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isContextSensionly = true;
 
-		if (!isWarpperSendICC && !isImplicit && isFragment && !isAdapter && !isWidget && !isContextSensitive
+		if (!isWarpperSendICC && !isImplicit && isFragment && !isAdapter && !isWidget && !isContextSensitive && !isStaticVal && !isStringOp
 				&& !isNonActivity && !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isFragmentonly = true;
-		if (!isWarpperSendICC && !isImplicit && !isFragment && isAdapter && !isWidget && !isContextSensitive
+		if (!isWarpperSendICC && !isImplicit && !isFragment && isAdapter && !isWidget && !isContextSensitive && !isStaticVal && !isStringOp
 				&& !isNonActivity && !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isAdapteronly = true;
-		if (!isWarpperSendICC && !isImplicit && !isFragment && !isAdapter && isWidget && !isContextSensitive
+		if (!isWarpperSendICC && !isImplicit && !isFragment && !isAdapter && isWidget && !isContextSensitive && !isStaticVal && !isStringOp
 				&& !isNonActivity && !isLibraryInvocation && !isAsyncInvocation && !isPolymorphic)
 			isWidgetonly = true;
-		if (!isWarpperSendICC && !isImplicit && !isFragment && !isAdapter && isWidget && isOtherClass
+		if (!isWarpperSendICC && !isImplicit && !isFragment && !isAdapter && isWidget && isOtherClass && !isStaticVal && !isStringOp
 				&& !isContextSensitive && !isNonActivity && !isLibraryInvocation && !isAsyncInvocation
 				&& !isPolymorphic)
 			isOtherClassonly = true;
+		
+		if (!isWarpperSendICC && !isImplicit && !isFragment && !isAdapter && isWidget && isOtherClass  && !isStaticVal && !isStringOp
+				&& !isContextSensitive && !isNonActivity && !isLibraryInvocation && !isAsyncInvocation
+				&& !isPolymorphic)
+			isOtherClassonly = true;
+		
+		if (!isWarpperSendICC && !isImplicit && !isFragment && !isAdapter && isWidget && !isOtherClass  && isStaticVal && !isStringOp
+				&& !isContextSensitive && !isNonActivity && !isLibraryInvocation && !isAsyncInvocation
+				&& !isPolymorphic)
+			isStaticValOnly = true;
+		
+		if (!isWarpperSendICC  && !isFragment && !isAdapter && isWidget && !isOtherClass  && !isStaticVal && isStringOp
+				&& !isContextSensitive && !isNonActivity && !isLibraryInvocation && !isAsyncInvocation
+				&& !isPolymorphic)
+			isStringOpOnly = true;	
+		
+//		if(isAsynconly){
+//			System.err.println("!!! "+source+"   " +destination);
+//		}
 	}
 
 	@Override

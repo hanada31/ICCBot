@@ -8,8 +8,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
-
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.analyzeModel.PathSummaryModel;
 import main.java.analyze.utils.output.PrintUtils;

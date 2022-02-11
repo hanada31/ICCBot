@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root srcCodeBase="/benchmarks/ICCBench">
+   <OracleEdge source="org.arguslab.icc_rpc_comprehensive.FooActivity" destination="org.arguslab.icc_rpc_comprehensive.BarActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>FooActivity.onCreate() -&gt; requestPermissions() -&gt; *onRequestPermissionsResult() -&gt; startActivityForResult()</comment>
+    <callLines>
+      <line src="/icc_rpc_comprehensive/src/main/java/org/arguslab/icc_rpc_comprehensive/FooActivity.java" start="33" end="33"/>
+      <line src="/icc_rpc_comprehensive/src/main/java/org/arguslab/icc_rpc_comprehensive/FooActivity.java" start="40" end="42"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="true" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="false" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+       <OracleEdge source="org.arguslab.icc_rpc_comprehensive.BarActivity" destination="org.arguslab.icc_rpc_comprehensive.RemoteService" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*BarActivity.onStart() -&gt; bindService()</comment>
+    <callLines>
+      <line src="/icc_rpc_comprehensive/src/main/java/org/arguslab/icc_rpc_comprehensive/BarActivity.java" start="25" end="25"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="true" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="false" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="false" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+</root>

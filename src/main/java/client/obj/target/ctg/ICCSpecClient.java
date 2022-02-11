@@ -2,34 +2,21 @@ package main.java.client.obj.target.ctg;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.SummaryLevel;
 import main.java.analyze.utils.ConstantUtils;
-import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.cg.CallGraphClient;
 import main.java.client.cg.DynamicReceiverCGAnalyzer;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.obj.ObjectAnalyzer;
-import main.java.client.obj.model.atg.ATGModel;
-import main.java.client.obj.model.atg.AtgEdge;
-import main.java.client.obj.model.atg.AtgNode;
-import main.java.client.obj.model.atg.AtgType;
 import main.java.client.obj.target.ctg.ICCSpecClient;
 import main.java.client.obj.target.fragment.FragmentClient;
 import main.java.client.soot.IROutputClient;
 import main.java.client.statistic.model.StatisticResult;
-import main.java.client.toolEvaluate.ToolEvaluateClient;
-
 import org.dom4j.DocumentException;
 
 import soot.SootMethod;

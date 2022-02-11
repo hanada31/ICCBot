@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root srcCodeBase="/benchmarks/ICCBench">
+   <OracleEdge source="org.arguslab.icc_dynregister2.MainActivity" destination="org.arguslab.icc_dynregister2.MyReceiver" method="xxx">
+    <comment>MainActivity.onCreate() -&gt; requestPermissions() -&gt; registerReceiver() -&gt; *onRequestPermissionsResult() -&gt; leakImei() -&gt; StringBuilder.toString() -&gt; sendBroadcast()</comment>
+    <callLines>
+      <line src="/icc_dynregister2/src/main/java/org/arguslab/icc_dynregister2/MainActivity.java" start="34" end="34"/>
+      <line src="/icc_dynregister2/src/main/java/org/arguslab/icc_dynregister2/MainActivity.java" start="37" end="37"/>
+      <line src="/icc_dynregister2/src/main/java/org/arguslab/icc_dynregister2/MainActivity.java" start="56" end="56"/>
+      <line src="/icc_dynregister2/src/main/java/org/arguslab/icc_dynregister2/MainActivity.java" start="44" end="46"/>
+      <line src="/icc_dynregister2/src/main/java/org/arguslab/icc_dynregister2/MainActivity.java" start="47" end="49"/>
+    </callLines>
+    <tags checkIgnore="nullisImplicitAndroidManifest, ">
+      <entryMethod isLifeCycle="true" isImplicitCallback="true" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="false" isImplicit="true"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="true"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="true" isNoExtra="false"/>
+        <sensitivityScope flow="false" path="false" context="false" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+</root>

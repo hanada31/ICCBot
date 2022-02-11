@@ -19,10 +19,11 @@ public class SetFlagHandler extends DataHandler {
 				try {
 					newDataSet.add(flag.getFlag(Integer.parseInt(data)));
 				} catch (Exception NumberFormatException) {
+					newDataSet.add(data);
 				}
-
-			} else
+			} else{
 				newDataSet.add(data);
+			}
 		}
 		intentSummary.getSetFlagsList().addAll(newDataSet);
 	}

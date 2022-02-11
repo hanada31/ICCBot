@@ -1,18 +1,6 @@
 package main.java.client.testcase;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import main.java.Analyzer;
-import main.java.MyConfig;
-import main.java.analyze.utils.ConstantUtils;
-import main.java.analyze.utils.output.FileUtils;
-import main.java.client.obj.model.ctg.ICCMsg;
-import main.java.client.obj.model.ctg.IntentRecieveModel;
-import main.java.client.testcase.TestGenerationProcess;
 
 /**
  * single null value test case generation

@@ -76,8 +76,9 @@ public class TestGenerationProcess {
 					atdtPrefix += c;
 					break;
 				}
-			} else
+			} else{
 				atdtPrefix += "null";
+			}
 			atdtPrefix += ";;";
 
 			if (msg.getData() != null && !msg.getData().equals("") && !msg.getData().equals("\"\""))
@@ -582,8 +583,7 @@ public class TestGenerationProcess {
 	 */
 	private String handleExtraAccordingToTypeAbnormal(String extra_type, String extra_key) {
 		String result = "";
-		Random r = new Random();
-		int n = r.nextInt(2);
+		int n = new Random().nextInt(2);
 		if (extra_type.equals("Int") || extra_type.equals("int")) {
 			if (n == 0)
 				result += extra_type + "->" + extra_key + "->Integer.MAX_VALUE,";

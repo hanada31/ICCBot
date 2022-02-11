@@ -1,19 +1,13 @@
 package main.java.analyze.utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import polyglot.ast.New;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-
-import soot.util.HashMultiMap;
-import soot.util.MultiMap;
 
 public class TypeValueUtil {
 	// extra intent method types
@@ -123,7 +117,7 @@ public class TypeValueUtil {
 	}
 	
 	public static String getTypevalueJsonString() {
-		JSONObject jsonObj = (JSONObject) JSONObject.toJSON(TypeValueUtil.getValueMap());
+		JSONObject jsonObj = (JSONObject) JSON.toJSON(TypeValueUtil.getValueMap());
         return JSON.toJSONString(jsonObj,SerializerFeature.PrettyFormat);
 
 	}

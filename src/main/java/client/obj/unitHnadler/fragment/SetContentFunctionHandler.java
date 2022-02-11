@@ -3,8 +3,6 @@ package main.java.client.obj.unitHnadler.fragment;
 import java.io.IOException;
 import java.util.List;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Single;
-
 import main.java.Global;
 import main.java.analyze.model.analyzeModel.ObjectSummaryModel;
 import main.java.analyze.model.sootAnalysisModel.Context;
@@ -41,6 +39,7 @@ public class SetContentFunctionHandler extends UnitHandler {
 
 	@Override
 	public void handleSingleObject(Context oldContextwithRealValue, ObjectSummaryModel singleObject, Unit targetUnit) {
+		this.objectModel = singleObject;
 		this.oldContextwithRealValue = oldContextwithRealValue;
 		singleObject.getDataHandleList().add(unit);
 		this.targetUnit = targetUnit;

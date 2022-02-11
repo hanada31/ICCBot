@@ -26,6 +26,7 @@ public class ActivityModel extends ComponentModel implements Serializable, Launc
 		type = "a";
 	}
 
+	@Override
 	public String getLaunchMode() {
 		return launchMode;
 	}

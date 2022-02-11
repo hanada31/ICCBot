@@ -1,5 +1,6 @@
 package main.java.client.related.ic3;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,19 +52,50 @@ public class IC3Reader extends Analyzer {
 	@Override
 	public void analyze() {
 		model = Global.v().getiC3Model();
-		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getPackageName() + "_" + appModel.getVersionCode()
-				+ ".json");
-		componentAnalyze();
-		ICCAnalyze();
+//		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getPackageName() + "_"
+//		+ appModel.getVersionCode() + ".json");
+		File oldf = new File(ConstantUtils.IC3TMPFOLDETR + appModel.getPackageName() + "_"+ appModel.getVersionCode() + ".json");
+		if(oldf.exists()){
+			File newf = new File(ConstantUtils.IC3FOLDETR + appModel.getAppName()+ ".json");
+			oldf.renameTo(newf);
+		}
+		model.setIC3FilePath(ConstantUtils.IC3FOLDETR + appModel.getAppName()+ ".json");
+		if(obtainATGfromFile()){
+			long time = runtimeAnalyze();
+			componentAnalyze();
+			ICCAnalyze();
+		}
 	}
-
+	private boolean obtainATGfromFile() {
+		File file = new File(model.getIC3FilePath());
+		if (!file.exists()) {
+			model.getIC3AtgModel().setExist(false);
+			return false;
+		}
+		return true;
+	}
+	
 	private void makeStatistic() {
 		for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
 			DoStatistic.updateXMLStatisticUseSummayMap(true, en.getValue(), result);
 			DoStatistic.updateXMLStatisticUseSummayMap(false, en.getValue(), result);
 		}
 	}
-
+	
+	/**
+	 * extract the analysis time of IC3
+	 * @return
+	 */
+	private long runtimeAnalyze() {
+		String s = FileUtils.readJsonFile(model.getIC3FilePath());
+		JSONObject jobj = JSON.parseObject(s);
+		if (jobj != null) {
+			Long start = jobj.getLong("analysis_start");
+			Long end = jobj.getLong("analysis_end");
+			return end - start;
+		}
+		return -1;
+	}
 	private void componentAnalyze() {
 		String s = FileUtils.readJsonFile(model.getIC3FilePath());
 		JSONObject jobj = JSON.parseObject(s);
@@ -241,8 +273,9 @@ public class IC3Reader extends Analyzer {
 				for (int n = 0; n < values.size(); n++)
 					intentSummary.getSetActionValueList().add(values.getString(n));
 			} else if (kind.equals("1") || kind.equals("CATEGORY")) {// CATEGORY
-				for (int n = 0; n < values.size(); n++)
+				for (int n = 0; n < values.size(); n++){
 					intentSummary.getSetCategoryValueList().add(values.getString(n));
+				}
 			} else if (kind.equals("2") || kind.equals("PACKAGE")) {// CLASS
 			} else if (kind.equals("3") || kind.equals("CLASS")) {// CLASS
 				String des = values.getString(0).replace("/", ".");
@@ -281,7 +314,7 @@ public class IC3Reader extends Analyzer {
 		}
 		if (hasDes)
 			return;
-		List<String> resSet = analyzeDesinationByACDT(intentSummary);
+		List<String> resSet = analyzeDesinationByACDT(src, intentSummary);
 		for (String des : resSet) {
 			// des = des.split("\\.")[des.split("\\.").length-1];
 			AtgEdge edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method, instructionId, iCCkind);
@@ -303,13 +336,12 @@ public class IC3Reader extends Analyzer {
 
 	}
 
-	private List<String> analyzeDesinationByACDT(IntentSummaryModel intentSummary) {
+	private List<String> analyzeDesinationByACDT(String src, IntentSummaryModel intentSummary) {
 		List<String> summaryActionSet = intentSummary.getSetActionValueList();
 		List<String> summaryCateSet = intentSummary.getSetCategoryValueList();
 		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> resSet = new ArrayList<String>();
-		if (!summaryCateSet.contains("android.intent.category.DEFAULT"))
-			summaryCateSet.add("android.intent.category.DEFAULT");
+		
 		for (ComponentModel component : IC3ComponentMap.values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
 				Set<String> filterActionSet = filter.getAction_list();
@@ -325,21 +357,30 @@ public class IC3Reader extends Analyzer {
 					if (filterActionSet.contains(action))
 						actionTarget = true;
 				}
+				if(!filterActionSet.isEmpty() && summaryActionSet.isEmpty())
+					actionTarget = true;
 				/**
 				 * android will add android.intent.category.DEFAULT to all
 				 * implicit Activity ICC.
 				 * https://developer.android.com/guide/components
 				 * /intents-filters.html
 				 **/
+				boolean addDefault = false;
 				if (component instanceof ActivityModel) {
+					if (!summaryCateSet.contains("android.intent.category.DEFAULT")){
+						summaryCateSet.add("android.intent.category.DEFAULT");
+						addDefault = true;
+					}
 					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
 						cateTarget = false;
 				}
 				// all the category in a summary must find a match one in filter
-				for (String category : summaryCateSet) {
+				for (String category : summaryCateSet  ) {
 					if (!filterCateSet.contains(category))
 						cateTarget = false;
 				}
+				if(addDefault)
+					summaryCateSet.remove("android.intent.category.DEFAULT");
 				if (filterDataSet.size() == 0)
 					dataTarget = true;
 				else {

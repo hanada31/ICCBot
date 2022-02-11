@@ -7,10 +7,13 @@ import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.model.analyzeModel.AppModel;
 import main.java.analyze.utils.ConstantUtils;
+import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.manifest.ManifestClient;
 import main.java.client.obj.model.atg.ATGModel;
+import main.java.client.related.gator.model.GatorModel;
+
 import org.dom4j.DocumentException;
 
 /**
@@ -35,7 +38,9 @@ public class GatorATGResultEvaluateClient extends BaseClient {
 		ATGModel model = Global.v().getGatorModel().getGatorAtgModel();
 		model.setATGFilePath(ConstantUtils.GATORFOLDETR + Global.v().getAppModel().getAppName() + "_wtg.txt");
 		ATGReader reader = new ATGReader(model);
-		reader.analyze();
+		if(reader.obtainATGfromFile()){
+			reader.constructModelForGator();
+		}
 		System.out.println("Successfully analyze with GatorGraphClient.");
 	}
 
@@ -48,10 +53,16 @@ public class GatorATGResultEvaluateClient extends BaseClient {
 
 		FileUtils.copyFile(ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.txt", summary_app_dir
 				+ ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.txt");
-		FileUtils.copyFile(ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.dot", summary_app_dir
-				+ ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.dot");
-		FileUtils.copyFile(ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.pdf", summary_app_dir
-				+ ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.pdf");
+		GatorModel model = Global.v().getGatorModel();
+		String dotname = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ATGDOT_GATOR;
+		GatorClientOutput.writeDotFileofGator(summary_app_dir + ConstantUtils.GATORFOLDETR, dotname, model.getGatorAtgModel());
+		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.GATORFOLDETR + dotname, "pdf");
+		
+//		
+//		FileUtils.copyFile(ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.dot", summary_app_dir
+//				+ ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.dot");
+//		FileUtils.copyFile(ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.pdf", summary_app_dir
+//				+ ConstantUtils.GATORFOLDETR + appModel.getAppName() + "_wtg.pdf");
 	}
 
 }

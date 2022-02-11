@@ -131,8 +131,6 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			return "ReceiveIntentFromParatMethod";
 		} else if (isReceiveFromRetValue(unit)) {
 			return "ReceiveIntentFromRetValue";
-		}else if (isPassOutMethod(unit)) {
-				return "PassOutIntent";
 		}
 		// finish
 		if (MyConfig.getInstance().getMySwithch().isScenario_stack()) {
@@ -149,7 +147,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 				return "StaticCreateMethod";
 			}else if (isSetAttributeMethod(unit)) {
 				return "SetAttribute";
-			} else if (isSetIntentExtraMethod(unit)) {
+			} else if (!MyConfig.getInstance().getMySwithch().isSetDesRelatedAttributeOnlyStrategy() && isSetIntentExtraMethod(unit)) {
 				return "SetIntentExtra";
 			} else if (isInitIntentMethod(unit)) {
 				return "InitIntent";
@@ -165,6 +163,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 				return "intentSenderCreation";
 			} else if (RAICCUtils.isPendingIntentCreation(unit)) {
 				return "pendingIntentCreation";
+			}else if (isPassOutMethod(unit)) {
+				return "PassOutIntent";
 			}
 		}
 		// get
@@ -175,6 +175,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 				return "GetAttribute";
 			} else if (isGetIntentExtraMethod(unit)) {
 				return "GetIntentExtra";
+			}else if (isPassOutMethod(unit)) {
+				return "PassOutIntent";
 			}
 		}
 		
@@ -195,14 +197,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 		if (unit == null)
 			return null;
 		
-		// inter-function
-		if (isReceiveFromParatMethod(unit)) {
-			return new ReceiveFromParaHandler();
-		} else if (isReceiveFromRetValue(unit)) {
-			return new ReceiveFromRetValueHandler();
-		} else if (isComponentFinishMethods(unit)) {
-			return new MethodReturnHandler();
-		}
+		
 		// set
 		if (isCreateMethod(unit)) {
 			return new CreateHandler();
@@ -231,6 +226,14 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			return  new ReceiveFromOutHandler();
 		} else if (RAICCUtils.isPendingIntentCreation(unit)) {
 			return new ReceiveFromOutHandler();
+		}
+		// inter-function
+		if (isReceiveFromParatMethod(unit)) {
+			return new ReceiveFromParaHandler();
+		} else if (isReceiveFromRetValue(unit)) {
+			return new ReceiveFromRetValueHandler();
+		} else if (isComponentFinishMethods(unit)) {
+			return new MethodReturnHandler();
 		}
 		
 		if (isReceiveFromOutMethod(unit)) {
@@ -362,8 +365,9 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			if (u.toString().startsWith("if "))
 				return false;
 			for (int i = 0; i < ConstantUtils.setIntnetExtraMethods.length; i++) {
-				if (u.toString().contains(ConstantUtils.setIntnetExtraMethods[i]))
+				if (u.toString().contains(ConstantUtils.setIntnetExtraMethods[i])){
 					return true;
+				}
 			}
 		}
 		return false;
@@ -377,8 +381,9 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 			if (u.toString().startsWith("if "))
 				return false;
 			for (int i = 0; i < ConstantUtils.putBundlleExtraMethods.length; i++) {
-				if (u.toString().contains(ConstantUtils.putBundlleExtraMethods[i]))
+				if (u.toString().contains(ConstantUtils.putBundlleExtraMethods[i])){
 					return true;
+				}
 			}
 		}
 		return false;

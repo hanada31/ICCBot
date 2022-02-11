@@ -55,6 +55,8 @@ public class IccTagCount {
 	public int isLibonly;
 	public int isAsynconly;
 	public int isPolymonly;
+	public int isStaticValOnly;
+	public int isStringOpOnly;
 
 	@Override
 	public String toString() {
@@ -122,59 +124,55 @@ public class IccTagCount {
 	public String getTitle() {
 		StringBuilder sb = new StringBuilder();
 		// callback
-		sb.append("isCallBackInclude\t");
-		sb.append("isStaticCallBack\t");
-		sb.append("isDynamicCallBack\t");
-		sb.append("isImplicitCallBack\t");
+		sb.append("callBack\t");
+		sb.append("staticCB\t");
+		sb.append("dynamicCB\t");
+		sb.append("implicitCB\t");
 
-		// warpper
-		sb.append("isWarpperSendICC\t");
+		sb.append("atypicalICC\t");
+		sb.append("implicitICC\t");
+		sb.append("stringOp\t");
+		sb.append("staticVal\t");
 
-		// implicit
-		sb.append("isImplicit\t");
-
+		sb.append("callContext\t");
+		sb.append("async\t");
+		sb.append("polym\t");
+		
 		// component
-		sb.append("isNonActivity\t");
-		sb.append("isDynamicBroadCast\t");
-
-		// non component
-		sb.append("isNonComponent\t");
-		sb.append("isFragment\t");
-		sb.append("isAdapter\t");
-
-		// str
-		sb.append("isStringOp\t");
-
-		// context
-		sb.append("isContextSensitive\t");
-		sb.append("isObjectSensitive\t");
-		sb.append("isFieldSensitive\t");
+		sb.append("nonAct\t");
+		sb.append("dynamicBC\t");
+		sb.append("fragment\t");
+		sb.append("adapter\t");
+		sb.append("widget\t");
+		sb.append("otherClass\t");
 
 		// library
 		sb.append("isLibraryInvocation\t");
 
-		// async
-		sb.append("isAsyncInvocation\t");
-		// polym
-		sb.append("isPolymorphic\t");
+		
 
-		sb.append("isStaticCallBackonly\t");
-		sb.append("isDynamicCallBackonly\t");
-		sb.append("isImplicitCallBackonly\t");
-		sb.append("isWarrperonly\t");
-		sb.append("isImplicitICConly\t");
-		sb.append("isNonActonly\t");
-		sb.append("isNonComponentonly\t");
+		sb.append("staticCBOnly\t");
+		sb.append("dynamicCBOnly\t");
+		sb.append("implicitCBonly\t");
+		sb.append("atypicalICCOnly\t");
+		sb.append("implicitICCOnly\t");
+		
+		sb.append("stringOpOnly\t");
+		sb.append("staticValOnly\t");
+		
+		sb.append("callContextOnly\t");
+		sb.append("asyncOnly\t");
+		sb.append("polymOnly\t");
+		
+		sb.append("nonActonly\t");
+		sb.append("dynamicBCOnly\t");
 
-		sb.append("isFragmentonly\t");
-		sb.append("isAdapteronly\t");
-		sb.append("isWidgetonly\t");
-		sb.append("isOtherClassonly\t");
+		sb.append("fragmentOnly\t");
+		sb.append("adapterOnly\t");
+		sb.append("widgetOnly\t");
+		sb.append("otherClassOnly\t");
+		sb.append("libraryonly");
 
-		sb.append("isContextSensionly\t");
-		sb.append("isLibonly\t");
-		sb.append("isAsynconly\t");
-		sb.append("isPolymonly\n");
 
 		return sb.toString();
 	}
@@ -186,44 +184,47 @@ public class IccTagCount {
 		sb.append(isStaticCallBack + "\t");
 		sb.append(isDynamicCallBack + "\t");
 		sb.append(isImpliciyCallBack + "\t");
-
+		
 		sb.append(isWarpperSendICC + "\t");
-
 		sb.append(isImplicit + "\t");
-
-		sb.append(isNonActivity + "\t");
-		sb.append(isDynamicBroadCast + "\t");
-		sb.append(isNonComponent + "\t");
-		sb.append(isFragment + "\t");
-		sb.append(isAdapter + "\t");
-
 		sb.append(isStringOp + "\t");
-
+		sb.append(isStaticVal + "\t");
+		
 		sb.append(isContextSensitive + "\t");
-		sb.append(isObjectSensitive + "\t");
-		sb.append(isFieldSensitive + "\t");
-
-		sb.append(isLibraryInvocation + "\t");
 		sb.append(isAsyncInvocation + "\t");
 		sb.append(isPolymorphic + "\t");
+		
+		sb.append(isNonActivity + "\t");
+		sb.append(isDynamicBroadCast + "\t");
+		sb.append(isFragment + "\t");
+		sb.append(isAdapter + "\t");
+		sb.append(isWidget + "\t");
+		sb.append(isOtherClass + "\t");
+		sb.append(isLibraryInvocation + "\t");
 
+		
 		sb.append(isStaticCallBackonly + "\t");
 		sb.append(isDynamicCallBackonly + "\t");
 		sb.append(isImplicitCallBackonly + "\t");
 		sb.append(isWarrperonly + "\t");
 		sb.append(isImplicitICConly + "\t");
+		sb.append(isStringOpOnly + "\t");
+		sb.append(isStaticValOnly + "\t");
+		
+		sb.append(isContextSensionly + "\t");
+		sb.append(isAsynconly + "\t");
+		sb.append(isPolymonly + "\t");
+		
 		sb.append(isNonActonly + "\t");
-		sb.append(isNonComponentonly + "\t");
-
+		sb.append(isDynamicCallBackonly + "\t");
 		sb.append(isFragmentonly + "\t");
 		sb.append(isAdapteronly + "\t");
 		sb.append(isWidgetonly + "\t");
 		sb.append(isOtherClassonly + "\t");
+		sb.append(isLibonly );
 
-		sb.append(isContextSensionly + "\t");
-		sb.append(isLibonly + "\t");
-		sb.append(isAsynconly + "\t");
-		sb.append(isPolymonly + "");
+
+		
 		return sb.toString();
 	}
 }

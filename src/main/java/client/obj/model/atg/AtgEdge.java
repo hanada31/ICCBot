@@ -19,7 +19,7 @@ public class AtgEdge {
 		this.source = source;
 		this.destnation = destnation;
 		this.type = getTypeofATG(SootUtils.getNameofClass(source.getName()),
-				SootUtils.getNameofClass(destnation.getName()));
+		SootUtils.getNameofClass(destnation.getName()));
 		this.methodSig = methodSig;
 		this.instructionId = instructionId;
 		getICCKindById(iCCkindId);
@@ -78,30 +78,38 @@ public class AtgEdge {
 		Set<String> componentSet = Global.v().getAppModel().getComponentMap().keySet();
 		Set<String> activitySet = Global.v().getAppModel().getActivityMap().keySet();
 		Set<String> fragmentSet = Global.v().getAppModel().getFragmentClasses();
-		if (fragmentSet.contains(src)) {
-			if (fragmentSet.contains(des))
+		boolean desIsFragment = fragmentSet.contains(des) 
+				| SootUtils.isFragmentClass(SootUtils.getSootClassByName(des));
+		boolean srcIsFragment = fragmentSet.contains(src)
+			| SootUtils.isFragmentClass(SootUtils.getSootClassByName(src));
+		boolean desIsActivity = activitySet.contains(des);
+		boolean scrIsActivity = activitySet.contains(src);
+		boolean desIsNonActivity = componentSet.contains(des);
+		boolean srcIsNonActivity = componentSet.contains(src);
+		if (srcIsFragment) {
+			if (desIsFragment)
 				type = AtgType.Frag2Frag;
-			else if (activitySet.contains(des))
+			else if (desIsActivity)
 				type = AtgType.Frag2Act;
-			else if (componentSet.contains(des))
+			else if (desIsNonActivity)
 				type = AtgType.Frag2NonAct;
 			else
 				type = AtgType.Frag2Class;
-		} else if (activitySet.contains(src)) {
-			if (fragmentSet.contains(des))
+		} else if (scrIsActivity) {
+			if (desIsFragment)
 				type = AtgType.Act2Frag;
-			else if (activitySet.contains(des))
+			else if (desIsActivity)
 				type = AtgType.Act2Act;
-			else if (componentSet.contains(des))
+			else if (desIsNonActivity)
 				type = AtgType.Act2NonAct;
 			else
 				type = AtgType.Act2Class;
-		} else if (componentSet.contains(src)) {
-			if (fragmentSet.contains(des))
+		} else if (srcIsNonActivity) {
+			if (desIsFragment)
 				type = AtgType.NonAct2Frag;
-			else if (activitySet.contains(des))
+			else if (desIsActivity)
 				type = AtgType.NonAct2Act;
-			else if (componentSet.contains(des))
+			else if (desIsNonActivity)
 				type = AtgType.NonAct2NonAct;
 			else
 				type = AtgType.NonAct2Class;

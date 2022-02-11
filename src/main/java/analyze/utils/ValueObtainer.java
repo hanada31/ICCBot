@@ -82,7 +82,8 @@ public class ValueObtainer {
 	 * @return
 	 */
 	public NestableObj getValueofVar(Value strVal, Unit u, int depth) {
-		if (depth >= 10)
+//		System.out.println(depth+"  " +strVal.toString() +"  "+u.toString());
+		if (depth >= 5)
 			return new NestableObj("");
 		NestableObj resList = new NestableObj(strVal.toString());
 		counter.setGetVarDepth(counter.getGetVarDepth() + 1);

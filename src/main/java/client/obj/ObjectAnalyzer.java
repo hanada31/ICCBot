@@ -108,11 +108,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
 		MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
-		String tag = methodUnderAnalysis.getSignature();
-		if(tag.contains("Activity3: void onCreate(")){
-			System.err.println(tag);
-		}
-		
+
 		if (methodUnderAnalysis.getSignature().contains(ConstantUtils.DUMMYMAIN)) {
 //			analyzeDummyMain(methodSummary);
 			return methodSummary;
@@ -131,7 +127,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 		/** analyze SingleObject **/
 		getSingleObject(methodSummary);
 
-		// System.out.println("getSingleComponent");
+//		 System.out.println("getSingleComponent");
 		/** analyze SingleClass **/
 		getSingleComponent(methodSummary);
 
@@ -144,9 +140,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param methodSummary
 	 */
 	private void analyzeDummyMain(MethodSummaryModel methodSummary) {
-		Iterator<Unit> it = SootUtils.getSootActiveBody(methodUnderAnalysis).getUnits().iterator();
-		while (it.hasNext()) {
-			Unit u = it.next();
+		List<Unit> units = SootUtils.getUnitListFromMethod(methodUnderAnalysis);
+		for(Unit u: units){
 			InvokeExpr exp = SootUtils.getInvokeExp(u);
 			if (exp == null)
 				continue;
@@ -390,6 +385,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			}
 		}
 		List<UnitNode> workList = getWorkListofObjectAnalysis(node, pathSummary, singleObject, context, addedSet);
+//		System.out.println(workList.size());
 		handleWorkList(pathSummary, singleObject, workList, addedSet);
 
 		if (MyConfig.getInstance().getMySwithch().isScenario_stack()) {
@@ -424,7 +420,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 						for(UnitNode newNode: tempNode.getNodeSetPointToMe(context)){
 							if(!workList.contains(newNode)){
 								fixpoint = false;
-								addList.add(newNode);
+								if(!workList.contains(newNode) && !addList.contains(newNode))
+									addList.add(newNode);
 							}
 						}
 					}
@@ -527,7 +524,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			if (infos == null)
 				return;
 			for (StaticFiledInfo info : infos) {
-				for (Unit unit : info.getSootMethod().getActiveBody().getUnits()) {
+				List<Unit> units = SootUtils.getUnitListFromMethod(info.getSootMethod());
+				for(Unit unit: units){
 					for (ValueBox valBox : unit.getUseAndDefBoxes()) {
 						Value value = valBox.getValue();
 						if (value == info.getValue()) {
@@ -787,6 +785,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 */
 	private void handleNodewithInnerFunction(Stack<String> methodStack, List<String> currentMtdcontext,
 			UnitNode currentNode) {
+		if(methodStack.size()>MyConfig.getInstance().getMaxFunctionExpandNumber())
+			return;
 		InvokeExpr exp = SootUtils.getInvokeExp(currentNode.getUnit());
 		if (exp == null)
 			return;
@@ -851,8 +851,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 					// remove point to relation for invoke without object
 					// transfer
 					if (currentNode.getBaseNodePointedTo(currentMtdcontext) != null) {
-						currentNode.getBaseNodePointedTo(currentMtdcontext).addNodeSetPointToMeMap(currentMtdcontext,
-								subNode);
+						currentNode.getBaseNodePointedTo(currentMtdcontext).addNodeSetPointToMeMap(currentMtdcontext,subNode);
 					}
 				}
 				if (!flag)
@@ -1025,10 +1024,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 */
 	private Map<Unit, List<Unit>> getTargetUnitsOfMethod() {
 		Map<Unit, List<Unit>> targetMap = new HashMap<Unit, List<Unit>>();
-		Iterator<Unit> it = SootUtils.getSootActiveBody(methodUnderAnalysis).getUnits().iterator();
+		List<Unit> units = SootUtils.getUnitListFromMethod(methodUnderAnalysis);
+		
 		List<Unit> unitList = new ArrayList<Unit>();
-		while (it.hasNext()) {
-			Unit u = it.next();
+		for(Unit u: units){
 			if (u instanceof JLookupSwitchStmt) {
 				JLookupSwitchStmt lookUp = (JLookupSwitchStmt) u;
 				for (UnitBox temp : lookUp.getDefaultTarget().getUnitBoxes())

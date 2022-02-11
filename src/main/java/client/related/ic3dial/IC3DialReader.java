@@ -1,5 +1,6 @@
 package main.java.client.related.ic3dial;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,12 +52,30 @@ public class IC3DialReader extends Analyzer {
 	@Override
 	public void analyze() {
 		model = Global.v().getiC3DialDroidModel();
-		model.setIC3FilePath(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getPackageName() + "_"
-				+ appModel.getVersionCode() + ".json");
-		componentAnalyze();
-		ICCAnalyze();
+//		model.setIC3FilePath(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getPackageName() + "_"
+//		+ appModel.getVersionCode() + ".json");
+		File oldf = new File(ConstantUtils.IC3DIALDROIDTMPFOLDETR + appModel.getPackageName() + "_"+ appModel.getVersionCode() + ".json");
+		if(oldf.exists()){
+			File newf = new File(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getAppName()+ ".json");
+			oldf.renameTo(newf);
+		}
+		model.setIC3FilePath(ConstantUtils.IC3DIALDROIDFOLDETR + appModel.getAppName()+ ".json");
+		if(obtainATGfromFile()){
+			long time = runtimeAnalyze();
+//			if(time>=0 && time<=30*60){
+			componentAnalyze();
+			ICCAnalyze();
+//			}
+		}
 	}
-
+	private boolean obtainATGfromFile() {
+		File file = new File(model.getIC3FilePath());
+		if (!file.exists()) {
+			model.getIC3AtgModel().setExist(false);
+			return false;
+		}
+		return true;
+	}
 	private void makeStatistic() {
 		for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
 			DoStatistic.updateXMLStatisticUseSummayMap(true, en.getValue(), result);
@@ -64,6 +83,21 @@ public class IC3DialReader extends Analyzer {
 		}
 	}
 
+	/**
+	 * extract the analysis time of IC3
+	 * @return
+	 */
+	private long runtimeAnalyze() {
+		String s = FileUtils.readJsonFile(model.getIC3FilePath());
+		JSONObject jobj = JSON.parseObject(s);
+		if (jobj != null) {
+			Long start = jobj.getLong("analysis_start");
+			Long end = jobj.getLong("analysis_end");
+			return end - start;
+		}
+		return -1;
+	}
+	
 	private void componentAnalyze() {
 		String s = FileUtils.readJsonFile(model.getIC3FilePath());
 		JSONObject jobj = JSON.parseObject(s);
@@ -309,8 +343,7 @@ public class IC3DialReader extends Analyzer {
 		List<String> summaryCateSet = intentSummary.getSetCategoryValueList();
 		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> resSet = new ArrayList<String>();
-		if (!summaryCateSet.contains("android.intent.category.DEFAULT"))
-			summaryCateSet.add("android.intent.category.DEFAULT");
+
 		for (ComponentModel component : IC3ComponentMap.values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
 				Set<String> filterActionSet = filter.getAction_list();
@@ -326,21 +359,30 @@ public class IC3DialReader extends Analyzer {
 					if (filterActionSet.contains(action))
 						actionTarget = true;
 				}
+				if(!filterActionSet.isEmpty() && summaryActionSet.isEmpty())
+					actionTarget = true;
 				/**
 				 * android will add android.intent.category.DEFAULT to all
 				 * implicit Activity ICC.
 				 * https://developer.android.com/guide/components
 				 * /intents-filters.html
 				 **/
+				boolean addDefault = false;
 				if (component instanceof ActivityModel) {
+					if (!summaryCateSet.contains("android.intent.category.DEFAULT")){
+						summaryCateSet.add("android.intent.category.DEFAULT");
+						addDefault = true;
+					}
 					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
 						cateTarget = false;
 				}
 				// all the category in a summary must find a match one in filter
-				for (String category : summaryCateSet) {
+				for (String category : summaryCateSet  ) {
 					if (!filterCateSet.contains(category))
 						cateTarget = false;
 				}
+				if(addDefault)
+					summaryCateSet.remove("android.intent.category.DEFAULT");
 				if (filterDataSet.size() == 0)
 					dataTarget = true;
 				else {

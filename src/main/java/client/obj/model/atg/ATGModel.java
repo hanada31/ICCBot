@@ -3,9 +3,12 @@ package main.java.client.obj.model.atg;
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.security.auth.x500.X500Principal;
 
 import main.java.Global;
 import main.java.MyConfig;
@@ -19,38 +22,262 @@ import main.java.client.obj.model.component.ComponentModel;
 public class ATGModel {
 	private Map<String, Set<AtgEdge>> atgEdges;
 	private String ATGFilePath;
-	private double connectionScore;
-	private double falsenegativeScore;
-	private double completenessScore;
-	private int connectionSize;
-	private int oracleEdgeSize;
-	private int fnEdgeSize;
+	
+	
+	
 	private int enhancedNum;
 	private int filteredNum;
 	private int filteredServiceNum;
 	private int filteredReceiverNum;
 	private boolean exist = true;
+	
+	private int Comp2CompSize;
+	private int Act2ActSize;
+	
+	private int totalCompNum = 0;
+	private int separatedCompNum = 0;
+	private int mainNotReachableCompNum = 0;
+	private int exportNotReachableCompNum = 0;
+	
+	private int oracleEdgeSize = 0;
+	private int fnEdgeSize = 0;
+	private double falsenegativeScore = 0.0;
+	private Set<String> FNSet ;
+	private Set<String> TPSet ;
+	private Set<String> edgeSet ;
+	
+	public ATGModel() {
+		atgEdges = new HashMap<String, Set<AtgEdge>>();
+		edgeSet = new HashSet<String>();
+	}
+	
 
-	public int getConnectionSize() {
-		if (connectionSize > 0)
-			return connectionSize;
+	public void evaluateGraphCount(String tag) {
+		System.out.println(tag + " totalCompNum: " + getTotalCompNum());
+		System.out.println(tag + " separatedCompNum: " + getSeparatedCompNum());
+		System.out.println(tag + " mainNotReachableCompNum: " + getMainNotReachableCompNum());
+		System.out.println(tag + " exportNotReachableCompNum: " + getExportNotReachableCompNum());
+		return;
+	}
 
+	/**
+	 * evaluate the false negetive info compare with an oracle
+	 * 
+	 */
+	public double evaluateFalseNegative(String tag) {
+		IccTagCount counter = new IccTagCount();
+		
+		computeFalseNegative(counter);
+
+		System.out.println(tag + " false negative number: " + getFnEdgeSize());
+		System.out.println(tag + " oracle number: " + getOracleEdgeSize());
+		System.out.println(tag + " false negative ratio: " + getFalsenegativeScore());
+		
+		for (String fn : FNSet) {
+			System.out.println("false negative: "+fn);
+		}
+		System.out.println(counter);
+		
+		File f = new File(MyConfig.getInstance().getResultWarpperFolder()  + File.separator + "tagResult.txt");
+		if (!f.exists())
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", "\t\t" + counter.getTitle() + "\n",
+					true);
+		if (isExist())
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel()
+					.getAppName()
+					+ "\t" + tag + "\t" + counter.toSimpleString() + "\n", true);
+		else {
+			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel()
+					.getAppName()
+					+ "\t" + tag + "\n", true);
+		}
+		return falsenegativeScore;
+	}
+	
+	/**
+	 * compute FN
+	 * @param oracle 
+	 * @param counter
+	 * @param FNSet 
+	 */
+	private void computeFalseNegative(IccTagCount counter) {
+		FNSet = new HashSet<String>();
+		TPSet = new HashSet<String>();
+		
+		ATGModel oracle = Global.v().getiCTGModel().getOracleModel();
+		Set<String> myEdges = new HashSet<String>();
+		for (Entry<String, Set<AtgEdge>> entry : atgEdges.entrySet()) {
+			for (AtgEdge myEdge : entry.getValue()) {
+				myEdges.add(myEdge.getDescribtion());
+			}
+		}
+		for (Entry<String, Set<AtgEdge>> entry : oracle.getAtgEdges().entrySet()) {
+			for (AtgEdge oracleEdge : entry.getValue()) {
+				if (!myEdges.contains(oracleEdge.getDescribtion()) && !FNSet.contains(oracleEdge.getDescribtion())) {
+					FNSet.add(oracleEdge.getDescribtion());
+					modifyTagCounter(counter, oracleEdge.getDescribtion());
+				} else if (myEdges.contains(oracleEdge.getDescribtion()) && !TPSet.contains(oracleEdge.getDescribtion())){
+					TPSet.add(oracleEdge.getDescribtion());
+				}
+			}
+		}
+		
+		fnEdgeSize = FNSet.size();
+		falsenegativeScore = 1.0 * fnEdgeSize / getOracleEdgeSize();
+	}
+
+	public Set<String> getFNSet() {
+		if(FNSet==null){
+			computeFalseNegative(new IccTagCount());
+		}
+		return FNSet;
+	}
+
+	public Set<String> getTPSet() {
+		if(TPSet==null){
+			computeFalseNegative(new IccTagCount());
+		}
+		return TPSet;
+	}
+	public Set<String> getEdgeSet() {
+		if(edgeSet==null){
+			getComp2CompSize();
+		}
+		return edgeSet;
+	}
+	
+	/**
+	 * get the number of ICCs from comp to comp
+	 * @return
+	 */
+	public int getComp2CompSize() {
+		if (Comp2CompSize > 0)
+			return Comp2CompSize;
+		for (Set<AtgEdge> edges : atgEdges.values()) {
+			for (AtgEdge edge : edges) {
+				if (!edgeSet.contains(edge.getDescribtion())) {
+					edgeSet.add(edge.getDescribtion());
+					Comp2CompSize += 1;
+				}
+			}
+		}
+		return Comp2CompSize;
+	}
+
+	/**
+	 * get the number of ICCs from act to act
+	 * @return the act2ActSize
+	 */
+	public int getAct2ActSize() {
+		if (Act2ActSize > 0)
+			return Act2ActSize;
 		Set<String> history = new HashSet<String>();
 		for (Set<AtgEdge> edges : atgEdges.values()) {
 			for (AtgEdge edge : edges) {
 				if (!history.contains(edge.getDescribtion())) {
 					history.add(edge.getDescribtion());
-					connectionSize += 1;
+					if(edge.getType().equals(AtgType.Act2Act))
+						Act2ActSize += 1;
 				}
 			}
 		}
-		return connectionSize;
+		return Act2ActSize;
 	}
 
-	public ATGModel() {
-		atgEdges = new HashMap<String, Set<AtgEdge>>();
+	/**
+	 * @return the totalCompNum
+	 */
+	public int getTotalCompNum() {
+		if (totalCompNum > 0)
+			return totalCompNum;
+		totalCompNum = Global.v().getAppModel().getComponentMap().size();
+		return totalCompNum;
 	}
 
+	/**
+	 * @return the separatedCompNum
+	 */
+	public int getSeparatedCompNum() {
+		if (separatedCompNum > 0)
+			return separatedCompNum;
+		Set<String> notSeparatdSet = new HashSet<String>();
+		for (Entry<String, Set<AtgEdge>> entry : atgEdges.entrySet()) {
+			for (AtgEdge myEdge : entry.getValue()) {
+				if (Global.v().getAppModel().getComponentMap().keySet().contains(myEdge.getSource().getClassName()))
+					notSeparatdSet.add(myEdge.getSource().getClassName());
+				if (Global.v().getAppModel().getComponentMap().keySet().contains(myEdge.getDestnation().getClassName()))
+					notSeparatdSet.add(myEdge.getDestnation().getClassName());
+			}
+		}
+		separatedCompNum = getTotalCompNum() - notSeparatdSet.size();
+		return separatedCompNum;
+	}
+	
+	/**
+	 * @return the mainNotReachableCompNum
+	 */
+	public int getMainNotReachableCompNum() {
+		if (mainNotReachableCompNum > 0)
+			return mainNotReachableCompNum;
+		Set<String> mainSet = new HashSet<String>();
+		for (ComponentModel component : Global.v().getAppModel().getComponentMap().values()) {
+			if (component.is_mainAct()) {
+				mainSet.add(component.getComponetName());
+			}
+		}
+		mainNotReachableCompNum = getTotalCompNum() - getnumberofCompFromEntrySet(mainSet);
+		return mainNotReachableCompNum;
+	}
+
+	
+	/**
+	 * @return the exportNotReachableCompNum
+	 */
+	public int getExportNotReachableCompNum() {
+		if (exportNotReachableCompNum > 0)
+			return exportNotReachableCompNum;
+		Set<String> exportSet = new HashSet<String>();
+		for (ComponentModel component : Global.v().getAppModel().getComponentMap().values()) {
+			if (component.is_exported()) {
+				exportSet.add(component.getComponetName());
+			}
+		}
+		exportNotReachableCompNum = getTotalCompNum() - getnumberofCompFromEntrySet(exportSet);
+		return exportNotReachableCompNum;
+	}
+
+	/**
+	 * how many components could be reached form an entry
+	 * @param reachable
+	 * @return
+	 */
+	private int getnumberofCompFromEntrySet(Set<String> reachable) {
+		int sizeBefore = 0, sizeAfter = sizeBefore - 1;
+		while (sizeBefore != sizeAfter) {
+			sizeBefore = reachable.size();
+			for (String exported : new HashSet<String>(reachable)) {
+				if (atgEdges.containsKey(exported)) {
+					for (AtgEdge edge : atgEdges.get(exported)) {
+						if (!reachable.contains(edge.getDestnation().getName())) {
+							reachable.add(edge.getDestnation().getName());
+						}
+					}
+				}
+			}
+			sizeAfter = reachable.size();
+		}
+		return sizeAfter;
+	}
+
+
+
+
+
+
+
+	/**
+	 * edge information count
+	 */
 	public void countTagForOracle() {
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		IccTagCount counter = new IccTagCount();
@@ -76,68 +303,10 @@ public class ATGModel {
 	}
 
 	/**
-	 * evaluate the false negetive info compare with an oracle
-	 * 
-	 * @param tag
-	 * @param sb
-	 *            dev.ukanth.ufirewall.MainActivity -->
-	 *            dev.ukanth.ufirewall.service.FirewallService
-	 * @return dev.ukanth.ufirewall.MainActivity -->
-	 *         ev.ukanth.ufirewall.service.FirewallService
+	 * modifyTagCounter statistic
+	 * @param counter
+	 * @param key
 	 */
-	public double evaluateFalseNegative(String tag, ATGModel oracle, StringBuilder sb) {
-		IccTagCount counter = new IccTagCount();
-		Set<String> myEdges = new HashSet<String>();
-		for (Entry<String, Set<AtgEdge>> entry : atgEdges.entrySet()) {
-			for (AtgEdge myEdge : entry.getValue()) {
-				myEdges.add(myEdge.getDescribtion());
-			}
-		}
-		Set<String> oracleEdges = new HashSet<String>();
-		Set<String> fnSet = new HashSet<String>();
-		for (Entry<String, Set<AtgEdge>> entry : oracle.getAtgEdges().entrySet()) {
-			for (AtgEdge oracleEdge : entry.getValue()) {
-				if (!oracleEdges.contains(oracleEdge.getDescribtion())) {
-					oracleEdges.add(oracleEdge.getDescribtion());
-				}
-				if (!myEdges.contains(oracleEdge.getDescribtion()) && !fnSet.contains(oracleEdge.getDescribtion())) {
-					fnSet.add(oracleEdge.getDescribtion());
-					modifyTagCounter(counter, oracleEdge.getDescribtion());
-				} else {
-
-				}
-			}
-		}
-		for (String fn : fnSet) {
-			System.out.println("false negative: "+fn);
-		}
-		oracleEdgeSize = oracleEdges.size();
-		fnEdgeSize = fnSet.size();
-		falsenegativeScore = 1.0 * fnEdgeSize / oracleEdgeSize;
-		sb.append(fnEdgeSize + "\t");
-		sb.append(oracleEdgeSize + "\t");
-		sb.append(String.format("%.2f", falsenegativeScore) + "\n");
-
-		System.out.println(tag + " false negative score details: " + fnEdgeSize + " / " + oracleEdgeSize);
-		System.out.println(tag + " false negative score fn = " + falsenegativeScore);
-
-		System.out.println(counter);
-		File f = new File(MyConfig.getInstance().getResultWarpperFolder()  + File.separator + "tagResult.txt");
-		if (!f.exists())
-			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", "\t\t" + counter.getTitle() + "\n",
-					true);
-		if (isExist())
-			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel()
-					.getAppName()
-					+ "\t" + tag + "\t" + counter.toSimpleString() + "\n", true);
-		else {
-			FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "tagResult.txt", Global.v().getAppModel()
-					.getAppName()
-					+ "\t" + tag + "\n", true);
-		}
-		return falsenegativeScore;
-	}
-
 	private void modifyTagCounter(IccTagCount counter, String key) {
 		LabeledOracleModel oracleModel = Global.v().getLabeledOracleModel();
 		IccTag iccTag = oracleModel.getLabeledOracle().get(key);
@@ -223,11 +392,6 @@ public class ATGModel {
 		if (iccTag.isImplicitICConly())
 			counter.isImplicitICConly += 1;
 
-		if (iccTag.isWarrperonly())
-			counter.isWarrperonly += 1;
-		if (iccTag.isImplicitICConly())
-			counter.isImplicitICConly += 1;
-
 		if (iccTag.isNonComponentonly())
 			counter.isNonComponentonly += 1;
 		if (iccTag.isFragmentonly())
@@ -250,107 +414,8 @@ public class ATGModel {
 			counter.isPolymonly += 1;
 	}
 
-	/**
-	 * evaluate whether an atg model is complete enough to be taken as oracle
-	 * 
-	 * @param tag
-	 * @param sb
-	 * @return
-	 */
-	public double evaluateCompleteness(String tag, StringBuilder sb) {
-		Set<String> initSet = new HashSet<String>();
-		for (ComponentModel component : Global.v().getAppModel().getComponentMap().values()) {
-			if (component.is_mainAct()) {
-				initSet.add(component.getComponetName());
-			}
-		}
-		Set<String> initSet2 = new HashSet<String>();
-		for (ComponentModel component : Global.v().getAppModel().getComponentMap().values()) {
-			if (component.is_exported()) {
-				initSet2.add(component.getComponetName());
-			}
-		}
-		// evaluate connection, main2other, export2other
-		sb.append(Global.v().getAppModel().getComponentMap().size() + "\t");
-		double mainScore = getSocreFromEntrySet(initSet, sb);
-		sb.append(String.format("%.2f", mainScore) + "\t");
-		double expoortScore = getSocreFromEntrySet(initSet2, sb);
-		sb.append(String.format("%.2f", expoortScore) + "\t");
-		double nonSeperateNodeScore = getScoreOfNonSeperateNode(sb);
-		sb.append(String.format("%.2f", nonSeperateNodeScore) + "\t");
 
-		completenessScore = mainScore / 2 + expoortScore / 4 + nonSeperateNodeScore / 4;
-		sb.append(String.format("%.2f", completenessScore) + "\n");
-
-		System.out.println(tag + " completeness score details: " + mainScore + " * 1/2 + " + expoortScore + " * 1/4 + "
-				+ nonSeperateNodeScore + " * 1/4 ");
-		System.out.println(tag + " completeness score t = " + completenessScore);
-
-		return completenessScore;
-	}
-
-	/**
-	 * less edge, more effective avoid two many false positive edges lead to
-	 * higher completeness
-	 * 
-	 * @return
-	 */
-	public double evaluateConnectivity(String tag, StringBuilder sb) {
-		int comNum = Global.v().getAppModel().getComponentMap().size();
-		int wholeSize = comNum;
-		if (wholeSize == 0)
-			return 0;
-		connectionScore = 2.0 * getConnectionSize() / wholeSize;
-		sb.append(getConnectionSize() + "\t");
-		sb.append(wholeSize + "\t");
-		sb.append(String.format("%.2f", connectionScore) + "\n");
-
-		System.out.println(tag + " connectivity score details: " + getConnectionSize() + " / " + wholeSize);
-		System.out.println(tag + " connectivity score t = " + connectionScore);
-		return connectionScore;
-	}
-
-	public double getScoreOfNonSeperateNode(StringBuilder sb) {
-		double score = 0.0;
-		Set<String> initSet = new HashSet<String>();
-		for (Entry<String, Set<AtgEdge>> entry : atgEdges.entrySet()) {
-			for (AtgEdge myEdge : entry.getValue()) {
-				if (Global.v().getAppModel().getComponentMap().keySet().contains(myEdge.getSource().getClassName()))
-					initSet.add(myEdge.getSource().getClassName());
-				if (Global.v().getAppModel().getComponentMap().keySet().contains(myEdge.getDestnation().getClassName()))
-					initSet.add(myEdge.getDestnation().getClassName());
-			}
-		}
-		score = 1.0 * initSet.size() / Global.v().getAppModel().getComponentMap().size();
-		sb.append(initSet.size() + "\t");
-		return score;
-	}
-
-	private double getSocreFromEntrySet(Set<String> reachable, StringBuilder sb) {
-		double score = 0.0;
-		int wholeSize = Global.v().getAppModel().getComponentMap().size();
-		if (wholeSize == 0)
-			return score;
-		int sizeBefore = 0, sizeAfter = sizeBefore - 1;
-		while (sizeBefore != sizeAfter) {
-			sizeBefore = reachable.size();
-			for (String exported : new HashSet<String>(reachable)) {
-				if (atgEdges.containsKey(exported)) {
-					for (AtgEdge edge : atgEdges.get(exported)) {
-						if (!reachable.contains(edge.getDestnation().getName())) {
-							reachable.add(edge.getDestnation().getName());
-						}
-					}
-				}
-			}
-			sizeAfter = reachable.size();
-		}
-
-		score = 1.0 * sizeAfter / wholeSize;
-		sb.append(sizeAfter + "\t");
-		return score;
-	}
-
+	
 	public Map<String, Set<AtgEdge>> getAtgEdges() {
 		return atgEdges;
 	}
@@ -371,21 +436,33 @@ public class ATGModel {
 			atgEdges.put(source, new HashSet<AtgEdge>());
 		}
 		Set<AtgEdge> edges = atgEdges.get(source);
-		if (!edges.contains(edge)) {
-			edges.add(edge);
-			return true;
+		for(AtgEdge exist: edges){
+			if(exist.getDescribtion().equals(edge.getDescribtion()))
+				return false;
 		}
-		return false;
+		edges.add(edge);
+		return true;
 	}
 
 	public static void mergeNodels2newOne(ATGModel m1, ATGModel m2, ATGModel m3) {
-		for (Entry<String, Set<AtgEdge>> entry : m1.getAtgEdges().entrySet())
-			for (AtgEdge edge : entry.getValue())
-				m3.addAtgEdges(entry.getKey(), edge);
-
-		for (Entry<String, Set<AtgEdge>> entry : m2.getAtgEdges().entrySet())
-			for (AtgEdge edge : entry.getValue())
-				m3.addAtgEdges(entry.getKey(), edge);
+		if(m1!=null){
+			for (Entry<String, Set<AtgEdge>> entry : m1.getAtgEdges().entrySet()){
+				Set<AtgEdge> edges = entry.getValue();
+				Iterator<AtgEdge> it = edges.iterator();
+				while(it.hasNext()){
+					m3.addAtgEdges(entry.getKey(), it.next());
+				}
+			}
+		}
+		if(m2!=null){
+			for (Entry<String, Set<AtgEdge>> entry : m2.getAtgEdges().entrySet()){
+				Set<AtgEdge> edges = entry.getValue();
+				Iterator<AtgEdge> it = edges.iterator();
+				while(it.hasNext()){
+					m3.addAtgEdges(entry.getKey(), it.next());
+				}
+			}
+		}
 
 	}
 
@@ -404,23 +481,7 @@ public class ATGModel {
 		ATGFilePath = aTGFilePath;
 	}
 
-	/**
-	 * @return the connectionScore
-	 */
-	public double getConnectionScore() {
-		if (isExist())
-			return connectionScore;
-		else
-			return -1;
-	}
 
-	/**
-	 * @param connectionScore
-	 *            the connectionScore to set
-	 */
-	public void setConnectionScore(double connectionScore) {
-		this.connectionScore = connectionScore;
-	}
 
 	/**
 	 * @return the falsenegativeScore
@@ -441,27 +502,21 @@ public class ATGModel {
 	}
 
 	/**
-	 * @return the completenessScore
-	 */
-	public double getCompletenessScore() {
-		if (isExist())
-			return completenessScore;
-		else
-			return -1;
-	}
-
-	/**
-	 * @param completenessScore
-	 *            the completenessScore to set
-	 */
-	public void setCompletenessScore(double completenessScore) {
-		this.completenessScore = completenessScore;
-	}
-
-	/**
 	 * @return the oracleEdgeSize
 	 */
 	public int getOracleEdgeSize() {
+		if (oracleEdgeSize > 0)
+			return oracleEdgeSize;
+		
+		Set<String> oracleEdges = new HashSet<String>();
+		for (Entry<String, Set<AtgEdge>> entry : Global.v().getiCTGModel().getOracleModel().getAtgEdges().entrySet()) {
+			for (AtgEdge oracleEdge : entry.getValue()) {
+				if (!oracleEdges.contains(oracleEdge.getDescribtion())) {
+					oracleEdges.add(oracleEdge.getDescribtion());
+				}
+			}
+		}
+		oracleEdgeSize = oracleEdges.size();
 		return oracleEdgeSize;
 	}
 
@@ -566,4 +621,7 @@ public class ATGModel {
 		this.filteredReceiverNum = filteredReceiverNum;
 	}
 
+
+	
+	
 }

@@ -44,7 +44,7 @@ public class IC3DIALDroidResultEvaluateClient extends BaseClient {
 
 		IC3DialReader ic3 = new IC3DialReader(result);
 		ic3.analyze();
-		System.out.println("Successfully analyze with IC3GraphClient.");
+		System.out.println("Successfully analyze with IC3DailGraphClient.");
 	}
 
 	@Override

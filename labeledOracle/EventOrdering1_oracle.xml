@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root srcCodeBase="/benchmarks/DroidBench">
+  <OracleEdge source="edu.mit.icc_event_ordering.OutFlowActivity" destination="edu.mit.icc_event_ordering.InFlowActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>OutFlowActivity.onCreate() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/EventOrdering1/src/edu/mit/icc_event_ordering/OutFlowActivity.java" start="22" end="24"/>
+      <line src="/EventOrdering1/AndroidManifest.xml" start="27" end="32"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="false" isImplicit="true"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="false" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="false" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+</root>

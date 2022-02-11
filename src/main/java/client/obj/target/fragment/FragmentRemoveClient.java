@@ -7,20 +7,14 @@ import java.util.List;
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.utils.ConstantUtils;
-import main.java.analyze.utils.GraphUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
-import main.java.client.cg.CallGraphClient;
-import main.java.client.manifest.ManifestClient;
-import main.java.client.obj.ObjectAnalyzer;
-import main.java.client.obj.target.ctg.StaticValueAnalyzer;
 import main.java.client.soot.SootAnalyzer;
 import main.java.client.statistic.model.StatisticResult;
 
 import org.dom4j.DocumentException;
 
-import soot.Body;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
@@ -53,13 +47,10 @@ public class FragmentRemoveClient extends BaseClient {
 		String content = "";
 		for (SootClass sc : Scene.v().getApplicationClasses()) {
 			for (SootMethod sMethod : sc.getMethods()) {
-				Body body = SootUtils.getSootActiveBody(sMethod);
-				if(body==null) continue;
-				for(Unit u: body.getUnits()){
+				List<Unit> units = SootUtils.getUnitListFromMethod(sMethod);
+				for(Unit u: units){
 					if(u.toString().contains("app.FragmentTransaction remove(")){
-						System.out.println(u);
 						content += sMethod.getSignature() +"\t"+ u.toString()+"\n";
-						
 					}
 						
 				}
