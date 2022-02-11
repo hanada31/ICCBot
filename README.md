@@ -1,5 +1,5 @@
 # ICCBot
-An Fragment-Aware and Context-Sensitive ICC Resolution for Android Applications.
+A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
 
 
 
