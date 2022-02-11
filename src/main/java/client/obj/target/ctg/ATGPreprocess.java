@@ -1,5 +1,6 @@
 package main.java.client.obj.target.ctg;
 
+import java.util.List;
 import java.util.Map;
 
 import main.java.Analyzer;
@@ -7,8 +8,6 @@ import main.java.Global;
 import main.java.analyze.utils.RAICCUtils;
 import main.java.analyze.utils.SootUtils;
 import main.java.client.obj.target.ctg.ATGPreprocess;
-import soot.Body;
-import soot.PatchingChain;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
@@ -27,12 +26,9 @@ public class ATGPreprocess extends Analyzer {
 		Map<String, String> method2InstructionMap = Global.v().getAppModel().getMethod2InstructionMap();
 		for (SootClass sc : Scene.v().getApplicationClasses()) {
 			for (SootMethod sm : sc.getMethods()) {
-				Body body = SootUtils.getSootActiveBody(sm);
-				if (body == null)
-					continue;
-				PatchingChain<Unit> units = body.getUnits();
 				int i = 0;
-				for (Unit u : units) {
+				List<Unit> units = SootUtils.getUnitListFromMethod(sm);
+				for(Unit u: units){
 					if (CTGAnalyzerHelper.isSendIntent2IccMethod(u) || RAICCUtils.isWrapperMethods(u)) {
 						String res = method2InstructionMap.get(sm.getSignature());
 						if (res == null) {

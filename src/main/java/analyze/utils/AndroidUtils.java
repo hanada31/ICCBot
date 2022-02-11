@@ -21,7 +21,6 @@ public class AndroidUtils {
 
 		String signCmd = String.format("jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass android "
 				+ "-keystore %s %s androiddebugkey", keystoreUrl, apkPath);
-		// System.out.println(signCmd);
 		try {
 			Process p = r.exec(signCmd);
 

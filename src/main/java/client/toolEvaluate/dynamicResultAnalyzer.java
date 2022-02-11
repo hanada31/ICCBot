@@ -239,11 +239,9 @@ public class dynamicResultAnalyzer extends Analyzer {
 					res.remove(res.size() - 1);
 					String line2 = temp.replace(father.replace(".", "/"), son.replace(".", "/"));
 					res.add(line2);
-					// System.out.println(line2);
 				}
 				if (className.equals(father)) {
 					line = line.replace(father.replace(".", "/"), son.replace(".", "/"));
-					// System.out.println(line);
 				}
 				lastMethod = thisMethod;
 			}

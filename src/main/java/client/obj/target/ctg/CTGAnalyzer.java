@@ -139,14 +139,18 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 		for (String des : intentSummary.getSetDestinationList()) {
 			ComponentModel comp = appModel.getComponentMap().get(des);
 			AtgEdge edge;
-			if (comp == null || !method.getActiveBody().getUnits().contains(unit))
-				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
-			else
+			if (comp != null && SootUtils.getUnitListFromMethod(methodUnderAnalysis).contains(unit)){
 				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
 						comp.getComponentType());
-
-			edge.setIntentSummary(intentSummary);
-			Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+				edge.setIntentSummary(intentSummary);
+				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+			}else {
+				edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+				edge.setIntentSummary(intentSummary);
+				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
+			}
+			
+			
 
 			String name = SootUtils.getNameofClass(src);
 			ComponentModel sourceComponent = Global.v().getAppModel().getComponentMap().get(name);
@@ -193,8 +197,6 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 		List<String> summaryDataSet = intentSummary.getSetDataValueList();
 		List<String> summaryTypeSet = intentSummary.getSetTypeValueList();
 		List<String> resSet = intentSummary.getSetDestinationList();
-		if (!summaryCateSet.contains("android.intent.category.DEFAULT"))
-			summaryCateSet.add("android.intent.category.DEFAULT");
 		boolean findTarget = false;
 		for (ComponentModel component : appModel.getComponentMap().values()) {
 			for (IntentFilterModel filter : component.getIntentFilters()) {
@@ -208,25 +210,35 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 				boolean actionTarget = false, cateTarget = true, dataTarget = false, typeTarget = true;
 				// if a action is find same with one action in filer, matched
 				// usually, only one action in summary
+				//如果该过滤器未列出任何操作，则 Intent 没有任何匹配项，因此所有 Intent 均无法通过测试。但是，如果 Intent 未指定操作，则只要过滤器内包含至少一项操作，就可以通过测试。
 				for (String action : filterActionSet ) {
 					if (summaryActionSet.contains(action))
 						actionTarget = true;
 				}
+				if(!filterActionSet.isEmpty() && summaryActionSet.isEmpty())
+					actionTarget = true;
 				/**
 				 * android will add android.intent.category.DEFAULT to all
 				 * implicit Activity ICC.
 				 * https://developer.android.com/guide/components
 				 * /intents-filters.html
 				 **/
+				boolean addDefault = false;
 				if (component instanceof ActivityModel) {
+					if (!summaryCateSet.contains("android.intent.category.DEFAULT")){
+						summaryCateSet.add("android.intent.category.DEFAULT");
+						addDefault = true;
+					}
 					if (!filterCateSet.contains("android.intent.category.DEFAULT"))
 						cateTarget = false;
 				}
 				// all the category in a summary must find a match one in filter
-				for (String category : filterCateSet ) {
-					if (!summaryCateSet.contains(category))
+				for (String category : summaryCateSet  ) {
+					if (!filterCateSet.contains(category))
 						cateTarget = false;
 				}
+				if(addDefault)
+					summaryCateSet.remove("android.intent.category.DEFAULT");
 				if (filterDataSet.size() == 0)
 					dataTarget = true;
 				else {
@@ -258,8 +270,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 						typeTarget = false;
 				}
 				boolean flag1 = actionTarget && cateTarget && dataTarget && typeTarget;
-				boolean flag2 = (summaryActionSet.size() == 0) && cateTarget && dataTarget && typeTarget;
-				if (flag1 || flag2) {
+				if (flag1) {
 					if (component.getComponentType().contains(intentSummary.getTargetType())) {
 						findTarget = true;
 						resSet.add(component.getComponetName());

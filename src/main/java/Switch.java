@@ -37,6 +37,7 @@ public class Switch {
 	//other
 	private boolean getAttributeStrategy;
 	private boolean setAttributeStrategy;
+	private boolean setDesRelatedAttributeOnlyStrategy;
 	private boolean scenario_stack;
 
 	public Switch() {
@@ -385,5 +386,19 @@ public class Switch {
 	 */
 	public void setSetAttributeStrategy(boolean setAttributeStrategy) {
 		this.setAttributeStrategy = setAttributeStrategy;
+	}
+
+	/**
+	 * @return the setDesRelatedAttributeOnlyStrategy
+	 */
+	public boolean isSetDesRelatedAttributeOnlyStrategy() {
+		return setDesRelatedAttributeOnlyStrategy;
+	}
+
+	/**
+	 * @param setDesRelatedAttributeOnlyStrategy the setDesRelatedAttributeOnlyStrategy to set
+	 */
+	public void setSetDesRelatedAttributeOnlyStrategy(boolean setDesRelatedAttributeOnlyStrategy) {
+		this.setDesRelatedAttributeOnlyStrategy = setDesRelatedAttributeOnlyStrategy;
 	}
 }

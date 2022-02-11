@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root srcCodeBase="/benchmarks/storyBoard">
+   <OracleEdge source="com.test.ui.transition.C" destination="com.test.ui.transition.A" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*C.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="25" end="25"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  <OracleEdge source="com.test.ui.transition.NextActivity" destination="com.test.ui.transition.A" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*NextActivity.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/NextActivity.java" start="21" end="21"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/NextActivity.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  
+  
+  <OracleEdge source="com.test.ui.transition.A" destination="com.test.ui.transition.B" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*A.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/A.java" start="26" end="26"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/A.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+ 
+  <OracleEdge source="com.test.ui.transition.B" destination="com.test.ui.transition.C" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*B.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/B.java" start="33" end="33"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/B.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+
+  <OracleEdge source="com.test.ui.transition.C" destination="com.test.ui.transition.D" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*C.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="38" end="38"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+
+  <OracleEdge source="com.test.ui.transition.D" destination="com.test.ui.transition.E" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*D.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/D.java" start="21" end="21"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/D.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  
+  <OracleEdge source="com.test.ui.transition.A" destination="com.test.ui.transition.MainActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*A.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/A.java" start="23" end="23"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/A.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  <OracleEdge source="com.test.ui.transition.B" destination="com.test.ui.transition.MainActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*B.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/B.java" start="25" end="25"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/B.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  <OracleEdge source="com.test.ui.transition.C" destination="com.test.ui.transition.MainActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*C.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="30" end="30"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  <OracleEdge source="com.test.ui.transition.E" destination="com.test.ui.transition.MainActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*E.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/E.java" start="21" end="21"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/E.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  <OracleEdge source="com.test.ui.transition.B" destination="com.test.ui.transition.NextActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*B.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/B.java" start="30" end="30"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/B.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  <OracleEdge source="com.test.ui.transition.C" destination="com.test.ui.transition.NextActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*C.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="35" end="35"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/C.java" start="13" end="13"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+  <OracleEdge source="com.test.ui.transition.MainActivity" destination="com.test.ui.transition.NextActivity" method="xxx">
+    <correctness correctness="true" incorrectType="No." incorrectReason=""/>
+    <nodes>
+      <node method="" type="" unit=""/>
+    </nodes>
+    <comment>*MainActivity.onCreate() -&gt; goToActivity() -&gt; startActivity()</comment>
+    <callLines>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/MainActivity.java" start="19" end="19"/>
+      <line src="/activity_2-dex2jar.src/com/test/ui/transition/MainActivity.java" start="12" end="12"/>
+    </callLines>
+    <tags>
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="true" isImplicit="false"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="false"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="true" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="true"/>
+        <sensitivityScope flow="false" path="false" context="true" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+</root>

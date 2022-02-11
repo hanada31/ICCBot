@@ -1,6 +1,5 @@
 package main.java.client.obj.checker;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -322,7 +321,10 @@ public class MisEAAnalysis  extends Analyzer {
 		int sum = 0;
 		for(int x: p_arry) sum+=x;
 		for(int i=0; i<p_ratio_arry.length;i++) {
-			p_ratio_arry[i] = 1.0* p_arry[i] / sum;
+			if(sum ==0 ) return null;
+			else{
+				p_ratio_arry[i] = 1.0* p_arry[i] / sum;
+			}
 		}
 		return p_ratio_arry;
 	}

@@ -1,15 +1,22 @@
 # ICCBot
 A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
 
+Requirements：
+
+1. Python 3+
+
+2. Java 1.8+
+
+3. Install GraphViz (http://www.graphviz.org/download/) 
 
 
 build and run *ICCBot* to analyze single apk: : 
 ```
 mvn -f pom.xml clean package
 
-cp target/ICCBot.jar ../ICCBot.jar
+cp target/ICCBot.jar ICCBot.jar
 
-java -jar ICCBot.jar  -path apk\ -name ICCBotBench.apk -androidJar lib//platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results/output
+java -jar ICCBot.jar  -path apk// -name ICCBotBench.apk -androidJar lib//platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results//output
 ```
 or analyze apks under given folder with Python script:
 
@@ -78,6 +85,3 @@ Output: ICC resolution results, CTG graph, etc.
   + Generated ICC specification json file
 + SootIRInfo
   + Generated Soot Jimple IR files 
-
-
-

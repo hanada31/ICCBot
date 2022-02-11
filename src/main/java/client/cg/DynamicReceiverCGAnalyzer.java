@@ -1,7 +1,6 @@
 package main.java.client.cg;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -43,11 +42,8 @@ public class DynamicReceiverCGAnalyzer extends Analyzer {
 			}
 			for (SootMethod sm : sc.getMethods()) {
 				m = sm;
-				if (m == null || SootUtils.hasSootActiveBody(m) == false)
-					continue;
-				Iterator<Unit> it = SootUtils.getSootActiveBody(m).getUnits().iterator();
-				while (it.hasNext()) {
-					Unit u = it.next();
+				List<Unit> units = SootUtils.getUnitListFromMethod(m);
+				for(Unit u: units){
 					if (SootUtils.isBroadCastRegisterMethods(u.toString())) {
 						InvokeExpr exp = SootUtils.getInvokeExp(u);
 						if (exp != null && exp.getArgCount() == 2) {
@@ -64,9 +60,9 @@ public class DynamicReceiverCGAnalyzer extends Analyzer {
 							} else {
 								receiverName = sc.getName() + "_dynamicReceiver";
 								if (appModel.getComponentMap().containsKey(receiverName)) {
-									if (appModel.getActivityMap().get(receiverName) != null) {
-										filterModel.getCategory_list().add("android.intent.category.DEFAULT");
-									}
+//									if (appModel.getActivityMap().get(receiverName) != null) {
+//										filterModel.getCategory_list().add("android.intent.category.DEFAULT");
+//									}
 									appModel.getComponentMap().get(receiverName).addIntentFilter(filterModel);
 								}
 							}
@@ -76,7 +72,7 @@ public class DynamicReceiverCGAnalyzer extends Analyzer {
 				}
 			}
 		}
-		// System.out.println("DynamicIntentFilterAnalyzer finish\n");
+		 System.out.println("DynamicIntentFilterAnalyzer finish\n");
 	}
 
 	/**

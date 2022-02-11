@@ -1,7 +1,7 @@
 package main.java.client.obj.target.ctg;
 
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 
 import main.java.Analyzer;
 import main.java.MyConfig;
@@ -52,9 +52,8 @@ public class StaticValueAnalyzer extends Analyzer {
 					if (!SootUtils.isNonLibClass(sm.getDeclaringClass().getName()))
 						continue;
 				}
-				Iterator<Unit> it = SootUtils.getSootActiveBody(sm).getUnits().iterator();
-				while (it.hasNext()) {
-					Unit u = it.next();
+				List<Unit> units = SootUtils.getUnitListFromMethod(sm);
+				for(Unit u: units){
 					if (u instanceof JAssignStmt) {
 						JAssignStmt jas = (JAssignStmt) u;
 						SootField field = null;

@@ -24,8 +24,11 @@ public class MyConfig {
 	private String appPath;
 	private String client;
 	private String gatorClient;
+	private String callgraphAlgorithm;
 	private int timeLimit;
 	private int maxPathNumber;
+	private int maxFunctionExpandNumber;
+	private int maxObjectSummarySize;
 	private String androidJar;
 	private boolean stopFlag = false;
 
@@ -301,5 +304,47 @@ public class MyConfig {
 	 */
 	public void setGatorClient(String gatorClient) {
 		this.gatorClient = gatorClient;
+	}
+
+	/**
+	 * @return the callgraphAlgorithm
+	 */
+	public String getCallgraphAlgorithm() {
+		return callgraphAlgorithm;
+	}
+
+	/**
+	 * @param callgraphAlgorithm the callgraphAlgorithm to set
+	 */
+	public void setCallgraphAlgorithm(String callgraphAlgorithm) {
+		this.callgraphAlgorithm = callgraphAlgorithm;
+	}
+
+	/**
+	 * @return the maxFunctionExpandNumber
+	 */
+	public int getMaxFunctionExpandNumber() {
+		return maxFunctionExpandNumber;
+	}
+
+	/**
+	 * @param maxFunctionExpandNumber the maxFunctionExpandNumber to set
+	 */
+	public void setMaxFunctionExpandNumber(int maxFunctionExpandNumber) {
+		this.maxFunctionExpandNumber = maxFunctionExpandNumber;
+	}
+
+	/**
+	 * @return the maxObjectSummarySize
+	 */
+	public int getMaxObjectSummarySize() {
+		return maxObjectSummarySize;
+	}
+
+	/**
+	 * @param maxObjectSummarySize the maxObjectSummarySize to set
+	 */
+	public void setMaxObjectSummarySize(int maxObjectSummarySize) {
+		this.maxObjectSummarySize = maxObjectSummarySize;
 	}
 }

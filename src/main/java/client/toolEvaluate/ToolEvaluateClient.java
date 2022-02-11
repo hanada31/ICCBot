@@ -1,27 +1,24 @@
 package main.java.client.toolEvaluate;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.tree.DefaultElement;
+import java.util.HashSet;
+import java.util.Set;
 
 import main.java.Global;
 import main.java.MyConfig;
 import main.java.analyze.model.labeledOracleModel.LabeledOracleReader;
 import main.java.analyze.utils.ConstantUtils;
 import main.java.analyze.utils.GraphUtils;
+import main.java.analyze.utils.OracleUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
 import main.java.client.obj.target.ctg.CTGReaderClient;
+import main.java.client.related.a3e.A3EResultEvaluateClient;
 import main.java.client.related.gator.GatorATGResultEvaluateClient;
 import main.java.client.related.ic3.IC3ResultEvaluateClient;
 import main.java.client.related.ic3dial.IC3DIALDroidResultEvaluateClient;
+import main.java.client.related.story.StoryResultEvaluateClient;
 
 /**
  * Analyzer Class
@@ -33,13 +30,18 @@ public class ToolEvaluateClient extends BaseClient {
 
 	@Override
 	protected void clientAnalyze() {
+		new CTGReaderClient().start();
+		
 		new IC3ResultEvaluateClient().start();
 
 		new IC3DIALDroidResultEvaluateClient().start();
 
 		new GatorATGResultEvaluateClient().start();
 
-		new CTGReaderClient().start();
+		new A3EResultEvaluateClient().start();
+		
+		new StoryResultEvaluateClient().start();
+		
 
 //		dynamicResultAnalyzer analyzer = new dynamicResultAnalyzer();
 //		analyzer.analyze();
@@ -70,16 +72,113 @@ public class ToolEvaluateClient extends BaseClient {
 		IC3Evaluate(sb);
 		IC3DialEvaluate(sb);
 		GatorEvaluate(sb);
+		A3EEvaluate(sb); 
+		StoryEvaluate(sb);
 
 //		FilterAndEnhanceEvaluate(sb);
 
-		outputForExcel();
-
+		outputNumberCount();
+		outputGraphCount();
+		outputOracleEvaluate();
+		outputForPairwiseComparison();
+		
 		String content = sb.toString();
 		FileUtils.writeText2File(summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.SCORERECORD,
 				content, true);
 	}
 
+
+	private void outputForPairwiseComparison() {
+		System.out.println();
+		ATGModel iccBotModelnoFrag = Global.v().getiCTGModel().getOptModelwithoutFrag();
+		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
+		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
+		ATGModel gatorModel = Global.v().getGatorModel().getGatorAtgModel();
+		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
+		ATGModel storyModelnoFrag = Global.v().getStoryModel().getStoryAtgModelWithoutFrag();
+		
+		pairwiseComparison("Gator", "IC3", gatorModel, ic3Model);
+		pairwiseComparison("Gator", "IC3dial", gatorModel, IC3DialModel);
+		pairwiseComparison("Gator", "A3E", gatorModel, a3eModel);
+		pairwiseComparison("Gator", "Story", gatorModel, storyModelnoFrag);
+		pairwiseComparison("Gator", "ICCBot", gatorModel, iccBotModelnoFrag);
+		
+		pairwiseComparison("IC3", "IC3dial", ic3Model, IC3DialModel);
+		pairwiseComparison("IC3", "A3E", ic3Model, a3eModel);
+		pairwiseComparison("IC3", "Story", ic3Model, storyModelnoFrag);
+		pairwiseComparison("IC3", "ICCBot", ic3Model, iccBotModelnoFrag);
+		
+		pairwiseComparison("IC3dial","A3E",IC3DialModel, a3eModel);
+		pairwiseComparison("IC3dial","Story",IC3DialModel, storyModelnoFrag);
+		pairwiseComparison("IC3dial","ICCBot",IC3DialModel, iccBotModelnoFrag);
+		
+		pairwiseComparison("A3E","Story",a3eModel, storyModelnoFrag);
+		pairwiseComparison("A3E","ICCBot",a3eModel, iccBotModelnoFrag);
+
+		pairwiseComparison("Story","ICCBot",storyModelnoFrag, iccBotModelnoFrag);
+		
+	}
+
+	private String pairwiseComparison(String tagA, String tagB, ATGModel modelA, ATGModel modelB) {
+		int oracle = 0, commonTP = 0, modelATP = 0, modelBTP = 0;
+		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+		oracle = oracleModel.getOracleEdgeSize();
+		modelATP = modelA.getTPSet().size();
+		modelBTP = modelB.getTPSet().size();
+		Set<String> modelCommon = new HashSet<String> (modelA.getTPSet());
+		modelCommon.retainAll(modelB.getTPSet());
+		commonTP = modelCommon.size();
+		
+		
+		int mergedICC = 0, commonICC = 0, modelAICC = 0, modelBICC = 0;
+		Set<String> modelMerge = new HashSet<String> (modelA.getEdgeSet());
+		modelMerge.addAll(modelB.getEdgeSet());
+		mergedICC = modelMerge.size();
+		
+		Set<String> modelCommon2 = new HashSet<String> (modelA.getEdgeSet());
+		modelCommon2.retainAll(modelB.getEdgeSet());
+		commonICC = modelCommon2.size();
+		
+		modelAICC = modelA.getEdgeSet().size();
+		modelBICC = modelB.getEdgeSet().size();
+
+		String res =  oracle +"\t" + modelATP +"\t" + modelBTP +"\t" + commonTP +"\t" +
+			   mergedICC +"\t"  + modelAICC +"\t"  + modelBICC +"\t" + commonICC;
+		System.out.println(res);
+		
+		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "pairwiseCount.txt";
+		File f = new File(filename);
+		if(!f.exists()){
+			FileUtils.writeText2File(filename,  "app\ttool\tcommon\tonly\tlast\n", true);
+		}
+		String name = Global.v().getAppModel().getAppName();
+		String commonTPRatio = divide(commonTP, oracle);
+		String modelATPonlyRatio = divide(modelATP-commonTP, oracle);
+		String modelBTPonlyRatio = divide(modelBTP-commonTP, oracle);
+		String modelAFNRatio = divide(oracle-modelATP, oracle);
+		String modelBFNRatio = divide(oracle-modelBTP, oracle);
+		
+		String commonICCRatio = divide(commonICC, mergedICC);
+		String modelAICConlyRatio = divide(modelAICC-commonICC, mergedICC);
+		String modelBICConlyRatio = divide(modelBICC-commonICC, mergedICC);
+		String modelALackRatio = divide(mergedICC-modelAICC, mergedICC);
+		String modelBLackRatio = divide(mergedICC-modelBICC, mergedICC);
+		
+		
+		FileUtils.writeText2File(filename, name +"\t"+ tagA+"&"+tagB+"@TP\t"+tagA + "\t" + commonTPRatio +"\t" + modelATPonlyRatio +"\t"+ modelAFNRatio +"\n", true);
+		FileUtils.writeText2File(filename, name +"\t"+ tagA+"&"+tagB+"@TP\t"+tagB + "\t" + commonTPRatio +"\t" + modelBTPonlyRatio +"\t"+ modelBFNRatio  +"\n", true);
+		FileUtils.writeText2File(filename, name +"\t"+ tagA+"&"+tagB+"@All\t"+tagA + "\t" + commonICCRatio +"\t" + modelAICConlyRatio +"\t"+ modelALackRatio +"\n", true);
+		FileUtils.writeText2File(filename, name +"\t"+ tagA+"&"+tagB+"@All\t"+tagB + "\t" + commonICCRatio +"\t" + modelBICConlyRatio +"\t"+ modelBLackRatio +"\n", true);
+		
+		return res;
+	}
+
+	public String divide(int a, int b){
+		if(b==0)
+			return "div0";
+		return String.format("%.2f", 1.0*a/b);
+	}
+	
 	private void FilterAndEnhanceEvaluate(StringBuilder sb) {
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 		String content = Global.v().getAppModel().getAppName() + "\t";
@@ -92,18 +191,68 @@ public class ToolEvaluateClient extends BaseClient {
 
 	}
 
-	private void outputForExcel() {
+	private void outputNumberCount() {
+		ATGModel iccBotModelnoFrag = Global.v().getiCTGModel().getOptModelwithoutFrag();
+		ATGModel iccBotModel = Global.v().getiCTGModel().getOptModel();
+		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
+		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
+		ATGModel gatorModel = Global.v().getGatorModel().getGatorAtgModel();
+		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
+		ATGModel storyModelnoFrag = Global.v().getStoryModel().getStoryAtgModelWithoutFrag();
+		ATGModel storyModel = Global.v().getStoryModel().getStoryAtgModel();
+
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(Global.v().getAppModel().getComponentMap().size() + "\t");
+		
+		sb.append(gatorModel.getComp2CompSize() + "\t");
+		sb.append(ic3Model.getComp2CompSize() + "\t");
+		sb.append(IC3DialModel.getComp2CompSize() + "\t");
+		sb.append(a3eModel.getComp2CompSize() + "\t");
+		sb.append(storyModelnoFrag.getComp2CompSize() + "\t");
+		sb.append(iccBotModelnoFrag.getComp2CompSize() + "\t");
+		
+		sb.append(gatorModel.getAct2ActSize() + "\t");
+		sb.append(ic3Model.getAct2ActSize() + "\t");
+		sb.append(IC3DialModel.getAct2ActSize() + "\t");
+		sb.append(a3eModel.getAct2ActSize() + "\t");
+		sb.append(storyModelnoFrag.getAct2ActSize() + "\t");
+		sb.append(iccBotModelnoFrag.getAct2ActSize() + "\t");
+		
+		sb.append(gatorModel.getComp2CompSize() + "\t");
+		sb.append(ic3Model.getComp2CompSize() + "\t");
+		sb.append(IC3DialModel.getComp2CompSize() + "\t");
+		sb.append(a3eModel.getComp2CompSize() + "\t");
+		sb.append(storyModel.getComp2CompSize() + "\t");
+		sb.append(iccBotModel.getComp2CompSize() + "\t");
+		
+		System.out.println("outputNumberCount: "+sb.toString());
+		
+		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "numberCount.txt";
+		File f = new File(filename);
+		if(!f.exists()){
+			FileUtils.writeText2File(filename,  "\t\t"  +  "C2C\t\t\t\t\t\t" + "A2A\t\t\t\t\t\t" + "CF2CF\t\t\t\t\t\t"+ "\n", true);
+			FileUtils.writeText2File(filename, "\tComponent\t"  
+					+  "Gator\tIC3\tIC3-Dial\tA3E\tStory\tICCBot\t" + "Gator\tIC3\tIC3-Dial\tA3E\tStory\tICCBot\t" 
+					+"Gator\tIC3\tIC3-Dial\tA3E\tStory\tICCBot\t"+ "\n", true);
+		}
+		FileUtils.writeText2File(filename, Global.v().getAppModel().getAppName()
+				+ "\t" + sb.toString() + "\n", true);
+	}
+
+	private void outputGraphCount() {
 		ATGModel dynamicModel = Global.v().getiCTGModel().getDynamicModel();
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 
-		ATGModel optModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
+		ATGModel iccBotModelnoFrag = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
 		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
 		ATGModel gatorModel = Global.v().getGatorModel().getGatorAtgModel();
+		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
+		ATGModel storyModelnoFrag = Global.v().getStoryModel().getStoryAtgModelWithoutFrag();
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(Global.v().getAppModel().getComponentMap().size() + "\t");
 
 //		sb.append(String.format("%.2f", dynamicModel.getCompletenessScore()) + "\t");
 //		sb.append(String.format("%.2f", manualModel.getCompletenessScore()) + "\t");
@@ -113,38 +262,84 @@ public class ToolEvaluateClient extends BaseClient {
 //		sb.append(String.format("%.2f", manualModel.getConnectionScore()) + "\t");
 //		sb.append(String.format("%.2f", oracleModel.getConnectionScore()) + "\t");
 
-		sb.append(String.format("%.2f", optModel.getCompletenessScore()) + "\t");
-		sb.append(String.format("%.2f", ic3Model.getCompletenessScore()) + "\t");
-		sb.append(String.format("%.2f", IC3DialModel.getCompletenessScore()) + "\t");
-		sb.append(String.format("%.2f", gatorModel.getCompletenessScore()) + "\t");
-
-		sb.append(String.format("%.2f", optModel.getConnectionScore()) + "\t");
-		sb.append(String.format("%.2f", ic3Model.getConnectionScore()) + "\t");
-		sb.append(String.format("%.2f", IC3DialModel.getConnectionScore()) + "\t");
-		sb.append(String.format("%.2f", gatorModel.getConnectionScore()) + "\t");
-
-		sb.append(optModel.getConnectionSize() + "\t");
-		sb.append(ic3Model.getConnectionSize() + "\t");
-		sb.append(IC3DialModel.getConnectionSize() + "\t");
-		sb.append(gatorModel.getConnectionSize() + "\t");
-
-		sb.append(optModel.getOracleEdgeSize() + "\t");
-
-		sb.append(optModel.getFnEdgeSize() + "\t");
-		sb.append(ic3Model.getFnEdgeSize() + "\t");
-		sb.append(IC3DialModel.getFnEdgeSize() + "\t");
-		sb.append(gatorModel.getFnEdgeSize() + "\t");
-
-		sb.append(String.format("%.2f", optModel.getFalsenegativeScore()) + "\t");
-		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore()) + "\t");
-		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore()) + "\t");
-		sb.append(String.format("%.2f", gatorModel.getFalsenegativeScore()));
-
-		System.out.println(sb.toString());
-		FileUtils.writeText2File(MyConfig.getInstance().getResultWarpperFolder() + File.separator + "oracleResult.txt", Global.v().getAppModel().getAppName()
+		sb.append(iccBotModelnoFrag.getTotalCompNum() + "\t");
+		
+		
+		sb.append(gatorModel.getSeparatedCompNum() + "\t");
+		sb.append(ic3Model.getSeparatedCompNum() + "\t");
+		sb.append(IC3DialModel.getSeparatedCompNum() + "\t");
+		sb.append(a3eModel.getSeparatedCompNum() + "\t");
+		sb.append(storyModelnoFrag.getSeparatedCompNum() + "\t");
+		sb.append(iccBotModelnoFrag.getSeparatedCompNum() + "\t");
+		
+		
+		sb.append(gatorModel.getMainNotReachableCompNum() + "\t");
+		sb.append(ic3Model.getMainNotReachableCompNum() + "\t");
+		sb.append(IC3DialModel.getMainNotReachableCompNum() + "\t");
+		sb.append(a3eModel.getMainNotReachableCompNum() + "\t");
+		sb.append(storyModelnoFrag.getMainNotReachableCompNum() + "\t");
+		sb.append(iccBotModelnoFrag.getMainNotReachableCompNum() + "\t");
+		
+		sb.append(gatorModel.getExportNotReachableCompNum() + "\t");
+		sb.append(ic3Model.getExportNotReachableCompNum() + "\t");
+		sb.append(IC3DialModel.getExportNotReachableCompNum() + "\t");
+		sb.append(a3eModel.getExportNotReachableCompNum() + "\t");
+		sb.append(storyModelnoFrag.getExportNotReachableCompNum() + "\t");
+		sb.append(iccBotModelnoFrag.getExportNotReachableCompNum() + "\t");
+		
+		System.out.println("outputGraphCount: "+sb.toString());
+		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "graphCount.txt";
+		File f = new File(filename);
+		if(!f.exists()){
+			FileUtils.writeText2File(filename,  "\t" +  "Total\t" + "separated\t\t\t\t\t\t" 
+						+ "mainNot\t\t\t\t\t\t" + "exportNot\t\t\t\t\t\t" +"\n", true);
+			String tools = "Gator\tIC3\tIC3-Dial\tA3E\tStory\tICCBot\t";
+			FileUtils.writeText2File(filename,  "\t" +  "\t" + tools + tools+ tools + "\n", true);
+		}
+		
+		FileUtils.writeText2File(filename, Global.v().getAppModel().getAppName()
 				+ "\t" + sb.toString() + "\n", true);
 	}
 
+	private void outputOracleEvaluate() {
+		ATGModel iccBotModelnoFrag = Global.v().getiCTGModel().getOptModelwithoutFrag();
+		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
+		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
+		ATGModel gatorModel = Global.v().getGatorModel().getGatorAtgModel();
+		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
+		ATGModel storyModelnoFrag = Global.v().getStoryModel().getStoryAtgModelWithoutFrag();
+
+		StringBuilder sb = new StringBuilder();
+
+		//oracle
+		sb.append(iccBotModelnoFrag.getOracleEdgeSize() + "\t");
+
+		sb.append(gatorModel.getFnEdgeSize() + "\t");
+		sb.append(ic3Model.getFnEdgeSize() + "\t");
+		sb.append(IC3DialModel.getFnEdgeSize() + "\t");
+		sb.append(a3eModel.getFnEdgeSize() + "\t");
+		sb.append(storyModelnoFrag.getFnEdgeSize() + "\t");
+		sb.append(iccBotModelnoFrag.getFnEdgeSize() + "\t");
+		
+		
+		sb.append(String.format("%.2f", gatorModel.getFalsenegativeScore())+ "\t");
+		sb.append(String.format("%.2f", ic3Model.getFalsenegativeScore()) + "\t");
+		sb.append(String.format("%.2f", IC3DialModel.getFalsenegativeScore()) + "\t");
+		sb.append(String.format("%.2f", a3eModel.getFalsenegativeScore())+ "\t");
+		sb.append(String.format("%.2f", storyModelnoFrag.getFalsenegativeScore())+ "\t");
+		sb.append(String.format("%.2f", iccBotModelnoFrag.getFalsenegativeScore()));
+		
+		System.out.println("outputOracleEvaluate: "+sb.toString());
+		
+		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "oracleCount.txt";
+		File f = new File(filename);
+		if(!f.exists()){
+			FileUtils.writeText2File(filename,  "\t"  + "Oracle\t" + "FN\t\t\t\t\t\t" + "FNRate\t\t\t\t\t\t" + "\n", true);
+			FileUtils.writeText2File(filename,  "\t"  + "Oracle\t" + "Gator\tIC3\tIC3-Dial\tA3E\tStory\tICCBot\t" + "Gator\tIC3\tIC3-Dial\tA3E\tStory\tICCBot\t" + "\n", true);
+		}
+		FileUtils.writeText2File(filename, Global.v().getAppModel().getAppName()
+				+ "\t" + sb.toString() + "\n", true);
+	}
 	/**
 	 * construct model use dynamic log information
 	 * 
@@ -160,8 +355,7 @@ public class ToolEvaluateClient extends BaseClient {
 		String dotname = appName + "_" + ConstantUtils.ICTGDYNAMIC;
 		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR, dotname, dynamicModel, false);
 		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR + dotname, "pdf");
-		initStringBuilderComplete("dynamic", sb);
-		dynamicModel.evaluateCompleteness("dynamic oracle", sb);
+		dynamicModel.evaluateGraphCount("dynamic oracle");
 
 	}
 
@@ -180,8 +374,7 @@ public class ToolEvaluateClient extends BaseClient {
 		String dotname2 = appName + "_" + ConstantUtils.ICTGDMANUAL;
 		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR, dotname2, manualModel, false);
 		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR + dotname2, "pdf");
-		initStringBuilderComplete("manual", sb);
-		manualModel.evaluateCompleteness("manual oracle", sb);
+		manualModel.evaluateGraphCount("manual oracle");
 	}
 
 	/**
@@ -202,9 +395,8 @@ public class ToolEvaluateClient extends BaseClient {
 		String dotname3 = appName + "_" + ConstantUtils.ICTGORACLE;
 		outer.writeDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR, dotname3, oracleModel, false);
 		GraphUtils.generateDotFile(summary_app_dir + ConstantUtils.ORACLEFOLDETR + dotname3, "pdf");
-		initStringBuilderComplete("oracle", sb);
-		writeTagedOracleFile(summary_app_dir, appName);
-		oracleModel.evaluateCompleteness("whole oracle", sb);
+		OracleUtils.writeTagedOracleFile(summary_app_dir, appName);
+		oracleModel.evaluateGraphCount("whole oracle");
 	}
 
 	private void oracleEvaluate(StringBuilder sb) {
@@ -230,17 +422,12 @@ public class ToolEvaluateClient extends BaseClient {
 	private void ICCBotEvaluate(StringBuilder sb) {
 		System.out.println();
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
-		ATGModel optModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
-		if(optModel.isExist()){
-			initStringBuilderComplete("ICCBot      ", sb);
-			optModel.evaluateCompleteness("ICCBot      ", sb);
+		ATGModel iccBotModelnoFrag = Global.v().getiCTGModel().getOptModelwithoutFrag();
+		if(iccBotModelnoFrag.isExist()){
+			iccBotModelnoFrag.evaluateGraphCount("ICCBot      ");
 	
-			initStringBuilderConnection("ICCBot      ", sb);
-			optModel.evaluateConnectivity("ICCBot      ", sb);
-	
-			if (oracleModel.getAtgEdges().size() > 0) {
-				initStringBuilderFN("ICCBot      ", sb);
-				optModel.evaluateFalseNegative("ICCBot      ", oracleModel, sb);
+			if (oracleModel.isExist()) {
+				iccBotModelnoFrag.evaluateFalseNegative("ICCBot      ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, for false negative evaluation, please add files into folder /labeledOracle\n";
 				sb.append(hint);
@@ -262,16 +449,12 @@ public class ToolEvaluateClient extends BaseClient {
 	private void IC3Evaluate(StringBuilder sb) {
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
-		if(ic3Model.isExist()){
-			initStringBuilderComplete("IC3         ", sb);
-			ic3Model.evaluateCompleteness("IC3         ", sb);
+		if(ic3Model.isExist()) {
+			ic3Model.evaluateGraphCount("IC3         ");
 	
-			initStringBuilderConnection("IC3         ", sb);
-			ic3Model.evaluateConnectivity("IC3         ", sb);
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
-				initStringBuilderFN("IC3         ", sb);
-				ic3Model.evaluateFalseNegative("IC3         ", oracleModel, sb);
+			if (oracleModel.isExist()) {
+				ic3Model.evaluateFalseNegative("IC3         ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, for false negative evaluation, please add files into folder /labeledOracle\n";
 				sb.append(hint);
@@ -294,15 +477,11 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		ATGModel ic3Model = Global.v().getiC3DialDroidModel().getIC3AtgModel();
 		if(ic3Model.isExist()){
-			initStringBuilderComplete("IC3Dial     ", sb);
-			ic3Model.evaluateCompleteness("IC3Dial     ", sb);
+			ic3Model.evaluateGraphCount("IC3Dial     ");
 	
-			initStringBuilderConnection("IC3Dial     ", sb);
-			ic3Model.evaluateConnectivity("IC3Dial     ", sb);
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
-				initStringBuilderFN("IC3Dial     ", sb);
-				ic3Model.evaluateFalseNegative("IC3Dial     ", oracleModel, sb);
+			if (oracleModel.isExist()) {
+				ic3Model.evaluateFalseNegative("IC3Dial     ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, for false negative evaluation, please add files into folder /labeledOracle\n";
 				sb.append(hint);
@@ -325,15 +504,11 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		ATGModel GatorModel = Global.v().getGatorModel().getGatorAtgModel();
 		if(GatorModel.isExist()){
-			initStringBuilderComplete("Gator         ", sb);
-			GatorModel.evaluateCompleteness("Gator         ", sb);
+			GatorModel.evaluateGraphCount("Gator         ");
 	
-			initStringBuilderConnection("Gator         ", sb);
-			GatorModel.evaluateConnectivity("Gator         ", sb);
 	
-			if (oracleModel.getAtgEdges().size() > 0) {
-				initStringBuilderFN("Gator         ", sb);
-				GatorModel.evaluateFalseNegative("Gator         ", oracleModel, sb);
+			if (oracleModel.isExist()) {
+				GatorModel.evaluateFalseNegative("Gator         ");
 			}else{
 				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
 				sb.append(hint);
@@ -346,161 +521,55 @@ public class ToolEvaluateClient extends BaseClient {
 			System.out.println(hint);
 		}
 	}
+	
 
-	/**
-	 * inital sb for output
-	 * 
-	 * @param start
-	 * @param sb
-	 */
-	private void initStringBuilderComplete(String start, StringBuilder sb) {
-		sb.append("\n" + start + " completeness: \n");
-		sb.append("allNode\t");
-		sb.append("mainReachable\t");
-		sb.append("mainScore\t");
-		sb.append("exportReachable\t");
-		sb.append("expoortScore\t");
-		sb.append("nonSeperateNode\t");
-		sb.append("nonSeperateNodeScore\t");
-		sb.append("completenessScore\n");
-	}
-
-	/**
-	 * inital sb for output
-	 * 
-	 * @param start
-	 * @param sb
-	 */
-	private void initStringBuilderConnection(String start, StringBuilder sb) {
-		sb.append("\n" + start + " connectivity: \n");
-		sb.append("actualEdges\t");
-		sb.append("maxEdges\t");
-		sb.append("connectivityScore\n");
-	}
-
-	/**
-	 * inital sb for output
-	 * 
-	 * @param start
-	 * @param sb
-	 */
-	private void initStringBuilderFN(String start, StringBuilder sb) {
-		sb.append("\n" + start + " false negative: \n");
-		sb.append("falseNegativeNum\t");
-		sb.append("oracleEdgeNum\t");
-		sb.append("FalseNegativeScore\n");
-	}
-
-	/**
-	 * write oracle.txt
-	 * 
-	 * @param summary_app_dir
-	 * @param appName
-	 */
-	private void writeTagedOracleFile(String summary_app_dir, String appName) {
-		String manualOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.ORACLEMANU;
-		String dynaOracle = summary_app_dir + ConstantUtils.ORACLEFOLDETR + appName + ConstantUtils.ORACLEDYNA;
-
-		List<String> resList = new ArrayList<String>();
-		for (String s : FileUtils.getListFromFile(manualOracle)) {
-			if (s.length() > 2 && !resList.contains(s.substring(2)))
-				resList.add(s.substring(2));
+	private void A3EEvaluate(StringBuilder sb) {
+		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
+		if(a3eModel.isExist()){
+			a3eModel.evaluateGraphCount("A3E         ");
+	
+	
+			if (oracleModel.isExist()) {
+				a3eModel.evaluateFalseNegative("A3E         ");
+			}else{
+				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
+				sb.append(hint);
+				System.out.println(hint);
+			}
+			System.out.println();
+		}else{
+			String hint = "The results for tool A3E doesn't exist, please add files into folder /relatedTools/A3E\n";
+			sb.append(hint);
+			System.out.println(hint);
 		}
-		for (String s : FileUtils.getListFromFile(dynaOracle)) {
-			if (!resList.contains(s))
-				resList.add(s);
-		}
-		try {
-			writeOracleModel(summary_app_dir + ConstantUtils.ORACLEFOLDETR, appName + ConstantUtils.ORACLETEXT, resList);
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 	}
-
-	/**
-	 * writeIntentSummaryModel
-	 * 
-	 * @param dir
-	 * @param file
-	 * @param resList
-	 * @param entryMethod
-	 * @throws DocumentException
-	 * @throws IOException
-	 */
-	public void writeOracleModel(String dir, String file, List<String> resList) throws DocumentException, IOException {
-		Document document = FileUtils.xmlWriterBegin(dir, file, false);
-		Element root = document.getRootElement();
-		List<Element> eleList = new ArrayList<Element>();
-		for (String line : resList) {
-			if (line.startsWith("##") || !line.contains(" --> "))
-				continue;
-			Element e = new DefaultElement("OracleEdge");
-			eleList.add(e);
-			e.addAttribute("source", line.split(" --> ")[0]);
-			e.addAttribute("destination", line.split(" --> ")[1]);
-			e.addAttribute("method", "xxx");
-			Element correctness = e.addElement("correctness");
-			correctness.addAttribute("correctness", "true");
-			correctness.addAttribute("incorrectType", "No.");
-			correctness.addAttribute("incorrectReason", "");
-			Element nodes = e.addElement("nodes");
-			Element node = nodes.addElement("node");
-			node.addAttribute("method", "");
-			node.addAttribute("type", "");
-			node.addAttribute("unit", "");
-			Element tags = e.addElement("tags");
-			Element entryMethod = tags.addElement("entryMethod");
-			entryMethod.addAttribute("isLifeCycle", "");
-			entryMethod.addAttribute("isNormalCallBack", "");
-			entryMethod.addAttribute("isStaticCallBack", "");
-			entryMethod.addAttribute("isOtherComplexCallBack", "");
-
-			Element exitMethod = tags.addElement("exitMethod");
-			exitMethod.addAttribute("isNormalSendICC", "");
-			exitMethod.addAttribute("isWarpperSendICC", "");
-
-			Element intentMatch = tags.addElement("intentMatch");
-			intentMatch.addAttribute("isExplicit", "");
-			intentMatch.addAttribute("isImplicit", "");
-
-			Element analyzeScope = tags.addElement("analyzeScope");
-			Element componentScope = analyzeScope.addElement("componentScope");
-			componentScope.addAttribute("isActivity", "");
-			componentScope.addAttribute("isService", "");
-			componentScope.addAttribute("isBroadCast", "");
-			componentScope.addAttribute("isDynamicBroadCast", "");
-
-			Element nonComponentScope = analyzeScope.addElement("nonComponentScope");
-			nonComponentScope.addAttribute("isFragment", "");
-			nonComponentScope.addAttribute("isAdapter", "");
-			nonComponentScope.addAttribute("isOtherClass", "");
-
-			Element methodScope = analyzeScope.addElement("methodScope");
-			methodScope.addAttribute("isLibraryInvocation", "");
-			methodScope.addAttribute("isMultipleInvocation", "");
-			methodScope.addAttribute("isBasicInvocation", "");
-			methodScope.addAttribute("isAsyncInvocation", "");
-			methodScope.addAttribute("isListenerInvocation", "");
-
-			Element objectcope = analyzeScope.addElement("objectScope");
-			objectcope.addAttribute("isStaticVal", "");
-			objectcope.addAttribute("isStringOp", "");
-			objectcope.addAttribute("isPolymorphic", "");
-
-			Element sensitivity = analyzeScope.addElement("sensitivityScope");
-			sensitivity.addAttribute("flow", "");
-			sensitivity.addAttribute("path", "");
-			sensitivity.addAttribute("context", "");
-			sensitivity.addAttribute("object", "");
-			sensitivity.addAttribute("field", "");
+	
+	private void StoryEvaluate(StringBuilder sb) {
+		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+		ATGModel storyModelnoFrag = Global.v().getStoryModel().getStoryAtgModelWithoutFrag();
+		if(storyModelnoFrag.isExist()){
+			storyModelnoFrag.evaluateGraphCount("Story         ");
+	
+	
+			if (oracleModel.isExist()) {
+				storyModelnoFrag.evaluateFalseNegative("Story         ");
+			}else{
+				String hint = "The results of labeled oracle doesn't exist, please add files into folder /labeledOracle\n";
+				sb.append(hint);
+				System.out.println(hint);
+			}
+			System.out.println();
+		}else{
+			String hint = "The results for tool Story doesn't exist, please add files into folder /relatedTools/StoryDistiller\n";
+			sb.append(hint);
+			System.out.println(hint);
 		}
-		for (Element e : eleList) {
-			root.add(e);
-		}
-		FileUtils.xmlWriteEnd(dir, file, document);
-
+		
 	}
+	
+
+	
 
 }

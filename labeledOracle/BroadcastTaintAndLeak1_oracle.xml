@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root srcCodeBase="/benchmarks/DroidBench">
+   <OracleEdge source="edu.mit.icc_broadcast_programmatic_intentfilter.BroadcastTest" destination="edu.mit.icc_broadcast_programmatic_intentfilter.BroadcastTest" method="xxx">
+    <comment>BroadcastTest.onCreate() -&gt; registerReceiver() -&gt; onDestroy() -&gt; sendBroadcast()</comment>
+    <callLines>
+      <line src="/BroadcastTaintAndLeak1/src/edu/mit/icc_broadcast_programmatic_intentfilter/BroadcastTest.java" start="25" end="34"/>
+      <line src="/BroadcastTaintAndLeak1/src/edu/mit/icc_broadcast_programmatic_intentfilter/BroadcastTest.java" start="42" end="45"/>
+    </callLines>
+    <tags checkIgnore="isImplicitAndroidManifest, ">
+      <entryMethod isLifeCycle="true" isImplicitCallback="false" isDynamicCallBack="false" isStaticCallBack="false"/>
+      <exitMethod isNormalSendICC="true" isAtypicalSendICC="false"/>
+      <intentMatch isExplicit="false" isImplicit="true"/>
+      <analyzeScope>
+        <componentScope isActivity="true" isService="false" isBroadCast="false" isDynamicBroadCast="true"/>
+        <nonComponentScope isFragment="false" isAdapter="false" isWidget="false" isOtherClass="false"/>
+        <methodScope isLibraryInvocation="false" isBasicInvocation="false" isAsyncInvocation="false" isListenerInvocation="false" isPolymorphic="false"/>
+        <objectScope isStaticVal="false" isStringOp="false" isNoExtra="false"/>
+        <sensitivityScope flow="false" path="false" context="false" object="false" field="false"/>
+      </analyzeScope>
+    </tags>
+  </OracleEdge>
+</root>
