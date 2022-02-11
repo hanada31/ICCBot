@@ -79,48 +79,66 @@ public class LabeledOracleReader extends Analyzer {
 						}
 
 						Element exitMethod = subEle.element("exitMethod");
-						iccTag.setNormalSendICC(exitMethod.attributeValue("isNormalSendICC").equals("true"));
-						iccTag.setWarpperSendICC(exitMethod.attributeValue("isAtypicalSendICC").equals("true"));
-
+						if(exitMethod != null){
+							iccTag.setNormalSendICC(exitMethod.attributeValue("isNormalSendICC").equals("true"));
+							iccTag.setWarpperSendICC(exitMethod.attributeValue("isAtypicalSendICC").equals("true"));
+						}
 						Element intentMatch = subEle.element("intentMatch");
-						iccTag.setExplicit(intentMatch.attributeValue("isExplicit").equals("true"));
-						iccTag.setImplicit(intentMatch.attributeValue("isImplicit").equals("true"));
-
+						if(intentMatch != null){
+							iccTag.setExplicit(intentMatch.attributeValue("isExplicit").equals("true"));
+							iccTag.setImplicit(intentMatch.attributeValue("isImplicit").equals("true"));
+						}
 						Element componentScope = subEle.element("analyzeScope").element("componentScope");
-						iccTag.setActivity(componentScope.attributeValue("isActivity").equals("true"));
-						iccTag.setService(componentScope.attributeValue("isService").equals("true"));
-						iccTag.setBroadCast(componentScope.attributeValue("isBroadCast").equals("true"));
-						iccTag.setDynamicBroadCast(componentScope.attributeValue("isDynamicBroadCast").equals("true"));
-						if (iccTag.isService() || iccTag.isBroadCast() || iccTag.isDynamicBroadCast()) {
-							iccTag.setNonActivity(true);
+						if(componentScope != null){
+							iccTag.setActivity(componentScope.attributeValue("isActivity").equals("true"));
+							iccTag.setService(componentScope.attributeValue("isService").equals("true"));
+							iccTag.setBroadCast(componentScope.attributeValue("isBroadCast").equals("true"));
+							iccTag.setDynamicBroadCast(componentScope.attributeValue("isDynamicBroadCast").equals("true"));
+							if (iccTag.isService() || iccTag.isBroadCast() || iccTag.isDynamicBroadCast()) {
+								iccTag.setNonActivity(true);
+							}
 						}
 
 						Element nonComponentScope = subEle.element("analyzeScope").element("nonComponentScope");
-						iccTag.setFragment(nonComponentScope.attributeValue("isFragment").equals("true"));
-						iccTag.setAdapter(nonComponentScope.attributeValue("isAdapter").equals("true"));
-						iccTag.setWidget(nonComponentScope.attributeValue("isWidget").equals("true"));
-						iccTag.setOtherClass(nonComponentScope.attributeValue("isOtherClass").equals("true"));
-						if (iccTag.isFragment() || iccTag.isAdapter() || iccTag.isWidget()) {
-							iccTag.setNonComponent(true);
+						if(nonComponentScope != null){
+							iccTag.setFragment(nonComponentScope.attributeValue("isFragment").equals("true"));
+							iccTag.setAdapter(nonComponentScope.attributeValue("isAdapter").equals("true"));
+							iccTag.setWidget(nonComponentScope.attributeValue("isWidget").equals("true"));
+							iccTag.setOtherClass(nonComponentScope.attributeValue("isOtherClass").equals("true"));
+							if (iccTag.isFragment() || iccTag.isAdapter() || iccTag.isWidget()) {
+								iccTag.setNonComponent(true);
+							}
 						}
 
 						Element methodScope = subEle.element("analyzeScope").element("methodScope");
-						iccTag.setLibraryInvocation(methodScope.attributeValue("isLibraryInvocation").equals("true"));
-						iccTag.setAsyncInvocation(methodScope.attributeValue("isAsyncInvocation").equals("true"));
-						iccTag.setPolymorphic(methodScope.attributeValue("isPolymorphic").equals("true"));
+						if(methodScope != null){
+							iccTag.setLibraryInvocation(methodScope.attributeValue("isLibraryInvocation").equals("true"));
+							iccTag.setAsyncInvocation(methodScope.attributeValue("isAsyncInvocation").equals("true"));
+							iccTag.setPolymorphic(methodScope.attributeValue("isPolymorphic").equals("true"));
+						}
 
 						Element objectScope = subEle.element("analyzeScope").element("objectScope");
-						iccTag.setStaticVal(objectScope.attributeValue("isStaticVal").equals("true"));
-						iccTag.setStringOp(objectScope.attributeValue("isStringOp").equals("true"));
-						iccTag.setNoExtra(objectScope.attributeValue("isNoExtra").equals("true"));
-
+						if(objectScope != null){
+							iccTag.setStaticVal(objectScope.attributeValue("isStaticVal").equals("true"));
+							iccTag.setStringOp(objectScope.attributeValue("isStringOp").equals("true"));
+							iccTag.setNoExtra(objectScope.attributeValue("isNoExtra").equals("true"));
+						}
 						Element sensitivityScope = subEle.element("analyzeScope").element("sensitivityScope");
-						iccTag.setFlowSensitive(sensitivityScope.attributeValue("flow").equals("true"));
-						iccTag.setPathSensitive(sensitivityScope.attributeValue("path").equals("true"));
-						iccTag.setContextSensitive(sensitivityScope.attributeValue("context").equals("true"));
-						iccTag.setObjectSensitive(sensitivityScope.attributeValue("object").equals("true"));
-						iccTag.setFieldSensitive(sensitivityScope.attributeValue("field").equals("true"));
-
+						if(sensitivityScope != null){
+							iccTag.setFlowSensitive(sensitivityScope.attributeValue("flow").equals("true"));
+							iccTag.setPathSensitive(sensitivityScope.attributeValue("path").equals("true"));
+							iccTag.setContextSensitive(sensitivityScope.attributeValue("context").equals("true"));
+							iccTag.setObjectSensitive(sensitivityScope.attributeValue("object").equals("true"));
+							iccTag.setFieldSensitive(sensitivityScope.attributeValue("field").equals("true"));
+						}
+						//modify the format of labeled oracle
+						Element intentFieldScope = subEle.element("analyzeScope").element("intentFieldScope");
+						if(intentFieldScope != null){
+							iccTag.setStaticVal(intentFieldScope.attributeValue("isStaticVal").equals("true"));
+							iccTag.setStringOp(intentFieldScope.attributeValue("isStringOp").equals("true"));
+							iccTag.setNoExtra(intentFieldScope.attributeValue("isNoExtra").equals("true"));
+							iccTag.setContextSensitive(intentFieldScope.attributeValue("isContext").equals("true"));
+						}
 					}
 				}
 				iccTag.postAnalyzeTags();

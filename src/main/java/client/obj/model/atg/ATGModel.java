@@ -392,11 +392,6 @@ public class ATGModel {
 		if (iccTag.isImplicitICConly())
 			counter.isImplicitICConly += 1;
 
-		if (iccTag.isWarrperonly())
-			counter.isWarrperonly += 1;
-		if (iccTag.isImplicitICConly())
-			counter.isImplicitICConly += 1;
-
 		if (iccTag.isNonComponentonly())
 			counter.isNonComponentonly += 1;
 		if (iccTag.isFragmentonly())

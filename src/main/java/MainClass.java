@@ -389,7 +389,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "app-debug-32";
+		name = "ICCBotBench";
 		String client = "CTGClient"; 
 //		client = "IROutputClient"; 
 //		client = "ToolEvaluateClient"; 

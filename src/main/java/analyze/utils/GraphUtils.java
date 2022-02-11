@@ -76,6 +76,6 @@ public class GraphUtils {
 	 * @param allowNonComponentNode
 	 */
 	public static void generateDotFile(String name, String type) {
-		ExecuteUtils.exec("dot -T" + type + " " + name + ".dot" + " -o " + name + "." + type);
+		ExecuteUtils.exec("timeout 5m dot -T" + type + " " + name + ".dot" + " -o " + name + "." + type);
 	}
 }
