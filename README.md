@@ -19,7 +19,7 @@ mvn -f pom.xml clean package
 
 cp target/ICCBot.jar ICCBot.jar
 
-java -jar ICCBot.jar  -path apk\ -name ICCBotBench.apk -androidJar lib//platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results/output
+java -jar ICCBot.jar  -path apk// -name ICCBotBench.apk -androidJar lib//platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results//output
 ```
 or analyze apks under given folder with Python script:
 

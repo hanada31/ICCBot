@@ -351,7 +351,7 @@ public class MainClass {
 		System.out.println(string);
 		HelpFormatter formatter = new HelpFormatter();
 		System.out.println("Please check the help inforamtion");
-		formatter.printHelp("java -jar ICCExtractor.jar [options]", getOptions());
+		formatter.printHelp("java -jar ICCBot.jar [options]", getOptions());
 		System.exit(0);
 	}
 
