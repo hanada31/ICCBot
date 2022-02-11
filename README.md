@@ -17,7 +17,7 @@ build and run *ICCBot* to analyze single apk: :
 ```
 mvn -f pom.xml clean package
 
-cp target/ICCBot.jar ../ICCBot.jar
+cp target/ICCBot.jar ICCBot.jar
 
 java -jar ICCBot.jar  -path apk\ -name ICCBotBench.apk -androidJar lib//platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results/output
 ```
