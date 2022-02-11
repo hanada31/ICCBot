@@ -27,7 +27,7 @@ public class ExecuteUtils {
 		if (os.toLowerCase().startsWith("win")) {
 			exeCmd(commandStr);
 		} else {
-			exeShell("timeout " +timeout+"s" +commandStr);
+			exeShell("timeout " +timeout+"s " +commandStr);
 		}
 		return null;
 	}
