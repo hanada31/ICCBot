@@ -9,6 +9,7 @@ public class ExecuteUtils {
 	 * execute commandStr (any os)
 	 * 
 	 * @param commandStr
+	 * @param timeout 
 	 * @return
 	 */
 	public static Object exec(String commandStr) {
@@ -17,6 +18,16 @@ public class ExecuteUtils {
 			exeCmd(commandStr);
 		} else {
 			exeShell(commandStr);
+		}
+		return null;
+	}
+	
+	public static Object exec(String commandStr, int timeout) {
+		String os = System.getProperty("os.name");
+		if (os.toLowerCase().startsWith("win")) {
+			exeCmd(commandStr);
+		} else {
+			exeShell("timeout " +timeout+"s" +commandStr);
 		}
 		return null;
 	}
