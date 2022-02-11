@@ -1,9 +1,9 @@
 # ICCBot
-An Fragment-Aware and Context-Sensitive ICC Resolution for Android Applications.
+A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
 
 
 
-build and run *ICCBot* to analyze single apk：：
+build and run *ICCBot* to analyze single apk: : 
 ```
 mvn -f pom.xml clean package
 
@@ -22,7 +22,7 @@ python .\scripts\runICCBot.py [apkPath] [resultPath]
 Usage of ICCBot.jar:
 
 ```
-java –jar ICCBot.jar –h
+java -jar ICCBot.jar -h
 
 usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir][-client]
  
@@ -62,9 +62,9 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir]
 
 
 
-Input：apk File
+Input: apk File
 
-Output：ICC resolution results, CTG graph, etc.
+Output: ICC resolution results, CTG graph, etc.
 
 + CallGraphInfo
   + Generated extended call graph
@@ -78,6 +78,3 @@ Output：ICC resolution results, CTG graph, etc.
   + Generated ICC specification json file
 + SootIRInfo
   + Generated Soot Jimple IR files 
-
-
-
