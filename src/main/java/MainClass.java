@@ -389,7 +389,7 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "ICCBotBench";
+		name = "Calendula.2.5.1";
 		String client = "CTGClient"; 
 //		client = "IROutputClient"; 
 //		client = "ToolEvaluateClient"; 

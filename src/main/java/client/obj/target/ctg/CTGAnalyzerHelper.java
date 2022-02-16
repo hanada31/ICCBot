@@ -201,6 +201,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 		// set
 		if (isCreateMethod(unit)) {
 			return new CreateHandler();
+		}else if (isInitIntentMethod(unit)) {
+			return new SetAttributeHandler();
 		}else if (isSetAttributeMethod(unit)) {
 			return new SetAttributeHandler();
 		} else if (isSetIntentExtraMethod(unit)) {
