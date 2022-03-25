@@ -389,11 +389,10 @@ public class MainClass {
 		String path;
 		path = "apk/";
 		String name;
-		name = "Calendula.2.5.1";
+		name = "com.malib.dhbtcepte-399";
 		String client = "CTGClient"; 
-//		client = "IROutputClient"; 
+		client = "IROutputClient"; 
 //		client = "ToolEvaluateClient"; 
-
 		
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
@@ -407,8 +406,5 @@ public class MainClass {
 		MyConfig.getInstance().setResultFolder(MyConfig.getInstance().getResultWarpperFolder()+ "output" + File.separator);
 		MyConfig.getInstance().setTimeLimit(10);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
-		
 	}
-
-
 }
