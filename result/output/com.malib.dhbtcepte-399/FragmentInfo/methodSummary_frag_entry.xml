@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void playAgain()&gt;">
+    <node type="getFragment" unit="$r2 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="getFragment" unit="$r2 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r3 = virtualinvoke $r2.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="replaceFunction" unit="$r3 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131558483, $r1)"/>
+    <node type="addToBackStack" unit="$r3 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;tag&quot;)"/>
+    <node type="commit" unit="virtualinvoke $r3.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onStartGameRequested(boolean)&gt;">
+    <node type="getFragment" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void displyHomeScreen()&gt;">
+    <node type="getFragment" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.internal.zzra: com.google.android.gms.internal.zzra zza(android.support.v4.app.FragmentActivity)&gt;">
+    <node type="getFragment" unit="$r5 = virtualinvoke $r0.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="getFragment" unit="$r5 = virtualinvoke $r0.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r7 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="addFunction" unit="$r7 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(android.support.v4.app.Fragment,java.lang.String)&gt;($r4, &quot;SupportLifecycleFragmentImpl&quot;)"/>
+    <node type="commit" unit="virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: int commitAllowingStateLoss()&gt;()"/>
+    <node type="PassOut" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)"/>
+    <node type="PassOut" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.CrimePagerActivity$1: void &lt;init&gt;(com.malib.dhbtcepte.CrimePagerActivity,android.support.v4.app.FragmentManager,java.util.ArrayList)&gt;">
+    <node type="ReceiveFromParatMethod" unit="$r2 := @parameter1: android.support.v4.app.FragmentManager"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onBackPressed()&gt;">
+    <node type="getFragment" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="getFragment" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.SingleFragmentActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.SingleFragmentActivity: void setContentView(int)&gt;(2130968604)"/>
+    <node type="getFragment" unit="$r7 = virtualinvoke r0.&lt;com.malib.dhbtcepte.SingleFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r9 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="addFunction" unit="$r9 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(2131558482, $r8)"/>
+    <node type="commit" unit="virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.DersNot: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.DersNot: void setContentView(int)&gt;(2130968602)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;">
+    <node type="ReceiveFromRetValue" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()"/>
+    <node type="ReceiveFromRetValue" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r7 = virtualinvoke $r5.&lt;android.app.FragmentManager: android.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="addFunction" unit="$r7 = virtualinvoke $r7.&lt;android.app.FragmentTransaction: android.app.FragmentTransaction add(android.app.Fragment,java.lang.String)&gt;($r4, &quot;LifecycleFragmentImpl&quot;)"/>
+    <node type="commit" unit="virtualinvoke $r7.&lt;android.app.FragmentTransaction: int commitAllowingStateLoss()&gt;()"/>
+    <node type="PassOut" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)"/>
+    <node type="PassOut" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.internal.zzqo: com.google.android.gms.internal.zzqp zzc(com.google.android.gms.internal.zzqn)&gt;">
+    <node unit="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)"/>
+    <node unit="$r2 = staticinvoke &lt;com.google.android.gms.internal.zzra: com.google.android.gms.internal.zzra zza(android.support.v4.app.FragmentActivity)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.internal.zzpp: com.google.android.gms.internal.zzpp zza(com.google.android.gms.internal.zzqn)&gt;">
+    <node unit="$r1 = staticinvoke &lt;com.google.android.gms.internal.zzpp: com.google.android.gms.internal.zzqp zzc(com.google.android.gms.internal.zzqn)&gt;($r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.common.api.GoogleApiClient$Builder: void zzf(com.google.android.gms.common.api.GoogleApiClient)&gt;">
+    <node unit="$r3 = staticinvoke &lt;com.google.android.gms.internal.zzpp: com.google.android.gms.internal.zzpp zza(com.google.android.gms.internal.zzqn)&gt;($r4)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity: void nextQuizQuestion()&gt;">
+    <node type="getFragment" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="getFragment" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r9 = virtualinvoke $r8.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="replaceFunction" unit="$r9 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131558483, $r10)"/>
+    <node type="addToBackStack" unit="$r9 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;tag&quot;)"/>
+    <node type="commit" unit="virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity: void access$500(com.malib.dhbtcepte.QuizPlayActivity)&gt;">
+    <node unit="specialinvoke $r0.&lt;com.malib.dhbtcepte.QuizPlayActivity: void nextQuizQuestion()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onClick(android.view.View)&gt;">
+    <node type="getFragment" unit="$r4 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r5 = virtualinvoke $r4.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="replaceFunction" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131558483, $r6)"/>
+    <node type="addToBackStack" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;tag&quot;)"/>
+    <node type="commit" unit="virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.common.api.GoogleApiClient$Builder: com.google.android.gms.common.api.GoogleApiClient build()&gt;">
+    <node unit="specialinvoke r0.&lt;com.google.android.gms.common.api.GoogleApiClient$Builder: void zzf(com.google.android.gms.common.api.GoogleApiClient)&gt;($r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.GameHelper: void setup(com.malib.dhbtcepte.GameHelper$GameHelperListener)&gt;">
+    <node unit="$r6 = virtualinvoke $r5.&lt;com.google.android.gms.common.api.GoogleApiClient$Builder: com.google.android.gms.common.api.GoogleApiClient build()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.BaseGameActivity: void onCreate(android.os.Bundle)&gt;">
+    <node unit="virtualinvoke $r2.&lt;com.malib.dhbtcepte.GameHelper: void setup(com.malib.dhbtcepte.GameHelper$GameHelperListener)&gt;(r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MabiGame: void onCreate(android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.malib.dhbtcepte.BaseGameActivity: void onCreate(android.os.Bundle)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity$LoadQuestions: void onPostExecute(java.lang.String)&gt;">
+    <node type="PassOut" unit="staticinvoke &lt;com.malib.dhbtcepte.QuizPlayActivity: void access$500(com.malib.dhbtcepte.QuizPlayActivity)&gt;($r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity$LoadQuestions: void onPostExecute(java.lang.Object)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.QuizPlayActivity$LoadQuestions: void onPostExecute(java.lang.String)&gt;($r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity: void resetAllValue()&gt;">
+    <node unit="virtualinvoke $r14.&lt;com.malib.dhbtcepte.QuizPlayActivity$LoadQuestions: android.os.AsyncTask execute(java.lang.Object[])&gt;($r15)"/>
+    <node unit="specialinvoke r0.&lt;com.malib.dhbtcepte.QuizPlayActivity: void nextQuizQuestion()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.malib.dhbtcepte.QuizPlayActivity: void resetAllValue()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: void onResume()&gt;">
+    <node type="getFragment" unit="$r3 = virtualinvoke r0.&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="dialogShow" unit="virtualinvoke $r2.&lt;com.malib.dhbtcepte.DialogCool: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r3, &quot;missiles&quot;)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity$1: void run()&gt;">
+    <node type="PassOut" unit="staticinvoke &lt;com.malib.dhbtcepte.QuizPlayActivity: void access$500(com.malib.dhbtcepte.QuizPlayActivity)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.CrimePagerActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="getFragment" unit="$r6 = virtualinvoke r0.&lt;com.malib.dhbtcepte.CrimePagerActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Son: void onCreate(android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.malib.dhbtcepte.MabiGame: void onCreate(android.os.Bundle)&gt;($r1)"/>
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Son: void setContentView(int)&gt;(2130968610)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onCreate()&gt;">
+    <node unit="specialinvoke r0.&lt;com.malib.dhbtcepte.MabiGame: void onCreate(android.os.Bundle)&gt;(null)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.sinav: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.sinav: void setContentView(int)&gt;(2130968609)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Student: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Student: void setContentView(int)&gt;(2130968612)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Kategori: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Kategori: void setContentView(int)&gt;(2130968605)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Soruex: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Soruex: void setContentView(int)&gt;(2130968611)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.LearnActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.LearnActivity: void setContentView(int)&gt;(2130968606)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.EmailActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.EmailActivity: void setContentView(int)&gt;(2130968603)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Teacher: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Teacher: void setContentView(int)&gt;(2130968613)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: void onCreate(android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.malib.dhbtcepte.BaseGameActivity: void onCreate(android.os.Bundle)&gt;($r1)"/>
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: void setContentView(int)&gt;(2130968659)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MainActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.MainActivity: void setContentView(int)&gt;(2130968607)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onCreate(android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.malib.dhbtcepte.MabiGame: void onCreate(android.os.Bundle)&gt;($r1)"/>
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void setContentView(int)&gt;(2130968608)"/>
+    <node unit="$r15 = virtualinvoke $r12.&lt;com.google.android.gms.common.api.GoogleApiClient$Builder: com.google.android.gms.common.api.GoogleApiClient build()&gt;()"/>
+  </methodSummary>
+</root>

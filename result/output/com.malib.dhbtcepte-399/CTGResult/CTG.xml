@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <source name="com.malib.dhbtcepte.Student">
+    <destination name="com.malib.dhbtcepte.sinav" type="Act2Act" method="&lt;com.malib.dhbtcepte.Student$1: void onItemClick(android.widget.AdapterView,android.view.View,int,long)&gt;" extras="" flags=""/>
+  </source>
+  <source name="com.malib.dhbtcepte.MainActivity">
+    <destination name="com.malib.dhbtcepte.Teacher" type="Act2Act" method="&lt;com.malib.dhbtcepte.MainActivity: void soruintent()&gt;" extras="" flags=""/>
+    <destination name="com.malib.dhbtcepte.EmailActivity" type="Act2Act" method="&lt;com.malib.dhbtcepte.MainActivity$3: void onClick(android.view.View)&gt;" extras="" flags=""/>
+    <destination name="com.malib.dhbtcepte.MenuHomeScreenActivity" type="Act2Act" method="&lt;com.malib.dhbtcepte.MainActivity: void appyaris()&gt;" extras="" flags=""/>
+    <destination name="com.malib.dhbtcepte.DersNot" type="Act2Act" method="&lt;com.malib.dhbtcepte.MainActivity: void dersnotintent()&gt;" extras="" flags=""/>
+    <destination name="com.malib.dhbtcepte.LearnActivity" type="Act2Act" method="&lt;com.malib.dhbtcepte.MainActivity$2: void onClick(android.view.View)&gt;" extras="" flags=""/>
+  </source>
+  <source name="com.malib.dhbtcepte.sinav"/>
+  <source name="com.malib.dhbtcepte.Kategori">
+    <destination name="com.malib.dhbtcepte.MenuHomeScreenActivity" type="Act2Act" method="&lt;com.malib.dhbtcepte.Kategori: void onBackPressed()&gt;" extras="" flags=""/>
+  </source>
+  <source name="com.malib.dhbtcepte.TrGenelSinavAnasayfa">
+    <destination name="com.malib.dhbtcepte.databaseListactivity" type="Act2Act" method="&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa$sayfaacasync: void onPostExecute(java.lang.Void)&gt;" extras="" flags=""/>
+  </source>
+  <source name="com.malib.dhbtcepte.databaseListactivity">
+    <destination name="com.malib.dhbtcepte.CrimePagerActivity" type="Act2Act" method="&lt;com.malib.dhbtcepte.framelist: void onListItemClick(android.widget.ListView,android.view.View,int,long)&gt;"/>
+  </source>
+  <source name="com.malib.dhbtcepte.LearnActivity"/>
+  <source name="com.malib.dhbtcepte.Teacher">
+    <destination name="com.malib.dhbtcepte.Student" type="Act2Act" method="&lt;com.malib.dhbtcepte.Teacher$1: void onItemClick(android.widget.AdapterView,android.view.View,int,long)&gt;" extras="" flags=""/>
+  </source>
+  <source name="com.malib.dhbtcepte.EmailActivity"/>
+  <source name="com.malib.dhbtcepte.util.IabBroadcastReceiver"/>
+  <source name="com.malib.dhbtcepte.DersNot"/>
+  <source name="com.malib.dhbtcepte.Son">
+    <destination name="com.malib.dhbtcepte.Kategori" type="Act2Act" method="&lt;com.malib.dhbtcepte.Son: void Restart(android.view.View)&gt;" extras="" flags=""/>
+    <destination name="com.malib.dhbtcepte.MenuHomeScreenActivity" type="Act2Act" method="&lt;com.malib.dhbtcepte.Son: void onBackPressed()&gt;" extras="" flags=""/>
+  </source>
+  <source name="com.malib.dhbtcepte.Soruex">
+    <destination name="com.malib.dhbtcepte.Kategori" type="Act2Act" method="&lt;com.malib.dhbtcepte.Soruex: void onBackPressed()&gt;" extras="" flags=""/>
+    <destination name="com.malib.dhbtcepte.Soruex" type="Act2Act" method="&lt;com.malib.dhbtcepte.Soruex: void soruileri(android.view.View)&gt;" extras="" flags="FLAG_ACTIVITY_CLEAR_TOP , FLAG_ACTIVITY_NEW_TASK "/>
+    <destination name="com.malib.dhbtcepte.Son" type="Act2Act" method="&lt;com.malib.dhbtcepte.Soruex: void Bitis()&gt;" extras="" flags="FLAG_ACTIVITY_CLEAR_TOP , FLAG_ACTIVITY_NEW_TASK "/>
+  </source>
+  <source name="com.malib.dhbtcepte.CrimePagerActivity"/>
+  <source name="com.malib.dhbtcepte.MenuHomeScreenActivity">
+    <destination name="com.malib.dhbtcepte.Kategori" type="Act2Act" method="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onClick(android.view.View)&gt;" extras="" flags=""/>
+  </source>
+</root>

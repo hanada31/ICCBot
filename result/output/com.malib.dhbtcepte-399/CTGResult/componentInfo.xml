@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <component name="com.malib.dhbtcepte.Student" type="Activity">
+    <sender destination="com.malib.dhbtcepte.sinav"/>
+  </component>
+  <component name="com.malib.dhbtcepte.MainActivity" type="Activity">
+    <manifest>
+      <intent_filter action="android.intent.action.MAIN" category="android.intent.category.LAUNCHER"/>
+    </manifest>
+    <sender destination="com.malib.dhbtcepte.LearnActivity, com.malib.dhbtcepte.EmailActivity, com.malib.dhbtcepte.Teacher, interICC_android.intent.action.SEND, , com.malib.dhbtcepte.DersNot, interICC_android.intent.action.VIEW, , interICC_android.intent.action.VIEW, android.intent.category.BROWSABLE, com.malib.dhbtcepte.MenuHomeScreenActivity, interICC_com.android.vending.billing.InAppBillingService.BIND, " action="android.intent.action.VIEW, android.intent.action.SEND, com.android.vending.billing.InAppBillingService.BIND" category="android.intent.category.BROWSABLE" data="https://www.facebook.com/dhbtmbstsilahiyat/, market://details?id=com.malib.dhbtcepte, https://www.facebook.com/groups/buyukdusundhbt/" type="text/plain"/>
+  </component>
+  <component name="com.malib.dhbtcepte.sinav" type="Activity"/>
+  <component name="com.malib.dhbtcepte.Kategori" type="Activity">
+    <sender destination="com.malib.dhbtcepte.MenuHomeScreenActivity, newarray (java.lang.String)[2]"/>
+  </component>
+  <component name="com.malib.dhbtcepte.TrGenelSinavAnasayfa" type="Activity">
+    <sender destination="com.malib.dhbtcepte.DialogCool, com.malib.dhbtcepte.databaseListactivity"/>
+  </component>
+  <component name="com.malib.dhbtcepte.databaseListactivity" type="Activity"/>
+  <component name="com.malib.dhbtcepte.LearnActivity" type="Activity"/>
+  <component name="com.malib.dhbtcepte.Teacher" type="Activity">
+    <sender destination="com.malib.dhbtcepte.Student"/>
+  </component>
+  <component name="com.malib.dhbtcepte.EmailActivity" type="Activity">
+    <sender destination="interICC_android.intent.action.SEND, " action="android.intent.action.SEND" type="message/rfc822"/>
+  </component>
+  <component name="com.malib.dhbtcepte.util.IabBroadcastReceiver" type="Receiver">
+    <manifest>
+      <intent_filter action="com.android.vending.billing.PURCHASES_UPDATED"/>
+    </manifest>
+  </component>
+  <component name="com.malib.dhbtcepte.DersNot" type="Activity"/>
+  <component name="com.malib.dhbtcepte.Son" type="Activity">
+    <sender destination="com.malib.dhbtcepte.Kategori, com.malib.dhbtcepte.MenuHomeScreenActivity"/>
+  </component>
+  <component name="com.malib.dhbtcepte.Soruex" type="Activity">
+    <sender destination="com.malib.dhbtcepte.Son, com.malib.dhbtcepte.Kategori, com.malib.dhbtcepte.Soruex" flags="FLAG_ACTIVITY_CLEAR_TOP , FLAG_ACTIVITY_NEW_TASK "/>
+  </component>
+  <component name="com.malib.dhbtcepte.CrimePagerActivity" type="Activity"/>
+  <component name="com.malib.dhbtcepte.MenuHomeScreenActivity" type="Activity">
+    <sender destination="com.malib.dhbtcepte.QuizPlayActivity, com.malib.dhbtcepte.Kategori"/>
+  </component>
+</root>

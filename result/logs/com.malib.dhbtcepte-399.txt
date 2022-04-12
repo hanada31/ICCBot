@@ -1,0 +1,37 @@
+Analyzing com.malib.dhbtcepte-399.apk
+using client MainClient
+Soot Analysis finish.
+Successfully analyze with ManifestClient.
+Call Graph Construction finish.
+Call Graph has 6141 edges.
+Call Graph Enhancing finish.
+Successfully analyze with CallGraphClient.
+StaticValueAnalyzer finish.
+DynamicIntentFilterAnalyzer finish
+
+Successfully analyze with FragmentClient.
+This is the method #200/1728
+This is the method #400/1728
+This is the method #600/1728
+This is the method #800/1728
+This is the method #1000/1728
+This is the method #1200/1728
+This is the method #1400/1728
+This is the method #1600/1728
+Successfully analyze with CTGClient.
+writeComponentModel
+writeMethodSummaryModel
+writePathSummaryModel
+writeIntentSummaryModel
+writeAtgModeTxtFile
+writeDotFile
+writeATGModel
+writeAtgModeTxtFile2
+writeDotFile2
+writeATGModel2
+---------------------------------------
+Analyzing com.malib.dhbtcepte-399.apk Finish...
+
+MainClient time = 22 seconds
+ICC Resolution Finish...
+

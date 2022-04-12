@@ -1,0 +1,29 @@
+Analyzing ICCBotBench.apk
+using client MainClient
+Soot Analysis finish.
+Successfully analyze with ManifestClient.
+Call Graph Construction finish.
+Call Graph has 205 edges.
+Call Graph Enhancing finish.
+Successfully analyze with CallGraphClient.
+StaticValueAnalyzer finish.
+DynamicIntentFilterAnalyzer finish
+
+Successfully analyze with FragmentClient.
+Successfully analyze with CTGClient.
+writeComponentModel
+writeMethodSummaryModel
+writePathSummaryModel
+writeIntentSummaryModel
+writeAtgModeTxtFile
+writeDotFile
+writeATGModel
+writeAtgModeTxtFile2
+writeDotFile2
+writeATGModel2
+---------------------------------------
+Analyzing ICCBotBench.apk Finish...
+
+MainClient time = 3 seconds
+ICC Resolution Finish...
+
