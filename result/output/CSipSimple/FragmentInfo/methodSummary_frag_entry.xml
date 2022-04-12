@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallMediaControl: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.incall.InCallMediaControl: void setContentView(int)&gt;(2130903104)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: void onTabUnselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)&gt;">
+    <node type="getFragment" unit="$r8 = virtualinvoke $r7.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="r4 = virtualinvoke $r8.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.view.View)&gt;">
+    <node type="setContentView" unit="specialinvoke r0.&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void setContentView(int)&gt;(2130903113)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.view.View)&gt;($r1, null)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: void onTabReselected(android.app.ActionBar$Tab,android.app.FragmentTransaction)&gt;">
+    <node type="getFragment" unit="$r8 = virtualinvoke $r7.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="r4 = virtualinvoke $r8.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="commit" unit="virtualinvoke r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+    <node type="commit" unit="virtualinvoke r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.dialpad.DialerFragment: void onVisibilityChanged(boolean)&gt;">
+    <node type="getFragment" unit="$r7 = virtualinvoke r0.&lt;com.csipsimple.ui.dialpad.DialerFragment: android.support.v4.app.FragmentManager getFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="replaceFunction" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, $r3, &quot;autocomplete_dial_side_frag&quot;)"/>
+    <node type="commit" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: int commitAllowingStateLoss()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.hc.MainPrefs: void onBuildHeaders(java.util.List)&gt;">
+    <node type="LoadFunction" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.hc.MainPrefs: void loadHeadersFromResource(int,java.util.List)&gt;(2131034115, r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.AudioTester: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.AudioTester: void setContentView(int)&gt;(2130903071)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome$TabsAdapter: void clearDetails()&gt;">
+    <node type="getFragment" unit="$r3 = virtualinvoke $r2.&lt;com.csipsimple.ui.SipHome: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r4 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="replaceFunction" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, $r1, null)"/>
+    <node type="commit" unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: void onTabSelected(android.app.ActionBar$Tab,android.app.FragmentTransaction)&gt;">
+    <node type="getFragment" unit="$r9 = virtualinvoke $r8.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r5 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: com.actionbarsherlock.app.ActionBar$Tab setTabListener(com.actionbarsherlock.app.ActionBar$TabListener)&gt;">
+    <node unit="virtualinvoke $r2.&lt;android.app.ActionBar$Tab: android.app.ActionBar$Tab setTabListener(android.app.ActionBar$TabListener)&gt;($r3)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallActivity: void showDialpad(int)&gt;">
+    <node type="getFragment" unit="$r2 = virtualinvoke r0.&lt;com.csipsimple.ui.incall.InCallActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="dialogShow" unit="virtualinvoke $r1.&lt;com.csipsimple.ui.incall.DtmfDialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r2, &quot;dialog&quot;)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void &lt;init&gt;(com.csipsimple.ui.prefs.Codecs,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)&gt;">
+    <node type="getFragment" unit="$r5 = virtualinvoke $r2.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome$TabsAdapter: void onTabSelected(com.actionbarsherlock.app.ActionBar$Tab,android.support.v4.app.FragmentTransaction)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void clearDetails()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome$TabsAdapter: void &lt;init&gt;(com.csipsimple.ui.SipHome,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)&gt;">
+    <node type="getFragment" unit="$r5 = virtualinvoke $r2.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node unit="virtualinvoke $r4.&lt;android.support.v4.view.ViewPager: void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener)&gt;(r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;">
+    <node type="getFragment" unit="$r5 = virtualinvoke $r4.&lt;com.actionbarsherlock.app.SherlockFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="r2 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="commit" unit="virtualinvoke r2.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+    <node type="commit" unit="virtualinvoke r2.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void addTab(com.actionbarsherlock.app.ActionBar$Tab,boolean)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void addTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void addTab(com.actionbarsherlock.app.ActionBar$Tab,boolean)&gt;($r1, $z0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockFragmentActivity: void setContentView(int)&gt;">
+    <node type="setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,java.lang.String,java.lang.String)&gt;">
+    <node type="getFragment" unit="$r6 = virtualinvoke r0.&lt;com.csipsimple.ui.messages.ConversationsListFragment: android.support.v4.app.FragmentManager getFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r7 = virtualinvoke $r6.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="replaceFunction" unit="virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, r3, null)"/>
+    <node type="commit" unit="virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,com.csipsimple.ui.messages.ConverstationsAdapter$ConversationListItemViews)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,java.lang.String,java.lang.String)&gt;($i0, $r2, r3)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void onClickAddMessage()&gt;">
+    <node unit="virtualinvoke r0.&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,com.csipsimple.ui.messages.ConverstationsAdapter$ConversationListItemViews)&gt;($i0, null)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void access$0(com.csipsimple.ui.messages.ConversationsListFragment)&gt;">
+    <node unit="specialinvoke $r0.&lt;com.csipsimple.ui.messages.ConversationsListFragment: void onClickAddMessage()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.util.AttributeSet)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.view.View)&gt;($r1, null)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: void refreshWarningTabDisplay()&gt;">
+    <node type="AddTab" unit="virtualinvoke $r5.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r9, class &quot;Lcom/csipsimple/ui/warnings/WarningFragment;&quot;, 4)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: void access$0(com.csipsimple.ui.SipHome)&gt;">
+    <node unit="specialinvoke $r0.&lt;com.csipsimple.ui.SipHome: void refreshWarningTabDisplay()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome$1: void run()&gt;">
+    <node unit="staticinvoke &lt;com.csipsimple.ui.SipHome: void access$0(com.csipsimple.ui.SipHome)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void onListItemClick(android.widget.ListView,android.view.View,int,long)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,com.csipsimple.ui.messages.ConverstationsAdapter$ConversationListItemViews)&gt;($i0, r4)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void removeTabAt(int)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;($r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void removeTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void removeTabAt(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void setContentView(int)&gt;(2130903064)"/>
+    <node type="getFragment" unit="$r2 = virtualinvoke r0.&lt;com.csipsimple.ui.account.AccountsChooserListActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.PrefsFilters: void onCreate(android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void onCreate(android.os.Bundle)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockListActivity: void setContentView(int)&gt;">
+    <node type="setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockExpandableListActivity: void setContentView(int)&gt;">
+    <node type="setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.wizards.WizardChooser: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.wizards.WizardChooser: void setContentView(int)&gt;(2130903068)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment$2: boolean onMenuItemClick(com.actionbarsherlock.view.MenuItem)&gt;">
+    <node type="PassOut" unit="staticinvoke &lt;com.csipsimple.ui.messages.ConversationsListFragment: void access$0(com.csipsimple.ui.messages.ConversationsListFragment)&gt;($r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)&gt;">
+    <node unit="interfaceinvoke $r3.&lt;com.actionbarsherlock.view.MenuItem: com.actionbarsherlock.view.MenuItem setOnMenuItemClickListener(com.actionbarsherlock.view.MenuItem$OnMenuItemClickListener)&gt;($r5)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.AccountChooserButton: void onClick(android.view.View)&gt;">
+    <node unit="specialinvoke $r8.&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.view.View)&gt;($r9, r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.AccountChooserButton: void &lt;init&gt;(android.content.Context,android.util.AttributeSet)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.csipsimple.widgets.AccountChooserButton: void setOnClickListener(android.view.View$OnClickListener)&gt;(r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.AccountChooserButton: void &lt;init&gt;(android.content.Context,android.util.AttributeSet,int)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.widgets.AccountChooserButton: void &lt;init&gt;(android.content.Context,android.util.AttributeSet)&gt;($r1, $r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void cleanupTabs()&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;(null)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.dialpad.DialerFragment: void attachButtonListener(android.view.View,int,boolean)&gt;">
+    <node type="PassOut" unit="virtualinvoke r2.&lt;android.widget.ImageButton: void setOnLongClickListener(android.view.View$OnLongClickListener)&gt;(r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.dialpad.DialerFragment: void initButtons(android.view.View)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.ui.dialpad.DialerFragment: void attachButtonListener(android.view.View,int,boolean)&gt;($r1, i0, 1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.dialpad.DialerFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.ui.dialpad.DialerFragment: void initButtons(android.view.View)&gt;($r4)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.filters.EditFilter: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.filters.EditFilter: void setContentView(int)&gt;(2130903088)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockActivity: void setContentView(int)&gt;">
+    <node type="setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.AccountChooserButton: void &lt;init&gt;(android.content.Context)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.widgets.AccountChooserButton: void &lt;init&gt;(android.content.Context,android.util.AttributeSet)&gt;($r1, null)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogListFragment: void viewDetails(int,long[])&gt;">
+    <node type="getFragment" unit="$r7 = virtualinvoke r0.&lt;com.csipsimple.ui.calllog.CallLogListFragment: android.support.v4.app.FragmentManager getFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="replaceFunction" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)&gt;(2131099882, r3, null)"/>
+    <node type="commit" unit="virtualinvoke $r8.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogListFragment$2$1: void run()&gt;">
+    <node unit="virtualinvoke $r2.&lt;com.csipsimple.ui.calllog.CallLogListFragment: void viewDetails(int,long[])&gt;($i0, $r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogListFragment$2: void run()&gt;">
+    <node unit="virtualinvoke $r4.&lt;android.support.v4.app.FragmentActivity: void runOnUiThread(java.lang.Runnable)&gt;($r5)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogListFragment: void onVisibilityChanged(boolean)&gt;">
+    <node unit="virtualinvoke r1.&lt;java.lang.Thread: void start()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment$5$1: void run()&gt;">
+    <node unit="virtualinvoke $r3.&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,java.lang.String,java.lang.String)&gt;($i0, $r1, $r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment$5: void run()&gt;">
+    <node unit="virtualinvoke $r11.&lt;android.support.v4.app.FragmentActivity: void runOnUiThread(java.lang.Runnable)&gt;($r12)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void onVisibilityChanged(boolean)&gt;">
+    <node unit="virtualinvoke r1.&lt;java.lang.Thread: void start()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: void onAttachFragment(android.support.v4.app.Fragment)&gt;">
+    <node unit="virtualinvoke r8.&lt;com.csipsimple.ui.messages.ConversationsListFragment: void onVisibilityChanged(boolean)&gt;(1)"/>
+    <node unit="virtualinvoke r5.&lt;com.csipsimple.ui.dialpad.DialerFragment: void onVisibilityChanged(boolean)&gt;(1)"/>
+    <node unit="virtualinvoke r7.&lt;com.csipsimple.ui.calllog.CallLogListFragment: void onVisibilityChanged(boolean)&gt;(1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.PickupSipUri: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.PickupSipUri: void setContentView(int)&gt;(2130903112)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogListFragment: void fetchCalls()&gt;">
+    <node type="PassOut" unit="virtualinvoke $r1.&lt;android.support.v4.app.LoaderManager: android.support.v4.content.Loader restartLoader(int,android.os.Bundle,android.support.v4.app.LoaderManager$LoaderCallbacks)&gt;(0, null, r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.app.SherlockPreferenceActivity: void setContentView(int)&gt;">
+    <node type="setContentView" unit="virtualinvoke $r1.&lt;com.actionbarsherlock.ActionBarSherlock: void setContentView(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.wizards.BasePrefsWizard: void beforeBuildPrefs()&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.wizards.BasePrefsWizard: void setContentView(int)&gt;(2130903132)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl$TabImpl: void select()&gt;">
+    <node unit="virtualinvoke $r1.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;(r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: void onActivityCreated(android.os.Bundle)&gt;">
+    <node type="PassOut" unit="virtualinvoke $r2.&lt;android.widget.ListView: void setOnCreateContextMenuListener(android.view.View$OnCreateContextMenuListener)&gt;(r0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)&gt;">
+    <node type="getFragment" unit="$r12 = virtualinvoke r0.&lt;com.csipsimple.ui.SipHome: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="dialogShow" unit="virtualinvoke $r11.&lt;android.support.v4.app.DialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r12, &quot;dialog&quot;)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void addTab(com.actionbarsherlock.app.ActionBar$Tab,int,boolean)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void addTab(com.actionbarsherlock.app.ActionBar$Tab,int)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void addTab(com.actionbarsherlock.app.ActionBar$Tab,int,boolean)&gt;($r1, $i0, $z0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.AccountWidgetConfigure: void onCreate(android.os.Bundle)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.ui.account.AccountsChooserListActivity: void onCreate(android.os.Bundle)&gt;($r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void setSelectedNavigationItem(int)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;($r5)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.filters.AccountFilters: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.filters.AccountFilters: void setContentView(int)&gt;(2130903061)"/>
+    <node type="getFragment" unit="$r3 = virtualinvoke r0.&lt;com.csipsimple.ui.filters.AccountFilters: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallActivity: void onTrigger(int,com.csipsimple.api.SipCallSession)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.ui.incall.InCallActivity: void showDialpad(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.MessageActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="getFragment" unit="$r4 = virtualinvoke r0.&lt;com.csipsimple.ui.messages.MessageActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r5 = virtualinvoke $r4.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="addFunction" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(16908290, r2)"/>
+    <node type="commit" unit="virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.help.Help: void onItemClick(android.widget.AdapterView,android.view.View,int,long)&gt;">
+    <node type="getFragment" unit="$r14 = virtualinvoke r0.&lt;com.csipsimple.ui.help.Help: android.support.v4.app.FragmentManager getFragmentManager()&gt;()"/>
+    <node type="dialogShow" unit="virtualinvoke $r13.&lt;com.actionbarsherlock.app.SherlockDialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r14, &quot;faq&quot;)"/>
+    <node type="getFragment" unit="$r14 = virtualinvoke r0.&lt;com.csipsimple.ui.help.Help: android.support.v4.app.FragmentManager getFragmentManager()&gt;()"/>
+    <node type="dialogShow" unit="virtualinvoke $r15.&lt;com.actionbarsherlock.app.SherlockDialogFragment: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r14, &quot;issues&quot;)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.outgoingcall.OutgoingCallChooser: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.outgoingcall.OutgoingCallChooser: void setContentView(int)&gt;(2130903111)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment$1: void onClick(android.view.View)&gt;">
+    <node type="PassOut" unit="staticinvoke &lt;com.csipsimple.ui.messages.ConversationsListFragment: void access$0(com.csipsimple.ui.messages.ConversationsListFragment)&gt;($r2)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.messages.ConversationsListFragment: boolean onContextItemSelected(android.view.MenuItem)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.csipsimple.ui.messages.ConversationsListFragment: void viewDetails(int,com.csipsimple.ui.messages.ConverstationsAdapter$ConversationListItemViews)&gt;($i0, r6)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.Codecs: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.Codecs: void setContentView(int)&gt;(2130903078)"/>
+    <node unit="specialinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void &lt;init&gt;(com.csipsimple.ui.prefs.Codecs,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)&gt;(r0, r0, $r3, $r5)"/>
+    <node type="AddTab" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r8, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)"/>
+    <node type="AddTab" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)"/>
+    <node type="AddTab" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r8, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)"/>
+    <node type="AddTab" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)"/>
+    <node type="AddTab" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)"/>
+    <node type="AddTab" unit="virtualinvoke r2.&lt;com.csipsimple.ui.prefs.Codecs$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class)&gt;($r7, class &quot;Lcom/csipsimple/ui/prefs/CodecsFragment;&quot;)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.wizards.impl.MondotalkCreate: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.wizards.impl.MondotalkCreate: void setContentView(int)&gt;(2130903123)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void removeAllTabs()&gt;">
+    <node unit="specialinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void cleanupTabs()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.prefs.PrefsFast: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.prefs.PrefsFast: void setContentView(int)&gt;(2130903091)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void setNavigationMode(int)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void selectTab(com.actionbarsherlock.app.ActionBar$Tab)&gt;(null)"/>
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void setSelectedNavigationItem(int)&gt;($i1)"/>
+    <node unit="virtualinvoke r0.&lt;com.actionbarsherlock.internal.app.ActionBarImpl: void setSelectedNavigationItem(int)&gt;($i1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome$TabsAdapter: void onPageScrollStateChanged(int)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void clearDetails()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.account.AccountsEditList: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.account.AccountsEditList: void setContentView(int)&gt;(2130903067)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.calllog.CallLogDetailsActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="getFragment" unit="$r4 = virtualinvoke r0.&lt;com.csipsimple.ui.calllog.CallLogDetailsActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()"/>
+    <node type="beginTransaction" unit="$r5 = virtualinvoke $r4.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()"/>
+    <node type="addFunction" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(16908290, r2)"/>
+    <node type="commit" unit="virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.util.AttributeSet,int)&gt;">
+    <node unit="specialinvoke r0.&lt;com.csipsimple.widgets.HorizontalQuickActionWindow: void &lt;init&gt;(android.content.Context,android.view.View)&gt;($r1, null)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.actionbarsherlock.internal.ActionBarSherlockNative: void setContentView(int)&gt;">
+    <node type="setContentView" unit="virtualinvoke $r1.&lt;android.view.Window: void setContentView(int)&gt;($i0)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallActivity: void onLeftRightChoice(int)&gt;">
+    <node unit="virtualinvoke r0.&lt;com.csipsimple.ui.incall.InCallActivity: void onTrigger(int,com.csipsimple.api.SipCallSession)&gt;(1, $r1)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.incall.InCallActivity: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.incall.InCallActivity: void setContentView(int)&gt;(2130903103)"/>
+  </methodSummary>
+  <methodSummary source="&lt;com.csipsimple.ui.SipHome: void onCreate(android.os.Bundle)&gt;">
+    <node type="setContentView" unit="virtualinvoke r0.&lt;com.csipsimple.ui.SipHome: void setContentView(int)&gt;(2130903134)"/>
+    <node unit="specialinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void &lt;init&gt;(com.csipsimple.ui.SipHome,android.support.v4.app.FragmentActivity,com.actionbarsherlock.app.ActionBar,android.support.v4.view.ViewPager)&gt;(r0, r0, $r3, $r14)"/>
+    <node type="AddTab" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r4, class &quot;Lcom/csipsimple/ui/dialpad/DialerFragment;&quot;, 0)"/>
+    <node type="AddTab" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r5, class &quot;Lcom/csipsimple/ui/calllog/CallLogListFragment;&quot;, 1)"/>
+    <node type="AddTab" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;($r6, class &quot;Lcom/csipsimple/ui/favorites/FavListFragment;&quot;, 2)"/>
+    <node type="AddTab" unit="virtualinvoke $r15.&lt;com.csipsimple.ui.SipHome$TabsAdapter: void addTab(com.actionbarsherlock.app.ActionBar$Tab,java.lang.Class,int)&gt;(r7, class &quot;Lcom/csipsimple/ui/messages/ConversationsListFragment;&quot;, 3)"/>
+  </methodSummary>
+</root>

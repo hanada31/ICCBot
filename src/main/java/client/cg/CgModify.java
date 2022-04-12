@@ -30,7 +30,7 @@ public class CgModify extends Analyzer {
 
 	@Override
 	public void analyze() {
-		boolean lightMode = true;
+		boolean lightMode = false;
 		if(lightMode){
 			addTopoForSupplySingle();
 		}else{

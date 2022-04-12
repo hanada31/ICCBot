@@ -78,6 +78,10 @@ public class SetAttributeHandler extends UnitHandler {
 			addValue2GivenMap(0, this.unit, DataHandler.getDataHandler("setAction"));
 			addValue2GivenMap(1, this.unit, DataHandler.getDataHandler("setData"));
 			addValue2GivenMap(3, this.unit, DataHandler.getDataHandler("setComponent"));
+		} else if (unit.toString().contains(
+				"void <init>(java.lang.String,android.net.Uri)")) {
+			addValue2GivenMap(0, this.unit, DataHandler.getDataHandler("setAction"));
+			addValue2GivenMap(1, this.unit, DataHandler.getDataHandler("setData"));
 		} else if (unit.toString().contains("setClassName(android.content.Context,java.lang.String)")) {
 			addValue2GivenMap(1, this.unit, DataHandler.getDataHandler("setComponent"));
 		} else if (unit.toString().contains("setClassName(java.lang.String,java.lang.String)")) {

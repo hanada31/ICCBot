@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void playAgain()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void playAgain()"/>
+      <node type="getFragment" method="MenuHomeScreenActivity playAgain" unit="$r2 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="111010703" predsStr="1020132601" succsStr="538246282" context=""/>
+        <baseNodePointTo value="111010703" context=""/>
+        <nodeSetPointToMe value="111010703," context=""/>
+      </node>
+      <node type="getFragment" method="MenuHomeScreenActivity playAgain" unit="$r2 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="538246282" predsStr="111010703" succsStr="174978024" context=""/>
+        <baseNodePointTo value="538246282" context=""/>
+        <nodeSetPointToMe value="538246282,174978024,1494547560,813497694,923510647," context=""/>
+      </node>
+      <node type="beginTransaction" method="MenuHomeScreenActivity playAgain" unit="$r3 = virtualinvoke $r2.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="174978024" predsStr="538246282" succsStr="1494547560" context=""/>
+        <baseNodePointTo value="538246282" context=""/>
+      </node>
+      <node type="replaceFunction" method="MenuHomeScreenActivity playAgain" unit="$r3 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131558483, $r1)">
+        <nodeInfo nodeId="1494547560" predsStr="174978024" succsStr="813497694" context=""/>
+        <baseNodePointTo value="538246282" context=""/>
+      </node>
+      <node type="addToBackStack" method="MenuHomeScreenActivity playAgain" unit="$r3 = virtualinvoke $r3.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;tag&quot;)">
+        <nodeInfo nodeId="813497694" predsStr="1494547560" succsStr="923510647" context=""/>
+        <baseNodePointTo value="538246282" context=""/>
+      </node>
+      <node type="commit" method="MenuHomeScreenActivity playAgain" unit="virtualinvoke $r3.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="923510647" predsStr="813497694" succsStr="" context=""/>
+        <baseNodePointTo value="538246282" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onStartGameRequested(boolean)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onStartGameRequested(boolean)"/>
+      <node type="getFragment" method="MenuHomeScreenActivity onStartGameRequested" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="455185083" predsStr="276343006" succsStr="" context=""/>
+        <baseNodePointTo value="455185083" context=""/>
+        <nodeSetPointToMe value="455185083," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void displyHomeScreen()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void displyHomeScreen()"/>
+      <node type="getFragment" method="MenuHomeScreenActivity displyHomeScreen" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="695300183" predsStr="2027846324" succsStr="" context=""/>
+        <baseNodePointTo value="695300183" context=""/>
+        <nodeSetPointToMe value="695300183," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.internal.zzra: com.google.android.gms.internal.zzra zza(android.support.v4.app.FragmentActivity)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="com.google.android.gms.internal.zzra zza(android.support.v4.app.FragmentActivity)"/>
+      <node type="getFragment" method="zzra zza" unit="$r5 = virtualinvoke $r0.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="871402067" predsStr="475548233" succsStr="1468376518, 591061654" context=""/>
+        <baseNodePointTo value="871402067" context=""/>
+        <nodeSetPointToMe value="871402067,659837790,591061654," context=""/>
+      </node>
+      <node type="PassOut" method="zzra zza" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)">
+        <nodeInfo nodeId="591061654" predsStr="871402067" succsStr="" context=""/>
+        <baseNodePointTo value="871402067" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="com.google.android.gms.internal.zzra zza(android.support.v4.app.FragmentActivity)"/>
+      <node type="getFragment" method="zzra zza" unit="$r5 = virtualinvoke $r0.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="871402067" predsStr="475548233" succsStr="1468376518, 591061654" context=""/>
+        <baseNodePointTo value="871402067" context=""/>
+        <nodeSetPointToMe value="871402067,659837790,591061654," context=""/>
+      </node>
+      <node type="getFragment" method="zzra zza" unit="$r5 = virtualinvoke $r0.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1468376518" predsStr="871402067" succsStr="156350333" context=""/>
+        <baseNodePointTo value="1468376518" context=""/>
+        <nodeSetPointToMe value="1468376518,156350333,1787878334,1560639149," context=""/>
+      </node>
+      <node type="beginTransaction" method="zzra zza" unit="$r7 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="156350333" predsStr="1468376518" succsStr="1787878334" context=""/>
+        <baseNodePointTo value="1468376518" context=""/>
+      </node>
+      <node type="addFunction" method="zzra zza" unit="$r7 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(android.support.v4.app.Fragment,java.lang.String)&gt;($r4, &quot;SupportLifecycleFragmentImpl&quot;)">
+        <nodeInfo nodeId="1787878334" predsStr="156350333" succsStr="1560639149" context=""/>
+        <baseNodePointTo value="1468376518" context=""/>
+      </node>
+      <node type="commit" method="zzra zza" unit="virtualinvoke $r7.&lt;android.support.v4.app.FragmentTransaction: int commitAllowingStateLoss()&gt;()">
+        <nodeInfo nodeId="1560639149" predsStr="1787878334" succsStr="659837790" context=""/>
+        <baseNodePointTo value="1468376518" context=""/>
+      </node>
+      <node type="PassOut" method="zzra zza" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)">
+        <nodeInfo nodeId="659837790" predsStr="1560639149" succsStr="" context=""/>
+        <baseNodePointTo value="871402067" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onBackPressed()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onBackPressed()"/>
+      <node type="getFragment" method="MenuHomeScreenActivity onBackPressed" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="817194602" predsStr="1432410864" succsStr="1888171452" context=""/>
+        <baseNodePointTo value="817194602" context=""/>
+        <nodeSetPointToMe value="817194602," context=""/>
+      </node>
+      <node type="getFragment" method="MenuHomeScreenActivity onBackPressed" unit="$r1 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1888171452" predsStr="817194602" succsStr="1475884052" context=""/>
+        <baseNodePointTo value="1888171452" context=""/>
+        <nodeSetPointToMe value="1888171452," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.SingleFragmentActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SingleFragmentActivity onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.SingleFragmentActivity: void setContentView(int)&gt;(2130968604)">
+        <nodeInfo nodeId="26809606" predsStr="2077371288" succsStr="956692997" context=""/>
+        <baseNodePointTo value="26809606" context=""/>
+        <nodeSetPointToMe value="26809606," context=""/>
+      </node>
+      <node type="getFragment" method="SingleFragmentActivity onCreate" unit="$r7 = virtualinvoke r0.&lt;com.malib.dhbtcepte.SingleFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="956692997" predsStr="26809606" succsStr="750499181, 993425048" context=""/>
+        <baseNodePointTo value="956692997" context=""/>
+        <nodeSetPointToMe value="956692997,993425048,1917740509,1686989891," context=""/>
+      </node>
+      <node type="beginTransaction" method="SingleFragmentActivity onCreate" unit="$r9 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="993425048" predsStr="956692997" succsStr="1917740509" context=""/>
+        <baseNodePointTo value="956692997" context=""/>
+      </node>
+      <node type="addFunction" method="SingleFragmentActivity onCreate" unit="$r9 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)&gt;(2131558482, $r8)">
+        <nodeInfo nodeId="1917740509" predsStr="993425048" succsStr="1686989891" context=""/>
+        <baseNodePointTo value="956692997" context=""/>
+      </node>
+      <node type="commit" method="SingleFragmentActivity onCreate" unit="virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="1686989891" predsStr="1917740509" succsStr="769281414" context=""/>
+        <baseNodePointTo value="956692997" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="SingleFragmentActivity onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.SingleFragmentActivity: void setContentView(int)&gt;(2130968604)">
+        <nodeInfo nodeId="26809606" predsStr="2077371288" succsStr="956692997" context=""/>
+        <baseNodePointTo value="26809606" context=""/>
+        <nodeSetPointToMe value="26809606," context=""/>
+      </node>
+      <node type="getFragment" method="SingleFragmentActivity onCreate" unit="$r7 = virtualinvoke r0.&lt;com.malib.dhbtcepte.SingleFragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="956692997" predsStr="26809606" succsStr="750499181, 993425048" context=""/>
+        <baseNodePointTo value="956692997" context=""/>
+        <nodeSetPointToMe value="956692997,993425048,1917740509,1686989891," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.DersNot: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="DersNot onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.DersNot: void setContentView(int)&gt;(2130968602)">
+        <nodeInfo nodeId="810329144" predsStr="1726089708" succsStr="" context=""/>
+        <baseNodePointTo value="810329144" context=""/>
+        <nodeSetPointToMe value="810329144," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="com.google.android.gms.internal.zzqq zzt(android.app.Activity), &lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;"/>
+      <node type="ReceiveFromRetValue" method="zzqq zzt" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1728783211" predsStr="857012045" succsStr="1834473346, 886542687" context=""/>
+        <baseNodePointTo value="1728783211" context=""/>
+        <nodeSetPointToMe value="1728783211,394515954,577965248,886542687," context=""/>
+      </node>
+      <node type="CreateMethod" method="Activity getFragmentManager" unit="retFragMan = new android.app.FragmentManager">
+        <nodeInfo nodeId="394515954" predsStr="1258446514" succsStr="" context="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1728783211"/>
+        <baseNodePointTo value="394515954" context="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1728783211"/>
+      </node>
+      <node type="ReceiveFromRetValue" method="zzqq zzt" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1834473346" predsStr="1728783211" succsStr="2037251066" context=""/>
+        <baseNodePointTo value="1834473346" context=""/>
+        <nodeSetPointToMe value="1834473346,394515954,2037251066,1332042816,1909141180," context=""/>
+      </node>
+      <node type="CreateMethod" method="Activity getFragmentManager" unit="retFragMan = new android.app.FragmentManager">
+        <nodeInfo nodeId="394515954" predsStr="1258446514" succsStr="" context="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1834473346"/>
+        <baseNodePointTo value="394515954" context="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1834473346"/>
+      </node>
+      <node type="beginTransaction" method="zzqq zzt" unit="$r7 = virtualinvoke $r5.&lt;android.app.FragmentManager: android.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="2037251066" predsStr="1834473346" succsStr="1332042816" context=""/>
+        <baseNodePointTo value="1834473346" context=""/>
+      </node>
+      <node type="addFunction" method="zzqq zzt" unit="$r7 = virtualinvoke $r7.&lt;android.app.FragmentTransaction: android.app.FragmentTransaction add(android.app.Fragment,java.lang.String)&gt;($r4, &quot;LifecycleFragmentImpl&quot;)">
+        <nodeInfo nodeId="1332042816" predsStr="2037251066" succsStr="1909141180" context=""/>
+        <baseNodePointTo value="1834473346" context=""/>
+      </node>
+      <node type="commit" method="zzqq zzt" unit="virtualinvoke $r7.&lt;android.app.FragmentTransaction: int commitAllowingStateLoss()&gt;()">
+        <nodeInfo nodeId="1909141180" predsStr="1332042816" succsStr="577965248" context=""/>
+        <baseNodePointTo value="1834473346" context=""/>
+      </node>
+      <node type="PassOut" method="zzqq zzt" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)">
+        <nodeInfo nodeId="577965248" predsStr="1909141180" succsStr="" context=""/>
+        <baseNodePointTo value="1728783211" context=""/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="com.google.android.gms.internal.zzqq zzt(android.app.Activity), &lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;"/>
+      <node type="ReceiveFromRetValue" method="zzqq zzt" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1728783211" predsStr="857012045" succsStr="1834473346, 886542687" context=""/>
+        <baseNodePointTo value="1728783211" context=""/>
+        <nodeSetPointToMe value="1728783211,394515954,577965248,886542687," context=""/>
+      </node>
+      <node type="CreateMethod" method="Activity getFragmentManager" unit="retFragMan = new android.app.FragmentManager">
+        <nodeInfo nodeId="394515954" predsStr="1258446514" succsStr="" context="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1728783211"/>
+        <baseNodePointTo value="394515954" context="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1728783211"/>
+      </node>
+      <node type="PassOut" method="zzqq zzt" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)">
+        <nodeInfo nodeId="886542687" predsStr="1728783211" succsStr="" context=""/>
+        <baseNodePointTo value="1728783211" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.google.android.gms.internal.zzqo: com.google.android.gms.internal.zzqp zzc(com.google.android.gms.internal.zzqn)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="com.google.android.gms.internal.zzqp zzc(com.google.android.gms.internal.zzqn), &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;"/>
+      <node method="zzqo zzc" unit="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)">
+        <nodeInfo nodeId="1298507779" predsStr="1970638007" succsStr="" context=""/>
+        <baseNodePointTo value="1298507779" context=""/>
+        <nodeSetPointToMe value="1298507779,1728783211,1834473346,2037251066,1332042816,1909141180,577965248,886542687," context=""/>
+      </node>
+      <node type="ReceiveFromRetValue" method="zzqq zzt" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1728783211" predsStr="857012045" succsStr="1834473346, 886542687" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1728783211" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+      <node type="CreateMethod" method="Activity getFragmentManager" unit="retFragMan = new android.app.FragmentManager">
+        <nodeInfo nodeId="394515954" predsStr="1258446514" succsStr="" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779, $r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1728783211"/>
+      </node>
+      <node type="PassOut" method="zzqq zzt" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)">
+        <nodeInfo nodeId="886542687" predsStr="1728783211" succsStr="" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1728783211" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+    </pathSummary>
+    <pathSummary>
+      <method/>
+      <methodtrace value="com.google.android.gms.internal.zzqp zzc(com.google.android.gms.internal.zzqn), &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;"/>
+      <node method="zzqo zzc" unit="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)">
+        <nodeInfo nodeId="1298507779" predsStr="1970638007" succsStr="" context=""/>
+        <baseNodePointTo value="1298507779" context=""/>
+        <nodeSetPointToMe value="1298507779,1728783211,1834473346,2037251066,1332042816,1909141180,577965248,886542687," context=""/>
+      </node>
+      <node type="ReceiveFromRetValue" method="zzqq zzt" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1728783211" predsStr="857012045" succsStr="1834473346, 886542687" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1728783211" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+      <node type="CreateMethod" method="Activity getFragmentManager" unit="retFragMan = new android.app.FragmentManager">
+        <nodeInfo nodeId="394515954" predsStr="1258446514" succsStr="" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779, $r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1728783211"/>
+      </node>
+      <node type="ReceiveFromRetValue" method="zzqq zzt" unit="$r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()">
+        <nodeInfo nodeId="1834473346" predsStr="1728783211" succsStr="2037251066" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1834473346" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+      <node type="CreateMethod" method="Activity getFragmentManager" unit="retFragMan = new android.app.FragmentManager">
+        <nodeInfo nodeId="394515954" predsStr="1258446514" succsStr="" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779, $r5 = virtualinvoke $r0.&lt;android.app.Activity: android.app.FragmentManager getFragmentManager()&gt;()1834473346"/>
+      </node>
+      <node type="beginTransaction" method="zzqq zzt" unit="$r7 = virtualinvoke $r5.&lt;android.app.FragmentManager: android.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="2037251066" predsStr="1834473346" succsStr="1332042816" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1834473346" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+      <node type="addFunction" method="zzqq zzt" unit="$r7 = virtualinvoke $r7.&lt;android.app.FragmentTransaction: android.app.FragmentTransaction add(android.app.Fragment,java.lang.String)&gt;($r4, &quot;LifecycleFragmentImpl&quot;)">
+        <nodeInfo nodeId="1332042816" predsStr="2037251066" succsStr="1909141180" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1834473346" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+      <node type="commit" method="zzqq zzt" unit="virtualinvoke $r7.&lt;android.app.FragmentTransaction: int commitAllowingStateLoss()&gt;()">
+        <nodeInfo nodeId="1909141180" predsStr="1332042816" succsStr="577965248" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1834473346" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+      <node type="PassOut" method="zzqq zzt" unit="specialinvoke $r3.&lt;java.lang.ref.WeakReference: void &lt;init&gt;(java.lang.Object)&gt;($r4)">
+        <nodeInfo nodeId="577965248" predsStr="1909141180" succsStr="" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+        <baseNodePointTo value="1728783211" context="$r4 = staticinvoke &lt;com.google.android.gms.internal.zzqq: com.google.android.gms.internal.zzqq zzt(android.app.Activity)&gt;($r3)1298507779"/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.QuizPlayActivity: void nextQuizQuestion()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void nextQuizQuestion()"/>
+      <node type="getFragment" method="QuizPlayActivity nextQuizQuestion" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="2077526673" predsStr="1528296070" succsStr="203506141" context=""/>
+        <baseNodePointTo value="2077526673" context=""/>
+        <nodeSetPointToMe value="2077526673," context=""/>
+      </node>
+      <node type="getFragment" method="QuizPlayActivity nextQuizQuestion" unit="$r8 = virtualinvoke $r7.&lt;android.support.v4.app.FragmentActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="203506141" predsStr="2077526673" succsStr="1052969353" context=""/>
+        <baseNodePointTo value="203506141" context=""/>
+        <nodeSetPointToMe value="203506141,1052969353,1520721685,92002002,55726089," context=""/>
+      </node>
+      <node type="beginTransaction" method="QuizPlayActivity nextQuizQuestion" unit="$r9 = virtualinvoke $r8.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="1052969353" predsStr="203506141" succsStr="1520721685" context=""/>
+        <baseNodePointTo value="203506141" context=""/>
+      </node>
+      <node type="replaceFunction" method="QuizPlayActivity nextQuizQuestion" unit="$r9 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131558483, $r10)">
+        <nodeInfo nodeId="1520721685" predsStr="1052969353" succsStr="92002002" context=""/>
+        <baseNodePointTo value="203506141" context=""/>
+      </node>
+      <node type="addToBackStack" method="QuizPlayActivity nextQuizQuestion" unit="$r9 = virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;tag&quot;)">
+        <nodeInfo nodeId="92002002" predsStr="1520721685" succsStr="55726089" context=""/>
+        <baseNodePointTo value="203506141" context=""/>
+      </node>
+      <node type="commit" method="QuizPlayActivity nextQuizQuestion" unit="virtualinvoke $r9.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="55726089" predsStr="92002002" succsStr="" context=""/>
+        <baseNodePointTo value="203506141" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onClick(android.view.View)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onClick(android.view.View)"/>
+      <node type="getFragment" method="MenuHomeScreenActivity onClick" unit="$r4 = virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1085015782" predsStr="1022273405" succsStr="72019482" context=""/>
+        <baseNodePointTo value="1085015782" context=""/>
+        <nodeSetPointToMe value="1085015782,72019482,834798063,1007703464,481030138," context=""/>
+      </node>
+      <node type="beginTransaction" method="MenuHomeScreenActivity onClick" unit="$r5 = virtualinvoke $r4.&lt;android.support.v4.app.FragmentManager: android.support.v4.app.FragmentTransaction beginTransaction()&gt;()">
+        <nodeInfo nodeId="72019482" predsStr="1085015782" succsStr="834798063" context=""/>
+        <baseNodePointTo value="1085015782" context=""/>
+      </node>
+      <node type="replaceFunction" method="MenuHomeScreenActivity onClick" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment)&gt;(2131558483, $r6)">
+        <nodeInfo nodeId="834798063" predsStr="72019482" succsStr="1007703464" context=""/>
+        <baseNodePointTo value="1085015782" context=""/>
+      </node>
+      <node type="addToBackStack" method="MenuHomeScreenActivity onClick" unit="$r5 = virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)&gt;(&quot;tag&quot;)">
+        <nodeInfo nodeId="1007703464" predsStr="834798063" succsStr="481030138" context=""/>
+        <baseNodePointTo value="1085015782" context=""/>
+      </node>
+      <node type="commit" method="MenuHomeScreenActivity onClick" unit="virtualinvoke $r5.&lt;android.support.v4.app.FragmentTransaction: int commit()&gt;()">
+        <nodeInfo nodeId="481030138" predsStr="1007703464" succsStr="" context=""/>
+        <baseNodePointTo value="1085015782" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: void onResume()&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onResume()"/>
+      <node type="getFragment" method="TrGenelSinavAnasayfa onResume" unit="$r3 = virtualinvoke r0.&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1738540220" predsStr="1515843245" succsStr="1737606325" context=""/>
+        <baseNodePointTo value="1738540220" context=""/>
+        <nodeSetPointToMe value="1738540220,1737606325," context=""/>
+      </node>
+      <node type="dialogShow" method="TrGenelSinavAnasayfa onResume" unit="virtualinvoke $r2.&lt;com.malib.dhbtcepte.DialogCool: void show(android.support.v4.app.FragmentManager,java.lang.String)&gt;($r3, &quot;missiles&quot;)">
+        <nodeInfo nodeId="1737606325" predsStr="1738540220" succsStr="1807415899" context=""/>
+        <baseNodePointTo value="1738540220" context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.CrimePagerActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="getFragment" method="CrimePagerActivity onCreate" unit="$r6 = virtualinvoke r0.&lt;com.malib.dhbtcepte.CrimePagerActivity: android.support.v4.app.FragmentManager getSupportFragmentManager()&gt;()">
+        <nodeInfo nodeId="1702989573" predsStr="224873139" succsStr="484131010" context=""/>
+        <baseNodePointTo value="1702989573" context=""/>
+        <nodeSetPointToMe value="1702989573," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Son: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Son onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Son: void setContentView(int)&gt;(2130968610)">
+        <nodeInfo nodeId="2025685083" predsStr="1554920490" succsStr="1987569140" context=""/>
+        <baseNodePointTo value="2025685083" context=""/>
+        <nodeSetPointToMe value="2025685083," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.sinav: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="sinav onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.sinav: void setContentView(int)&gt;(2130968609)">
+        <nodeInfo nodeId="859757658" predsStr="2057362012" succsStr="1752881131" context=""/>
+        <baseNodePointTo value="859757658" context=""/>
+        <nodeSetPointToMe value="859757658," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Student: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Student onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Student: void setContentView(int)&gt;(2130968612)">
+        <nodeInfo nodeId="1543020988" predsStr="843921948" succsStr="934564423" context=""/>
+        <baseNodePointTo value="1543020988" context=""/>
+        <nodeSetPointToMe value="1543020988," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Kategori: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Kategori onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Kategori: void setContentView(int)&gt;(2130968605)">
+        <nodeInfo nodeId="1862454456" predsStr="1023505094" succsStr="" context=""/>
+        <baseNodePointTo value="1862454456" context=""/>
+        <nodeSetPointToMe value="1862454456," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Soruex: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Soruex onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Soruex: void setContentView(int)&gt;(2130968611)">
+        <nodeInfo nodeId="2128500111" predsStr="75364598" succsStr="" context=""/>
+        <baseNodePointTo value="2128500111" context=""/>
+        <nodeSetPointToMe value="2128500111," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.LearnActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="LearnActivity onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.LearnActivity: void setContentView(int)&gt;(2130968606)">
+        <nodeInfo nodeId="721970786" predsStr="1243652058" succsStr="" context=""/>
+        <baseNodePointTo value="721970786" context=""/>
+        <nodeSetPointToMe value="721970786," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.EmailActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="EmailActivity onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.EmailActivity: void setContentView(int)&gt;(2130968603)">
+        <nodeInfo nodeId="1882277594" predsStr="535708281" succsStr="" context=""/>
+        <baseNodePointTo value="1882277594" context=""/>
+        <nodeSetPointToMe value="1882277594," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.Teacher: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="Teacher onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.Teacher: void setContentView(int)&gt;(2130968613)">
+        <nodeInfo nodeId="602267554" predsStr="604044602" succsStr="1069625187" context=""/>
+        <baseNodePointTo value="602267554" context=""/>
+        <nodeSetPointToMe value="602267554," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="TrGenelSinavAnasayfa onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.TrGenelSinavAnasayfa: void setContentView(int)&gt;(2130968659)">
+        <nodeInfo nodeId="1979136460" predsStr="568660626" succsStr="" context=""/>
+        <baseNodePointTo value="1979136460" context=""/>
+        <nodeSetPointToMe value="1979136460," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MainActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MainActivity onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.MainActivity: void setContentView(int)&gt;(2130968607)">
+        <nodeInfo nodeId="702181316" predsStr="1423668766" succsStr="158036580" context=""/>
+        <baseNodePointTo value="702181316" context=""/>
+        <nodeSetPointToMe value="702181316," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+  <methodSummary source="&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void onCreate(android.os.Bundle)&gt;">
+    <pathSummary>
+      <method/>
+      <methodtrace value="void onCreate(android.os.Bundle)"/>
+      <node type="setContentView" method="MenuHomeScreenActivity onCreate" unit="virtualinvoke r0.&lt;com.malib.dhbtcepte.MenuHomeScreenActivity: void setContentView(int)&gt;(2130968608)">
+        <nodeInfo nodeId="1578178443" predsStr="2128767111" succsStr="2082097928" context=""/>
+        <baseNodePointTo value="1578178443" context=""/>
+        <nodeSetPointToMe value="1578178443," context=""/>
+      </node>
+    </pathSummary>
+  </methodSummary>
+</root>

@@ -1,0 +1,26 @@
+
+com.malib.dhbtcepte.Student -> com.malib.dhbtcepte.sinav
+
+com.malib.dhbtcepte.Teacher -> com.malib.dhbtcepte.Student
+
+com.malib.dhbtcepte.MainActivity -> com.malib.dhbtcepte.Teacher
+com.malib.dhbtcepte.MainActivity -> com.malib.dhbtcepte.EmailActivity
+com.malib.dhbtcepte.MainActivity -> com.malib.dhbtcepte.MenuHomeScreenActivity
+com.malib.dhbtcepte.MainActivity -> com.malib.dhbtcepte.DersNot
+com.malib.dhbtcepte.MainActivity -> com.malib.dhbtcepte.LearnActivity
+
+com.malib.dhbtcepte.Son -> com.malib.dhbtcepte.Kategori
+com.malib.dhbtcepte.Son -> com.malib.dhbtcepte.MenuHomeScreenActivity
+
+com.malib.dhbtcepte.Kategori -> com.malib.dhbtcepte.MenuHomeScreenActivity
+
+com.malib.dhbtcepte.Soruex -> com.malib.dhbtcepte.Kategori
+com.malib.dhbtcepte.Soruex -> com.malib.dhbtcepte.Soruex
+com.malib.dhbtcepte.Soruex -> com.malib.dhbtcepte.Son
+
+com.malib.dhbtcepte.TrGenelSinavAnasayfa -> com.malib.dhbtcepte.databaseListactivity
+
+com.malib.dhbtcepte.MenuHomeScreenActivity -> com.malib.dhbtcepte.Kategori
+
+com.malib.dhbtcepte.databaseListactivity -> com.malib.dhbtcepte.CrimePagerActivity
+

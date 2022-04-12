@@ -1,0 +1,70 @@
+digraph G {
+subgraph cluster_legend{ 
+bgcolor=mintcream;
+_Activity[color = red];
+_Service[color = royalblue];
+_Provider[color = violet];
+_Reciever[color = peru];
+_Fragment[color = teal];
+_Main[style=filled, fillcolor=orange, color = mintcream];
+_Exported[style=filled, fillcolor=lightpink, color = mintcream];
+_Main -> _Exported -> _Activity -> _Service -> _Reciever -> _Provider -> _Fragment; 
+}
+subgraph cluster_component{ 
+Student[color = red];
+MainActivity[style=filled, fillcolor=orange, color = red];
+sinav[color = red];
+Kategori[color = red];
+TrGenelSinavAnasayfa[color = red];
+databaseListactivity[color = red];
+LearnActivity[color = red];
+Teacher[color = red];
+EmailActivity[color = red];
+DersNot[color = red];
+Son[color = red];
+Soruex[color = red];
+CrimePagerActivity[color = red];
+MenuHomeScreenActivity[color = red];
+IabBroadcastReceiver[color = peru];
+framelist[color = teal];
+SupportStreetViewPanoramaFragment[color = teal];
+zzra[color = teal];
+ErrorDialogFragment[color = teal];
+StreetViewPanoramaFragment[color = teal];
+QuizPlayActivity[color = teal];
+QuizCompletedActivity[color = teal];
+WalletFragment[color = teal];
+DialogCool[color = teal];
+PlaceAutocompleteFragment[color = teal];
+SupportWalletFragment[color = teal];
+zzqq[color = teal];
+SupportErrorDialogFragment[color = teal];
+CrimeFragment[color = teal];
+SupportPlaceAutocompleteFragment[color = teal];
+TracksChooserDialogFragment[color = teal];
+MapFragment[color = teal];
+zznl[color = teal];
+SupportMapFragment[color = teal];
+MiniControllerFragment[color = teal];
+framelist->CrimePagerActivity;
+Student->sinav;
+MainActivity->Teacher;
+MainActivity->EmailActivity;
+MainActivity->MenuHomeScreenActivity;
+MainActivity->DersNot;
+MainActivity->LearnActivity;
+Kategori->MenuHomeScreenActivity;
+QuizPlayActivity->QuizCompletedActivity;
+TrGenelSinavAnasayfa->DialogCool;
+TrGenelSinavAnasayfa->databaseListactivity;
+databaseListactivity->framelist;
+Teacher->Student;
+Son->Kategori;
+Son->MenuHomeScreenActivity;
+Soruex->Kategori;
+Soruex->Soruex;
+Soruex->Son;
+MenuHomeScreenActivity->Kategori;
+MenuHomeScreenActivity->QuizPlayActivity;
+}
+}
