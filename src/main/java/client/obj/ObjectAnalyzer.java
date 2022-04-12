@@ -105,7 +105,9 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			return null;
 		analyzedMethodSet.add(methodUnderAnalysis);
 		this.methodUnderAnalysis = methodUnderAnalysis;
-
+//		if(methodUnderAnalysis.getSignature().contains("goToAppSettings")) {
+//			System.out.println();
+//		}
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
 		MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
 
