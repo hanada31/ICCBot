@@ -1,5 +1,26 @@
 # ICCBot
-A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
+
+ICCBot: A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
+
+<p align="center">
+<img src="overview/ICCBot.png" width="600">
+</p>
+
+## Publication ##
+The paper PDF can be found at https://hanada31.github.io/pdf/icse22_iccbot.pdf
+```
+@inproceedings{icse22_iccbot,
+  author    = {Jiwei Yan and
+               Shixin Zhang and
+	       	   Yepang Liu and
+               Jun Yan and
+               Jian Zhang},
+  title     = {ICCBot: Fragment-Aware and Context-Sensitive ICC Resolution for {Android} Applications},
+  booktitle = {The 44th International Conference on Software Engineering, {ICSE} 2022 (Demo Track)},
+  year      = {2022},
+}
+
+```
 
 Requirements：
 
