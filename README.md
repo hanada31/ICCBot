@@ -12,7 +12,7 @@ The paper PDF can be found at https://hanada31.github.io/pdf/icse22_iccbot.pdf
 @inproceedings{icse22_iccbot,
   author    = {Jiwei Yan and
                Shixin Zhang and
-	       	   Yepang Liu and
+	       Yepang Liu and
                Jun Yan and
                Jian Zhang},
   title     = {ICCBot: Fragment-Aware and Context-Sensitive ICC Resolution for {Android} Applications},
