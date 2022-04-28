@@ -1,1 +1,6 @@
-/target/
+.settings
+target
+result
+ICCBot.jar
+apk
+!/apk/ICCBotBench.apk

@@ -622,7 +622,7 @@ public class CTGClientOutput {
 	 * @param component
 	 */
 	public void writeComponentModelJson(String dir, String file) {
-		JSONObject rootElement = new JSONObject(new LinkedHashMap());
+		JSONObject rootElement = new JSONObject(new LinkedHashMap<>());
 		rootElement.put("package", new String(Global.v().getAppModel().getPackageName()));
 		rootElement.put("version", ConstantUtils.VERSION);
 		
@@ -633,6 +633,7 @@ public class CTGClientOutput {
 	        Map<String, Object> componenetMap = new LinkedHashMap<>();
 	        componentList.add(componenetMap);
 	        componenetMap.put("className", className);
+			componenetMap.put("type", component.getType());
 	        putAttributeValue2componenetMap(componenetMap, component );
 	        putAttributeSeed2componenetMap(componenetMap, component);
 		}
