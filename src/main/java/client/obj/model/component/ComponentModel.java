@@ -110,6 +110,10 @@ public class ComponentModel implements Serializable {
 		this.type = type;
 	}
 
+	public String getType() {
+		return this.type;
+	}
+
 	public List<IntentFilterModel> getIntentFilters() {
 		return intentFilterList;
 	}
