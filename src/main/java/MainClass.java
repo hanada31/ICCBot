@@ -386,14 +386,12 @@ public class MainClass {
 	 * for self testing
 	 *  **/
 	private static void testConfig() {
-		String path;
-		path = "apk/";
-		String name;
-		name = "com.malib.dhbtcepte-399";
-		String client = "CTGClient"; 
-		client = "IROutputClient"; 
+		String path = "apk/";
+		String name = "com.umetrip.android.msky.app";
+		String client = "MainClient";
 //		client = "ToolEvaluateClient"; 
-		
+
+		/*
 		MyConfig.getInstance().setAppName(name + ".apk");
 		MyConfig.getInstance().setAppPath(path + File.separator);
 		MyConfig.getInstance().setClient(client);
@@ -406,5 +404,19 @@ public class MainClass {
 		MyConfig.getInstance().setResultFolder(MyConfig.getInstance().getResultWarpperFolder()+ "output" + File.separator);
 		MyConfig.getInstance().setTimeLimit(10);
 		MyConfig.getInstance().setAndroidJar("lib/platforms");
+		 */
+		MyConfig myConfig = MyConfig.getInstance();
+		myConfig.setAppName(name + ".apk");
+		myConfig.setAppPath(path + File.separator);
+		myConfig.setClient(client);
+//        myConfig.setGatorClient("GUIHierarchyPrinterClient");
+//        myConfig.setGatorClient("ActivityTransitionAnalysisClient");
+//        myConfig.setMaxPathNumber(100);
+//        myConfig.setMaxFunctionExpandNumber(5); //10?
+//        myConfig.setMaxObjectSummarySize(100);
+		myConfig.setResultWarpperFolder("results/" + File.separator);
+		myConfig.setResultFolder(myConfig.getResultWarpperFolder() + "output" + File.separator);
+		myConfig.setTimeLimit(1440);
+		myConfig.setAndroidJar("lib/platforms");
 	}
 }
