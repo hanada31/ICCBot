@@ -146,11 +146,13 @@ public class IC3Reader extends Analyzer {
 						else if (kind.equals("6") || kind.equals("SCHEME"))
 							data.setScheme(value);
 						else if (kind.equals("9") || kind.equals("HOST"))
-							data.setHost(value);
+							//data.setHost(value);
+							data.notify();
 						else if (kind.equals("10") || kind.equals("PATH"))
 							data.setPath(value);
 						else if (kind.equals("11") || kind.equals("PORT"))
-							data.setPort(value);
+							// data.setPort(value);
+							data.notify();
 						if (data.toString().length() > 0)
 							ifModel.getData_list().add(data);
 					}
@@ -385,22 +387,20 @@ public class IC3Reader extends Analyzer {
 					dataTarget = true;
 				else {
 					for (String data : summaryDataSet) {
-						if (dataTarget == true)
+						if (dataTarget)
 							break;
 						for (Data ifData : filterDataSet) {
 							boolean ifMatch = true;
-							if (ifData.getHost().length() > 0 && !data.toString().contains(ifData.getHost()))
+							if (ifData.getAuthority().length() > 0 && !data.toString().contains(ifData.getAuthority()))
 								ifMatch = false;
 							else if (ifData.getPath().length() > 0 && !data.toString().contains(ifData.getPath()))
-								ifMatch = false;
-							else if (ifData.getPort().length() > 0 && !data.toString().contains(ifData.getPort()))
 								ifMatch = false;
 							else if (ifData.getScheme().length() > 0 && !data.toString().contains(ifData.getScheme()))
 								ifMatch = false;
 							else if (ifData.getMime_type().length() > 0
 									&& !data.toString().contains(ifData.getMime_type()))
 								ifMatch = false;
-							if (ifMatch == true) {
+							if (ifMatch) {
 								dataTarget = true;
 								break;
 							}

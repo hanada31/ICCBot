@@ -301,42 +301,53 @@ public class GetAttributeHandler extends UnitHandler {
 	 */
 	private Set<String> getSubAttriofData(Unit u) {
 		Set<String> resSet = new HashSet<String>();
-		Set<String> shemeSet = new HashSet<String>();
+		Set<String> schemeSet = new HashSet<String>();
 		Set<String> hostSet = new HashSet<String>();
 		Set<String> portSet = new HashSet<String>();
 		Set<String> pathSet = new HashSet<String>();
+		Set<String> authoritySet = new HashSet<String>();
 		List<UnitValueBoxPair> use_var_list = SootUtils.getUseOfLocal(methodSig, u);
 		for (UnitValueBoxPair useUnitBox : use_var_list) {
 			Unit useUnit = useUnitBox.getUnit();
 			if (useUnit.toString().contains("getScheme")) {
-				shemeSet.addAll(getAttriStr(useUnit, "scheme"));
+				schemeSet.addAll(getAttriStr(useUnit, "scheme"));
 			} else if (useUnit.toString().contains("getHost")) {
 				hostSet.addAll(getAttriStr(useUnit, "host"));
 			} else if (useUnit.toString().contains("getPort")) {
 				portSet.addAll(getAttriStr(useUnit, "port"));
 			} else if (useUnit.toString().contains("getPath")) {
 				pathSet.addAll(getAttriStr(useUnit, "path"));
+			} else if (useUnit.toString().contains("getAuthority")) {
+				pathSet.addAll(getAttriStr(useUnit, "authority"));
 			} else if (useUnit.toString().contains("getEncodedPath")) {
 				pathSet.addAll(getAttriStr(useUnit, "path"));
 			}
 		}
-		if (shemeSet.size() == 0)
-			shemeSet.add("mSheme");
+		if (schemeSet.size() == 0)
+			schemeSet.add("mSheme");
 		if (hostSet.size() == 0)
 			hostSet.add("mHost");
 		if (portSet.size() == 0)
 			portSet.add("mPort");
 		if (pathSet.size() == 0)
 			pathSet.add("mPath");
+		if (authoritySet.size() == 0)
+			authoritySet.add("mAuthority");
 
-		// <scheme>://<host>:<port>/<path>
-		for (String p1 : shemeSet)
+		// <scheme>:(<authority>)|(<host>:<port>)/<path>
+		for (String p1 : schemeSet)
 			for (String p2 : hostSet)
 				for (String p3 : portSet)
 					for (String p4 : pathSet)
 						resSet.add(StringUtils.refineString(p1) + "://" + StringUtils.refineString(p2) + ":"
 								+ StringUtils.refineString(p3) + "/" + StringUtils.refineString(p4));
 		resSet.remove("mSheme://mHost:mPort/mPath");
+		for (String p1 : schemeSet)
+			for (String p2 : authoritySet)
+					for (String p3 : pathSet)
+						resSet.add(StringUtils.refineString(p1) + ":" + StringUtils.refineString(p2) + "/"
+								+ StringUtils.refineString(p3));
+		resSet.remove("mSheme:mAuthority/mPath");
 		return resSet;
 	}
 

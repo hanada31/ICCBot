@@ -258,10 +258,8 @@ public class MainfestAnalyzer extends Analyzer {
 						Data data = new Data();
 						if (childNode.getAttribute("scheme") != null)
 							data.setScheme(childNode.getAttribute("scheme").getValue().toString());
-						if (childNode.getAttribute("host") != null)
-							data.setHost(childNode.getAttribute("host").getValue().toString());
-						if (childNode.getAttribute("port") != null)
-							data.setPort(childNode.getAttribute("port").getValue().toString());
+						if (childNode.getAttribute("authority") != null)
+							data.setAuthority(childNode.getAttribute("authority").getValue().toString());
 						if (childNode.getAttribute("path") != null)
 							data.setPath(childNode.getAttribute("path").getValue().toString());
 						if (childNode.getAttribute("mimeType") != null)

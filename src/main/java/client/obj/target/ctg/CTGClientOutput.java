@@ -68,7 +68,6 @@ public class CTGClientOutput {
 	 * 
 	 * @param dir
 	 * @param file
-	 * @param AppModel
 	 *            .getInstance()
 	 * @throws IOException
 	 * @throws DocumentException
@@ -111,13 +110,10 @@ public class CTGClientOutput {
 
 	/**
 	 * writeMethodSummaryModel
-	 * 
-	 * @param entry
-	 * 
-	 * @param string
-	 * @param topo
-	 * @param AppModel
-	 *            .getInstance()
+	 *
+	 * @param dir
+	 * @param file
+	 * @param entryMethod
 	 * @throws IOException
 	 */
 	public void writeMethodSummaryModel(String dir, String file, boolean entryMethod) {
@@ -412,11 +408,8 @@ public class CTGClientOutput {
 				if (data.getScheme().length() > 0)
 					intent_filter.addAttribute("scheme", data.getScheme());
 
-				if (data.getHost().length() > 0)
-					intent_filter.addAttribute("host", data.getHost());
-
-				if (data.getPort().length() > 0)
-					intent_filter.addAttribute("port", data.getPort());
+				if (data.getAuthority().length() > 0)
+					intent_filter.addAttribute("authority", data.getAuthority());
 
 				if (data.getPath().length() > 0)
 					intent_filter.addAttribute("path", data.getPath());
@@ -772,9 +765,9 @@ public class CTGClientOutput {
 				case "categories":
 					addAllToSetIfNotNull(ifModel.getCategory_list(),res);
 					break;
-				case "ports":
+				case "authorities":
 					for(Data data: ifModel.getData_list())
-						addToSetIfNotNull(data.getPort(),res);
+						addToSetIfNotNull(data.getAuthority(),res);
 					break;
 				case "paths":
 					for(Data data: ifModel.getData_list())
@@ -783,10 +776,6 @@ public class CTGClientOutput {
 				case "schemes":
 					for(Data data: ifModel.getData_list())
 						addToSetIfNotNull(data.getScheme(),res);
-					break;
-				case "hosts":
-					for(Data data: ifModel.getData_list())
-						addToSetIfNotNull(data.getHost(),res);
 					break;
 				case "types":
 					for(Data data: ifModel.getData_list())

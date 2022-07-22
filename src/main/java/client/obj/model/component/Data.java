@@ -2,14 +2,13 @@ package main.java.client.obj.model.component;
 
 public class Data {
 	private String scheme = "";
-	private String host = "";
-	private String port = "";
+	private String authority = "";
 	private String path = "";
 	private String mime_type = "";
 
 	@Override
 	public String toString() {
-		return scheme + host + port + path + mime_type;
+		return scheme + authority + path + mime_type;
 	}
 
 	/**
@@ -28,33 +27,18 @@ public class Data {
 	}
 
 	/**
-	 * @return the host
-	 */
-	public String getHost() {
-		return host;
-	}
-
-	/**
-	 * @param host
-	 *            the host to set
-	 */
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	/**
 	 * @return the port
 	 */
-	public String getPort() {
-		return port;
+	public String getAuthority() {
+		return authority;
 	}
 
 	/**
 	 * @param port
 	 *            the port to set
 	 */
-	public void setPort(String port) {
-		this.port = port;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
 	/**

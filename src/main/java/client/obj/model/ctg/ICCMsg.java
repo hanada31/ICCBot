@@ -14,23 +14,20 @@ public class ICCMsg implements Cloneable, Serializable {
 	private Set<String> category = new HashSet<String>();
 	private String data;
 	private String scheme;
-	private String host;
 	private String path;
-	private String port;
+	private String authority;
 	private String type;
 	private Set<String> extra = new HashSet<String>();
 	
 
 	public ICCMsg(String source, String destination, String action, Set<String> category, String data, String scheme,
-			String host, String path, String port, String type, Set<String> extra) {
+			String authority, String path, String type, Set<String> extra) {
 		this.source = source;
 		this.action = action;
 		this.category = category;
 		this.data = data;
 		this.scheme = scheme;
-		this.host = host;
 		this.path = path;
-		this.port = port;
 		this.type = type;
 		this.extra = new HashSet<String>(extra);
 	}
@@ -49,24 +46,22 @@ public class ICCMsg implements Cloneable, Serializable {
 			res += " ##action:" + action;
 		if (category != null && category.size() > 0)
 			res += " ##category:" ;
-			if (!PrintUtils.printSet(category).equals(""))
-				res += PrintUtils.printSet(category);
+		if (!PrintUtils.printSet(category).equals(""))
+			res += PrintUtils.printSet(category);
 		if (data != null && !data.equals(""))
 			res += " ##data:" + data;
 		if (scheme != null && !scheme.equals(""))
 			res += " ##scheme:" + scheme;
-		if (host != null && !host.equals(""))
-			res += " ##host:" + host;
+		if (authority != null && !authority.equals(""))
+			res += " ##authority:" + authority;
 		if (path != null && !path.equals(""))
 			res += " ##path:" + path;
-		if (port != null && !port.equals(""))
-			res += " ##port:" + port;
 		if (type != null && !type.equals(""))
 			res += " ##type:" + type;
 		if (extra != null && extra.size() > 0)
 			res += " ##extra:"; 
-			if (!PrintUtils.printSet(extra).equals(""))
-				res += PrintUtils.printSet(extra," ");
+		if (!PrintUtils.printSet(extra).equals(""))
+			res += PrintUtils.printSet(extra," ");
 		if (res.equals(""))
 			return res;
 		return res;
@@ -85,7 +80,7 @@ public class ICCMsg implements Cloneable, Serializable {
 
 	@Override
 	public ICCMsg clone() throws CloneNotSupportedException {
-		ICCMsg icc = new ICCMsg(source, destination, action, category, data, scheme, host, path, port, type, extra);
+		ICCMsg icc = new ICCMsg(source, destination, action, category, data, scheme, authority, path, type, extra);
 		return icc;
 	}
 
@@ -138,14 +133,6 @@ public class ICCMsg implements Cloneable, Serializable {
 		this.scheme = scheme;
 	}
 
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
 	public String getPath() {
 		return path;
 	}
@@ -154,12 +141,12 @@ public class ICCMsg implements Cloneable, Serializable {
 		this.path = path;
 	}
 
-	public String getPort() {
-		return port;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setPort(String port) {
-		this.port = port;
+	public void setAuthority(String port) {
+		this.authority = authority;
 	}
 
 	public String getType() {
