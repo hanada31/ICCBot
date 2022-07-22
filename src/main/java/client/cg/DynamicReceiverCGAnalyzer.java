@@ -103,8 +103,7 @@ public class DynamicReceiverCGAnalyzer extends Analyzer {
 				} else if (currentUnit.toString().contains("addCategory(java.lang.String)")) {
 					addAttribute2Filter(currentUnit, 0, filterModel.getCategory_list());
 				} else if (currentUnit.toString().contains("addDataAuthority(java.lang.String,java.lang.String)")) {
-					data.setHost(getResult(currentUnit, 0));
-					data.setPort(getResult(currentUnit, 0));
+					data.setAuthority(getResult(currentUnit, 0));
 				} else if (currentUnit.toString().contains("addDataPath(java.lang.String,int)")) {
 					data.setPath(getResult(currentUnit, 0));
 					// type?

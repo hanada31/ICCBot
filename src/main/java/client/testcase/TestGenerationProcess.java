@@ -83,9 +83,9 @@ public class TestGenerationProcess {
 
 			if (msg.getData() != null && !msg.getData().equals("") && !msg.getData().equals("\"\""))
 				atdtPrefix += msg.getData();
-			else if (msg.getPath() != null || msg.getPort() != null || msg.getScheme() != null || msg.getHost() != null)
+			else if (msg.getPath() != null || msg.getAuthority() != null || msg.getScheme() != null)
 				atdtPrefix += "\"" + StringUtils.refineString(msg.getScheme()) + "://"
-						+ StringUtils.refineString(msg.getHost()) + ":" + StringUtils.refineString(msg.getPort()) + "/"
+						+ StringUtils.refineString(msg.getAuthority())
 						+ StringUtils.refineString(msg.getPath()) + "\"";
 			else
 				atdtPrefix += "null";

@@ -247,11 +247,9 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 							break;
 						for (Data ifData : filterDataSet) {
 							boolean ifMatch = true;
-							if (ifData.getHost().length() > 0 && !data.toString().contains(ifData.getHost()))
+							if (ifData.getAuthority().length() > 0 && !data.toString().contains(ifData.getAuthority()))
 								ifMatch = false;
 							else if (ifData.getPath().length() > 0 && !data.toString().contains(ifData.getPath()))
-								ifMatch = false;
-							else if (ifData.getPort().length() > 0 && !data.toString().contains(ifData.getPort()))
 								ifMatch = false;
 							else if (ifData.getScheme().length() > 0 && !data.toString().contains(ifData.getScheme()))
 								ifMatch = false;
