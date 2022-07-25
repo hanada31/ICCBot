@@ -123,8 +123,6 @@ public class ToolEvaluateClient extends BaseClient {
 
 	private void allComparison(ATGModel iccBotModelnoFrag, ATGModel ic3Model, ATGModel ic3DialModel, ATGModel gatorModel, ATGModel a3eModel, ATGModel storyModelnoFrag) {
 		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "allComparisonCount.txt";
-		FileUtils.writeText2File(filename,  "", false);
-
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		for(Set<AtgEdge> edges : oracleModel.getAtgEdges().values()){
 			for (AtgEdge oracleEdge : edges) {
