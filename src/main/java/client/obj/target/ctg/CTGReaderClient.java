@@ -51,7 +51,7 @@ public class CTGReaderClient extends BaseClient {
 		ATGModel model2 = Global.v().getiCTGModel().getOptModel();
 		ATGReader reader2 = new ATGReader(model2);
 		String fn2 = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
-				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName()+"_CTGwithFragment.txt11";
+				+ File.separator + ConstantUtils.ICTGFOLDETR + Global.v().getAppModel().getAppName()+"_CTGwithFragment.txt";
 		if(new File(fn2).exists()){
 			model2.setATGFilePath(fn2);
 		}else {

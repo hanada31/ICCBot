@@ -13,6 +13,7 @@ import main.java.analyze.utils.OracleUtils;
 import main.java.analyze.utils.output.FileUtils;
 import main.java.client.BaseClient;
 import main.java.client.obj.model.atg.ATGModel;
+import main.java.client.obj.model.atg.AtgEdge;
 import main.java.client.obj.target.ctg.CTGReaderClient;
 import main.java.client.related.a3e.A3EResultEvaluateClient;
 import main.java.client.related.gator.GatorATGResultEvaluateClient;
@@ -89,7 +90,6 @@ public class ToolEvaluateClient extends BaseClient {
 
 
 	private void outputForPairwiseComparison() {
-		System.out.println();
 		ATGModel iccBotModelnoFrag = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
 		ATGModel IC3DialModel = Global.v().getiC3DialDroidModel().getIC3AtgModel();
@@ -116,7 +116,29 @@ public class ToolEvaluateClient extends BaseClient {
 		pairwiseComparison("A3E","ICCBot",a3eModel, iccBotModelnoFrag);
 
 		pairwiseComparison("Story","ICCBot",storyModelnoFrag, iccBotModelnoFrag);
+
+		allComparison(iccBotModelnoFrag,ic3Model,IC3DialModel,gatorModel,a3eModel,storyModelnoFrag);
 		
+	}
+
+	private void allComparison(ATGModel iccBotModelnoFrag, ATGModel ic3Model, ATGModel ic3DialModel, ATGModel gatorModel, ATGModel a3eModel, ATGModel storyModelnoFrag) {
+		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "allComparisonCount.txt";
+		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+		for(Set<AtgEdge> edges : oracleModel.getAtgEdges().values()){
+			for (AtgEdge oracleEdge : edges) {
+				int num = 0;
+				String tools= "";
+				if(iccBotModelnoFrag.getFNSet().contains(oracleEdge.getDescribtion())) { num++; tools += "iccBot\t";}
+				if(ic3Model.getFNSet().contains(oracleEdge.getDescribtion()))  { num++; tools += "ic3\t";}
+				if(ic3DialModel.getFNSet().contains(oracleEdge.getDescribtion()))  { num++; tools += "ic3dial\t";}
+				if(gatorModel.getFNSet().contains(oracleEdge.getDescribtion()))  { num++; tools += "gator\t";}
+				if(a3eModel.getFNSet().contains(oracleEdge.getDescribtion()))  { num++; tools += "a3e\t";}
+				if(storyModelnoFrag.getFNSet().contains(oracleEdge.getDescribtion()))  { num++; tools += "story\t";}
+
+				FileUtils.writeText2File(filename,  oracleEdge.getDescribtion()+"\t"+num+"\t"+tools+"\n", true);
+			}
+		}
+
 	}
 
 	private String pairwiseComparison(String tagA, String tagB, ATGModel modelA, ATGModel modelB) {
@@ -144,7 +166,7 @@ public class ToolEvaluateClient extends BaseClient {
 
 		String res =  oracle +"\t" + modelATP +"\t" + modelBTP +"\t" + commonTP +"\t" +
 			   mergedICC +"\t"  + modelAICC +"\t"  + modelBICC +"\t" + commonICC;
-		System.out.println(res);
+//		System.out.println(res);
 		
 		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "pairwiseCount.txt";
 		File f = new File(filename);
@@ -226,7 +248,7 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append(storyModel.getComp2CompSize() + "\t");
 		sb.append(iccBotModel.getComp2CompSize() + "\t");
 		
-		System.out.println("outputNumberCount: "+sb.toString());
+//		System.out.println("outputNumberCount: "+sb.toString());
 		
 		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "numberCount.txt";
 		File f = new File(filename);
@@ -287,7 +309,7 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append(storyModelnoFrag.getExportNotReachableCompNum() + "\t");
 		sb.append(iccBotModelnoFrag.getExportNotReachableCompNum() + "\t");
 		
-		System.out.println("outputGraphCount: "+sb.toString());
+//		System.out.println("outputGraphCount: "+sb.toString());
 		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "graphCount.txt";
 		File f = new File(filename);
 		if(!f.exists()){
@@ -329,7 +351,7 @@ public class ToolEvaluateClient extends BaseClient {
 		sb.append(String.format("%.2f", storyModelnoFrag.getFalsenegativeScore())+ "\t");
 		sb.append(String.format("%.2f", iccBotModelnoFrag.getFalsenegativeScore()));
 		
-		System.out.println("outputOracleEvaluate: "+sb.toString());
+//		System.out.println("outputOracleEvaluate: "+sb.toString());
 		
 		String filename = MyConfig.getInstance().getResultWarpperFolder() + File.separator + "oracleCount.txt";
 		File f = new File(filename);
@@ -348,7 +370,6 @@ public class ToolEvaluateClient extends BaseClient {
 	 * @param summary_app_dir
 	 */
 	private void dynamicModelContruction(StringBuilder sb, String appName, String summary_app_dir) {
-		System.out.println();
 		ATGModel dynamicModel = Global.v().getiCTGModel().getDynamicModel();
 
 		ToolEvaluateClientOutput outer = new ToolEvaluateClientOutput();
@@ -367,7 +388,6 @@ public class ToolEvaluateClient extends BaseClient {
 	 * @param summary_app_dir
 	 */
 	private void manualModelContruction(StringBuilder sb, String appName, String summary_app_dir) {
-		System.out.println();
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 
 		ToolEvaluateClientOutput outer = new ToolEvaluateClientOutput();
@@ -385,7 +405,6 @@ public class ToolEvaluateClient extends BaseClient {
 	 * @param summary_app_dir
 	 */
 	private void oracleModelContruction(StringBuilder sb, String appName, String summary_app_dir) {
-		System.out.println();
 		ATGModel dynamicModel = Global.v().getiCTGModel().getDynamicModel();
 		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
@@ -400,7 +419,6 @@ public class ToolEvaluateClient extends BaseClient {
 	}
 
 	private void oracleEvaluate(StringBuilder sb) {
-		System.out.println();
 //		ATGModel dynamicModel = Global.v().getiCTGModel().getDynamicModel();
 //		ATGModel manualModel = Global.v().getiCTGModel().getMannualModel();
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
@@ -410,8 +428,6 @@ public class ToolEvaluateClient extends BaseClient {
 //		manualModel.evaluateConnectivity("manualModel", sb);
 //		oracleModel.evaluateConnectivity("oracleModel", sb);
 		oracleModel.countTagForOracle();
-		System.out.println();
-
 	}
 
 	/**
@@ -420,7 +436,6 @@ public class ToolEvaluateClient extends BaseClient {
 	 * @param sb
 	 */
 	private void ICCBotEvaluate(StringBuilder sb) {
-		System.out.println();
 		ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
 		ATGModel iccBotModelnoFrag = Global.v().getiCTGModel().getOptModelwithoutFrag();
 		if(iccBotModelnoFrag.isExist()){
@@ -433,9 +448,8 @@ public class ToolEvaluateClient extends BaseClient {
 				sb.append(hint);
 				System.out.println(hint);
 			}
-			System.out.println();
 		}else{
-			String hint = "The results for tool IC3 doesn't exist, for false negative evaluation, please run the MainClient first.\n";
+			String hint = "The results for tool ICCBot doesn't exist, for false negative evaluation, please run the MainClient first.\n";
 			sb.append(hint);
 			System.out.println(hint);
 		}
@@ -451,8 +465,6 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel ic3Model = Global.v().getiC3Model().getIC3AtgModel();
 		if(ic3Model.isExist()) {
 			ic3Model.evaluateGraphCount("IC3         ");
-	
-	
 			if (oracleModel.isExist()) {
 				ic3Model.evaluateFalseNegative("IC3         ");
 			}else{
@@ -460,7 +472,6 @@ public class ToolEvaluateClient extends BaseClient {
 				sb.append(hint);
 				System.out.println(hint);
 			}
-			System.out.println();
 		}else{
 			String hint = "The results for tool IC3 doesn't exist, please add files into folder /relatedTools/IC3\n";
 			sb.append(hint);
@@ -478,8 +489,6 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel ic3Model = Global.v().getiC3DialDroidModel().getIC3AtgModel();
 		if(ic3Model.isExist()){
 			ic3Model.evaluateGraphCount("IC3Dial     ");
-	
-	
 			if (oracleModel.isExist()) {
 				ic3Model.evaluateFalseNegative("IC3Dial     ");
 			}else{
@@ -487,7 +496,6 @@ public class ToolEvaluateClient extends BaseClient {
 				sb.append(hint);
 				System.out.println(hint);
 			}
-			System.out.println();
 		}else{
 			String hint = "The results for tool IC3-DIALDroid doesn't exist, please add files into folder /relatedTools/IC3-Dial\n";
 			sb.append(hint);
@@ -505,8 +513,6 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel GatorModel = Global.v().getGatorModel().getGatorAtgModel();
 		if(GatorModel.isExist()){
 			GatorModel.evaluateGraphCount("Gator         ");
-	
-	
 			if (oracleModel.isExist()) {
 				GatorModel.evaluateFalseNegative("Gator         ");
 			}else{
@@ -514,7 +520,6 @@ public class ToolEvaluateClient extends BaseClient {
 				sb.append(hint);
 				System.out.println(hint);
 			}
-			System.out.println();
 		}else{
 			String hint = "The results for tool Gator doesn't exist, please add files into folder /relatedTools/Gator\n";
 			sb.append(hint);
@@ -528,8 +533,6 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel a3eModel = Global.v().getA3eModel().geta3eAtgModel();
 		if(a3eModel.isExist()){
 			a3eModel.evaluateGraphCount("A3E         ");
-	
-	
 			if (oracleModel.isExist()) {
 				a3eModel.evaluateFalseNegative("A3E         ");
 			}else{
@@ -537,7 +540,6 @@ public class ToolEvaluateClient extends BaseClient {
 				sb.append(hint);
 				System.out.println(hint);
 			}
-			System.out.println();
 		}else{
 			String hint = "The results for tool A3E doesn't exist, please add files into folder /relatedTools/A3E\n";
 			sb.append(hint);
@@ -551,8 +553,6 @@ public class ToolEvaluateClient extends BaseClient {
 		ATGModel storyModelnoFrag = Global.v().getStoryModel().getStoryAtgModelWithoutFrag();
 		if(storyModelnoFrag.isExist()){
 			storyModelnoFrag.evaluateGraphCount("Story         ");
-	
-	
 			if (oracleModel.isExist()) {
 				storyModelnoFrag.evaluateFalseNegative("Story         ");
 			}else{
@@ -560,16 +560,10 @@ public class ToolEvaluateClient extends BaseClient {
 				sb.append(hint);
 				System.out.println(hint);
 			}
-			System.out.println();
 		}else{
 			String hint = "The results for tool Story doesn't exist, please add files into folder /relatedTools/StoryDistiller\n";
 			sb.append(hint);
 			System.out.println(hint);
 		}
-		
 	}
-	
-
-	
-
 }
