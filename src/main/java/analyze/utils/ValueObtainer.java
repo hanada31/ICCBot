@@ -125,15 +125,15 @@ public class ValueObtainer {
 								resList.addValue(staval);
 							} else
 								resList.addValue("new " + val.getType());
-						} else if (val instanceof JInstanceFieldRef) {
-							SootField field = ((JInstanceFieldRef) val).getField();
-							if (Global.v().getAppModel().getStaticRefSignature2initAssignMap()
-									.containsKey(field.getSignature())) {
-								String staval = Global.v().getAppModel().getStaticRefSignature2initAssignMap()
-										.get(field.getSignature());
-								resList.addValue(staval);
-							} else
-								resList.addValue("new " + val.getType());
+// 						} else if (val instanceof JInstanceFieldRef) {
+// 							SootField field = ((JInstanceFieldRef) val).getField();
+// 							if (Global.v().getAppModel().getStaticRefSignature2initAssignMap()
+// 									.containsKey(field.getSignature())) {
+// 								String staval = Global.v().getAppModel().getStaticRefSignature2initAssignMap()
+// 										.get(field.getSignature());
+// 								resList.addValue(staval);
+// 							} else
+// 								resList.addValue("new " + val.getType());
 						} else if (val instanceof JVirtualInvokeExpr || val instanceof JStaticInvokeExpr) {
 							NestableObj obj = null;
 							try {
