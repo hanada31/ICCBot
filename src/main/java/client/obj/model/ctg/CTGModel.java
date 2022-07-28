@@ -25,7 +25,7 @@ public class CTGModel {
 	}
 
 	/**
-	 * @param atgModel
+	 * @param model
 	 *            the atgModel to set
 	 */
 	public void setOptModel(ATGModel model) {
