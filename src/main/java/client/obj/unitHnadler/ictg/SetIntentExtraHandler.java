@@ -63,8 +63,7 @@ public class SetIntentExtraHandler extends UnitHandler {
 	 * calculate the value set of extra from set stmt
 	 * 
 	 * @param u
-	 * @param singleFrag
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	void setExtraAPIAnalyze(Unit u) {
 		// step1: get type of extra through the assignment

@@ -97,7 +97,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * analyzeMethodSummary to get its summary
 	 * 
-	 * @param mc
 	 */
 	protected MethodSummaryModel analyzeMethodSummary(SootMethod methodUnderAnalysis) {
 		appModel.addMethod(methodUnderAnalysis);
@@ -105,7 +104,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 			return null;
 		analyzedMethodSet.add(methodUnderAnalysis);
 		this.methodUnderAnalysis = methodUnderAnalysis;
-//		if(methodUnderAnalysis.getSignature().contains("goToAppSettings")) {
+//		if(methodUnderAnalysis.getSignature().contains("void showDetails(long,java.lang.String)")) {
 //			System.out.println();
 //		}
 		String className = methodUnderAnalysis.getDeclaringClass().getName();
@@ -212,7 +211,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * getSingleObjects
 	 * 
 	 * @param methodSummary
-	 * @param targetMap
 	 */
 	protected void getSingleObject(MethodSummaryModel methodSummary) {
 		if (MyConfig.getInstance().getMySwithch().getSummaryStrategy().equals(SummaryLevel.object)) {
@@ -305,9 +303,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * getSingleObject_flowLevel
-	 * 
-	 * @param methodSummary
-	 * @param targetMap
 	 */
 	private void getSingleObject_flowLevel(MethodSummaryModel methodSummary) {
 		PathSummaryModel pathSummary = new PathSummaryModel(methodSummary);
@@ -458,11 +453,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * handleParameterPassing
-	 * 
-	 * @param node
-	 * @param pathSummary
-	 * @param singleObject
-	 * @param workList 
+	 *
 	 */
 	private boolean handleParameterPassing(UnitNode node, PathSummaryModel pathSummary, ObjectSummaryModel singleObject) {
 		boolean findPassing = false;
@@ -575,12 +566,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * Convert CFG to VFG
-	 * 
-	 * @param targetUnits
-	 * @param briefGraph
-	 * @param pdg
-	 * @param targetBlocks
-	 * @param conditionMap
+	 *
 	 * @return
 	 */
 	private BlockGraph createVFGofGraph(Map<Unit, List<Unit>> targetUnitsMehodLevel, BlockGraph briefGraph,
@@ -676,7 +662,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param targetUnitsMehodLevel
 	 * @param targetBlocks
 	 * @param conditionMap
-	 * @param g
+	 * @param graph
 	 */
 	private UnitNode generateNodeTree(Map<Unit, List<Unit>> targetUnitsMehodLevel, BlockGraph graph,
 			Set<Block> targetBlocks, Map<Block, Condition> conditionMap) {
@@ -696,13 +682,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * work with getICCNodeTree
-	 * 
-	 * @param targetUnitsMehodLevel
-	 * @param root
-	 * @param g
-	 * @param currentBlock
-	 * @param currentBlock
-	 * @param history
+	 *
 	 */
 	private void iterAnalyzeBlockNodeToBuildNodeTree(List<String> context, Map<Unit, List<Unit>> targetUnitsMehodLevel,
 			UnitNode predNode, BlockGraph g, Block preBlock, Block currentBlock, Map<String, UnitNode> history,
@@ -780,10 +760,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * handleNodewithInnerFunction
-	 * 
-	 * @param currentMtdcontext
-	 * @param context
-	 * @param currentNode
+	 *
 	 */
 	private void handleNodewithInnerFunction(Stack<String> methodStack, List<String> currentMtdcontext,
 			UnitNode currentNode) {
@@ -903,11 +880,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * getUnitNodePaths using BriefBlockGraph
-	 * 
-	 * @param targetUnitsMehodLevel
-	 * @param g
-	 * @param conditionMap
-	 * @param targetUnitListSet
+	 *
 	 * @return
 	 */
 	private Set<List<UnitNode>> getUnitNodePaths(UnitNode rootNode) {
@@ -920,17 +893,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * work with method getUnitNodePaths
-	 * 
-	 * @param targetUnitsMehodLevel
-	 * @param mc
-	 * @param g
-	 * @param block
-	 * @param targetUnitsCopy2
-	 * @param targetUnitListSet
-	 * @param history
-	 * @param endFlag
-	 * @param endFlag
-	 * @param conditionMap
 	 */
 	private void iterGenereatePath(int depth, UnitNode node, List<UnitNode> targetUnitPath,
 			Set<List<UnitNode>> targetUnitPathSet, Set<String> history) {
@@ -962,7 +924,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * analyze condition find solution of constraint
 	 * 
-	 * @param unit
 	 * @param condition
 	 */
 	private void analyzeCondition(Condition condition) {
@@ -1018,10 +979,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
 	/**
 	 * get target units in the method related units
-	 * 
-	 * @param methodUnderAnalysis
-	 * 
-	 * @param mc
 	 * @return
 	 */
 	private Map<Unit, List<Unit>> getTargetUnitsOfMethod() {
@@ -1114,10 +1071,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	/**
 	 * get target units in the method related units
 	 * 
-	 * @param resMap
 	 * @param u
 	 * @param hashSet
-	 * @param mc
 	 */
 	protected void iterativeGetTarget(Map<Unit, List<Unit>> targetMap, Unit u, Unit pointTo, HashSet<Unit> hashSet) {
 		hashSet.add(u);
@@ -1258,7 +1213,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
 	 * @param n
 	 * @param initPath
 	 * @param pathSet
-	 * @param addedPathSet
 	 * @param currentPathNum
 	 */
 	private void expandAllPaths(UnitNode n, PathSummaryModel initPath, Set<PathSummaryModel> pathSet, int currentPathNum) {
