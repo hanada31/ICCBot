@@ -185,10 +185,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 
 	/**
 	 * get the correct handler of target unit
-	 * 
-	 * @param methodUnderAnalysis
-	 * @param appModel
-	 * @param intentSummary
+	 *
 	 * @param unit
 	 * @return
 	 */
@@ -196,8 +193,6 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
 	public UnitHandler getUnitHandler(Unit unit) {
 		if (unit == null)
 			return null;
-		
-		
 		// set
 		if (isCreateMethod(unit)) {
 			return new CreateHandler();

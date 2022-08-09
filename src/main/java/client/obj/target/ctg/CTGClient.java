@@ -40,7 +40,6 @@ import soot.SootMethod;
  */
 public class CTGClient extends BaseClient {
 
-	
 	/**
 	 * analyze CTG for single app
 	 */
@@ -86,7 +85,7 @@ public class CTGClient extends BaseClient {
 	}
 
 	protected void setMySwitch1() {
-		MyConfig.getInstance().getMySwithch().setSetDesRelatedAttributeOnlyStrategy(true);
+		MyConfig.getInstance().getMySwithch().setSetDesRelatedAttributeOnlyStrategy(false);
 		MyConfig.getInstance().getMySwithch().setSetAttributeStrategy(true);
 		MyConfig.getInstance().getMySwithch().setGetAttributeStrategy(false);
 		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.object);
@@ -179,7 +178,8 @@ public class CTGClient extends BaseClient {
 //		if (ictgMergedModel.getComp2CompSize() < 1800)
 		System.out.println("writeATGModel2");
 		outer.writeATGModel(ictgFolder, ConstantUtils.ICTGOPT + ".xml", ictgOptModel);
-		
+		outer.writeModelwithIntentFilelds(MyConfig.getInstance().getResultFolder(), "ModelwithIntentFields.xml", ictgOptModel);
+
 		GraphUtils.generateDotFile(ictgFolder + dotname2, "pdf");
 		GraphUtils.generateDotFile(ictgFolder + dotname, "pdf");
 		// outer.writeIccLinksConfigFile(summary_app_dir +
@@ -187,19 +187,19 @@ public class CTGClient extends BaseClient {
 		
 	}
 
-	
+
 	private ATGModel getIctgOptModel() {
 		ATGModel ictgOptModel = new ATGModel();
 		ATGModel mergedIctgModel = Global.v().getiCTGModel().getOptModel();
-		Map<String, Set<String>> desfrag2StratcomMap = new HashMap<String, Set<String>>();
+		Map<String, Set<AtgEdge>> desfrag2StratcomMap = new HashMap<>();
 		for (Entry<String, Set<AtgEdge>> entry : mergedIctgModel.getAtgEdges().entrySet()) {
 			for (AtgEdge edge : entry.getValue()) {
 				if (edge.getType().equals(AtgType.Act2Frag) || edge.getType().equals(AtgType.NonAct2Frag)) {
 					String souComp = edge.getSource().getName();
 					String desFrag = edge.getDestnation().getName();
 					if (!desfrag2StratcomMap.containsKey(desFrag))
-						desfrag2StratcomMap.put(desFrag, new HashSet<String>());
-					desfrag2StratcomMap.get(desFrag).add(souComp);
+						desfrag2StratcomMap.put(desFrag, new HashSet<>());
+					desfrag2StratcomMap.get(desFrag).add(edge);
 				}
 			}
 		}
@@ -212,11 +212,11 @@ public class CTGClient extends BaseClient {
 						String desFrag = edge.getDestnation().getName();
 						if (desfrag2StratcomMap.containsKey(souFrag)) {
 							if (!desfrag2StratcomMap.containsKey(desFrag)) {
-								desfrag2StratcomMap.put(desFrag, new HashSet<String>());
+								desfrag2StratcomMap.put(desFrag, new HashSet<>());
 							}
-							for (String com : desfrag2StratcomMap.get(souFrag)) {
-								if (!desfrag2StratcomMap.get(desFrag).contains(com)) {
-									desfrag2StratcomMap.get(desFrag).add(com);
+							for (AtgEdge comEdge : desfrag2StratcomMap.get(souFrag)) {
+								if (!desfrag2StratcomMap.get(desFrag).contains(comEdge)) {
+									desfrag2StratcomMap.get(desFrag).add(comEdge);
 									changed = true;
 								}
 							}
@@ -230,50 +230,32 @@ public class CTGClient extends BaseClient {
 
 		for (Entry<String, Set<AtgEdge>> entry : mergedIctgModel.getAtgEdges().entrySet()) {
 			for (AtgEdge edge : entry.getValue()) {
-				// if(edge.getSource().getClassName().contains("ItemlistFragment"))
-				// System.out.println(edge);
 				switch (edge.getType()) {
 				case Act2Act:
-					ictgOptModel.addAtgEdges(entry.getKey(), edge);
-					break;
 				case NonAct2Act:
-					ictgOptModel.addAtgEdges(entry.getKey(), edge);
-					break;
 				case Act2NonAct:
-					ictgOptModel.addAtgEdges(entry.getKey(), edge);
-					break;
 				case NonAct2NonAct:
 					ictgOptModel.addAtgEdges(entry.getKey(), edge);
 					break;
 				case Frag2Act:
-					if (desfrag2StratcomMap.containsKey(edge.getSource().getClassName())) {
-						for (String startCom : desfrag2StratcomMap.get(edge.getSource().getClassName())) {
-							AtgEdge edgeCopy = new AtgEdge(edge);
-							edgeCopy.setSource(new AtgNode(startCom));
-							ictgOptModel.addAtgEdges(startCom, edgeCopy);
-						}
-					}
-					break;
 				case Frag2NonAct:
-					if (desfrag2StratcomMap.containsKey(edge.getSource().getClassName())) {
-						for (String startCom : desfrag2StratcomMap.get(edge.getSource().getClassName())) {
-							AtgEdge edgeCopy = new AtgEdge(edge);
-							edgeCopy.setSource(new AtgNode(startCom));
-							ictgOptModel.addAtgEdges(startCom, edgeCopy);
-						}
+				if (desfrag2StratcomMap.containsKey(edge.getSource().getClassName())) {
+					for (AtgEdge startComEdge : desfrag2StratcomMap.get(edge.getSource().getClassName())) {
+						AtgEdge edgeCopy = new AtgEdge(edge);
+						edgeCopy.setSource(new AtgNode(startComEdge.getSource().getName()));
+						ictgOptModel.addAtgEdges(startComEdge.getSource().getName(), edgeCopy);
 					}
-					break;
+				}
+				break;
 				default:
 					break;
 				}
 			}
 		}
-
 		return ictgOptModel;
 	}
 
 	protected void setMySwitch() {
 		// TODO Auto-generated method stub
-		
 	}
 }

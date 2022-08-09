@@ -65,13 +65,7 @@ public class CTGClientOutput {
 
 	/**
 	 * write icc info about a component
-	 * 
-	 * @param dir
-	 * @param file
-	 * @param AppModel
-	 *            .getInstance()
-	 * @throws IOException
-	 * @throws DocumentException
+	 *
 	 */
 	public void writeComponentModel(String dir, String file)  {
 		Document document;
@@ -111,14 +105,7 @@ public class CTGClientOutput {
 
 	/**
 	 * writeMethodSummaryModel
-	 * 
-	 * @param entry
-	 * 
-	 * @param string
-	 * @param topo
-	 * @param AppModel
-	 *            .getInstance()
-	 * @throws IOException
+	 *
 	 */
 	public void writeMethodSummaryModel(String dir, String file, boolean entryMethod) {
 		Document document;
@@ -148,12 +135,7 @@ public class CTGClientOutput {
 
 	/**
 	 * writePathSummaryModel write info about each icc flow
-	 * 
-	 * @param dir
-	 * @param file
-	 * @param AppModel
-	 *            .getInstance()
-	 * @param entryMethod
+	 *
 	 */
 	public void writePathSummaryModel(String dir, String file, boolean entryMethod){
 		Document document;
@@ -220,10 +202,7 @@ public class CTGClientOutput {
 
 	/**
 	 * writeATGModel
-	 * 
-	 * @param string
-	 * @param atg
-	 * @param atgEdges
+	 *
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
@@ -281,6 +260,70 @@ public class CTGClientOutput {
 		}
 	}
 
+	/**
+	 * writeModelwithIntentFilelds
+	 *
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
+	public void writeModelwithIntentFilelds(String dir, String file, ATGModel atgModel)  {
+		Document document;
+		try {
+			document = FileUtils.xmlWriterBegin(dir, file, true);
+			Element root = document.getRootElement();
+			Set<String> history = new HashSet<>();
+			for (String className: Global.v().getAppModel().getComponentMap().keySet()) {
+				Set<String> addedEdgeStr = new HashSet<String>();
+				if(!atgModel.getAtgEdges().containsKey(className)) continue;
+				Set<AtgEdge> edges = atgModel.getAtgEdges().get(className);
+				Iterator<AtgEdge> it = edges.iterator();
+				while(it.hasNext()){
+					Element ICCEdge = new DefaultElement("ICCEdge");
+					ICCEdge.addAttribute("source", className);
+					AtgEdge edge = it.next();
+					ICCEdge.addAttribute("destination",  edge.getDestnation().getName());
+					String content = className + edge.getDestnation().getName();
+					if (edge.getIntentSummary() != null) {
+						if (edge.getIntentSummary().getSetActionValueList().size() > 0) {
+							ICCEdge.addAttribute("action",
+									PrintUtils.printList(edge.getIntentSummary().getSetActionValueList()));
+							content += PrintUtils.printList(edge.getIntentSummary().getSetActionValueList());
+						}
+						if (edge.getIntentSummary().getSetCategoryValueList().size() > 0) {
+							ICCEdge.addAttribute("category",
+									PrintUtils.printList(edge.getIntentSummary().getSetCategoryValueList()));
+							content += PrintUtils.printList(edge.getIntentSummary().getSetCategoryValueList());
+						}
+						if (edge.getIntentSummary().getSetDataValueList().size() > 0) {
+							ICCEdge.addAttribute("data", PrintUtils.printList(edge.getIntentSummary().getSetDataValueList()));
+							content += PrintUtils.printList(edge.getIntentSummary().getSetDataValueList());
+						}
+						if (edge.getIntentSummary().getSetTypeValueList().size() > 0) {
+							ICCEdge.addAttribute("type", PrintUtils.printList(edge.getIntentSummary().getSetTypeValueList()));
+							content += PrintUtils.printList(edge.getIntentSummary().getSetTypeValueList());
+						}
+						if (edge.getIntentSummary().getSetExtrasValueList() != null && edge.getIntentSummary().getSetExtrasValueList().toString().length()>0) {
+							ICCEdge.addAttribute("extras", edge.getIntentSummary().getSetExtrasValueList().toString());
+							content += edge.getIntentSummary().getSetExtrasValueList().toString();
+						}
+						if (edge.getIntentSummary().getSetFlagsList() != null && edge.getIntentSummary().getSetFlagsList().size()>0) {
+							ICCEdge.addAttribute("flags", PrintUtils.printList(edge.getIntentSummary().getSetFlagsList()));
+							content += PrintUtils.printList(edge.getIntentSummary().getSetFlagsList());
+						}
+						if(!history.contains(content)) {
+							root.add(ICCEdge);
+							history.add(content);
+						}
+					}
+				}
+			}
+			FileUtils.xmlWriteEnd(dir, file, document);
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void writeIccLinksConfigFile(String dir, String linkfile, ATGModel aAtgModel) {
 		FileUtils.createFolder(dir);
 		File f = new File(dir + linkfile);
@@ -428,11 +471,6 @@ public class CTGClientOutput {
 
 	/**
 	 * write instruMethods
-	 * 
-	 * @param dir
-	 * @param file
-	 * @param AppModel
-	 *            .getInstance()
 	 */
 	public static void writeInstr(String dir, String file) {
 		FileUtils.createFolder(dir);
@@ -458,13 +496,7 @@ public class CTGClientOutput {
 
 	/**
 	 * write Dot File
-	 * 
-	 * @param dir
-	 * @param file
-	 * @param map
-	 * @param b
-	 * @param AppModel
-	 *            .getInstance()
+	 *
 	 */
 	public void writeDotFile(String dir, String file, ATGModel atgModel, boolean drawFragNode) {
 		Set<String> histroy = new HashSet<String>();
@@ -619,7 +651,6 @@ public class CTGClientOutput {
 	
 	/**
 	 * generate json file for an component
-	 * @param component
 	 */
 	public void writeComponentModelJson(String dir, String file) {
 		JSONObject rootElement = new JSONObject(new LinkedHashMap());
@@ -665,7 +696,6 @@ public class CTGClientOutput {
 	 * putAttributeValue2componenetMap
 	 * @param componenetMap
 	 * @param component
-	 * @param attri
 	 */
 	private void putAttributeValue2componenetMap(Map<String, Object> componenetMap, ComponentModel component) {
 		Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
@@ -681,7 +711,6 @@ public class CTGClientOutput {
 	 * putAttributeSeed2componenetMap
 	 * @param componenetMap
 	 * @param component
-	 * @param attri
 	 */
 	private void putAttributeSeed2componenetMap(Map<String, Object> componenetMap, ComponentModel component) {
 		Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
@@ -976,8 +1005,6 @@ public class CTGClientOutput {
 	}
 	/**
 	 * put value into set if value is not null
-	 * @param port
-	 * @param res
 	 */
 	private boolean addToSetIfNotNull(Object value, Set res) {
 		// TODO Auto-generated method stub

@@ -82,7 +82,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 	/**
 	 * generateATGInfo
 	 * 
-	 * @param model
+	 * @param methodSummary
 	 */
 	private void generateATGInfo(MethodSummaryModel methodSummary) {
 		SootMethod sootMtd = methodSummary.getMethod();
@@ -149,9 +149,6 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 				edge.setIntentSummary(intentSummary);
 				Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
 			}
-			
-			
-
 			String name = SootUtils.getNameofClass(src);
 			ComponentModel sourceComponent = Global.v().getAppModel().getComponentMap().get(name);
 			if (sourceComponent != null) {
@@ -162,9 +159,8 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 
 	/**
 	 * implicitDestinationAnalyze
-	 * 
-	 * @param intentSummary
-	 */
+	 *
+	 * */
 	private void implicitDestinationAnalyze(MethodSummaryModel methodSummary) {
 		for (ObjectSummaryModel singleObject : methodSummary.getSingleObjects()) {
 			IntentSummaryModel intentSummary = (IntentSummaryModel) singleObject;
@@ -188,8 +184,6 @@ public class CTGAnalyzer extends ObjectAnalyzer {
 	 * for implicit ICC destination match ICC-intent filter match rule
 	 * 
 	 * @param intentSummary
-	 * @param acdtSet
-	 * @param set
 	 */
 	private void analyzeDesinationByACDT(IntentSummaryModel intentSummary) {
 		List<String> summaryActionSet = intentSummary.getSetActionValueList();
