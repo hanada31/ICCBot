@@ -45,12 +45,12 @@ public class FragmentClient extends BaseClient {
         if (!MyConfig.getInstance().isStaticValueAnalyzeFinish()) {
             if (MyConfig.getInstance().getMySwitch().isStaticFieldSwitch()) {
                 StaticValueAnalyzer staticValueAnalyzer = new StaticValueAnalyzer();
-                staticValueAnalyzer.start();
+                staticValueAnalyzer.analyze();
             }
         }
         for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
             ObjectAnalyzer analyzer = new FragmentAnalyzer(topoQueue, result);
-            analyzer.start();
+            analyzer.analyze();
         }
         log.info("Successfully analyze with FragmentClient");
         MyConfig.getInstance().setFragmentAnalyzeFinish(true);

@@ -1,41 +1,40 @@
 package com.iscas.iccbot.client;
 
-import java.io.IOException;
-
 import com.iscas.iccbot.client.statistic.model.StatisticResult;
-
 import org.dom4j.DocumentException;
+
+import java.io.IOException;
 
 /**
  * BaseClient
- * 
+ *
  * @author hanada
  * @version 2.0
  */
 public abstract class BaseClient {
-	protected StatisticResult result;
+    protected StatisticResult result;
 
-	public void start() {
-		
-		try {
-			clientAnalyze();
-			clientOutput();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}catch (RuntimeException e) {
-			e.printStackTrace();
-			System.err.println("The analysis is stopped, caused by "+ e.getMessage());
-			System.exit(0);
-		}
-	}
+    public void start() {
 
-	protected abstract void clientAnalyze();
+        try {
+            clientAnalyze();
+            clientOutput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            System.err.println("The analysis is stopped, caused by " + e.getMessage());
+            System.exit(0);
+        }
+    }
 
-	public abstract void clientOutput() throws IOException, DocumentException;
+    protected abstract void clientAnalyze();
 
-	public StatisticResult getResult() {
-		return result;
-	}
+    public abstract void clientOutput() throws IOException, DocumentException;
+
+    public StatisticResult getResult() {
+        return result;
+    }
 }

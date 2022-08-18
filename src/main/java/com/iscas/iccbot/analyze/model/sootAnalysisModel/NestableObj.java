@@ -8,68 +8,67 @@ import java.util.Map.Entry;
 
 /**
  * monitor java object, which can contain a map of objects
- * 
- * @author 79940
  *
+ * @author 79940
  */
 public class NestableObj {
-	private String name = "";
-	private Map<String, NestableObj> objs = new HashMap<String, NestableObj>();
-	private List<String> values = new ArrayList<String>();
+    private String name = "";
+    private Map<String, NestableObj> objs = new HashMap<String, NestableObj>();
+    private List<String> values = new ArrayList<String>();
 
-	public NestableObj(String name) {
-		this.name = name;
-	}
+    public NestableObj(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setValues(List<String> values) {
-		if (values == null)
-			return;
-		for (String s : values) {
-			s = s.replaceAll("\"", "");
-			this.values.add(s);
-		}
-	}
+    public void setValues(List<String> values) {
+        if (values == null)
+            return;
+        for (String s : values) {
+            s = s.replaceAll("\"", "");
+            this.values.add(s);
+        }
+    }
 
-	public void addValue(String s) {
-		if (s == null)
-			return;
-		s = s.replaceAll("\"", "");
-		this.values.add(s);
-	}
+    public void addValue(String s) {
+        if (s == null)
+            return;
+        s = s.replaceAll("\"", "");
+        this.values.add(s);
+    }
 
-	public Map<String, NestableObj> getObjs() {
-		return objs;
-	}
+    public Map<String, NestableObj> getObjs() {
+        return objs;
+    }
 
-	public List<String> getValues() {
-		return values;
-	}
+    public List<String> getValues() {
+        return values;
+    }
 
-	public void addObj(NestableObj o) {
-		objs.put(o.name, o);
+    public void addObj(NestableObj o) {
+        objs.put(o.name, o);
 
-	}
+    }
 
-	public NestableObj getObj(String s) {
-		return objs.get(s);
+    public NestableObj getObj(String s) {
+        return objs.get(s);
 
-	}
+    }
 
-	@Override
-	public String toString() {
-		String res = "objs: ";
-		for (Entry<String, NestableObj> en : objs.entrySet())
-			res += "(" + en.getKey() + " - " + en.getValue() + "), ";
+    @Override
+    public String toString() {
+        String res = "objs: ";
+        for (Entry<String, NestableObj> en : objs.entrySet())
+            res += "(" + en.getKey() + " - " + en.getValue() + "), ";
 
-		res += "\nvals: ";
-		for (String s : values)
-			res += s + ", ";
+        res += "\nvals: ";
+        for (String s : values)
+            res += s + ", ";
 
-		return res;
-	}
+        return res;
+    }
 
 }

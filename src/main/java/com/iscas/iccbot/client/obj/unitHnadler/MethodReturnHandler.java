@@ -4,9 +4,9 @@ import com.iscas.iccbot.analyze.model.analyzeModel.ObjectSummaryModel;
 
 public class MethodReturnHandler extends UnitHandler {
 
-	@Override
-	public void handleSingleObject(ObjectSummaryModel singleObject) {
-		singleObject.setFinishFlag(true);
-	}
+    @Override
+    public void handleSingleObject(ObjectSummaryModel singleObject) {
+        singleObject.setFinishFlag(true);
+    }
 
 }

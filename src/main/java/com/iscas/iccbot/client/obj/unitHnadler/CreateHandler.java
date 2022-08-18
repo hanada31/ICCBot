@@ -4,10 +4,10 @@ import com.iscas.iccbot.analyze.model.analyzeModel.ObjectSummaryModel;
 
 public class CreateHandler extends UnitHandler {
 
-	@Override
-	public void handleSingleObject(ObjectSummaryModel singleObject) {
+    @Override
+    public void handleSingleObject(ObjectSummaryModel singleObject) {
 
-		singleObject.getCreateList().add(unit);
-	}
+        singleObject.getCreateList().add(unit);
+    }
 
 }
