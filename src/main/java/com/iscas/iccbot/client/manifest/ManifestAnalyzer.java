@@ -2,14 +2,21 @@ package com.iscas.iccbot.client.manifest;
 
 import com.iscas.iccbot.Analyzer;
 import com.iscas.iccbot.Global;
+import com.iscas.iccbot.MyConfig;
 import com.iscas.iccbot.analyze.model.analyzeModel.AppModel;
 import com.iscas.iccbot.analyze.utils.SootUtils;
 import com.iscas.iccbot.client.obj.model.component.*;
 import soot.jimple.infoflow.android.axml.AXmlNode;
 import soot.jimple.infoflow.android.manifest.ProcessManifest;
+import soot.jimple.infoflow.android.manifest.binary.BinaryManifestActivity;
+import soot.jimple.infoflow.android.manifest.binary.BinaryManifestBroadcastReceiver;
+import soot.jimple.infoflow.android.manifest.binary.BinaryManifestContentProvider;
+import soot.jimple.infoflow.android.manifest.binary.BinaryManifestService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class is used to parse a manifest XML file Extract all the exported
@@ -17,10 +24,10 @@ import java.util.List;
  *
  * @author hanada
  */
-public class MainfestAnalyzer extends Analyzer {
+public class ManifestAnalyzer extends Analyzer {
     private ProcessManifest manifestManager;
 
-    public MainfestAnalyzer() {
+    public ManifestAnalyzer() {
         super();
     }
 
@@ -46,22 +53,35 @@ public class MainfestAnalyzer extends Analyzer {
         appModel.setPackageName(pkg);
         appModel.getExtendedPakgs().add(pkg);
         appModel.setVersionCode(manifestManager.getVersionCode());
-        AXmlNode appNode = manifestManager.getApplication();
-        // get permissions
-        if (appNode.getAttribute("permission") != null) {
-            appModel.setPermission(appNode.getAttribute("permission").getValue().toString());// which
-            // permission?
-        }
         appModel.setUsesPermissionSet(manifestManager.getPermissions());
 
-        parseComponent(manifestManager.getActivities(), "Activity");
-        parseComponent(manifestManager.getServices(), "Service");
-        parseComponent(manifestManager.getProviders(), "Provider");
-        parseComponent(manifestManager.getReceivers(), "Receiver");
+        List<AXmlNode> activityNodes = new ArrayList<>();
+        for (BinaryManifestActivity activity : manifestManager.getActivities()) {
+            activityNodes.add(activity.getAXmlNode());
+        }
+        parseComponent(activityNodes, "Activity");
+
+        List<AXmlNode> serviceNodes = new ArrayList<>();
+        for (BinaryManifestService service : manifestManager.getServices()) {
+            serviceNodes.add(service.getAXmlNode());
+        }
+        parseComponent(serviceNodes, "Service");
+
+        List<AXmlNode> providerNodes = new ArrayList<>();
+        for (BinaryManifestContentProvider provider : manifestManager.getContentProviders()) {
+            providerNodes.add(provider.getAXmlNode());
+        }
+        parseComponent(providerNodes, "Provider");
+
+        List<AXmlNode> receiverNodes = new ArrayList<>();
+        for (BinaryManifestBroadcastReceiver receiver : manifestManager.getBroadcastReceivers()) {
+            providerNodes.add(receiver.getAXmlNode());
+        }
+        parseComponent(providerNodes, "Provider");
 
         mergeAllComponents();
 
-        List<AXmlNode> alis = appNode.getChildrenWithTag("activity-alias");
+        List<AXmlNode> alis = manifestManager.getAliasActivities();
         for (AXmlNode actNode : alis) {
             String name = actNode.getAttribute("targetActivity").getValue().toString();
             if (appModel.getActivityMap().containsKey(name)) {
@@ -76,7 +96,7 @@ public class MainfestAnalyzer extends Analyzer {
                 appModel.getExportedComponentMap().put(component.getComponetName(), component);
             }
         }
-
+        MyConfig.getInstance().setManifestAnalyzeFinish(true);
     }
 
     /**
@@ -104,9 +124,9 @@ public class MainfestAnalyzer extends Analyzer {
             // package
             // continue;
 
-            // add external libs according to component decalartion
+            // add external libs according to component declaration
             if (!componentName.contains(appModel.getPackageName())) {
-                String ss[] = componentName.split("\\.");
+                String[] ss = componentName.split("\\.");
                 if (ss.length >= 2)
                     appModel.getExtendedPakgs().add(ss[0] + "." + ss[1]);
             }
@@ -115,7 +135,7 @@ public class MainfestAnalyzer extends Analyzer {
                 continue;
             componentModel.setComponetName(componentName);
 
-            synchronized (componentMap) {
+            synchronized (Objects.requireNonNull(componentMap)) {
                 if (!componentMap.containsKey(componentModel.getComponetName())) {
                     componentMap.put(componentModel.getComponetName(), componentModel);
                 }

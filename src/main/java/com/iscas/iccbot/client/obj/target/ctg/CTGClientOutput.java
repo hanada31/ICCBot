@@ -99,7 +99,7 @@ public class CTGClientOutput {
         try {
             document = FileUtils.xmlWriterBegin(dir, file, false);
             Element root = document.getRootElement();
-            List<Element> eleList = new ArrayList<Element>();
+            List<Element> eleList;
             if (entryMethod) {
                 eleList = result.getXmlStatistic().getEntryMethodSummaryEleList();
             } else {

@@ -157,11 +157,11 @@ public class SetIntentExtraHandler extends UnitHandler {
             List<ExtraData> eds = new ArrayList<ExtraData>();
             param_list.put(u.toString(), eds);
             if (key != null) {
-                List<String> keylist = voKey.getValueofVar(key, u, 0).getValues();
+                List<String> keylist = voKey.getValueOfVar(key, u, 0).getValues();
                 for (String res : keylist) {
                     ExtraData ed = new ExtraData();
                     ed.setName(res);
-                    List<String> vallist = voVal.getValueofVar(val, u, 0).getValues();
+                    List<String> vallist = voVal.getValueOfVar(val, u, 0).getValues();
                     ed.setValues(vallist);
                     eds.add(ed);
                 }
@@ -200,7 +200,7 @@ public class SetIntentExtraHandler extends UnitHandler {
                 objContextInner = constructContextObj(id + 1, unit);
             }
             ValueObtainer vo = new ValueObtainer(methodSig, ConstantUtils.FLAGEXTRA, objContextInner, new Counter());
-            List<String> vallist = vo.getValueofVar(val, u, 0).getValues();
+            List<String> vallist = vo.getValueOfVar(val, u, 0).getValues();
             if (vallist.size() > 0)
                 ed.setName(vallist.get(0));
 //			ed.setValue(vallist);
@@ -333,7 +333,7 @@ public class SetIntentExtraHandler extends UnitHandler {
         Value res = null;
         if (u instanceof JAssignStmt) {
             JAssignStmt jas = (JAssignStmt) u;
-            ValueBox ads = jas.rightBox;
+            ValueBox ads = jas.getRightOpBox();
             Value v = ads.getValue();
             if (v instanceof JVirtualInvokeExpr) {
                 JVirtualInvokeExpr jvie = (JVirtualInvokeExpr) v;
@@ -367,7 +367,7 @@ public class SetIntentExtraHandler extends UnitHandler {
         Value res = null;
         if (u instanceof JAssignStmt) {
             JAssignStmt jas = (JAssignStmt) u;
-            ValueBox ads = jas.rightBox;
+            ValueBox ads = jas.getRightOpBox();
             Value v = ads.getValue();
             if (v instanceof JVirtualInvokeExpr) {
                 JVirtualInvokeExpr jvie = (JVirtualInvokeExpr) v;

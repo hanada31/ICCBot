@@ -14,7 +14,9 @@ import soot.jimple.StringConstant;
 import soot.jimple.infoflow.android.axml.AXmlAttribute;
 import soot.jimple.infoflow.android.axml.AXmlHandler;
 import soot.jimple.infoflow.android.axml.AXmlNode;
+import soot.jimple.infoflow.android.manifest.IComponentContainer;
 import soot.jimple.infoflow.android.manifest.ProcessManifest;
+import soot.jimple.infoflow.android.manifest.binary.BinaryManifestActivity;
 import soot.jimple.internal.JIdentityStmt;
 import soot.jimple.internal.JInvokeStmt;
 import soot.jimple.internal.JSpecialInvokeExpr;
@@ -91,7 +93,7 @@ public class InstrumentAnalyzer extends Analyzer {
         Scene.v().loadNecessaryClasses();
         PackManager.v().getPack("jtp").add(new Transform("jtp.androcov", new BodyTransformer() {
             @Override
-            protected void internalTransform(final Body b, String phaseName, @SuppressWarnings("rawtypes") Map options) {
+            protected void internalTransform(final Body b, String phaseName, Map options) {
                 final PatchingChain<Unit> units = b.getUnits();
                 // important to use snapshotIterator here
                 String methodSig = b.getMethod().getSignature();
@@ -163,12 +165,10 @@ public class InstrumentAnalyzer extends Analyzer {
             AXmlAttribute<String> attr = new AXmlAttribute<String>("minSdkVersion", "27", AXmlHandler.ANDROID_NAMESPACE);
             List<AXmlNode> nodes = manifestManager.getAXml().getNodesWithTag("uses-sdk");
             nodes.get(0).addAttribute(attr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XmlPullParserException e) {
+        } catch (IOException | XmlPullParserException e) {
             e.printStackTrace();
         } finally {
-            manifestManager.close();
+            if (manifestManager != null) manifestManager.close();
         }
     }
 
@@ -182,16 +182,14 @@ public class InstrumentAnalyzer extends Analyzer {
             if (!instrumentedApk.exists())
                 FileUtils.copyFile(appPath, instrumentedApkPath);
             manifestManager = new ProcessManifest(instrumentedApkPath);
-            List<AXmlNode> acts = manifestManager.getActivities();
-            for (AXmlNode actNode : acts) {
-                // get the attributes of the activity element
-                AXmlAttribute<String> attr = new AXmlAttribute<String>("exported", "true",
+
+            IComponentContainer<BinaryManifestActivity> activities = manifestManager.getActivities();
+            for (BinaryManifestActivity activity : activities) {
+                AXmlAttribute<String> attr = new AXmlAttribute<>("exported", "true",
                         AXmlHandler.ANDROID_NAMESPACE);
-                actNode.addAttribute(attr);
+                activity.getAXmlNode().addAttribute(attr);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XmlPullParserException e) {
+        } catch (IOException | XmlPullParserException e) {
             e.printStackTrace();
         }
 
@@ -199,6 +197,7 @@ public class InstrumentAnalyzer extends Analyzer {
             File manifestFile = null;
             manifestFile = File.createTempFile("AndroidManifest.xml", null);
             FileOutputStream fos = new FileOutputStream(manifestFile.getPath());
+            assert manifestManager != null;
             byte[] output = manifestManager.getOutput();
             fos.write(output);
             fos.close();
@@ -213,7 +212,7 @@ public class InstrumentAnalyzer extends Analyzer {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            manifestManager.close();
+            if (manifestManager != null) manifestManager.close();
         }
     }
 }

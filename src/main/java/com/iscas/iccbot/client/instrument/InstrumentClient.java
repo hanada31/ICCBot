@@ -7,6 +7,7 @@ import com.iscas.iccbot.analyze.utils.output.FileUtils;
 import com.iscas.iccbot.client.BaseClient;
 import com.iscas.iccbot.client.cg.CallGraphClient;
 import com.iscas.iccbot.client.manifest.ManifestClient;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 
@@ -16,25 +17,20 @@ import java.io.File;
  * @author hanada
  * @version 2.0
  */
+@Slf4j
 public class InstrumentClient extends BaseClient {
-
     @Override
     protected void clientAnalyze() {
         if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
             new ManifestClient().start();
-            MyConfig.getInstance().setManifestAnalyzeFinish(true);
         }
 
         if (!MyConfig.getInstance().isCallGraphAnalyzeFinish()) {
             new CallGraphClient().start();
-            MyConfig.getInstance().setCallGraphAnalyzeFinish(true);
         }
-
         InstrumentAnalyzer analyzer = new InstrumentAnalyzer();
-        analyzer.analyze();
-
-        System.out.println("Successfully analyze with InstrumentClientClient.");
-
+        analyzer.start();
+        log.info("Successfully analyze with InstrumentClientClient");
     }
 
     @Override

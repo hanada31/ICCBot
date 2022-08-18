@@ -36,7 +36,7 @@ public class FragmentRemoveClient extends BaseClient {
         result = new StatisticResult();
         if (!MyConfig.getInstance().isSootAnalyzeFinish()) {
             SootAnalyzer sootAnalyzer = new SootAnalyzer();
-            sootAnalyzer.analyze();
+            sootAnalyzer.start();
         }
 
         String summary_app_dir = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()

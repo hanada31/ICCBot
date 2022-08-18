@@ -1,5 +1,9 @@
 package com.iscas.iccbot;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.iscas.iccbot.analyze.utils.SootUtils;
 import com.iscas.iccbot.analyze.utils.TimeUtilsofProject;
 import com.iscas.iccbot.client.BaseClient;
 import com.iscas.iccbot.client.cg.CallGraphClient;
@@ -8,9 +12,16 @@ import com.iscas.iccbot.client.obj.target.ctg.CTGClient;
 import com.iscas.iccbot.client.obj.target.ctg.ICCSpecClient;
 import com.iscas.iccbot.client.obj.target.fragment.FragmentClient;
 import com.iscas.iccbot.client.soot.IROutputClient;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main Class of Android ICC Resolution Tool ICCBot
@@ -18,24 +29,29 @@ import java.io.File;
  * @author hanada
  * @version 2.0
  */
+@Slf4j
 public class Main {
 
     /**
      * get commands from args
      *
-     * @param args
+     * @param args Command line arguments
      */
     public static void main(String[] args) {
-        /** analyze args**/
+        // Analyze args
         CommandLine mCmd = getCommandLine(args);
+        if (mCmd == null) {
+            return;
+        }
         analyzeArgs(mCmd);
-        /** debug mode in IDE **/
+
+        // debug mode in IDE
         if (mCmd.hasOption("debug")) {
             testConfig();
             setMySwitch();
         }
 
-        /** start ICCBot**/
+        // start ICCBot
         startAnalyze();
 
         System.out.println("ICC Resolution Finish...\n");
@@ -43,8 +59,10 @@ public class Main {
     }
 
     /**
-     * @param mCmdArgs
-     * @return
+     * Get command line
+     *
+     * @param mCmdArgs Command line arguments
+     * @return CommandLine
      */
     private static CommandLine getCommandLine(String[] mCmdArgs) {
         CommandLineParser parser = new DefaultParser();
@@ -60,7 +78,7 @@ public class Main {
      * start the analyze of app with a given client
      */
     private static void startAnalyze() {
-        System.out.println("Analyzing " + MyConfig.getInstance().getAppName());
+        log.info("Analyzing " + MyConfig.getInstance().getAppName());
         BaseClient client = getClient();
 
         TimeUtilsofProject.setTotalTimer(client);
@@ -69,11 +87,10 @@ public class Main {
         client.start();
 
         long endTime = System.currentTimeMillis();
-        System.out.println("---------------------------------------");
-        System.out.println("Analyzing " + MyConfig.getInstance().getAppName() + " Finish...\n");
-        System.out.println(MyConfig.getInstance().getClient() + " time = " + (endTime - startTime) / 1000 + " seconds");
+        log.info("---------------------------------------");
+        log.info("Analyzing " + MyConfig.getInstance().getAppName() + " Finish...\n");
+        log.info(MyConfig.getInstance().getClient() + " time = " + (endTime - startTime) / 1000 + " seconds");
     }
-
 
     /**
      * get the client to be analyzed
@@ -82,7 +99,7 @@ public class Main {
      * @return
      */
     private static BaseClient getClient() {
-        System.out.println("using client " + MyConfig.getInstance().getClient());
+        log.info("Using client " + MyConfig.getInstance().getClient());
         BaseClient client;
         switch (MyConfig.getInstance().getClient()) {
             case "CTGClient":
@@ -149,6 +166,7 @@ public class Main {
         options.addOption("h", false, "-h: Show the help information.");
 
         /** input **/
+        options.addOption("config", true, "-config: Path to config.json");
         options.addOption("name", true, "-name: Set the name of the apk under analysis.");
         options.addOption("path", true, "-path: Set the path to the apk under analysis.");
         options.addOption("androidJar", true, "-androidJar: Set the path of android.jar.");
@@ -234,41 +252,43 @@ public class Main {
             HelpFormatter formatter = new HelpFormatter();
             formatter.setWidth(120);
 
-            formatter.printHelp("java -jar [jarFile] [options] [-path] [-name] [-outputDir] [-client]", getOptions());
-            System.out.println("E.g., -path apk\\ -name test.apk -outputDir result -client MainClient");
+            formatter.printHelp("java -jar [jarFile] [options] [-path] [-name] [-outputDir] [-client]\n" +
+                    "E.g., -path apk\\ -name test.apk -outputDir result -client MainClient", getOptions());
             System.exit(0);
         }
 
         /** run config **/
-        MyConfig.getInstance().setJimple(true);
-        MyConfig.getInstance().setAppName(mCmd.getOptionValue("name", ""));
-        MyConfig.getInstance().setAppPath(mCmd.getOptionValue("path", System.getProperty("user.dir")) + File.separator);
-        MyConfig.getInstance().setAndroidJar(mCmd.getOptionValue("androidJar", "lib/platforms") + File.separator);
-//		MyConfig.getInstance().setAndroidVersion("android-" + mCmd.getOptionValue("version", "23"));
+        MyConfig myConfig = MyConfig.getInstance();
+        
+        myConfig.setJimple(true);
+        myConfig.setAppName(mCmd.getOptionValue("name", ""));
+        myConfig.setAppPath(mCmd.getOptionValue("path", System.getProperty("user.dir")) + File.separator);
+        myConfig.setAndroidJar(mCmd.getOptionValue("androidJar", "lib/platforms") + File.separator);
+//		myConfig.setAndroidVersion("android-" + mCmd.getOptionValue("version", "23"));
         if (mCmd.hasOption("sootOutput"))
-            MyConfig.getInstance().setWriteSootOutput(true);
+            myConfig.setWriteSootOutput(true);
 
-        int timeLimit = Integer.valueOf(mCmd.getOptionValue("time", "90"));
-        MyConfig.getInstance().setTimeLimit(timeLimit);
-        MyConfig.getInstance().setMaxPathNumber(Integer.valueOf(mCmd.getOptionValue("maxPathNumber", "100")));
-        MyConfig.getInstance().setMaxFunctionExpandNumber(Integer.valueOf(mCmd.getOptionValue("maxFunctionExpandNumber", "10")));
-        MyConfig.getInstance().setMaxObjectSummarySize(Integer.valueOf(mCmd.getOptionValue("maxObjectSummarySize", "1000")));
-        MyConfig.getInstance().setCallGraphAlgorithm(mCmd.getOptionValue("callgraphAlgorithm", "SPARK"));
+        int timeLimit = Integer.parseInt(mCmd.getOptionValue("time", "90"));
+        myConfig.setTimeLimit(timeLimit);
+        myConfig.setMaxPathNumber(Integer.parseInt(mCmd.getOptionValue("maxPathNumber", "100")));
+        myConfig.setMaxFunctionExpandNumber(Integer.parseInt(mCmd.getOptionValue("maxFunctionExpandNumber", "10")));
+        myConfig.setMaxObjectSummarySize(Integer.parseInt(mCmd.getOptionValue("maxObjectSummarySize", "1000")));
+        myConfig.setCallGraphAlgorithm(mCmd.getOptionValue("callgraphAlgorithm", "SPARK"));
 
         String client = mCmd.getOptionValue("client", "MainClient");
-        MyConfig.getInstance().setClient(mCmd.getOptionValue("client", client));
+        myConfig.setClient(mCmd.getOptionValue("client", client));
 
         String gatorClient = mCmd.getOptionValue("gatorClient", "GUIHierarchyPrinterClient");
-        MyConfig.getInstance().setGatorClient(mCmd.getOptionValue("gatorClient", gatorClient));
+        myConfig.setGatorClient(mCmd.getOptionValue("gatorClient", gatorClient));
 
-        MyConfig.getInstance().setResultFolder(mCmd.getOptionValue("outputDir", "outputDir") + File.separator);
+        myConfig.setResultFolder(mCmd.getOptionValue("outputDir", "outputDir") + File.separator);
         String resFolder = mCmd.getOptionValue("outputDir", "results/outputDir");
         if (resFolder.contains("/")) {
             resFolder = resFolder.substring(0, resFolder.lastIndexOf("/"));
-            MyConfig.getInstance().setResultWrapperFolder(resFolder + File.separator);
+            myConfig.setResultWrapperFolder(resFolder + File.separator);
         } else if (resFolder.contains("\\")) {
             resFolder = resFolder.substring(0, resFolder.lastIndexOf("\\"));
-            MyConfig.getInstance().setResultWrapperFolder(resFolder + File.separator);
+            myConfig.setResultWrapperFolder(resFolder + File.separator);
         }
 
         if (!mCmd.hasOption("debug") && !mCmd.hasOption("name")) {
@@ -280,61 +300,93 @@ public class Main {
 
         /** analysis config **/
         if (mCmd.hasOption("onlyDummyMain"))
-            MyConfig.getInstance().getMySwitch().setDummyMainSwitch(true);
+            myConfig.getMySwitch().setDummyMainSwitch(true);
         if (mCmd.hasOption("noCallBackEntry"))
-            MyConfig.getInstance().getMySwitch().setCallBackSwitch(false);
+            myConfig.getMySwitch().setCallBackSwitch(false);
         if (mCmd.hasOption("noFunctionExpand"))
-            MyConfig.getInstance().getMySwitch().setFunctionExpandSwitch(false);
+            myConfig.getMySwitch().setFunctionExpandSwitch(false);
         if (mCmd.hasOption("noAsyncMethod"))
-            MyConfig.getInstance().getMySwitch().setAsyncMethodSwitch(false);
+            myConfig.getMySwitch().setAsyncMethodSwitch(false);
         if (mCmd.hasOption("noPolym"))
-            MyConfig.getInstance().getMySwitch().setPolymSwitch(false);
+            myConfig.getMySwitch().setPolymSwitch(false);
 
         if (mCmd.hasOption("noAdapter"))
-            MyConfig.getInstance().getMySwitch().setAdapterSwitch(false);
+            myConfig.getMySwitch().setAdapterSwitch(false);
         if (mCmd.hasOption("noStringOp"))
-            MyConfig.getInstance().getMySwitch().setStringOpSwitch(false);
+            myConfig.getMySwitch().setStringOpSwitch(false);
         if (mCmd.hasOption("noStaticField"))
-            MyConfig.getInstance().getMySwitch().setStaticFieldSwitch(false);
+            myConfig.getMySwitch().setStaticFieldSwitch(false);
 
         if (mCmd.hasOption("noFragment"))
-            MyConfig.getInstance().getMySwitch().setFragmentSwitch(false);
+            myConfig.getMySwitch().setFragmentSwitch(false);
         if (mCmd.hasOption("noLibCode"))
-            MyConfig.getInstance().getMySwitch().setLibCodeSwitch(false);
+            myConfig.getMySwitch().setLibCodeSwitch(false);
         if (mCmd.hasOption("noWrapperAPI"))
-            MyConfig.getInstance().getMySwitch().setWrapperAPISwitch(false);
+            myConfig.getMySwitch().setWrapperAPISwitch(false);
 
         if (mCmd.hasOption("noImplicit"))
-            MyConfig.getInstance().getMySwitch().setImplicitLaunchSwitch(false);
+            myConfig.getMySwitch().setImplicitLaunchSwitch(false);
         if (mCmd.hasOption("noDynamicBC"))
-            MyConfig.getInstance().getMySwitch().setDynamicBCSwitch(false);
+            myConfig.getMySwitch().setDynamicBCSwitch(false);
         if (mCmd.hasOption("summaryStrategy") && mCmd.getOptionValue("summaryStrategy").equals("none"))
-            MyConfig.getInstance().getMySwitch().setSummaryStrategy(SummaryLevel.none);
+            myConfig.getMySwitch().setSummaryStrategy(SummaryLevel.none);
         else if (mCmd.hasOption("summaryStrategy") && mCmd.getOptionValue("summaryStrategy").equals("path"))
-            MyConfig.getInstance().getMySwitch().setSummaryStrategy(SummaryLevel.path);
+            myConfig.getMySwitch().setSummaryStrategy(SummaryLevel.path);
         else if (mCmd.hasOption("summaryStrategy"))
-            MyConfig.getInstance().getMySwitch().setSummaryStrategy(SummaryLevel.object);
+            myConfig.getMySwitch().setSummaryStrategy(SummaryLevel.object);
 
         if (mCmd.hasOption("noVfgStrategy"))
-            MyConfig.getInstance().getMySwitch().setVfgStrategy(false);
+            myConfig.getMySwitch().setVfgStrategy(false);
         if (mCmd.hasOption("cgAnalyzeGroup"))
-            MyConfig.getInstance().getMySwitch().setCgAnalyzeGroupedStrategy(true);
+            myConfig.getMySwitch().setCgAnalyzeGroupedStrategy(true);
         if (mCmd.hasOption("getAttributeStrategy"))
-            MyConfig.getInstance().getMySwitch().setGetAttributeStrategy(true);
+            myConfig.getMySwitch().setGetAttributeStrategy(true);
         if (mCmd.hasOption("setAttributeStrategy"))
-            MyConfig.getInstance().getMySwitch().setSetAttributeStrategy(true);
+            myConfig.getMySwitch().setSetAttributeStrategy(true);
         if (mCmd.hasOption("scenarioStack")) {
-            MyConfig.getInstance().getMySwitch().setScenario_stack(true);
-            if (MyConfig.getInstance().getMySwitch().isScenario_stack()) {
-                MyConfig.getInstance().getMySwitch().setFunctionExpandAllSwitch(true);
+            myConfig.getMySwitch().setScenario_stack(true);
+            if (myConfig.getMySwitch().isScenario_stack()) {
+                myConfig.getMySwitch().setFunctionExpandAllSwitch(true);
             }
         }
+
+        // Load Analyze Config
+        String analyzeConfigPath = "config/config.json";
+        if (mCmd.hasOption("config")) {
+            analyzeConfigPath = mCmd.getOptionValue("config");
+        }
+        Path fPath = Paths.get(analyzeConfigPath);
+        if (!Files.exists(fPath)) {
+            log.error("Failed to load analyze config json: File not exist");
+            System.exit(0);
+        }
+
+        JSONObject analyzeConfig = null;
+        try {
+            analyzeConfig = JSON.parseObject(String.join("\n", Files.readAllLines(fPath)));
+            myConfig.setAnalyzeConfig(analyzeConfig);
+        } catch (IOException e) {
+            log.error("Failed to load analyze config json: IOException", e);
+            System.exit(0);
+        }
+        // Initialize SootUtils.excludePackages
+
+        JSONArray excArr = MyConfig.getInstance().getAnalyzeConfig().getJSONArray("SootAnalyzer.excludePackages");
+        if (excArr == null) return;
+        List<String> excList = excArr.toJavaList(String.class);
+        List<String> excPkgList = new ArrayList<>();
+        for (String expr : excList) {
+            excPkgList.add("<" + expr.replaceAll("\\*", ""));
+        }
+        SootUtils.setExcludePackages(excPkgList);
+
+        log.debug("Applied analyze config keys: " + analyzeConfig.keySet());
     }
 
-    private static void printHelp(String string) {
-        System.out.println(string);
+    private static void printHelp(String str) {
+        System.out.println(str);
         HelpFormatter formatter = new HelpFormatter();
-        System.out.println("Please check the help inforamtion");
+        System.out.println("Please check the help information");
         formatter.printHelp("java -jar ICCBot.jar [options]", getOptions());
         System.exit(0);
     }
@@ -371,24 +423,10 @@ public class Main {
      **/
     private static void testConfig() {
         String path = "apk/";
+        // String name = "IntentFlowBench2";
         String name = "com.umetrip.android.msky.app";
         String client = "MainClient";
-//		client = "ToolEvaluateClient"; 
 
-		/*
-		MyConfig.getInstance().setAppName(name + ".apk");
-		MyConfig.getInstance().setAppPath(path + File.separator);
-		MyConfig.getInstance().setClient(client);
-		MyConfig.getInstance().setGatorClient("GUIHierarchyPrinterClient");
-		MyConfig.getInstance().setGatorClient("ActivityTransitionAnalysisClient");
-		MyConfig.getInstance().setMaxPathNumber(30);
-		MyConfig.getInstance().setMaxFunctionExpandNumber(5); //10?
-		MyConfig.getInstance().setMaxObjectSummarySize(100);
-		MyConfig.getInstance().setResultWrapperFolder("results/" + File.separator);
-		MyConfig.getInstance().setResultFolder(MyConfig.getInstance().getResultWrapperFolder()+ "output" + File.separator);
-		MyConfig.getInstance().setTimeLimit(10);
-		MyConfig.getInstance().setAndroidJar("lib/platforms");
-		 */
         MyConfig myConfig = MyConfig.getInstance();
         myConfig.setAppName(name + ".apk");
         myConfig.setAppPath(path + File.separator);

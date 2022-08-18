@@ -195,7 +195,7 @@ public class Switch {
     }
 
     /**
-     * @param contextSensiSwitch the functionExpandSwitch to set
+     * @param functionExpandSwitch the functionExpandSwitch to set
      */
     public void setFunctionExpandSwitch(boolean contextSensiSwitch) {
         this.functionExpandSwitch = contextSensiSwitch;

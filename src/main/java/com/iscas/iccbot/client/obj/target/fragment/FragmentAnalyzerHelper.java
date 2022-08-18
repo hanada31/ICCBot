@@ -31,7 +31,7 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
     }
 
     @Override
-    public List<String> getObjectIdentier() {
+    public List<String> getObjectIdentifier() {
         return this.objectIdentier;
     }
 

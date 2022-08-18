@@ -220,10 +220,10 @@ public class GetAttributeHandler extends UnitHandler {
         else if (useUnit.toString().contains("substring(")) {
             if (useUnit instanceof JAssignStmt) {
                 JAssignStmt jas1 = (JAssignStmt) useUnit;
-                AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.rightBox.getValue();
+                AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.getRightOpBox().getValue();
                 ValueObtainer vo = new ValueObtainer(methodSig, ConstantUtils.FLAGATTRI);
                 int b = 0, e = 0;
-                NestableObj res0 = vo.getValueofVar(invokeStmt.getArg(0), useUnit, 0);
+                NestableObj res0 = vo.getValueOfVar(invokeStmt.getArg(0), useUnit, 0);
                 if (res0.getValues().size() > 0) {
                     String str_b = res0.getValues().get(0);
                     if (StringUtils.isInteger(str_b)) {
@@ -235,7 +235,7 @@ public class GetAttributeHandler extends UnitHandler {
                             return "substring " + b;
                         }
                         if (invokeStmt.getArgCount() == 2) {
-                            NestableObj res1 = vo.getValueofVar(invokeStmt.getArg(1), useUnit, 0);
+                            NestableObj res1 = vo.getValueOfVar(invokeStmt.getArg(1), useUnit, 0);
                             if (res1.getValues().size() > 0) {
                                 String str_e = res1.getValues().get(0);
                                 if (StringUtils.isInteger(str_e)) {
@@ -253,11 +253,11 @@ public class GetAttributeHandler extends UnitHandler {
             }
         } else if (useUnit.toString().contains("charAt(")) {
             JAssignStmt jas1 = (JAssignStmt) useUnit;
-            AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.rightBox.getValue();
+            AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.getRightOpBox().getValue();
             ValueObtainer vo = new ValueObtainer(methodSig, ConstantUtils.FLAGATTRI);
 
             int b = 0;
-            NestableObj res1s0 = vo.getValueofVar(invokeStmt.getArg(0), useUnit, 0);
+            NestableObj res1s0 = vo.getValueOfVar(invokeStmt.getArg(0), useUnit, 0);
             if (res1s0.getValues().size() > 0) {
                 String str_b = res1s0.getValues().get(0);
                 if (StringUtils.isInteger(str_b)) {
@@ -273,9 +273,9 @@ public class GetAttributeHandler extends UnitHandler {
             return "";
         } else if (useUnit.toString().contains("concat(")) {
             JAssignStmt jas1 = (JAssignStmt) useUnit;
-            AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.rightBox.getValue();
+            AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.getRightOpBox().getValue();
             ValueObtainer vo = new ValueObtainer(methodSig, ConstantUtils.FLAGATTRI);
-            List<String> vals = vo.getValueofVar(invokeStmt.getArg(0), useUnit, 0).getValues();
+            List<String> vals = vo.getValueOfVar(invokeStmt.getArg(0), useUnit, 0).getValues();
             if (vals.size() > 0) {
                 String str = vals.get(0);
                 return "concat " + str;
@@ -358,16 +358,16 @@ public class GetAttributeHandler extends UnitHandler {
             // target
             JAssignStmt jas1 = (JAssignStmt) useUnit;
             Value strVal = null;
-            if (jas1.rightBox.getValue() instanceof AbstractInstanceInvokeExpr) {
-                AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.rightBox.getValue();
+            if (jas1.getRightOpBox().getValue() instanceof AbstractInstanceInvokeExpr) {
+                AbstractInstanceInvokeExpr invokeStmt = (AbstractInstanceInvokeExpr) jas1.getRightOpBox().getValue();
                 if (invokeStmt.getArg(0).equals(inputVar)) // actrionVar equals
                     // xxx
                     strVal = invokeStmt.getBase();
                 else
                     // xxx equals actrionVar
                     strVal = invokeStmt.getArg(0);
-            } else if (jas1.rightBox.getValue() instanceof JStaticInvokeExpr) {
-                JStaticInvokeExpr invokeStmt = (JStaticInvokeExpr) jas1.rightBox.getValue();
+            } else if (jas1.getRightOpBox().getValue() instanceof JStaticInvokeExpr) {
+                JStaticInvokeExpr invokeStmt = (JStaticInvokeExpr) jas1.getRightOpBox().getValue();
                 if (invokeStmt.getArg(0).equals(inputVar)) // actrionVar equals
                     // xxx
                     strVal = invokeStmt.getArg(1);
@@ -376,7 +376,7 @@ public class GetAttributeHandler extends UnitHandler {
                     strVal = invokeStmt.getArg(0);
             }
             ValueObtainer vo = new ValueObtainer(methodSig, ConstantUtils.FLAGATTRI);
-            for (String res : vo.getValueofVar(strVal, useUnit, 0).getValues())
+            for (String res : vo.getValueOfVar(strVal, useUnit, 0).getValues())
                 resSet.add(res);
         } else if (useUnit instanceof JIfStmt) {
             JIfStmt jif = (JIfStmt) useUnit;

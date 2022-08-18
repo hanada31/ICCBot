@@ -32,10 +32,6 @@ public class GatorClient extends BaseClient {
         String[] args = {"d", "-f", "-o", gatorTmpFolder, Global.v().getAppModel().getAppPath()};
         try {
             brut.apktool.Main.main(args);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (BrutException e) {
             e.printStackTrace();
         }

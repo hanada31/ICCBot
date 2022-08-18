@@ -54,12 +54,12 @@ public class CTGClient extends BaseClient {
         if (!MyConfig.getInstance().isStaticValueAnalyzeFinish()) {
             if (MyConfig.getInstance().getMySwitch().isStaticFieldSwitch()) {
                 StaticValueAnalyzer staticValueAnalyzer = new StaticValueAnalyzer();
-                staticValueAnalyzer.analyze();
+                staticValueAnalyzer.start();
             }
         }
         if (MyConfig.getInstance().getMySwitch().isDynamicBCSwitch()) {
             DynamicReceiverCGAnalyzer dynamicIntentFilterAnalyzer = new DynamicReceiverCGAnalyzer();
-            dynamicIntentFilterAnalyzer.analyze();
+            dynamicIntentFilterAnalyzer.start();
         }
 
         if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
@@ -70,7 +70,7 @@ public class CTGClient extends BaseClient {
         setMySwitch1();
         for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
             ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
-            analyzer.analyze();
+            analyzer.start();
         }
         log.info("Successfully analyze with CTGClient");
     }

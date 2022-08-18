@@ -6,6 +6,7 @@ import com.iscas.iccbot.analyze.utils.ConstantUtils;
 import com.iscas.iccbot.analyze.utils.output.FileUtils;
 import com.iscas.iccbot.client.BaseClient;
 import com.iscas.iccbot.client.manifest.ManifestClient;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 
@@ -15,25 +16,27 @@ import java.io.File;
  * @author hanada
  * @version 2.0
  */
+@Slf4j
 public class CallGraphClient extends BaseClient {
 
     @Override
     protected void clientAnalyze() {
-
         if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
             new ManifestClient().start();
-            MyConfig.getInstance().setManifestAnalyzeFinish(true);
         }
 
-        CgConstructor cgAnalyzer = new CgConstructor();
-        cgAnalyzer.analyze();
-        System.out.println("Call Graph Construction finish.");
+        if (!MyConfig.getInstance().isCallGraphAnalyzeFinish()) {
+            CgConstructor cgAnalyzer = new CgConstructor();
+            cgAnalyzer.start();
+        }
+        log.info("Call Graph Construction finished");
+
         CgModify cgModify = new CgModify();
-        cgModify.analyze();
-        System.out.println("Call Graph Enhancing finish.");
+        cgModify.start();
+        log.info("Call Graph Enhancing finished");
 
-        System.out.println("Successfully analyze with CallGraphClient.");
-
+        log.info("Successfully analyze with CallGraphClient");
+        MyConfig.getInstance().setCallGraphAnalyzeFinish(true);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class CallGraphClient extends BaseClient {
                 + File.separator;
         FileUtils.createFolder(summary_app_dir + ConstantUtils.CGFOLDETR);
 
-        /** call graph **/
+        // Call graph
         CgClientOutput.writeCG(summary_app_dir + ConstantUtils.CGFOLDETR,
                 ConstantUtils.CG, Global.v().getAppModel().getCg());
         CgClientOutput.writeCGToString(summary_app_dir + ConstantUtils.CGFOLDETR,

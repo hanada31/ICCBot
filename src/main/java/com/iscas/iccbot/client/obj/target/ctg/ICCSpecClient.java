@@ -50,13 +50,13 @@ public class ICCSpecClient extends BaseClient {
         if (!MyConfig.getInstance().isStaticValueAnalyzeFinish()) {
             if (MyConfig.getInstance().getMySwitch().isStaticFieldSwitch()) {
                 StaticValueAnalyzer staticValueAnalyzer = new StaticValueAnalyzer();
-                staticValueAnalyzer.analyze();
+                staticValueAnalyzer.start();
                 MyConfig.getInstance().setStaticValueAnalyzeFinish(true);
             }
         }
         if (MyConfig.getInstance().getMySwitch().isDynamicBCSwitch()) {
             DynamicReceiverCGAnalyzer dynamicIntentFilterAnalyzer = new DynamicReceiverCGAnalyzer();
-            dynamicIntentFilterAnalyzer.analyze();
+            dynamicIntentFilterAnalyzer.start();
         }
 
         if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
@@ -69,13 +69,13 @@ public class ICCSpecClient extends BaseClient {
         setMySwitch1();
         for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
             ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
-            analyzer.analyze();
+            analyzer.start();
         }
         log.info("ICC sending analyze finished, analyzing ICC receiving...");
         setMySwitch2();
         for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
             ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
-            analyzer.analyze();
+            analyzer.start();
         }
         log.info("Successfully analyze with ICCSpecClient");
     }

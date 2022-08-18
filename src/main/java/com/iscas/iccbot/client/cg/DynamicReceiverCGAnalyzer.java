@@ -145,7 +145,7 @@ public class DynamicReceiverCGAnalyzer extends Analyzer {
         Value inputVar = getInputVar(currentUnit, 0);
         if (inputVar != null) {
             ValueObtainer vo = new ValueObtainer(m.getSignature(), "");
-            Set<String> resSet = new HashSet<>(vo.getValueofVar(inputVar, currentUnit, 0).getValues());
+            Set<String> resSet = new HashSet<>(vo.getValueOfVar(inputVar, currentUnit, 0).getValues());
             attrList.addAll(resSet);
         }
 
@@ -155,7 +155,7 @@ public class DynamicReceiverCGAnalyzer extends Analyzer {
         Value inputVar = getInputVar(currentUnit, 0);
         if (inputVar != null) {
             ValueObtainer vo = new ValueObtainer(m.getSignature(), "");
-            Set<String> resSet = new HashSet<>(vo.getValueofVar(inputVar, currentUnit, 0).getValues());
+            Set<String> resSet = new HashSet<>(vo.getValueOfVar(inputVar, currentUnit, 0).getValues());
             if (resSet.size() > 0)
                 return resSet.iterator().next();
         }

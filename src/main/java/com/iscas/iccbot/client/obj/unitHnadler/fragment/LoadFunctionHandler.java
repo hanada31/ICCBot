@@ -44,7 +44,7 @@ public class LoadFunctionHandler extends UnitHandler {
         ARSCFileParser resParser = new ARSCFileParser();
         resParser.parse(appModel.getAppPath());
         try {
-            String id = vo.getValueofVar(invMethod.getArg(0), unit, 0).getValues().get(0);
+            String id = vo.getValueOfVar(invMethod.getArg(0), unit, 0).getValues().get(0);
             resourceId = Integer.parseInt(id);
         } catch (Exception NumberFormatException) {
             return;

@@ -1,5 +1,6 @@
 package com.iscas.iccbot.client.cg;
 
+import com.alibaba.fastjson.JSONArray;
 import com.iscas.iccbot.Analyzer;
 import com.iscas.iccbot.Global;
 import com.iscas.iccbot.MyConfig;
@@ -8,6 +9,7 @@ import com.iscas.iccbot.analyze.utils.SootUtils;
 import com.iscas.iccbot.analyze.utils.output.FileUtils;
 import com.iscas.iccbot.client.soot.SootAnalyzer;
 import heros.solver.Pair;
+import lombok.extern.slf4j.Slf4j;
 import soot.*;
 import soot.jimple.InvokeExpr;
 import soot.jimple.infoflow.InfoflowConfiguration.CallgraphAlgorithm;
@@ -17,11 +19,11 @@ import soot.jimple.infoflow.android.resources.ARSCFileParser;
 import soot.jimple.infoflow.android.resources.LayoutFileParser;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.options.Options;
-import soot.util.HashMultiMap;
 import soot.util.MultiMap;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -29,21 +31,36 @@ import java.util.*;
  *
  * @author 79940
  */
+@Slf4j
 public class CgConstructor extends Analyzer {
     SetupApplication setupApplication;
     MultiMap<SootClass, AndroidCallbackDefinition> callBacks;
     MultiMap<SootClass, SootClass> fragments;
 
+    @SuppressWarnings("unchecked")
     public CgConstructor() {
         super();
         setupApplication = new SetupApplication(MyConfig.getInstance().getAndroidJar(), appModel.getAppPath());
-        callBacks = new HashMultiMap<SootClass, AndroidCallbackDefinition>();
-        fragments = new HashMultiMap<SootClass, SootClass>();
+        Class<?> clazz = setupApplication.getClass();
+        try {
+            Field callbacksField = clazz.getDeclaredField("callbackMethods");
+            callbacksField.setAccessible(true);
+            callBacks = (MultiMap<SootClass, AndroidCallbackDefinition>) callbacksField.get(setupApplication);
+            Field fragmentClassesField = clazz.getDeclaredField("fragmentClasses");
+            fragmentClassesField.setAccessible(true);
+            fragments = (MultiMap<SootClass, SootClass>) fragmentClassesField.get(setupApplication);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException("NoSuchFieldException in soot SetupApplication", e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("IllegalAccessException in soot SetupApplication", e);
+        } catch (ClassCastException e) {
+            throw new RuntimeException("ClassCastException in soot SetupApplication", e);
+        }
     }
 
     @Override
     public void analyze() {
-        // dummy constuct, call back collect, fragment collect
+        // dummy construct, call back collect, fragment collect
         try {
             constructDummyMainMethods();
         } catch (Exception e) {
@@ -52,11 +69,8 @@ public class CgConstructor extends Analyzer {
         collectDummyAsEntries();
         collectLifeCycleAsEntries();
         collectSelfCollectEntries();
-        // String x = PrintUtils.printMap(appModel.getEntryMethod2Component());
-        // System.out.println(x);
+
         if (MyConfig.getInstance().getMySwitch().isCallBackSwitch()) {
-            // collect stub APIs defined for AIDL, their implements are seen as
-            // entries
             collectStubMethods();
             collectEntryPoints();
         }
@@ -75,9 +89,8 @@ public class CgConstructor extends Analyzer {
             appModel.setCg(new CallGraph());
         } else {
             appModel.setCg(Scene.v().getCallGraph());
-            // System.out.println("Call Graph has " +
-            // Scene.v().getCallGraph().size() + " edges.");
         }
+        MyConfig.getInstance().setCallGraphAnalyzeFinish(true);
     }
 
     private void constructBySoot() {
@@ -96,14 +109,14 @@ public class CgConstructor extends Analyzer {
         setupApplication.getConfig().getCallbackConfig().setCallbackAnalysisTimeout(120);
         setupApplication.getConfig().setCallgraphAlgorithm(CallgraphAlgorithm.AutomaticSelection);
         setupApplication.getConfig().setMergeDexFiles(true);
-        setupApplication.runInfoflow_dummy();
-
+        try {
+            setupApplication.runInfoflow();
+        } catch (Exception e) {
+            throw new RuntimeException("Soot Application runInfoflow failed!");
+        }
         String summary_app_dir = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
                 + File.separator;
-        callBacks = setupApplication.getCallbackMethods();
-        fragments = setupApplication.getFragmentClasses();
         FileUtils.delFolder("sootOutput");
-
     }
 
     /**
@@ -230,9 +243,7 @@ public class CgConstructor extends Analyzer {
                 // collect callbacks
                 if (!SootUtils.hasSootActiveBody(sMethod))
                     continue;
-                Iterator<Unit> it = SootUtils.getSootActiveBody(sMethod).getUnits().iterator();
-                while (it.hasNext()) {
-                    Unit u = it.next();
+                for (Unit u : SootUtils.getSootActiveBody(sMethod).getUnits()) {
                     InvokeExpr invoke = SootUtils.getInvokeExp(u);
                     if (invoke != null) {
                         collectUserCustumizedListeners(sMethod, u, invoke);
@@ -243,13 +254,16 @@ public class CgConstructor extends Analyzer {
     }
 
     /**
-     * addCallBackListeners from "AndroidCallbacks.txt"
+     * addCallBackListeners
      */
     private void addCallBackListeners() {
+        JSONArray cbArr = MyConfig.getInstance().getAnalyzeConfig().getJSONArray("AppModel.AndroidCallbacks");
+        if (cbArr == null) return;
+        Set<String> callbacks = new HashSet<>(cbArr.toJavaList(String.class));
+        log.info("Loaded {} callbacks from analyze config", callbacks.size());
+        Global.v().getAppModel().setCallbacks(callbacks);
 
-        Global.v().getAppModel().setCallbacks(FileUtils.getSetFromFile(ConstantUtils.DEFAULTCALLBACKFILE));
-
-        Set<String> callBacks = new HashSet<String>();
+        Set<String> callBacks = new HashSet<>();
         for (SootClass sc : Scene.v().getApplicationClasses()) {
             for (SootClass interFace : sc.getInterfaces()) {
                 if (!callBacks.contains(interFace.getName())) {

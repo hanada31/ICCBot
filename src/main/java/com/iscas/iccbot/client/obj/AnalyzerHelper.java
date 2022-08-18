@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AnalyzerHelper {
 
-    public abstract List<String> getObjectIdentier();
+    public abstract List<String> getObjectIdentifier();
 
     public abstract boolean isTopTargetUnit(Unit unit);
 

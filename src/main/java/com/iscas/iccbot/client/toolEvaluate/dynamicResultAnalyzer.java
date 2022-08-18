@@ -50,10 +50,10 @@ public class dynamicResultAnalyzer extends Analyzer {
     }
 
     private void getCoverage() {
-        String mehtodList = MyConfig.getInstance().getAppPath() + Global.v().getAppModel().getAppName()
+        String methodInfoPath = MyConfig.getInstance().getAppPath() + Global.v().getAppModel().getAppName()
                 + "_ins_info.txt";
-        List<String> methodList = FileUtils.getListFromFile(mehtodList);
-        Set<String> methodSet = new HashSet<String>(methodList);
+        List<String> methodList = FileUtils.getListFromFile(methodInfoPath);
+        Set<String> methodSet = new HashSet<>(methodList);
         Set<String> coveredSet = new HashSet<String>();
         getCoveredMethod(coveredSet, instrumentedFolder + appName + "_log_0.txt");
         getCoveredMethod(coveredSet, instrumentedFolder + appName + "_log_1.txt");

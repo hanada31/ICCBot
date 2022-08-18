@@ -127,7 +127,7 @@ public class SetAttributeHandler extends UnitHandler {
             objContextInner = constructContextObj(id + 1, unit);
         }
         ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
-        List<String> resList = vo.getValueofVar(inputVar, unit, 0).getValues();
+        List<String> resList = vo.getValueOfVar(inputVar, unit, 0).getValues();
         Set<String> resSet = new HashSet<>();
         for (String ele : resList) {
             if (ele != null) resSet.add(ele);
