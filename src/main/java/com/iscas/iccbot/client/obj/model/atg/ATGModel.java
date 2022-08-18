@@ -46,11 +46,10 @@ public class ATGModel {
 
 
     public void evaluateGraphCount(String tag) {
-        System.out.println(tag + " totalCompNum: " + getTotalCompNum());
-        System.out.println(tag + " separatedCompNum: " + getSeparatedCompNum());
-        System.out.println(tag + " mainNotReachableCompNum: " + getMainNotReachableCompNum());
-        System.out.println(tag + " exportNotReachableCompNum: " + getExportNotReachableCompNum());
-        return;
+//        System.out.println(tag + " totalCompNum: " + getTotalCompNum());
+//        System.out.println(tag + " separatedCompNum: " + getSeparatedCompNum());
+//        System.out.println(tag + " mainNotReachableCompNum: " + getMainNotReachableCompNum());
+//        System.out.println(tag + " exportNotReachableCompNum: " + getExportNotReachableCompNum());
     }
 
     /**
@@ -61,14 +60,14 @@ public class ATGModel {
 
         computeFalseNegative(counter);
 
-        System.out.println(tag + " false negative number: " + getFnEdgeSize());
-        System.out.println(tag + " oracle number: " + getOracleEdgeSize());
-        System.out.println(tag + " false negative ratio: " + getFalsenegativeScore());
-
-        for (String fn : FNSet) {
-            System.out.println("false negative: " + fn);
-        }
-        System.out.println(counter);
+//        System.out.println(tag + " false negative number: " + getFnEdgeSize());
+//        System.out.println(tag + " oracle number: " + getOracleEdgeSize());
+//        System.out.println(tag + " false negative ratio: " + getFalsenegativeScore());
+//
+//        for (String fn : FNSet) {
+//            System.out.println("false negative: " + fn);
+//        }
+//        System.out.println(counter);
 
         File f = new File(MyConfig.getInstance().getResultWrapperFolder() + File.separator + "tagResult.txt");
         if (!f.exists())
@@ -89,16 +88,14 @@ public class ATGModel {
     /**
      * compute FN
      *
-     * @param oracle
-     * @param counter
-     * @param FNSet
+     * @param counter IccTagCounter
      */
     private void computeFalseNegative(IccTagCount counter) {
-        FNSet = new HashSet<String>();
-        TPSet = new HashSet<String>();
+        FNSet = new HashSet<>();
+        TPSet = new HashSet<>();
 
         ATGModel oracle = Global.v().getiCTGModel().getOracleModel();
-        Set<String> myEdges = new HashSet<String>();
+        Set<String> myEdges = new HashSet<>();
         for (Entry<String, Set<AtgEdge>> entry : atgEdges.entrySet()) {
             for (AtgEdge myEdge : entry.getValue()) {
                 myEdges.add(myEdge.getDescribtion());

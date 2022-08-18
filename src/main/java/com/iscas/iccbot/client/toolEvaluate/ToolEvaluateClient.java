@@ -9,6 +9,7 @@ import com.iscas.iccbot.analyze.utils.OracleUtils;
 import com.iscas.iccbot.analyze.utils.output.FileUtils;
 import com.iscas.iccbot.client.BaseClient;
 import com.iscas.iccbot.client.obj.model.atg.ATGModel;
+import com.iscas.iccbot.client.obj.model.atg.AtgEdge;
 import com.iscas.iccbot.client.obj.target.ctg.CTGReaderClient;
 import com.iscas.iccbot.client.related.a3e.A3EResultEvaluateClient;
 import com.iscas.iccbot.client.related.gator.GatorATGResultEvaluateClient;
@@ -116,6 +117,46 @@ public class ToolEvaluateClient extends BaseClient {
         pairwiseComparison("A3E", "ICCBot", a3eModel, iccBotModelnoFrag);
 
         pairwiseComparison("Story", "ICCBot", storyModelnoFrag, iccBotModelnoFrag);
+
+        allComparison(iccBotModelnoFrag, ic3Model, IC3DialModel, gatorModel, a3eModel, storyModelnoFrag);
+
+    }
+
+    private void allComparison(ATGModel iccBotModelnoFrag, ATGModel ic3Model, ATGModel ic3DialModel, ATGModel gatorModel, ATGModel a3eModel, ATGModel storyModelnoFrag) {
+        String filename = MyConfig.getInstance().getResultWrapperFolder() + File.separator + "allComparisonCount.txt";
+        ATGModel oracleModel = Global.v().getiCTGModel().getOracleModel();
+        for (Set<AtgEdge> edges : oracleModel.getAtgEdges().values()) {
+            for (AtgEdge oracleEdge : edges) {
+                int num = 0;
+                String tools = "";
+                if (iccBotModelnoFrag.getFNSet().contains(oracleEdge.getDescribtion())) {
+                    num++;
+                    tools += "iccBot\t";
+                }
+                if (ic3Model.getFNSet().contains(oracleEdge.getDescribtion())) {
+                    num++;
+                    tools += "ic3\t";
+                }
+                if (ic3DialModel.getFNSet().contains(oracleEdge.getDescribtion())) {
+                    num++;
+                    tools += "ic3dial\t";
+                }
+                if (gatorModel.getFNSet().contains(oracleEdge.getDescribtion())) {
+                    num++;
+                    tools += "gator\t";
+                }
+                if (a3eModel.getFNSet().contains(oracleEdge.getDescribtion())) {
+                    num++;
+                    tools += "a3e\t";
+                }
+                if (storyModelnoFrag.getFNSet().contains(oracleEdge.getDescribtion())) {
+                    num++;
+                    tools += "story\t";
+                }
+
+                FileUtils.writeText2File(filename, oracleEdge.getDescribtion() + "\t" + num + "\t" + tools + "\n", true);
+            }
+        }
 
     }
 
