@@ -97,6 +97,14 @@ public class MainfestAnalyzer extends Analyzer {
 		// get components
 		HashMap<String, ComponentModel> componentMap = getComponentMap(type);
 		for (AXmlNode componentNode : components) {
+			// ignore the component whose "enabled" attribute is "false"
+			if (componentNode.hasAttribute("enabled")) {
+				if (componentNode.getAttribute("enabled").getValue().toString().equals("")
+				 || componentNode.getAttribute("enabled").getValue().toString().equals("false")) {
+					continue;
+				}
+			}
+			
 			// new ActivityData instance
 			String componentName = componentNode.getAttribute("name").getValue().toString();
 			if (!Global.v().getAppModel().getApplicationClassNames().contains(componentName)) {

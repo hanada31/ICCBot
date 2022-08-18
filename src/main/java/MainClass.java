@@ -42,12 +42,6 @@ public class MainClass {
 		/** analyze args**/
 		CommandLine mCmd = getCommandLine(args);
 		analyzeArgs(mCmd);
-		/** debug mode in IDE **/
-		if (mCmd.hasOption("debug")) {
-			testConfig();
-			setMySwitch();
-		}
-		
 		/** start ICCBot**/
 		startAnalyze();
 		
@@ -73,7 +67,7 @@ public class MainClass {
 	/**
 	 * start the analyze of app with a given client
 	 */
-	private static void startAnalyze() {
+	public static void startAnalyze() {
 		System.out.println("Analyzing " + MyConfig.getInstance().getAppName());
 		BaseClient client = getClient();
 
@@ -199,9 +193,6 @@ public class MainClass {
 		/** output **/
 		options.addOption("outputDir", true, "-outputDir: Set the output folder of the apk.");
 
-		/** debug **/
-		options.addOption("debug", false, "-debug: use debug mode.");
-
 		/** Switch **/
 
 		options.addOption("onlyDummyMain", false, "-onlyDummyMain: limit the entry scope");
@@ -286,13 +277,10 @@ public class MainClass {
 			resFolder = resFolder.substring(0,resFolder.lastIndexOf("\\"));
 			MyConfig.getInstance().setResultWarpperFolder(resFolder+ File.separator);
 		}
-		
-		if (!mCmd.hasOption("debug") && !mCmd.hasOption("name")) {
+
+		if (!mCmd.hasOption("name")) {
 			printHelp("Please input the apk name use -name.");
 		}
-//		if (!mCmd.hasOption("debug") && !mCmd.hasOption("androidJar")) {
-//			printHelp("Please input the path of android.jar use -androidJar.");
-//		}
 		
 		/** analysis config **/
 		if (mCmd.hasOption("onlyDummyMain"))
@@ -355,56 +343,5 @@ public class MainClass {
 		System.exit(0);
 	}
 
-	/**
-	 * analyze parameters for evaluation
-	 */
-	private static void setMySwitch() {
-		MyConfig.getInstance().getMySwithch().setDummyMainSwitch(false);
-		MyConfig.getInstance().getMySwithch().setCallBackSwitch(true);
-		MyConfig.getInstance().getMySwithch().setFunctionExpandSwitch(true);
 
-		MyConfig.getInstance().getMySwithch().setAsyncMethodSwitch(true);
-		MyConfig.getInstance().getMySwithch().setPolymSwitch(true);
-
-		MyConfig.getInstance().getMySwithch().setAdapterSwitch(true);
-		MyConfig.getInstance().getMySwithch().setStringOpSwitch(true);
-		MyConfig.getInstance().getMySwithch().setStaticFieldSwitch(true);
-
-		MyConfig.getInstance().getMySwithch().setFragmentSwitch(true);
-		MyConfig.getInstance().getMySwithch().setLibCodeSwitch(true);
-		MyConfig.getInstance().getMySwithch().setWrapperAPISwitch(true);
-
-		MyConfig.getInstance().getMySwithch().setImplicitLaunchSwitch(true);
-		MyConfig.getInstance().getMySwithch().setDynamicBCSwitch(true);
-
-		MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.object);
-		MyConfig.getInstance().getMySwithch().setVfgStrategy(true);
-		MyConfig.getInstance().getMySwithch().setCgAnalyzeGroupedStrategy(false);
-	}
-
-	/** 
-	 * for self testing
-	 *  **/
-	private static void testConfig() {
-		String path;
-		path = "apk/";
-		String name;
-		name = "com.malib.dhbtcepte-399";
-		String client = "CTGClient"; 
-		client = "IROutputClient"; 
-//		client = "ToolEvaluateClient"; 
-		
-		MyConfig.getInstance().setAppName(name + ".apk");
-		MyConfig.getInstance().setAppPath(path + File.separator);
-		MyConfig.getInstance().setClient(client);
-		MyConfig.getInstance().setGatorClient("GUIHierarchyPrinterClient");
-		MyConfig.getInstance().setGatorClient("ActivityTransitionAnalysisClient");
-		MyConfig.getInstance().setMaxPathNumber(30);
-		MyConfig.getInstance().setMaxFunctionExpandNumber(5); //10?
-		MyConfig.getInstance().setMaxObjectSummarySize(100);
-		MyConfig.getInstance().setResultWarpperFolder("results/" + File.separator);
-		MyConfig.getInstance().setResultFolder(MyConfig.getInstance().getResultWarpperFolder()+ "output" + File.separator);
-		MyConfig.getInstance().setTimeLimit(10);
-		MyConfig.getInstance().setAndroidJar("lib/platforms");
-	}
 }
