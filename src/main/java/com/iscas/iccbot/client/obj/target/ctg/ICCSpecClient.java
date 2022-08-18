@@ -106,6 +106,8 @@ public class ICCSpecClient extends BaseClient {
         String ictgFolder = summary_app_dir + ConstantUtils.ICTGSPEC;
         FileUtils.createFolder(ictgFolder);
         outer.writeComponentModelJson(ictgFolder, ConstantUtils.COMPONENTMODELJSON);
+        outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ENTRY, true);
+        outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ENTRY, true);
     }
 
 

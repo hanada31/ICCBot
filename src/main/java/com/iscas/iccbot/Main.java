@@ -45,12 +45,6 @@ public class Main {
         }
         analyzeArgs(mCmd);
 
-        // debug mode in IDE
-        if (mCmd.hasOption("debug")) {
-            testConfig();
-            setMySwitch();
-        }
-
         // start ICCBot
         startAnalyze();
 
@@ -77,7 +71,7 @@ public class Main {
     /**
      * start the analyze of app with a given client
      */
-    private static void startAnalyze() {
+    public static void startAnalyze() {
         log.info("Analyzing " + MyConfig.getInstance().getAppName());
         BaseClient client = getClient();
 
@@ -201,9 +195,6 @@ public class Main {
         /** output **/
         options.addOption("outputDir", true, "-outputDir: Set the output folder of the apk.");
 
-        /** debug **/
-        options.addOption("debug", false, "-debug: use debug mode.");
-
         /** Switch **/
 
         options.addOption("onlyDummyMain", false, "-onlyDummyMain: limit the entry scope");
@@ -291,12 +282,9 @@ public class Main {
             myConfig.setResultWrapperFolder(resFolder + File.separator);
         }
 
-        if (!mCmd.hasOption("debug") && !mCmd.hasOption("name")) {
+        if (!mCmd.hasOption("name")) {
             printHelp("Please input the apk name use -name.");
         }
-//		if (!mCmd.hasOption("debug") && !mCmd.hasOption("androidJar")) {
-//			printHelp("Please input the path of android.jar use -androidJar.");
-//		}
 
         /** analysis config **/
         if (mCmd.hasOption("onlyDummyMain"))
@@ -389,56 +377,5 @@ public class Main {
         System.out.println("Please check the help information");
         formatter.printHelp("java -jar ICCBot.jar [options]", getOptions());
         System.exit(0);
-    }
-
-    /**
-     * analyze parameters for evaluation
-     */
-    private static void setMySwitch() {
-        MyConfig.getInstance().getMySwitch().setDummyMainSwitch(false);
-        MyConfig.getInstance().getMySwitch().setCallBackSwitch(true);
-        MyConfig.getInstance().getMySwitch().setFunctionExpandSwitch(true);
-
-        MyConfig.getInstance().getMySwitch().setAsyncMethodSwitch(true);
-        MyConfig.getInstance().getMySwitch().setPolymSwitch(true);
-
-        MyConfig.getInstance().getMySwitch().setAdapterSwitch(true);
-        MyConfig.getInstance().getMySwitch().setStringOpSwitch(true);
-        MyConfig.getInstance().getMySwitch().setStaticFieldSwitch(true);
-
-        MyConfig.getInstance().getMySwitch().setFragmentSwitch(true);
-        MyConfig.getInstance().getMySwitch().setLibCodeSwitch(true);
-        MyConfig.getInstance().getMySwitch().setWrapperAPISwitch(true);
-
-        MyConfig.getInstance().getMySwitch().setImplicitLaunchSwitch(true);
-        MyConfig.getInstance().getMySwitch().setDynamicBCSwitch(true);
-
-        MyConfig.getInstance().getMySwitch().setSummaryStrategy(SummaryLevel.object);
-        MyConfig.getInstance().getMySwitch().setVfgStrategy(true);
-        MyConfig.getInstance().getMySwitch().setCgAnalyzeGroupedStrategy(false);
-    }
-
-    /**
-     * for self testing
-     **/
-    private static void testConfig() {
-        String path = "apk/";
-        // String name = "IntentFlowBench2";
-        String name = "com.umetrip.android.msky.app";
-        String client = "MainClient";
-
-        MyConfig myConfig = MyConfig.getInstance();
-        myConfig.setAppName(name + ".apk");
-        myConfig.setAppPath(path + File.separator);
-        myConfig.setClient(client);
-//        myConfig.setGatorClient("GUIHierarchyPrinterClient");
-//        myConfig.setGatorClient("ActivityTransitionAnalysisClient");
-//        myConfig.setMaxPathNumber(100);
-//        myConfig.setMaxFunctionExpandNumber(5); //10?
-//        myConfig.setMaxObjectSummarySize(100);
-        myConfig.setResultWrapperFolder("results/" + File.separator);
-        myConfig.setResultFolder(myConfig.getResultWrapperFolder() + "output" + File.separator);
-        myConfig.setTimeLimit(1440);
-        myConfig.setAndroidJar("lib/platforms");
     }
 }
