@@ -41,7 +41,7 @@ public class TestGenerationClient extends CTGClient {
         // className : act to be analyzed
         for (String className : Global.v().getAppModel().getComponentMap().keySet()) {
             ICCGenerator generator = new ICCGenerator(className);
-            generator.analyze();
+            generator.start();
             Set<ICCMsg> ICCs = generator.getICCSet();
             if (ICCs != null && ICCs.size() != 0) {
                 tg.handleICCMsgs(ICCs, className);

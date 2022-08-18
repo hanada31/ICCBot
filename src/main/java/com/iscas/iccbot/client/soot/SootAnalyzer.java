@@ -1,9 +1,11 @@
 package com.iscas.iccbot.client.soot;
 
+import com.alibaba.fastjson.JSONArray;
 import com.iscas.iccbot.Analyzer;
 import com.iscas.iccbot.Global;
 import com.iscas.iccbot.MyConfig;
 import com.iscas.iccbot.analyze.utils.ConstantUtils;
+import lombok.extern.slf4j.Slf4j;
 import soot.PackManager;
 import soot.Scene;
 import soot.SootClass;
@@ -13,7 +15,9 @@ import soot.options.Options;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
+@Slf4j
 public class SootAnalyzer extends Analyzer {
     public SootAnalyzer() {
         super();
@@ -24,17 +28,20 @@ public class SootAnalyzer extends Analyzer {
      */
     @Override
     public void analyze() {
-        if (appModel.getAppName() == null)
-            return;
+        if (appModel.getAppName() == null) return;
+        long startMS = System.currentTimeMillis();
+
         sootInit();
         sootTransform();
         sootEnd();
+
         if (Global.v().getAppModel().getApplicationClassNames().size() == 0) {
             for (SootClass sc : Scene.v().getApplicationClasses()) {
                 Global.v().getAppModel().addApplicationClassNames(sc.getName());
             }
-            System.out.println("Soot Analysis finish.");
         }
+        log.info(String.format("SootAnalyzer finished in %.2f seconds", (System.currentTimeMillis() - startMS) / 1000.0));
+        MyConfig.getInstance().setSootAnalyzeFinish(true);
     }
 
     /**
@@ -57,7 +64,6 @@ public class SootAnalyzer extends Analyzer {
         Options.v().allow_phantom_refs();
         Options.v().set_whole_program(true);
         setExcludePackage();
-
     }
 
     /**
@@ -87,20 +93,10 @@ public class SootAnalyzer extends Analyzer {
      * packages refuse to be analyzed
      */
     public static void setExcludePackage() {
-        ArrayList<String> excludeList = new ArrayList<String>();
-        excludeList.add("android.*");
-        excludeList.add("androidx.*");
-        excludeList.add("kotlin.*");
-        excludeList.add("com.google.*");
-        excludeList.add("soot.*");
-        excludeList.add("junit.*");
-        excludeList.add("java.*");
-        excludeList.add("javax.*");
-        excludeList.add("sun.*");
-        excludeList.add("org.apache.*");
-        excludeList.add("org.eclipse.*");
-        excludeList.add("org.junit.*");
-        excludeList.add("com.fasterxml.*");
-        Options.v().set_exclude(excludeList);
+        JSONArray excArr = MyConfig.getInstance().getAnalyzeConfig().getJSONArray("SootAnalyzer.excludePackages");
+        if (excArr == null) return;
+        List<String> excList = excArr.toJavaList(String.class);
+        log.info("Loaded {} exclude packages from analyze config", excList.size());
+        Options.v().set_exclude(excList);
     }
 }

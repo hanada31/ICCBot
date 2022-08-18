@@ -4,6 +4,7 @@ import com.iscas.iccbot.Analyzer;
 import com.iscas.iccbot.MyConfig;
 import com.iscas.iccbot.SummaryLevel;
 import com.iscas.iccbot.analyze.utils.SootUtils;
+import lombok.extern.slf4j.Slf4j;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
@@ -14,7 +15,9 @@ import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 
 import java.util.*;
+import java.util.concurrent.*;
 
+@Slf4j
 public class CgModify extends Analyzer {
 
     public CgModify() {
@@ -62,7 +65,7 @@ public class CgModify extends Analyzer {
                 addTopoForSupplySingle();
             }
         }
-        System.out.println("Call Graph has " + appModel.getCg().size() + " edges.");
+        log.info("Call Graph has " + appModel.getCg().size() + " edges");
     }
 
     /**
@@ -77,7 +80,7 @@ public class CgModify extends Analyzer {
                     continue;
             }
             for (SootMethod sm : sc.getMethods()) {
-                if (SootUtils.hasSootActiveBody(sm) == false)
+                if (!SootUtils.hasSootActiveBody(sm))
                     continue;
                 if (!appModel.getTopoMethodQueue().contains(sm)) {
                     appModel.getTopoMethodQueue().add(0, sm);
@@ -100,7 +103,7 @@ public class CgModify extends Analyzer {
                         continue;
                 }
                 for (SootMethod sm : sc.getMethods()) {
-                    if (SootUtils.hasSootActiveBody(sm) == false)
+                    if (!SootUtils.hasSootActiveBody(sm))
                         continue;
                     if (!appModel.getTopoMethodQueue().contains(sm)) {
                         appModel.getTopoMethodQueue().add(0, sm);
@@ -148,11 +151,11 @@ public class CgModify extends Analyzer {
                 methodSets.get(srcId).add(edge.getTgt().method());
                 Edge edgeCopy = new Edge(edge.getSrc(), edge.srcStmt(), edge.getTgt(), edge.kind());
                 cgs.get(srcId).addEdge(edgeCopy);
-            } else if (srcId == -1 && tgtId != -1) {
+            } else if (srcId == -1) {
                 methodSets.get(tgtId).add(edge.getSrc().method());
                 Edge edgeCopy = new Edge(edge.getSrc(), edge.srcStmt(), edge.getTgt(), edge.kind());
                 cgs.get(tgtId).addEdge(edgeCopy);
-            } else if (srcId != -1 && tgtId != -1) {
+            } else if (srcId != -1) {
                 Edge edgeCopy = new Edge(edge.getSrc(), edge.srcStmt(), edge.getTgt(), edge.kind());
                 cgs.get(srcId).addEdge(edgeCopy);
                 if (srcId != tgtId) {

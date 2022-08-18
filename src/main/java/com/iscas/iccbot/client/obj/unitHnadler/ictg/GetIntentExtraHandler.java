@@ -124,7 +124,7 @@ public class GetIntentExtraHandler extends UnitHandler {
             List<ExtraData> eds = new ArrayList<ExtraData>();
             param_list.put(u.toString(), eds);
             if (var != null) {
-                List<String> reslist = vo.getValueofVar(var, u, 0).getValues();
+                List<String> reslist = vo.getValueOfVar(var, u, 0).getValues();
                 for (String res : reslist) {
                     ExtraData ed = new ExtraData();
                     ed.setName(res);
@@ -181,7 +181,7 @@ public class GetIntentExtraHandler extends UnitHandler {
         Value res = null;
         if (u instanceof JAssignStmt) {
             JAssignStmt jas = (JAssignStmt) u;
-            ValueBox ads = jas.rightBox;
+            ValueBox ads = jas.getRightOpBox();
             Value v = ads.getValue();
             if (v instanceof JVirtualInvokeExpr) {
                 JVirtualInvokeExpr jvie = (JVirtualInvokeExpr) v;

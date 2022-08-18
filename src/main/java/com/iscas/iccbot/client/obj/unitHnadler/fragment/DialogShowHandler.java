@@ -45,7 +45,7 @@ public class DialogShowHandler extends UnitHandler {
         if (invMethod instanceof JVirtualInvokeExpr) {
             JVirtualInvokeExpr jv = (JVirtualInvokeExpr) invMethod;
             ValueObtainer vo = new ValueObtainer(methodSig, "", new Context(), new Counter());
-            for (String res : vo.getValueofVar(jv.getBase(), unit, 0).getValues()) {
+            for (String res : vo.getValueOfVar(jv.getBase(), unit, 0).getValues()) {
                 if (res.contains("new ")) {
                     transformFragmentMethod(methodUnderAnalyze.getDeclaringClass(), unit, res.replace("new ", ""),
                             methodUnderAnalyze);

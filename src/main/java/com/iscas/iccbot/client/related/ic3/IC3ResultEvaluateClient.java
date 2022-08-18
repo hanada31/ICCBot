@@ -10,6 +10,7 @@ import com.iscas.iccbot.client.manifest.ManifestClient;
 import com.iscas.iccbot.client.related.ic3.model.IC3Model;
 import com.iscas.iccbot.client.soot.SootAnalyzer;
 import com.iscas.iccbot.client.statistic.model.StatisticResult;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.io.IOException;
  * @author hanada
  * @version 2.0
  */
+@Slf4j
 public class IC3ResultEvaluateClient extends BaseClient {
 
     /**
@@ -33,17 +35,14 @@ public class IC3ResultEvaluateClient extends BaseClient {
         result = new StatisticResult();
         if (!MyConfig.getInstance().isSootAnalyzeFinish()) {
             SootAnalyzer analyzer = new SootAnalyzer();
-            analyzer.analyze();
-            MyConfig.getInstance().setSootAnalyzeFinish(true);
+            analyzer.start();
         }
         if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
             new ManifestClient().start();
-            MyConfig.getInstance().setManifestAnalyzeFinish(true);
         }
-
         IC3Reader ic3 = new IC3Reader(result);
-        ic3.analyze();
-        System.out.println("Successfully analyze with IC3GraphClient.");
+        ic3.start();
+        log.info("Successfully analyze with IC3GraphClient");
     }
 
     @Override

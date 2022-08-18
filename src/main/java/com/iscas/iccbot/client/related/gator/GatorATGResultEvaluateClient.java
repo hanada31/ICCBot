@@ -10,6 +10,7 @@ import com.iscas.iccbot.client.BaseClient;
 import com.iscas.iccbot.client.manifest.ManifestClient;
 import com.iscas.iccbot.client.obj.model.atg.ATGModel;
 import com.iscas.iccbot.client.related.gator.model.GatorModel;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.io.IOException;
  * @author hanada
  * @version 2.0
  */
+@Slf4j
 public class GatorATGResultEvaluateClient extends BaseClient {
 
     /**
@@ -32,7 +34,6 @@ public class GatorATGResultEvaluateClient extends BaseClient {
     protected void clientAnalyze() {
         if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
             new ManifestClient().start();
-            MyConfig.getInstance().setManifestAnalyzeFinish(true);
         }
         ATGModel model = Global.v().getGatorModel().getGatorAtgModel();
         model.setATGFilePath(ConstantUtils.GATORFOLDETR + Global.v().getAppModel().getAppName() + "_wtg.txt");
@@ -40,7 +41,7 @@ public class GatorATGResultEvaluateClient extends BaseClient {
         if (reader.obtainATGfromFile()) {
             reader.constructModelForGator();
         }
-        System.out.println("Successfully analyze with GatorGraphClient.");
+        log.info("Successfully analyze with GatorGraphClient");
     }
 
     @Override

@@ -60,7 +60,7 @@ public class SetContentFunctionHandler extends UnitHandler {
         }
         boolean findTarget = false;
         ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
-        List<String> ids = vo.getValueofVar(inputVar, unit, 0).getValues();
+        List<String> ids = vo.getValueOfVar(inputVar, unit, 0).getValues();
         if (ids != null && ids.size() > 0) {
             String resId = ids.get(0);
             ARSCFileParser resParser = new ARSCFileParser();

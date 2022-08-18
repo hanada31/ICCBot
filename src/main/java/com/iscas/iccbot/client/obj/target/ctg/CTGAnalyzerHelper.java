@@ -22,17 +22,17 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class CTGAnalyzerHelper implements AnalyzerHelper {
-    public List<String> objectIdentier;
+    public List<String> objectIdentifier;
 
     public CTGAnalyzerHelper() {
-        objectIdentier = new ArrayList<String>();
-        objectIdentier.add("android.content.Intent");
-        objectIdentier.add("android.app.PendingIntent");
+        objectIdentifier = new ArrayList<String>();
+        objectIdentifier.add("android.content.Intent");
+        objectIdentifier.add("android.app.PendingIntent");
     }
 
     @Override
-    public List<String> getObjectIdentier() {
-        return this.objectIdentier;
+    public List<String> getObjectIdentifier() {
+        return this.objectIdentifier;
     }
 
     @Override
@@ -240,7 +240,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
     @Override
     public boolean isReceiveFromParatMethod(Unit u) {
         boolean res = false;
-        for (String s : objectIdentier) {
+        for (String s : objectIdentifier) {
             String pattern = ".*@parameter\\d+: " + s + ".*";
             res |= Pattern.matches(pattern, u.toString());
         }
@@ -255,7 +255,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      */
     @Override
     public boolean isCreateMethod(Unit u) {
-        for (String s : objectIdentier) {
+        for (String s : objectIdentifier) {
             if (u.toString().endsWith("new " + s)) {
                 if (u instanceof JIfStmt)
                     return false;
@@ -275,7 +275,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
                 if (u.toString().contains("ipcIntent"))
                     return false;
                 JAssignStmt ass = (JAssignStmt) u;
-                for (String s : objectIdentier) {
+                for (String s : objectIdentifier) {
                     if (ass.containsFieldRef() && ass.getFieldRef().getType().toString().equals(s))
                         return true;
                 }
@@ -298,7 +298,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
         Iterator<Value> it = invoke.getArgs().iterator();
         while (it.hasNext()) {
             Value v = it.next();
-            for (String s : objectIdentier) {
+            for (String s : objectIdentifier) {
                 if (v.getType().toString().contains(s))
                     return true;
             }
@@ -318,7 +318,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
         if (invokStmt == null)
             return false;
         if (SootUtils.hasSootActiveBody(invokStmt.getMethod())) {
-            for (String s : objectIdentier) {
+            for (String s : objectIdentifier) {
                 if (invokStmt.getMethod().getReturnType().toString().equals(s)) {
                     return true;
                 }

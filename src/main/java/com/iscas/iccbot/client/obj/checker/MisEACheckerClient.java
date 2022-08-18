@@ -15,18 +15,14 @@ public class MisEACheckerClient extends BaseClient {
     protected void clientAnalyze() {
         result = new StatisticResult();
 
-
         if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
             new ManifestClient().start();
-            MyConfig.getInstance().setManifestAnalyzeFinish(true);
         }
         if (MyConfig.getInstance().isWriteSootOutput()) {
             new IROutputClient().start();
         }
-
-
         MisEAAnalysis misEaAnalyzer = new MisEAAnalysis();
-        misEaAnalyzer.analyze();
+        misEaAnalyzer.start();
 
         System.out.println("Successfully analyze with MisEACheckerClient.");
     }

@@ -44,7 +44,7 @@ public class ReplaceFunctionHandler extends UnitHandler {
             objContextInner = constructContextObj(id + 1, unit);
         }
         ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
-        for (String res : vo.getValueofVar(inputVar, unit, 0).getValues()) {
+        for (String res : vo.getValueOfVar(inputVar, unit, 0).getValues()) {
             if (res.contains("new ")) {
                 transformFragmentMethod(methodUnderAnalyze.getDeclaringClass(), unit, res.replace("new ", ""),
                         methodUnderAnalyze);

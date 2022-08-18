@@ -17,6 +17,7 @@ import com.iscas.iccbot.client.obj.target.ctg.CTGAnalyzer;
 import com.iscas.iccbot.client.obj.target.fragment.FragmentAnalyzerHelper;
 import com.iscas.iccbot.client.obj.unitHnadler.UnitHandler;
 import com.iscas.iccbot.client.statistic.model.StatisticResult;
+import lombok.extern.slf4j.Slf4j;
 import soot.*;
 import soot.jimple.InvokeExpr;
 import soot.jimple.internal.JAssignStmt;
@@ -30,6 +31,7 @@ import soot.toolkits.scalar.UnitValueBoxPair;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
+@Slf4j
 public abstract class ObjectAnalyzer extends Analyzer {
     public abstract void assignForObjectName();
 
@@ -46,12 +48,12 @@ public abstract class ObjectAnalyzer extends Analyzer {
 
     public ObjectAnalyzer(List<SootMethod> topoQueue, AnalyzerHelper helper, StatisticResult result) {
         super();
-        this.analyzedMethodSet = new HashSet<SootMethod>();
+        this.analyzedMethodSet = new HashSet<>();
         this.topoQueue = topoQueue;
         this.helper = helper;
-        this.currentSummaryMap = new HashMap<String, MethodSummaryModel>();
+        this.currentSummaryMap = new HashMap<>();
         this.result = result;
-        this.objectIdentier = helper.getObjectIdentier();
+        this.objectIdentier = helper.getObjectIdentifier();
         assignForObjectName();
     }
 
@@ -59,34 +61,38 @@ public abstract class ObjectAnalyzer extends Analyzer {
     public void analyze() {
         /** according to the topology order **/
         Global.v().id = 0;
+        int totalCnt = Global.v().getAppModel().getTopoMethodQueue().size();
+        long totalTime = 0;
+        log.info("There are totally {} methods in TopoMethodQueue", totalCnt);
+        int cnt = 0;
         for (SootMethod m : topoQueue) {
+            cnt++;
+            if (cnt % 200 == 0)
+                log.info(String.format("This is the method #%d/%d, avg time per method: %.2fms",
+                        cnt, totalCnt, (totalTime / ((double) cnt))));
             if (this instanceof CTGAnalyzer) {
-                Global.v().id++;
-                if (Global.v().id % 200 == 0)
-                    System.out.println("This is the method #" + Global.v().id + "/"
-                            + Global.v().getAppModel().getTopoMethodQueue().size());
+                Global v = Global.v();
+                v.id++;
             }
+            long startMS = System.currentTimeMillis();
             MethodSummaryModel model = analyzeMethodSummary(m);
             drawATGandStatistic(model);
-            if (MyConfig.getInstance().isStopFlag())
-                return;
+            if (MyConfig.getInstance().isStopFlag()) return;
+            totalTime += (System.currentTimeMillis() - startMS);
         }
     }
 
     /**
      * analyzeMethodSummary to get its summary
      *
-     * @param mc
+     * @param methodUnderAnalysis
      */
     protected MethodSummaryModel analyzeMethodSummary(SootMethod methodUnderAnalysis) {
         appModel.addMethod(methodUnderAnalysis);
-        if (initMethodCheck(methodUnderAnalysis) == false)
-            return null;
+        if (!initMethodCheck(methodUnderAnalysis)) return null;
         analyzedMethodSet.add(methodUnderAnalysis);
         this.methodUnderAnalysis = methodUnderAnalysis;
-//		if(methodUnderAnalysis.getSignature().contains("goToAppSettings")) {
-//			System.out.println();
-//		}
+
         String className = methodUnderAnalysis.getDeclaringClass().getName();
         MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
 
@@ -94,22 +100,25 @@ public abstract class ObjectAnalyzer extends Analyzer {
 //			analyzeDummyMain(methodSummary);
             return methodSummary;
         }
-        /** get target units -- ICC related units **/
+
+        // get target units -- ICC related units
         Map<Unit, List<Unit>> targetMap = getTargetUnitsOfMethod();
         if (targetMap.size() == 0)
             return methodSummary;
 
         // System.out.println("getPathSummary");
-        /** analyze pathSummarys **/
+
+        // analyze pathSummarys
         UnitNode treeRoot = getNodeTreeByCFGAnalysis(targetMap);
         Set<List<UnitNode>> nodeListSet = getUnitNodePaths(treeRoot);
         getPathSummary(methodSummary, nodeListSet);
         // System.out.println("getSingleObject");
-        /** analyze SingleObject **/
-        getSingleObject(methodSummary);
 
-//		 System.out.println("getSingleComponent");
-        /** analyze SingleClass **/
+        // analyze SingleObject
+        getSingleObject(methodSummary);
+        // System.out.println("getSingleComponent");
+
+        // analyze SingleClass
         getSingleComponent(methodSummary);
 
         return methodSummary;
@@ -191,7 +200,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
      * getSingleObjects
      *
      * @param methodSummary
-     * @param targetMap
      */
     protected void getSingleObject(MethodSummaryModel methodSummary) {
         if (MyConfig.getInstance().getMySwitch().getSummaryStrategy().equals(SummaryLevel.object)) {
@@ -286,7 +294,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
      * getSingleObject_flowLevel
      *
      * @param methodSummary
-     * @param targetMap
      */
     private void getSingleObject_flowLevel(MethodSummaryModel methodSummary) {
         PathSummaryModel pathSummary = new PathSummaryModel(methodSummary);
@@ -365,7 +372,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
             }
         }
         List<UnitNode> workList = getWorkListofObjectAnalysis(node, pathSummary, singleObject, context, addedSet);
-//		System.out.println(workList.size());
+        // System.out.println(workList.size());
         handleWorkList(pathSummary, singleObject, workList, addedSet);
 
         if (MyConfig.getInstance().getMySwitch().isScenario_stack()) {
@@ -440,7 +447,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
      * @param node
      * @param pathSummary
      * @param singleObject
-     * @param workList
      */
     private boolean handleParameterPassing(UnitNode node, PathSummaryModel pathSummary, ObjectSummaryModel singleObject) {
         boolean findPassing = false;
@@ -457,7 +463,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
             return false;
         if (helper.getUnitHandler(handleTarget.getUnit()) != null)
             return false;
-        Set<Unit> targetHistory = new HashSet<Unit>();
+        Set<Unit> targetHistory = new HashSet<>();
         while (helper.getUnitHandler(handleTarget.getUnit()) == null) {
             if (targetHistory.contains(handleTarget.getUnit()))
                 break;
@@ -483,8 +489,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
                     }
                 }
             }
-            if (findPs == false)
-                break;
+            if (!findPs) break;
         }
         return findPassing;
     }
@@ -540,7 +545,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
      * @return
      */
     private boolean initMethodCheck(SootMethod m) {
-        if (m == null || SootUtils.hasSootActiveBody(m) == false)
+        if (m == null || !SootUtils.hasSootActiveBody(m))
             return false;
         if (hasAnalyzeResutltOfCurrentMehtod(m))
             return false;
@@ -554,9 +559,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * Convert CFG to VFG
      *
-     * @param targetUnits
+     * @param targetUnitsMehodLevel
      * @param briefGraph
-     * @param pdg
      * @param targetBlocks
      * @param conditionMap
      * @return
@@ -655,7 +659,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
      * @param targetUnitsMehodLevel
      * @param targetBlocks
      * @param conditionMap
-     * @param g
      */
     private UnitNode generateNodeTree(Map<Unit, List<Unit>> targetUnitsMehodLevel, BlockGraph graph,
                                       Set<Block> targetBlocks, Map<Block, Condition> conditionMap) {
@@ -676,19 +679,20 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * work with getICCNodeTree
      *
-     * @param targetUnitsMehodLevel
-     * @param root
+     * @param targetUnitsMethodLevel
      * @param g
      * @param currentBlock
      * @param currentBlock
      * @param history
      */
-    private void iterAnalyzeBlockNodeToBuildNodeTree(List<String> context, Map<Unit, List<Unit>> targetUnitsMehodLevel,
+    private void iterAnalyzeBlockNodeToBuildNodeTree(List<String> context, Map<Unit, List<Unit>> targetUnitsMethodLevel,
                                                      UnitNode predNode, BlockGraph g, Block preBlock, Block currentBlock, Map<String, UnitNode> history,
                                                      Map<Block, Condition> conditionMap) {
-        if (history.containsKey(preBlock.hashCode() + " " + currentBlock.hashCode())) {
+        // TODO: 是否有副作用？
+        String nodeKey = preBlock.hashCode() + " " + currentBlock.hashCode();
+        if (history.containsKey(nodeKey)) {
             // link to the first node of the block, which has been analyzed
-            UnitNode firstNode = history.get(preBlock.hashCode() + " " + currentBlock.hashCode());
+            UnitNode firstNode = history.get(nodeKey);
             predNode.getSuccs().add(firstNode);
             return;
         }
@@ -696,7 +700,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
         boolean isConditionModified = false;
         while (it.hasNext()) {
             Unit unit = it.next();
-            boolean flag = isTargetUnitToBeAnalyzed(unit, currentBlock, g, targetUnitsMehodLevel);
+            boolean flag = isTargetUnitToBeAnalyzed(unit, currentBlock, g, targetUnitsMethodLevel);
             if (flag) {// || attr!=null
                 UnitNode currentNode = new UnitNode(unit, methodUnderAnalysis, helper.getTypeofUnit(
                         methodUnderAnalysis, unit));// init
@@ -706,11 +710,11 @@ public abstract class ObjectAnalyzer extends Analyzer {
                 predNode.getSuccs().add(currentNode);
                 //
                 // do not sure, if add ,some node will lose their target
-                if (!history.containsKey(preBlock.hashCode() + " " + currentBlock.hashCode())) {
-                    history.put(preBlock.hashCode() + " " + currentBlock.hashCode(), currentNode);
+                if (!history.containsKey(nodeKey)) {
+                    history.put(nodeKey, currentNode);
                 }
 
-                List<Unit> targetUnits = targetUnitsMehodLevel.get(unit);
+                List<Unit> targetUnits = targetUnitsMethodLevel.get(unit);
                 if (targetUnits != null) {
                     for (Unit targetUnit : targetUnits) {
                         UnitNode targetNode = appModel.getUnit2NodeMap().get(targetUnit);
@@ -752,7 +756,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
         }
         for (int i = 0; i < g.getSuccsOf(currentBlock).size(); i++) {
             Block succBlock = g.getSuccsOf(currentBlock).get(i);
-            iterAnalyzeBlockNodeToBuildNodeTree(context, targetUnitsMehodLevel, predNode, g, currentBlock, succBlock,
+            iterAnalyzeBlockNodeToBuildNodeTree(context, targetUnitsMethodLevel, predNode, g, currentBlock, succBlock,
                     history, conditionMap);
         }
     }
@@ -760,8 +764,8 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * handleNodewithInnerFunction
      *
+     * @param methodStack
      * @param currentMtdcontext
-     * @param context
      * @param currentNode
      */
     private void handleNodewithInnerFunction(Stack<String> methodStack, List<String> currentMtdcontext,
@@ -883,10 +887,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * getUnitNodePaths using BriefBlockGraph
      *
-     * @param targetUnitsMehodLevel
-     * @param g
-     * @param conditionMap
-     * @param targetUnitListSet
+     * @param rootNode
      * @return
      */
     private Set<List<UnitNode>> getUnitNodePaths(UnitNode rootNode) {
@@ -900,16 +901,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * work with method getUnitNodePaths
      *
-     * @param targetUnitsMehodLevel
-     * @param mc
-     * @param g
-     * @param block
-     * @param targetUnitsCopy2
-     * @param targetUnitListSet
+     * @param depth
+     * @param targetUnitPath
+     * @param targetUnitPathSet
      * @param history
-     * @param endFlag
-     * @param endFlag
-     * @param conditionMap
      */
     private void iterGenereatePath(int depth, UnitNode node, List<UnitNode> targetUnitPath,
                                    Set<List<UnitNode>> targetUnitPathSet, Set<String> history) {
@@ -922,15 +917,16 @@ public abstract class ObjectAnalyzer extends Analyzer {
         int num = 0;
         for (UnitNode succ : node.getSuccs()) {
             num++;
-            if (history.contains(node.hashCode() + "," + succ.hashCode()))
+            String s = node.hashCode() + "," + succ.hashCode();
+            if (history.contains(s))
                 continue;
             if (num == node.getSuccs().size()) {
-                history.add(node.hashCode() + "," + succ.hashCode());
+                history.add(s);
                 iterGenereatePath(depth + 1, succ, targetUnitPath, targetUnitPathSet, history);
             } else {
                 List<UnitNode> targetUnitsCopy = new ArrayList<UnitNode>(targetUnitPath);
                 Set<String> historyCopy = new HashSet<String>(history);
-                historyCopy.add(node.hashCode() + "," + succ.hashCode());
+                historyCopy.add(s);
                 iterGenereatePath(depth + 1, succ, targetUnitsCopy, targetUnitPathSet, historyCopy);
             }
         }
@@ -941,7 +937,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * analyze condition find solution of constraint
      *
-     * @param unit
      * @param condition
      */
     private void analyzeCondition(Condition condition) {
@@ -998,8 +993,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * get target units in the method related units
      *
-     * @param methodUnderAnalysis
-     * @param mc
      * @return
      */
     private Map<Unit, List<Unit>> getTargetUnitsOfMethod() {
@@ -1092,10 +1085,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
     /**
      * get target units in the method related units
      *
-     * @param resMap
+     * @param targetMap
      * @param u
+     * @param pointTo
      * @param hashSet
-     * @param mc
      */
     protected void iterativeGetTarget(Map<Unit, List<Unit>> targetMap, Unit u, Unit pointTo, HashSet<Unit> hashSet) {
         hashSet.add(u);
@@ -1237,7 +1230,6 @@ public abstract class ObjectAnalyzer extends Analyzer {
      * @param n
      * @param initPath
      * @param pathSet
-     * @param addedPathSet
      * @param currentPathNum
      */
     private void expandAllPaths(UnitNode n, PathSummaryModel initPath, Set<PathSummaryModel> pathSet, int currentPathNum) {

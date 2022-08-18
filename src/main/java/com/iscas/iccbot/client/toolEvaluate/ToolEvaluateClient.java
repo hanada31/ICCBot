@@ -44,13 +44,13 @@ public class ToolEvaluateClient extends BaseClient {
 
 
 //		dynamicResultAnalyzer analyzer = new dynamicResultAnalyzer();
-//		analyzer.analyze();
+//		analyzer.start();
 //
 //		manualResultAnalyzer analyzer2 = new manualResultAnalyzer();
-//		analyzer2.analyze();
+//		analyzer2.start();
 
         LabeledOracleReader reader = new LabeledOracleReader();
-        reader.analyze();
+        reader.start();
 
         System.out.println("Successfully analyze with ToolEvaluateClient.");
 

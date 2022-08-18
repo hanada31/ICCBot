@@ -10,6 +10,7 @@ import com.iscas.iccbot.client.manifest.ManifestClient;
 import com.iscas.iccbot.client.related.a3e.model.A3EModel;
 import com.iscas.iccbot.client.soot.SootAnalyzer;
 import com.iscas.iccbot.client.statistic.model.StatisticResult;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.io.IOException;
  * @author hanada
  * @version 2.0
  */
+@Slf4j
 public class A3EResultEvaluateClient extends BaseClient {
 
     /**
@@ -33,17 +35,15 @@ public class A3EResultEvaluateClient extends BaseClient {
         result = new StatisticResult();
         if (!MyConfig.getInstance().isSootAnalyzeFinish()) {
             SootAnalyzer analyzer = new SootAnalyzer();
-            analyzer.analyze();
-            MyConfig.getInstance().setSootAnalyzeFinish(true);
+            analyzer.start();
         }
         if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
             new ManifestClient().start();
-            MyConfig.getInstance().setManifestAnalyzeFinish(true);
         }
-
         A3EReader a3e = new A3EReader(result);
-        a3e.analyze();
-        System.out.println("Successfully analyze with A3EClient.");
+        a3e.start();
+
+        log.info("Successfully analyze with A3EClient");
     }
 
     @Override

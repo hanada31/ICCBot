@@ -55,7 +55,7 @@ public class AddTabFunctionHandler extends UnitHandler {
             objContextInner = constructContextObj(id + 1, unit);
         }
         ValueObtainer vo = new ValueObtainer(methodSig, "", objContextInner, new Counter());
-        String className = vo.getValueofVar(inputVar, unit, 0).getValues().get(0);
+        String className = vo.getValueOfVar(inputVar, unit, 0).getValues().get(0);
         className = className.replace("/", ".").replace("class L", "").replace(";", "");
         className = className.split("@")[0];
         this.singleFrag.getSetDestinationList().add(className);
