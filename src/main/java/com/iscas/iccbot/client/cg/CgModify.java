@@ -177,31 +177,74 @@ public class CgModify extends Analyzer {
      * add edges in cg for topo sort
      */
     private void addEdgesByOurAnalyze(CallGraph callGraph) {
-        for (SootClass sc : Scene.v().getApplicationClasses()) {
-            if (!MyConfig.getInstance().getMySwitch().allowLibCodeSwitch()) {
-                if (!SootUtils.isNonLibClass(sc.getName()))
-                    continue;
+        soot.util.Chain<SootClass> appClasses = Scene.v().getApplicationClasses();
+
+        ThreadPoolExecutor smAnalyzeExecutor = new ThreadPoolExecutor(8, Integer.MAX_VALUE, 0L,
+            TimeUnit.MICROSECONDS, new SynchronousQueue<>(), r -> {
+                Thread t = new Thread(r);
+                t.setDaemon(true);
+                return t;
+            });
+
+        int cnt = 0;
+        for (SootClass sc : appClasses) {
+            if (!MyConfig.getInstance().getMySwitch().allowLibCodeSwitch() &&
+                    !SootUtils.isNonLibClass(sc.getName())) {
+                continue;
             }
-            ArrayList<SootMethod> methodList = new ArrayList<SootMethod>(sc.getMethods());
-            for (SootMethod sm : methodList) {
-                if (SootUtils.hasSootActiveBody(sm) == false)
-                    continue;
-                Iterator<Unit> it = SootUtils.getSootActiveBody(sm).getUnits().iterator();
-                while (it.hasNext()) {
-                    Unit u = it.next();
-                    InvokeExpr exp = SootUtils.getInvokeExp(u);
-                    if (exp == null)
-                        continue;
-                    InvokeExpr invoke = SootUtils.getSingleInvokedMethod(u);
-                    if (invoke != null) { // u is invoke stmt
-                        Set<SootMethod> targetSet = SootUtils.getInvokedMethodSet(sm, u);
-                        for (SootMethod target : targetSet) {
-                            Edge e = new Edge(sm, (Stmt) u, target);
-                            callGraph.addEdge(e);
-                        }
+            cnt += sc.getMethodCount();
+        }
+        log.info("There are totally {} methods to expand", cnt);
+
+        int totalCnt = cnt;
+        new Thread("MonitorThread") {
+            @Override
+            public void run() {
+                long tickTime = System.currentTimeMillis();
+                while (!smAnalyzeExecutor.isShutdown()) {
+                    if (System.currentTimeMillis() - tickTime > 3000) {
+                        log.info("Traversing all SootMethods: {}/{}/{}", smAnalyzeExecutor.getActiveCount(),
+                                smAnalyzeExecutor.getCompletedTaskCount(), totalCnt);
+                        tickTime = System.currentTimeMillis();
                     }
+                    Thread.yield();
                 }
             }
+        }.start();
+        for (SootClass sc : appClasses) {
+            if (!MyConfig.getInstance().getMySwitch().allowLibCodeSwitch() &&
+                    !SootUtils.isNonLibClass(sc.getName())) {
+                continue;
+            }
+            for (SootMethod sm : sc.getMethods()) {
+                smAnalyzeExecutor.submit(() -> {
+                    if (!SootUtils.hasSootActiveBody(sm)) return;
+                    soot.UnitPatchingChain unitPatchingChain = SootUtils.getSootActiveBody(sm).getUnits();
+                    for (Unit u : unitPatchingChain) {
+                        InvokeExpr exp = SootUtils.getInvokeExp(u);
+                        if (exp == null) continue;
+                        InvokeExpr invoke = SootUtils.getSingleInvokedMethod(u);
+                        if (invoke != null) { // u is invoke stmt
+                            Set<SootMethod> targetSet = SootUtils.getInvokedMethodSet(sm, u);
+                            for (SootMethod target : targetSet) {
+                                Edge e = new Edge(sm, (Stmt) u, target);
+                                callGraph.addEdge(e);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        try {
+            smAnalyzeExecutor.shutdown();
+            boolean res = smAnalyzeExecutor.awaitTermination(24, TimeUnit.HOURS);
+            if (res) {
+                log.info("SootMethod traverse finished");
+            } else {
+                log.info("SootMethod traverse timed out");
+            }
+        } catch (InterruptedException e) {
+            log.error("InterruptedException when executing smAnalyze", e);
         }
     }
 
