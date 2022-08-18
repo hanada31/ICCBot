@@ -1,348 +1,348 @@
 package com.iscas.iccbot;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * config information for current run
- * 
- * @author 79940
  *
+ * @author 79940
  */
 public class MyConfig {
 
-	private MyConfig() {
-	}
+    private MyConfig() {
+    }
 
-	private boolean isJimple = true;
-	private boolean testGeneration = false;
-	private boolean writeSootOutput = false;
-	private String androidVersion;
-	private String resultFolder;
-	private String resultWarpperFolder;
-	private String srcFolder;
-	private String appName;
-	private String appPath;
-	private String client;
-	private String gatorClient;
-	private String callgraphAlgorithm;
-	private int timeLimit;
-	private int maxPathNumber;
-	private int maxFunctionExpandNumber;
-	private int maxObjectSummarySize;
-	private String androidJar;
-	private boolean stopFlag = false;
+    private boolean isJimple = true;
+    private boolean testGeneration = false;
+    private boolean writeSootOutput = false;
+    private JSONObject analyzeConfig;
+    private String androidVersion;
+    private String resultFolder;
+    private String resultWrapperFolder;
+    private String srcFolder;
+    private String appName;
+    private String appPath;
+    private String client;
+    private String gatorClient;
+    private String callGraphAlgorithm;
+    private int timeLimit;
+    private int maxPathNumber;
+    private int maxFunctionExpandNumber;
+    private int maxObjectSummarySize;
+    private String androidJar;
+    private boolean stopFlag = false;
 
-	private boolean isSootAnalyzeFinish;
-	private boolean isManifestClientFinish;
-	private boolean isFragemenClientFinish;
-	private boolean isCallGraphClientFinish;
-	private boolean isStaitiucValueAnalyzeFinish;
-	private boolean isOracleConstructionClientFinish;
-	private Switch mySwithch = new Switch();
+    private boolean isSootAnalyzeFinish;
+    private boolean isManifestClientFinish;
+    private boolean isFragmentClientFinish;
+    private boolean isCallGraphClientFinish;
+    private boolean isStaticValueAnalyzeFinish;
+    private boolean isOracleConstructionClientFinish;
+    private Switch mySwitch = new Switch();
 
-	private static class SingletonInstance {
-		private static final MyConfig INSTANCE = new MyConfig();
-	}
+    private static class SingletonInstance {
+        private static final MyConfig INSTANCE = new MyConfig();
+    }
 
-	public static MyConfig getInstance() {
-		return SingletonInstance.INSTANCE;
-	}
+    public static MyConfig getInstance() {
+        return SingletonInstance.INSTANCE;
+    }
 
-	/**
-	 * @return the mySwithch
-	 */
-	public Switch getMySwithch() {
-		return mySwithch;
-	}
+    /**
+     * @return the mySwitch
+     */
+    public Switch getMySwitch() {
+        return mySwitch;
+    }
 
-	/**
-	 * @param mySwithch
-	 *            the mySwithch to set
-	 */
-	public void setMySwithch(Switch mySwithch) {
-		this.mySwithch = mySwithch;
-	}
+    /**
+     * @param mySwitch the mySwitch to set
+     */
+    public void setMySwitch(Switch mySwitch) {
+        this.mySwitch = mySwitch;
+    }
 
-	public boolean isJimple() {
-		return isJimple;
-	}
+    public JSONObject getAnalyzeConfig() {
+        return analyzeConfig;
+    }
 
-	public void setJimple(boolean isJimple) {
-		this.isJimple = isJimple;
-	}
+    public void setAnalyzeConfig(JSONObject analyzeConfig) {
+        this.analyzeConfig = analyzeConfig;
+    }
 
-	public boolean isTestGeneration() {
-		return testGeneration;
-	}
+    public boolean isJimple() {
+        return isJimple;
+    }
 
-	public void setTestGeneration(boolean testGeneration) {
-		this.testGeneration = testGeneration;
-	}
+    public void setJimple(boolean isJimple) {
+        this.isJimple = isJimple;
+    }
 
-	public boolean isWriteSootOutput() {
-		return writeSootOutput;
-	}
+    public boolean isTestGeneration() {
+        return testGeneration;
+    }
 
-	public void setWriteSootOutput(boolean writeSootOutput) {
-		this.writeSootOutput = writeSootOutput;
-	}
+    public void setTestGeneration(boolean testGeneration) {
+        this.testGeneration = testGeneration;
+    }
 
-	public String getAndroidVersion() {
-		return androidVersion;
-	}
+    public boolean isWriteSootOutput() {
+        return writeSootOutput;
+    }
 
-	public void setAndroidVersion(String androidVersion) {
-		this.androidVersion = androidVersion;
-	}
+    public void setWriteSootOutput(boolean writeSootOutput) {
+        this.writeSootOutput = writeSootOutput;
+    }
 
-	public String getResultFolder() {
-		return resultFolder;
-	}
+    public String getAndroidVersion() {
+        return androidVersion;
+    }
 
-	public void setResultFolder(String resultFolder) {
-		this.resultFolder = resultFolder;
-	}
+    public void setAndroidVersion(String androidVersion) {
+        this.androidVersion = androidVersion;
+    }
 
-	public String getSrcFolder() {
-		return srcFolder;
-	}
+    public String getResultFolder() {
+        return resultFolder;
+    }
 
-	public void setSrcFolder(String srcFolder) {
-		this.srcFolder = srcFolder;
-	}
+    public void setResultFolder(String resultFolder) {
+        this.resultFolder = resultFolder;
+    }
 
-	public String getAppName() {
-		return appName;
-	}
+    public String getSrcFolder() {
+        return srcFolder;
+    }
 
-	public void setAppName(String appName) {
-		this.appName = appName;
-	}
+    public void setSrcFolder(String srcFolder) {
+        this.srcFolder = srcFolder;
+    }
 
-	public String getAppPath() {
-		return appPath;
-	}
+    public String getAppName() {
+        return appName;
+    }
 
-	public void setAppPath(String appPath) {
-		this.appPath = appPath;
-	}
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
 
-	public String getClient() {
-		return client;
-	}
+    public String getAppPath() {
+        return appPath;
+    }
 
-	public void setClient(String client) {
-		this.client = client;
-	}
+    public void setAppPath(String appPath) {
+        this.appPath = appPath;
+    }
 
-	public int getTimeLimit() {
-		return timeLimit;
-	}
+    public String getClient() {
+        return client;
+    }
 
-	public void setTimeLimit(int timeLimit) {
-		this.timeLimit = timeLimit;
-	}
+    public void setClient(String client) {
+        this.client = client;
+    }
 
-	/**
-	 * @return the androidJar
-	 */
-	public String getAndroidJar() {
-		return androidJar;
-	}
+    public int getTimeLimit() {
+        return timeLimit;
+    }
 
-	/**
-	 * @param androidJar
-	 *            the androidJar to set
-	 */
-	public void setAndroidJar(String androidJar) {
-		this.androidJar = androidJar;
-	}
+    public void setTimeLimit(int timeLimit) {
+        this.timeLimit = timeLimit;
+    }
 
-	/**
-	 * @return the maxPathNumber
-	 */
-	public int getMaxPathNumber() {
-		return maxPathNumber;
-	}
+    /**
+     * @return the androidJar
+     */
+    public String getAndroidJar() {
+        return androidJar;
+    }
 
-	/**
-	 * @param maxPathNumber
-	 *            the maxPathNumber to set
-	 */
-	public void setMaxPathNumber(int maxPathNumber) {
-		this.maxPathNumber = maxPathNumber;
-	}
+    /**
+     * @param androidJar the androidJar to set
+     */
+    public void setAndroidJar(String androidJar) {
+        this.androidJar = androidJar;
+    }
 
-	/**
-	 * @return the isManifestAnalyzeFinish
-	 */
-	public boolean isManifestAnalyzeFinish() {
-		return isManifestClientFinish;
-	}
+    /**
+     * @return the maxPathNumber
+     */
+    public int getMaxPathNumber() {
+        return maxPathNumber;
+    }
 
-	/**
-	 * @param isManifestAnalyzeFinish
-	 *            the isManifestAnalyzeFinish to set
-	 */
-	public void setManifestAnalyzeFinish(boolean isManifestAnalyzeFinish) {
-		this.isManifestClientFinish = isManifestAnalyzeFinish;
-	}
+    /**
+     * @param maxPathNumber the maxPathNumber to set
+     */
+    public void setMaxPathNumber(int maxPathNumber) {
+        this.maxPathNumber = maxPathNumber;
+    }
 
-	/**
-	 * @return the isFragementAnalyzeFinish
-	 */
-	public boolean isFragementAnalyzeFinish() {
-		return isFragemenClientFinish;
-	}
+    /**
+     * @return the isManifestAnalyzeFinish
+     */
+    public boolean isManifestAnalyzeFinish() {
+        return isManifestClientFinish;
+    }
 
-	/**
-	 * @param isFragementAnalyzeFinish
-	 *            the isFragementAnalyzeFinish to set
-	 */
-	public void setFragementAnalyzeFinish(boolean isFragementAnalyzeFinish) {
-		this.isFragemenClientFinish = isFragementAnalyzeFinish;
-	}
+    /**
+     * @param isManifestAnalyzeFinish the isManifestAnalyzeFinish to set
+     */
+    public void setManifestAnalyzeFinish(boolean isManifestAnalyzeFinish) {
+        this.isManifestClientFinish = isManifestAnalyzeFinish;
+    }
 
-	/**
-	 * @return the isCallGraphAnalyzeFinish
-	 */
-	public boolean isCallGraphAnalyzeFinish() {
-		return isCallGraphClientFinish;
-	}
+    /**
+     * @return the isFragementAnalyzeFinish
+     */
+    public boolean isFragmentAnalyzeFinish() {
+        return isFragmentClientFinish;
+    }
 
-	/**
-	 * @param isCallGraphAnalyzeFinish
-	 *            the isCallGraphAnalyzeFinish to set
-	 */
-	public void setCallGraphAnalyzeFinish(boolean isCallGraphAnalyzeFinish) {
-		this.isCallGraphClientFinish = isCallGraphAnalyzeFinish;
-	}
+    /**
+     * @param isFragmentAnalyzeFinish the isFragmentAnalyzeFinish to set
+     */
+    public void setFragmentAnalyzeFinish(boolean isFragmentAnalyzeFinish) {
+        this.isFragmentClientFinish = isFragmentAnalyzeFinish;
+    }
 
-	/**
-	 * @return the isOracleConstructionClientFinish
-	 */
-	public boolean isOracleConstructionClientFinish() {
-		return isOracleConstructionClientFinish;
-	}
+    /**
+     * @return the isCallGraphAnalyzeFinish
+     */
+    public boolean isCallGraphAnalyzeFinish() {
+        return isCallGraphClientFinish;
+    }
 
-	/**
-	 * @param isOracleConstructionClientFinish
-	 *            the isOracleConstructionClientFinish to set
-	 */
-	public void setOracleConstructionClientFinish(boolean isOracleConstructionClientFinish) {
-		this.isOracleConstructionClientFinish = isOracleConstructionClientFinish;
-	}
+    /**
+     * @param isCallGraphAnalyzeFinish the isCallGraphAnalyzeFinish to set
+     */
+    public void setCallGraphAnalyzeFinish(boolean isCallGraphAnalyzeFinish) {
+        this.isCallGraphClientFinish = isCallGraphAnalyzeFinish;
+    }
 
-	/**
-	 * @return the isStaitiucValueAnalyzeFinish
-	 */
-	public boolean isStaitiucValueAnalyzeFinish() {
-		return isStaitiucValueAnalyzeFinish;
-	}
+    /**
+     * @return the isOracleConstructionClientFinish
+     */
+    public boolean isOracleConstructionClientFinish() {
+        return isOracleConstructionClientFinish;
+    }
 
-	/**
-	 * @param isStaitiucValueAnalyzeFinish
-	 *            the isStaitiucValueAnalyzeFinish to set
-	 */
-	public void setStaitiucValueAnalyzeFinish(boolean isStaitiucValueAnalyzeFinish) {
-		this.isStaitiucValueAnalyzeFinish = isStaitiucValueAnalyzeFinish;
-	}
+    /**
+     * @param isOracleConstructionClientFinish the isOracleConstructionClientFinish to set
+     */
+    public void setOracleConstructionClientFinish(boolean isOracleConstructionClientFinish) {
+        this.isOracleConstructionClientFinish = isOracleConstructionClientFinish;
+    }
 
-	/**
-	 * @return the isSootAnalyzeFinish
-	 */
-	public boolean isSootAnalyzeFinish() {
-		return isSootAnalyzeFinish;
-	}
+    /**
+     * @return the isStaticValueAnalyzeFinish
+     */
+    public boolean isStaticValueAnalyzeFinish() {
+        return isStaticValueAnalyzeFinish;
+    }
 
-	/**
-	 * @param isSootAnalyzeFinish
-	 *            the isSootAnalyzeFinish to set
-	 */
-	public void setSootAnalyzeFinish(boolean isSootAnalyzeFinish) {
-		this.isSootAnalyzeFinish = isSootAnalyzeFinish;
-	}
+    /**
+     * @param isStaticValueAnalyzeFinish the isStaticValueAnalyzeFinish to set
+     */
+    public void setStaticValueAnalyzeFinish(boolean isStaticValueAnalyzeFinish) {
+        this.isStaticValueAnalyzeFinish = isStaticValueAnalyzeFinish;
+    }
 
-	/**
-	 * @return the stopFlag
-	 */
-	public boolean isStopFlag() {
-		return stopFlag;
-	}
+    /**
+     * @return the isSootAnalyzeFinish
+     */
+    public boolean isSootAnalyzeFinish() {
+        return isSootAnalyzeFinish;
+    }
 
-	/**
-	 * @param stopFlag
-	 *            the stopFlag to set
-	 */
-	public void setStopFlag(boolean stopFlag) {
-		this.stopFlag = stopFlag;
-	}
+    /**
+     * @param isSootAnalyzeFinish the isSootAnalyzeFinish to set
+     */
+    public void setSootAnalyzeFinish(boolean isSootAnalyzeFinish) {
+        this.isSootAnalyzeFinish = isSootAnalyzeFinish;
+    }
 
-	/**
-	 * @return the resultWarpperFolder
-	 */
-	public String getResultWarpperFolder() {
-		return resultWarpperFolder;
-	}
+    /**
+     * @return the stopFlag
+     */
+    public boolean isStopFlag() {
+        return stopFlag;
+    }
 
-	/**
-	 * @param resultWarpperFolder the resultWarpperFolder to set
-	 */
-	public void setResultWarpperFolder(String resultWarpperFolder) {
-		this.resultWarpperFolder = resultWarpperFolder;
-	}
+    /**
+     * @param stopFlag the stopFlag to set
+     */
+    public void setStopFlag(boolean stopFlag) {
+        this.stopFlag = stopFlag;
+    }
 
-	/**
-	 * @return the gatorClient
-	 */
-	public String getGatorClient() {
-		return gatorClient;
-	}
+    /**
+     * @return the resultWrapperFolder
+     */
+    public String getResultWrapperFolder() {
+        return resultWrapperFolder;
+    }
 
-	/**
-	 * @param gatorClient the gatorClient to set
-	 */
-	public void setGatorClient(String gatorClient) {
-		this.gatorClient = gatorClient;
-	}
+    /**
+     * @param resultWrapperFolder the resultWrapperFolder to set
+     */
+    public void setResultWrapperFolder(String resultWrapperFolder) {
+        this.resultWrapperFolder = resultWrapperFolder;
+    }
 
-	/**
-	 * @return the callgraphAlgorithm
-	 */
-	public String getCallgraphAlgorithm() {
-		return callgraphAlgorithm;
-	}
+    /**
+     * @return the gatorClient
+     */
+    public String getGatorClient() {
+        return gatorClient;
+    }
 
-	/**
-	 * @param callgraphAlgorithm the callgraphAlgorithm to set
-	 */
-	public void setCallgraphAlgorithm(String callgraphAlgorithm) {
-		this.callgraphAlgorithm = callgraphAlgorithm;
-	}
+    /**
+     * @param gatorClient the gatorClient to set
+     */
+    public void setGatorClient(String gatorClient) {
+        this.gatorClient = gatorClient;
+    }
 
-	/**
-	 * @return the maxFunctionExpandNumber
-	 */
-	public int getMaxFunctionExpandNumber() {
-		return maxFunctionExpandNumber;
-	}
+    /**
+     * @return the callGraphAlgorithm
+     */
+    public String getCallGraphAlgorithm() {
+        return callGraphAlgorithm;
+    }
 
-	/**
-	 * @param maxFunctionExpandNumber the maxFunctionExpandNumber to set
-	 */
-	public void setMaxFunctionExpandNumber(int maxFunctionExpandNumber) {
-		this.maxFunctionExpandNumber = maxFunctionExpandNumber;
-	}
+    /**
+     * @param callGraphAlgorithm the callGraphAlgorithm to set
+     */
+    public void setCallGraphAlgorithm(String callGraphAlgorithm) {
+        this.callGraphAlgorithm = callGraphAlgorithm;
+    }
 
-	/**
-	 * @return the maxObjectSummarySize
-	 */
-	public int getMaxObjectSummarySize() {
-		return maxObjectSummarySize;
-	}
+    /**
+     * @return the maxFunctionExpandNumber
+     */
+    public int getMaxFunctionExpandNumber() {
+        return maxFunctionExpandNumber;
+    }
 
-	/**
-	 * @param maxObjectSummarySize the maxObjectSummarySize to set
-	 */
-	public void setMaxObjectSummarySize(int maxObjectSummarySize) {
-		this.maxObjectSummarySize = maxObjectSummarySize;
-	}
+    /**
+     * @param maxFunctionExpandNumber the maxFunctionExpandNumber to set
+     */
+    public void setMaxFunctionExpandNumber(int maxFunctionExpandNumber) {
+        this.maxFunctionExpandNumber = maxFunctionExpandNumber;
+    }
+
+    /**
+     * @return the maxObjectSummarySize
+     */
+    public int getMaxObjectSummarySize() {
+        return maxObjectSummarySize;
+    }
+
+    /**
+     * @param maxObjectSummarySize the maxObjectSummarySize to set
+     */
+    public void setMaxObjectSummarySize(int maxObjectSummarySize) {
+        this.maxObjectSummarySize = maxObjectSummarySize;
+    }
 }

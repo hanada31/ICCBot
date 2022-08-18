@@ -6,25 +6,25 @@ import soot.PackManager;
 
 /**
  * Analyzer Class
- * 
+ *
  * @author hanada
  * @version 2.0
  */
 public class IROutputClient extends BaseClient {
 
-	@Override
-	protected void clientAnalyze() {
-		if (!MyConfig.getInstance().isSootAnalyzeFinish()) {
-			SootAnalyzer sootAnalyzer = new SootAnalyzer();
-			sootAnalyzer.analyze();
-		}
+    @Override
+    protected void clientAnalyze() {
+        if (!MyConfig.getInstance().isSootAnalyzeFinish()) {
+            SootAnalyzer sootAnalyzer = new SootAnalyzer();
+            sootAnalyzer.analyze();
+        }
 
-		System.out.println("Successfully analyze with IROutputClient.");
-	}
+        System.out.println("Successfully analyze with IROutputClient.");
+    }
 
-	@Override
-	public void clientOutput() {
-		PackManager.v().writeOutput();
-	}
+    @Override
+    public void clientOutput() {
+        PackManager.v().writeOutput();
+    }
 
 }

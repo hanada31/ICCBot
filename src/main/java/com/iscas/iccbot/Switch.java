@@ -2,403 +2,384 @@ package com.iscas.iccbot;
 
 /**
  * switches for the analysis
- * @author hanada
  *
+ * @author hanada
  */
 public class Switch {
-	// control flow
-	private boolean dummyMainSwitch;
-	private boolean callBackSwitch;
-	private boolean asyncMethodSwitch;
-	private boolean polymSwitch;
-	private boolean functionExpandSwitch;
-	private boolean functionExpandAllSwitch;
-	
-	// data flow
-	private boolean adapterSwitch;
-	private boolean stringOpSwitch;
-	private boolean staticFieldSwitch;
+    // control flow
+    private boolean dummyMainSwitch;
+    private boolean callBackSwitch;
+    private boolean asyncMethodSwitch;
+    private boolean polymSwitch;
+    private boolean functionExpandSwitch;
+    private boolean functionExpandAllSwitch;
 
-	// target code
-	private boolean libCodeSwitch;
-	private boolean fragmentSwitch;
-	private boolean wrapperAPISwitch;
+    // data flow
+    private boolean adapterSwitch;
+    private boolean stringOpSwitch;
+    private boolean staticFieldSwitch;
 
-	// launching
+    // target code
+    private boolean libCodeSwitch;
+    private boolean fragmentSwitch;
+    private boolean wrapperAPISwitch;
 
-	private boolean implicitLaunchSwitch;
-	private boolean dynamicBCSwitch;
+    // launching
 
-	// efficiency
-	private boolean vfgStrategy;
-	private SummaryLevel summaryStrategy;
-	private boolean cgAnalyzeGroupedStrategy;
-	
-	//other
-	private boolean getAttributeStrategy;
-	private boolean setAttributeStrategy;
-	private boolean setDesRelatedAttributeOnlyStrategy;
-	private boolean scenario_stack;
+    private boolean implicitLaunchSwitch;
+    private boolean dynamicBCSwitch;
 
-	public Switch() {
-		dummyMainSwitch = false;
-		callBackSwitch = true;
-		asyncMethodSwitch = true;
-		polymSwitch = true;
-		functionExpandSwitch = true;
+    // efficiency
+    private boolean vfgStrategy;
+    private SummaryLevel summaryStrategy;
+    private boolean cgAnalyzeGroupedStrategy;
 
-		adapterSwitch = true;
-		stringOpSwitch = true;
-		staticFieldSwitch = true;
+    //other
+    private boolean getAttributeStrategy;
+    private boolean setAttributeStrategy;
+    private boolean setDesRelatedAttributeOnlyStrategy;
+    private boolean scenario_stack;
 
-		libCodeSwitch = true;
-		fragmentSwitch = true;
-		wrapperAPISwitch = true;
+    public Switch() {
+        dummyMainSwitch = false;
+        callBackSwitch = true;
+        asyncMethodSwitch = true;
+        polymSwitch = true;
+        functionExpandSwitch = true;
 
-		implicitLaunchSwitch = true;
-		dynamicBCSwitch = true;
+        adapterSwitch = true;
+        stringOpSwitch = true;
+        staticFieldSwitch = true;
 
-		summaryStrategy = SummaryLevel.object;
-		vfgStrategy = true;
-		cgAnalyzeGroupedStrategy = false;
-		getAttributeStrategy = false;
-		setAttributeStrategy = false;
+        libCodeSwitch = true;
+        fragmentSwitch = true;
+        wrapperAPISwitch = true;
 
-		setScenario_stack(false);
-		functionExpandAllSwitch = false;
-	}
+        implicitLaunchSwitch = true;
+        dynamicBCSwitch = true;
 
-	@Override
-	public String toString() {
-		String res = "dummyMain=" + isDummyMainSwitch() + "\t";
-		res += "callBack=" + isCallBackSwitch() + "\t";
-		res += "asyncMethod=" + isAsyncMethodSwitch() + "\t";
+        summaryStrategy = SummaryLevel.object;
+        vfgStrategy = true;
+        cgAnalyzeGroupedStrategy = false;
+        getAttributeStrategy = false;
+        setAttributeStrategy = false;
 
-		res += "adapter=" + isAdapterSwitch() + "\t";
-		res += "stringOp=" + isStringOpSwitch() + "\t";
-		res += "contextSensi=" + isFunctionExpandSwitch() + "\t";
+        setScenario_stack(false);
+        functionExpandAllSwitch = false;
+    }
 
-		res += "libCode=" + allowLibCodeSwitch() + "\t";
-		res += "fragment=" + isFragmentSwitch() + "\t";
-		res += "wrapperAPI=" + isWrapperAPISwitch() + "\t";
+    @Override
+    public String toString() {
+        String res = "dummyMain=" + isDummyMainSwitch() + "\t";
+        res += "callBack=" + isCallBackSwitch() + "\t";
+        res += "asyncMethod=" + isAsyncMethodSwitch() + "\t";
 
-		res += "vfg=" + isVfgStrategy() + "\t";
-		res += "summary=" + getSummaryStrategy() + "\t";
-		res += "cgGrouped=" + isCgAnalyzeGroupedStrategy() + "\n";
+        res += "adapter=" + isAdapterSwitch() + "\t";
+        res += "stringOp=" + isStringOpSwitch() + "\t";
+        res += "contextSensi=" + isFunctionExpandSwitch() + "\t";
 
-		return res;
-	}
+        res += "libCode=" + allowLibCodeSwitch() + "\t";
+        res += "fragment=" + isFragmentSwitch() + "\t";
+        res += "wrapperAPI=" + isWrapperAPISwitch() + "\t";
 
-	/**
-	 * @return the fragmentSwitch
-	 */
-	public boolean isFragmentSwitch() {
-		return fragmentSwitch;
-	}
+        res += "vfg=" + isVfgStrategy() + "\t";
+        res += "summary=" + getSummaryStrategy() + "\t";
+        res += "cgGrouped=" + isCgAnalyzeGroupedStrategy() + "\n";
 
-	/**
-	 * @param fragmentSwitch
-	 *            the fragmentSwitch to set
-	 */
-	public void setFragmentSwitch(boolean fragmentSwitch) {
-		this.fragmentSwitch = fragmentSwitch;
-	}
+        return res;
+    }
 
-	/**
-	 * @return the adapterSwitch
-	 */
-	public boolean isAdapterSwitch() {
-		return adapterSwitch;
-	}
+    /**
+     * @return the fragmentSwitch
+     */
+    public boolean isFragmentSwitch() {
+        return fragmentSwitch;
+    }
 
-	/**
-	 * @param adapterSwitch
-	 *            the adapterSwitch to set
-	 */
-	public void setAdapterSwitch(boolean adapterSwitch) {
-		this.adapterSwitch = adapterSwitch;
-	}
+    /**
+     * @param fragmentSwitch the fragmentSwitch to set
+     */
+    public void setFragmentSwitch(boolean fragmentSwitch) {
+        this.fragmentSwitch = fragmentSwitch;
+    }
 
-	/**
-	 * @return the asyncMethodSwitch
-	 */
-	public boolean isAsyncMethodSwitch() {
-		return asyncMethodSwitch;
-	}
+    /**
+     * @return the adapterSwitch
+     */
+    public boolean isAdapterSwitch() {
+        return adapterSwitch;
+    }
 
-	/**
-	 * @param asyncMethodSwitch
-	 *            the asyncMethodSwitch to set
-	 */
-	public void setAsyncMethodSwitch(boolean asyncMethodSwitch) {
-		this.asyncMethodSwitch = asyncMethodSwitch;
-	}
+    /**
+     * @param adapterSwitch the adapterSwitch to set
+     */
+    public void setAdapterSwitch(boolean adapterSwitch) {
+        this.adapterSwitch = adapterSwitch;
+    }
 
-	/**
-	 * @return the wrapperAPISwitch
-	 */
-	public boolean isWrapperAPISwitch() {
-		return wrapperAPISwitch;
-	}
+    /**
+     * @return the asyncMethodSwitch
+     */
+    public boolean isAsyncMethodSwitch() {
+        return asyncMethodSwitch;
+    }
 
-	/**
-	 * @param wrapperAPISwitch
-	 *            the wrapperAPISwitch to set
-	 */
-	public void setWrapperAPISwitch(boolean wrapperAPISwitch) {
-		this.wrapperAPISwitch = wrapperAPISwitch;
-	}
+    /**
+     * @param asyncMethodSwitch the asyncMethodSwitch to set
+     */
+    public void setAsyncMethodSwitch(boolean asyncMethodSwitch) {
+        this.asyncMethodSwitch = asyncMethodSwitch;
+    }
 
-	/**
-	 * @return the stringOpSwitch
-	 */
-	public boolean isStringOpSwitch() {
-		return stringOpSwitch;
-	}
+    /**
+     * @return the wrapperAPISwitch
+     */
+    public boolean isWrapperAPISwitch() {
+        return wrapperAPISwitch;
+    }
 
-	/**
-	 * @param stringOpSwitch
-	 *            the stringOpSwitch to set
-	 */
-	public void setStringOpSwitch(boolean stringOpSwitch) {
-		this.stringOpSwitch = stringOpSwitch;
-	}
+    /**
+     * @param wrapperAPISwitch the wrapperAPISwitch to set
+     */
+    public void setWrapperAPISwitch(boolean wrapperAPISwitch) {
+        this.wrapperAPISwitch = wrapperAPISwitch;
+    }
 
-	/**
-	 * @return the callBackSwitch
-	 */
-	public boolean isCallBackSwitch() {
-		return callBackSwitch;
-	}
+    /**
+     * @return the stringOpSwitch
+     */
+    public boolean isStringOpSwitch() {
+        return stringOpSwitch;
+    }
 
-	/**
-	 * @param callBackSwitch
-	 *            the callBackSwitch to set
-	 */
-	public void setCallBackSwitch(boolean callBackSwitch) {
-		this.callBackSwitch = callBackSwitch;
-	}
+    /**
+     * @param stringOpSwitch the stringOpSwitch to set
+     */
+    public void setStringOpSwitch(boolean stringOpSwitch) {
+        this.stringOpSwitch = stringOpSwitch;
+    }
 
-	/**
-	 * @return the dummyMainSwitch
-	 */
-	public boolean isDummyMainSwitch() {
-		return dummyMainSwitch;
-	}
+    /**
+     * @return the callBackSwitch
+     */
+    public boolean isCallBackSwitch() {
+        return callBackSwitch;
+    }
 
-	/**
-	 * @param dummyMainSwitch
-	 *            the dummyMainSwitch to set
-	 */
-	public void setDummyMainSwitch(boolean dummyMainSwitch) {
-		this.dummyMainSwitch = dummyMainSwitch;
-	}
+    /**
+     * @param callBackSwitch the callBackSwitch to set
+     */
+    public void setCallBackSwitch(boolean callBackSwitch) {
+        this.callBackSwitch = callBackSwitch;
+    }
 
-	/**
-	 * @return the functionExpandSwitch
-	 */
-	public boolean isFunctionExpandSwitch() {
-		return functionExpandSwitch;
-	}
+    /**
+     * @return the dummyMainSwitch
+     */
+    public boolean isDummyMainSwitch() {
+        return dummyMainSwitch;
+    }
 
-	/**
-	 * @param contextSensiSwitch
-	 *            the functionExpandSwitch to set
-	 */
-	public void setFunctionExpandSwitch(boolean contextSensiSwitch) {
-		this.functionExpandSwitch = contextSensiSwitch;
-	}
+    /**
+     * @param dummyMainSwitch the dummyMainSwitch to set
+     */
+    public void setDummyMainSwitch(boolean dummyMainSwitch) {
+        this.dummyMainSwitch = dummyMainSwitch;
+    }
 
-	/**
-	 * @return the libCodeSwitch
-	 */
-	public boolean allowLibCodeSwitch() {
-		return libCodeSwitch;
-	}
+    /**
+     * @return the functionExpandSwitch
+     */
+    public boolean isFunctionExpandSwitch() {
+        return functionExpandSwitch;
+    }
 
-	/**
-	 * @param libCodeSwitch
-	 *            the libCodeSwitch to set
-	 */
-	public void setLibCodeSwitch(boolean libCodeSwitch) {
-		this.libCodeSwitch = libCodeSwitch;
-	}
+    /**
+     * @param contextSensiSwitch the functionExpandSwitch to set
+     */
+    public void setFunctionExpandSwitch(boolean contextSensiSwitch) {
+        this.functionExpandSwitch = contextSensiSwitch;
+    }
 
-	/**
-	 * @return the vfgStrategy
-	 */
-	public boolean isVfgStrategy() {
-		return vfgStrategy;
-	}
+    /**
+     * @return the libCodeSwitch
+     */
+    public boolean allowLibCodeSwitch() {
+        return libCodeSwitch;
+    }
 
-	/**
-	 * @param vfgStrategy
-	 *            the vfgStrategy to set
-	 */
-	public void setVfgStrategy(boolean vfgStrategy) {
-		this.vfgStrategy = vfgStrategy;
-	}
+    /**
+     * @param libCodeSwitch the libCodeSwitch to set
+     */
+    public void setLibCodeSwitch(boolean libCodeSwitch) {
+        this.libCodeSwitch = libCodeSwitch;
+    }
 
-	/**
-	 * @return the cgAnalyzeGroupedStrategy
-	 */
-	public boolean isCgAnalyzeGroupedStrategy() {
-		return cgAnalyzeGroupedStrategy;
-	}
+    /**
+     * @return the vfgStrategy
+     */
+    public boolean isVfgStrategy() {
+        return vfgStrategy;
+    }
 
-	/**
-	 * @param cgAnalyzeGroupedStrategy
-	 *            the cgAnalyzeGroupedStrategy to set
-	 */
-	public void setCgAnalyzeGroupedStrategy(boolean cgAnalyzeGroupedStrategy) {
-		this.cgAnalyzeGroupedStrategy = cgAnalyzeGroupedStrategy;
-	}
+    /**
+     * @param vfgStrategy the vfgStrategy to set
+     */
+    public void setVfgStrategy(boolean vfgStrategy) {
+        this.vfgStrategy = vfgStrategy;
+    }
 
-	/**
-	 * @return the summaryStrategy
-	 */
-	public SummaryLevel getSummaryStrategy() {
-		return summaryStrategy;
-	}
+    /**
+     * @return the cgAnalyzeGroupedStrategy
+     */
+    public boolean isCgAnalyzeGroupedStrategy() {
+        return cgAnalyzeGroupedStrategy;
+    }
 
-	/**
-	 * @param summaryStrategy
-	 *            the summaryStrategy to set
-	 */
-	public void setSummaryStrategy(SummaryLevel summaryStrategy) {
-		this.summaryStrategy = summaryStrategy;
-	}
+    /**
+     * @param cgAnalyzeGroupedStrategy the cgAnalyzeGroupedStrategy to set
+     */
+    public void setCgAnalyzeGroupedStrategy(boolean cgAnalyzeGroupedStrategy) {
+        this.cgAnalyzeGroupedStrategy = cgAnalyzeGroupedStrategy;
+    }
 
-	/**
-	 * @return the staticFieldSwitch
-	 */
-	public boolean isStaticFieldSwitch() {
-		return staticFieldSwitch;
-	}
+    /**
+     * @return the summaryStrategy
+     */
+    public SummaryLevel getSummaryStrategy() {
+        return summaryStrategy;
+    }
 
-	/**
-	 * @param staticFieldSwitch
-	 *            the staticFieldSwitch to set
-	 */
-	public void setStaticFieldSwitch(boolean staticFieldSwitch) {
-		this.staticFieldSwitch = staticFieldSwitch;
-	}
+    /**
+     * @param summaryStrategy the summaryStrategy to set
+     */
+    public void setSummaryStrategy(SummaryLevel summaryStrategy) {
+        this.summaryStrategy = summaryStrategy;
+    }
 
-	/**
-	 * @return the implicitLaunchSwitch
-	 */
-	public boolean isImplicitLaunchSwitch() {
-		return implicitLaunchSwitch;
-	}
+    /**
+     * @return the staticFieldSwitch
+     */
+    public boolean isStaticFieldSwitch() {
+        return staticFieldSwitch;
+    }
 
-	/**
-	 * @param implicitLaunchSwitch
-	 *            the implicitLaunchSwitch to set
-	 */
-	public void setImplicitLaunchSwitch(boolean implicitLaunchSwitch) {
-		this.implicitLaunchSwitch = implicitLaunchSwitch;
-	}
+    /**
+     * @param staticFieldSwitch the staticFieldSwitch to set
+     */
+    public void setStaticFieldSwitch(boolean staticFieldSwitch) {
+        this.staticFieldSwitch = staticFieldSwitch;
+    }
 
-	/**
-	 * @return the dynamicBCSwitch
-	 */
-	public boolean isDynamicBCSwitch() {
-		return dynamicBCSwitch;
-	}
+    /**
+     * @return the implicitLaunchSwitch
+     */
+    public boolean isImplicitLaunchSwitch() {
+        return implicitLaunchSwitch;
+    }
 
-	/**
-	 * @param dynamicBCSwitch
-	 *            the dynamicBCSwitch to set
-	 */
-	public void setDynamicBCSwitch(boolean dynamicBCSwitch) {
-		this.dynamicBCSwitch = dynamicBCSwitch;
-	}
+    /**
+     * @param implicitLaunchSwitch the implicitLaunchSwitch to set
+     */
+    public void setImplicitLaunchSwitch(boolean implicitLaunchSwitch) {
+        this.implicitLaunchSwitch = implicitLaunchSwitch;
+    }
 
-	/**
-	 * @return the getAttributeStrategy
-	 */
-	public boolean isGetAttributeStrategy() {
-		return getAttributeStrategy;
-	}
+    /**
+     * @return the dynamicBCSwitch
+     */
+    public boolean isDynamicBCSwitch() {
+        return dynamicBCSwitch;
+    }
 
-	/**
-	 * @param getAttributeStrategy
-	 *            the getAttributeStrategy to set
-	 */
-	public void setGetAttributeStrategy(boolean getAttributeStrategy) {
-		this.getAttributeStrategy = getAttributeStrategy;
-	}
+    /**
+     * @param dynamicBCSwitch the dynamicBCSwitch to set
+     */
+    public void setDynamicBCSwitch(boolean dynamicBCSwitch) {
+        this.dynamicBCSwitch = dynamicBCSwitch;
+    }
 
-	/**
-	 * @return the polymSwitch
-	 */
-	public boolean isPolymSwitch() {
-		return polymSwitch;
-	}
+    /**
+     * @return the getAttributeStrategy
+     */
+    public boolean isGetAttributeStrategy() {
+        return getAttributeStrategy;
+    }
 
-	/**
-	 * @param polymSwitch
-	 *            the polymSwitch to set
-	 */
-	public void setPolymSwitch(boolean polymSwitch) {
-		this.polymSwitch = polymSwitch;
-	}
+    /**
+     * @param getAttributeStrategy the getAttributeStrategy to set
+     */
+    public void setGetAttributeStrategy(boolean getAttributeStrategy) {
+        this.getAttributeStrategy = getAttributeStrategy;
+    }
 
-	/**
-	 * @return the functionExpandAllSwitch
-	 */
-	public boolean isFunctionExpandAllSwitch() {
-		return functionExpandAllSwitch;
-	}
+    /**
+     * @return the polymSwitch
+     */
+    public boolean isPolymSwitch() {
+        return polymSwitch;
+    }
 
-	/**
-	 * @param functionExpandAllSwitch
-	 *            the functionExpandAllSwitch to set
-	 */
-	public void setFunctionExpandAllSwitch(boolean functionExpandAllSwitch) {
-		this.functionExpandAllSwitch = functionExpandAllSwitch;
-	}
+    /**
+     * @param polymSwitch the polymSwitch to set
+     */
+    public void setPolymSwitch(boolean polymSwitch) {
+        this.polymSwitch = polymSwitch;
+    }
 
-	/**
-	 * @return the scenario_stack
-	 */
-	public boolean isScenario_stack() {
-		return scenario_stack;
-	}
+    /**
+     * @return the functionExpandAllSwitch
+     */
+    public boolean isFunctionExpandAllSwitch() {
+        return functionExpandAllSwitch;
+    }
 
-	/**
-	 * @param scenario_stack
-	 *            the scenario_stack to set
-	 */
-	public void setScenario_stack(boolean scenario_stack) {
-		this.scenario_stack = scenario_stack;
-	}
+    /**
+     * @param functionExpandAllSwitch the functionExpandAllSwitch to set
+     */
+    public void setFunctionExpandAllSwitch(boolean functionExpandAllSwitch) {
+        this.functionExpandAllSwitch = functionExpandAllSwitch;
+    }
 
-	/**
-	 * @return the setAttributeStrategy
-	 */
-	public boolean isSetAttributeStrategy() {
-		return setAttributeStrategy;
-	}
+    /**
+     * @return the scenario_stack
+     */
+    public boolean isScenario_stack() {
+        return scenario_stack;
+    }
 
-	/**
-	 * @param setAttributeStrategy the setAttributeStrategy to set
-	 */
-	public void setSetAttributeStrategy(boolean setAttributeStrategy) {
-		this.setAttributeStrategy = setAttributeStrategy;
-	}
+    /**
+     * @param scenario_stack the scenario_stack to set
+     */
+    public void setScenario_stack(boolean scenario_stack) {
+        this.scenario_stack = scenario_stack;
+    }
 
-	/**
-	 * @return the setDesRelatedAttributeOnlyStrategy
-	 */
-	public boolean isSetDesRelatedAttributeOnlyStrategy() {
-		return setDesRelatedAttributeOnlyStrategy;
-	}
+    /**
+     * @return the setAttributeStrategy
+     */
+    public boolean isSetAttributeStrategy() {
+        return setAttributeStrategy;
+    }
 
-	/**
-	 * @param setDesRelatedAttributeOnlyStrategy the setDesRelatedAttributeOnlyStrategy to set
-	 */
-	public void setSetDesRelatedAttributeOnlyStrategy(boolean setDesRelatedAttributeOnlyStrategy) {
-		this.setDesRelatedAttributeOnlyStrategy = setDesRelatedAttributeOnlyStrategy;
-	}
+    /**
+     * @param setAttributeStrategy the setAttributeStrategy to set
+     */
+    public void setSetAttributeStrategy(boolean setAttributeStrategy) {
+        this.setAttributeStrategy = setAttributeStrategy;
+    }
+
+    /**
+     * @return the setDesRelatedAttributeOnlyStrategy
+     */
+    public boolean isSetDesRelatedAttributeOnlyStrategy() {
+        return setDesRelatedAttributeOnlyStrategy;
+    }
+
+    /**
+     * @param setDesRelatedAttributeOnlyStrategy the setDesRelatedAttributeOnlyStrategy to set
+     */
+    public void setSetDesRelatedAttributeOnlyStrategy(boolean setDesRelatedAttributeOnlyStrategy) {
+        this.setDesRelatedAttributeOnlyStrategy = setDesRelatedAttributeOnlyStrategy;
+    }
 }

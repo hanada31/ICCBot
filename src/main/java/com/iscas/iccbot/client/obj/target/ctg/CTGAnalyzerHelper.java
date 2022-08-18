@@ -85,7 +85,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     @Override
-    public boolean isWarpperTopTargetUnit(Unit unit) {
+    public boolean isWrapperTopTargetUnit(Unit unit) {
         if (MyConfig.getInstance().getMySwitch().isSetAttributeStrategy()) {
             if (MyConfig.getInstance().getMySwitch().isWrapperAPISwitch()) {
                 if (RAICCUtils.isIntentSenderCreation(unit)) {

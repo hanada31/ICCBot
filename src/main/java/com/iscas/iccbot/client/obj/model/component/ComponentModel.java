@@ -1,147 +1,147 @@
 package com.iscas.iccbot.client.obj.model.component;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.iscas.iccbot.analyze.model.analyzeModel.AppModel;
 import com.iscas.iccbot.analyze.utils.output.PrintUtils;
 import com.iscas.iccbot.client.obj.model.ctg.IntentRecieveModel;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSendModel;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * ComponentModel
- * 
- * @author 79940
  *
+ * @author 79940
  */
 public class ComponentModel implements Serializable {
-	private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 7L;
 
-	protected AppModel appModel;
-	protected String componentName;
-	protected String exported;
-	protected String permission;
-	protected List<IntentFilterModel> intentFilterList;
-	protected String type;
+    protected AppModel appModel;
+    protected String componentName;
+    protected String exported;
+    protected String permission;
+    protected List<IntentFilterModel> intentFilterList;
+    protected String type;
 
-	protected IntentRecieveModel receiveModel;
-	protected IntentSendModel sendModel;
-	
-	protected MisExposeModel misEAModel;
-	
-	public ComponentModel(AppModel appModel) {
-		this.appModel = appModel;
-		exported = "";
-		permission = "";
-		intentFilterList = new ArrayList<IntentFilterModel>();
-		receiveModel = new IntentRecieveModel();
-		sendModel = new IntentSendModel();
-		misEAModel = new MisExposeModel(this);
-	}
+    protected IntentRecieveModel receiveModel;
+    protected IntentSendModel sendModel;
 
-	public Boolean is_mainAct() {
-		if (appModel.getMainActivity().equals(componentName))
-			return true;
-		return false;
-	}
+    protected MisExposeModel misEAModel;
 
-	public Boolean is_exported() {
-		boolean action = false;
-		for (int i = 0; i < intentFilterList.size(); i++) {
-			if (intentFilterList.get(i).getAction_list().size() > 0)
-				action = true;
-		}
-		if (exported != null && exported.equals("true"))
-			return true;
-		if (exported == null || exported.equals(""))
-			if (intentFilterList.size() > 0 && action == true)
-				return true;
-		return false;
-	}
+    public ComponentModel(AppModel appModel) {
+        this.appModel = appModel;
+        exported = "";
+        permission = "";
+        intentFilterList = new ArrayList<IntentFilterModel>();
+        receiveModel = new IntentRecieveModel();
+        sendModel = new IntentSendModel();
+        misEAModel = new MisExposeModel(this);
+    }
 
-	@Override
-	public String toString() {
+    public Boolean is_mainAct() {
+        if (appModel.getMainActivity().equals(componentName))
+            return true;
+        return false;
+    }
 
-		String res = "";
-		res += "componentName: " + componentName + "\n";
-		res += "exported: " + exported + "\n";
-		res += "permission: " + permission + "\n";
-		res += "intentFilterList: " + PrintUtils.printList(intentFilterList) + "\n";
-		res += "receiveModel: " + receiveModel.toString() + "\n";
-		res += "sendModel: " + sendModel.toString() + "\n";
+    public Boolean is_exported() {
+        boolean action = false;
+        for (int i = 0; i < intentFilterList.size(); i++) {
+            if (intentFilterList.get(i).getAction_list().size() > 0)
+                action = true;
+        }
+        if (exported != null && exported.equals("true"))
+            return true;
+        if (exported == null || exported.equals(""))
+            if (intentFilterList.size() > 0 && action == true)
+                return true;
+        return false;
+    }
 
-		return res;
-	}
+    @Override
+    public String toString() {
 
-	public AppModel getAppModel() {
-		return appModel;
-	}
+        String res = "";
+        res += "componentName: " + componentName + "\n";
+        res += "exported: " + exported + "\n";
+        res += "permission: " + permission + "\n";
+        res += "intentFilterList: " + PrintUtils.printList(intentFilterList) + "\n";
+        res += "receiveModel: " + receiveModel.toString() + "\n";
+        res += "sendModel: " + sendModel.toString() + "\n";
 
-	public String getComponetName() {
-		return componentName;
-	}
+        return res;
+    }
 
-	public void setComponetName(String activityName) {
-		this.componentName = activityName;
-	}
+    public AppModel getAppModel() {
+        return appModel;
+    }
 
-	public String getExported() {
-		return exported;
-	}
+    public String getComponetName() {
+        return componentName;
+    }
 
-	public void setExported(String exported) {
-		this.exported = exported;
-	}
+    public void setComponetName(String activityName) {
+        this.componentName = activityName;
+    }
 
-	public String getPermission() {
-		return permission;
-	}
+    public String getExported() {
+        return exported;
+    }
 
-	public void setPermission(String permission) {
-		this.permission = permission;
-	}
+    public void setExported(String exported) {
+        this.exported = exported;
+    }
 
-	public String getComponentType() {
-		return "unkown";
-	}
+    public String getPermission() {
+        return permission;
+    }
 
-	public void setComponentType(String type) {
-		this.type = type;
-	}
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 
-	public String getType() {
-		return this.type;
-	}
+    public String getComponentType() {
+        return "unkown";
+    }
 
-	public List<IntentFilterModel> getIntentFilters() {
-		return intentFilterList;
-	}
+    public void setComponentType(String type) {
+        this.type = type;
+    }
 
-	public void addIntentFilter(IntentFilterModel filterModel) {
-		this.intentFilterList.add(filterModel);
-	}
+    public String getType() {
+        return this.type;
+    }
 
-	public IntentRecieveModel getReceiveModel() {
-		return receiveModel;
-	}
+    public List<IntentFilterModel> getIntentFilters() {
+        return intentFilterList;
+    }
 
-	public void setReceiveModel(IntentRecieveModel receiveModel) {
-		this.receiveModel = receiveModel;
-	}
+    public void addIntentFilter(IntentFilterModel filterModel) {
+        this.intentFilterList.add(filterModel);
+    }
 
-	public IntentSendModel getSendModel() {
-		return sendModel;
-	}
+    public IntentRecieveModel getReceiveModel() {
+        return receiveModel;
+    }
 
-	public void setSendModel(IntentSendModel sendModel) {
-		this.sendModel = sendModel;
-	}
-	public MisExposeModel getMisEAModel() {
-		return misEAModel;
-	}
+    public void setReceiveModel(IntentRecieveModel receiveModel) {
+        this.receiveModel = receiveModel;
+    }
 
-	public void setMisEAModel(MisExposeModel misEAModel) {
-		this.misEAModel = misEAModel;
-	}
+    public IntentSendModel getSendModel() {
+        return sendModel;
+    }
+
+    public void setSendModel(IntentSendModel sendModel) {
+        this.sendModel = sendModel;
+    }
+
+    public MisExposeModel getMisEAModel() {
+        return misEAModel;
+    }
+
+    public void setMisEAModel(MisExposeModel misEAModel) {
+        this.misEAModel = misEAModel;
+    }
 }

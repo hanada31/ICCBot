@@ -4,15 +4,14 @@ import com.iscas.iccbot.Analyzer;
 
 /**
  * single null value test case generation
- *
  */
 public class TestGenerator extends Analyzer {
 
-	@Override
-	public void analyze() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void analyze() {
+        // TODO Auto-generated method stub
+
+    }
 //	Set<String> iccAll = new HashSet<String>();
 //	Map<String, String> key2Value = new HashMap<String, String>();
 //

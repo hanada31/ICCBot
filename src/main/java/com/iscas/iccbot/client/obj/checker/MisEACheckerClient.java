@@ -1,39 +1,39 @@
 package com.iscas.iccbot.client.obj.checker;
 
-import java.io.IOException;
-import org.dom4j.DocumentException;
-
 import com.iscas.iccbot.MyConfig;
 import com.iscas.iccbot.client.BaseClient;
 import com.iscas.iccbot.client.manifest.ManifestClient;
 import com.iscas.iccbot.client.soot.IROutputClient;
 import com.iscas.iccbot.client.statistic.model.StatisticResult;
+import org.dom4j.DocumentException;
 
-public class MisEACheckerClient  extends BaseClient {
+import java.io.IOException;
 
-	@Override
-	protected void clientAnalyze() {
-		result = new StatisticResult();
-		
-		
-		if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
-			new ManifestClient().start();
-			MyConfig.getInstance().setManifestAnalyzeFinish(true);
-		}
-		if (MyConfig.getInstance().isWriteSootOutput()) {
-			new IROutputClient().start();
-		}
+public class MisEACheckerClient extends BaseClient {
 
-		
-		MisEAAnalysis misEaAnalyzer = new MisEAAnalysis();
-		misEaAnalyzer.analyze();
-		
-		System.out.println("Successfully analyze with MisEACheckerClient.");
-	}
+    @Override
+    protected void clientAnalyze() {
+        result = new StatisticResult();
 
-	@Override
-	public void clientOutput() throws IOException, DocumentException {
-		
-	}
+
+        if (!MyConfig.getInstance().isManifestAnalyzeFinish()) {
+            new ManifestClient().start();
+            MyConfig.getInstance().setManifestAnalyzeFinish(true);
+        }
+        if (MyConfig.getInstance().isWriteSootOutput()) {
+            new IROutputClient().start();
+        }
+
+
+        MisEAAnalysis misEaAnalyzer = new MisEAAnalysis();
+        misEaAnalyzer.analyze();
+
+        System.out.println("Successfully analyze with MisEACheckerClient.");
+    }
+
+    @Override
+    public void clientOutput() throws IOException, DocumentException {
+
+    }
 
 }

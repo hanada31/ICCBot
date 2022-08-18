@@ -74,7 +74,7 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
     }
 
     @Override
-    public boolean isWarpperTopTargetUnit(Unit unit) {
+    public boolean isWrapperTopTargetUnit(Unit unit) {
         // TODO Auto-generated method stub
         return false;
     }

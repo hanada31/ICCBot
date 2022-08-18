@@ -1,35 +1,35 @@
 package com.iscas.iccbot.analyze.unitHnadler.stmtHandler;
 
+import soot.JastAddJ.Expr;
+import soot.JastAddJ.IfStmt;
+import soot.Unit;
+import soot.Value;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import soot.Unit;
-import soot.Value;
-import soot.JastAddJ.Expr;
-import soot.JastAddJ.IfStmt;
-
 public class IfStmtHandler extends StmtHandler {
-	private IfStmt ifStmt;
+    private IfStmt ifStmt;
 
-	@Override
-	public void init(Unit stmt) {
-		ifStmt = (IfStmt) stmt;
-	}
+    @Override
+    public void init(Unit stmt) {
+        ifStmt = (IfStmt) stmt;
+    }
 
-	@Override
-	public Value getLeftValue() {
-		return null;
+    @Override
+    public Value getLeftValue() {
+        return null;
 
-	}
+    }
 
-	public Expr getCondition() {
-		return ifStmt.getCondition();
+    public Expr getCondition() {
+        return ifStmt.getCondition();
 
-	}
+    }
 
-	@Override
-	public List<Value> getRightValues() {
-		List<Value> vals = new ArrayList<Value>();
-		return vals;
-	}
+    @Override
+    public List<Value> getRightValues() {
+        List<Value> vals = new ArrayList<Value>();
+        return vals;
+    }
 }
