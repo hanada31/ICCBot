@@ -43,6 +43,7 @@ logs/
 /ICCBot/target/
 /result/
 /results/
+/target/
 /apk/
 /ICCBot/src/main/generated/
 !/apk/ICCBotBench.apk
