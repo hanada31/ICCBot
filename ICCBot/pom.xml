@@ -143,13 +143,6 @@
             <version>2.4.0-b180830.0359</version>
         </dependency>
 
-        <!-- https://projects.itemis.de/nexus/content/repositories/mbeddr/com/microsoft/z3/java-jar/ -->
-        <dependency>
-            <groupId>com.microsoft.z3</groupId>
-            <artifactId>java-jar</artifactId>
-            <version>4.8.8.1</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.apktool/apktool-lib -->
         <dependency>
             <groupId>org.apktool</groupId>
