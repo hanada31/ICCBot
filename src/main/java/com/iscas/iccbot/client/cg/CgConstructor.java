@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.iscas.iccbot.Analyzer;
 import com.iscas.iccbot.Global;
 import com.iscas.iccbot.MyConfig;
-import com.iscas.iccbot.analyze.utils.ConstantUtils;
+import com.iscas.iccbot.analyze.utils.MySetupApplication;
 import com.iscas.iccbot.analyze.utils.SootUtils;
 import com.iscas.iccbot.analyze.utils.output.FileUtils;
 import com.iscas.iccbot.client.soot.SootAnalyzer;
@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import soot.*;
 import soot.jimple.InvokeExpr;
 import soot.jimple.infoflow.InfoflowConfiguration.CallgraphAlgorithm;
-import soot.jimple.infoflow.android.SetupApplication;
 import soot.jimple.infoflow.android.callbacks.AndroidCallbackDefinition;
 import soot.jimple.infoflow.android.resources.ARSCFileParser;
 import soot.jimple.infoflow.android.resources.LayoutFileParser;
@@ -21,10 +20,11 @@ import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.options.Options;
 import soot.util.MultiMap;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * generate callgraph
@@ -33,29 +33,31 @@ import java.util.*;
  */
 @Slf4j
 public class CgConstructor extends Analyzer {
-    SetupApplication setupApplication;
+    MySetupApplication setupApplication;
     MultiMap<SootClass, AndroidCallbackDefinition> callBacks;
     MultiMap<SootClass, SootClass> fragments;
 
     @SuppressWarnings("unchecked")
     public CgConstructor() {
         super();
-        setupApplication = new SetupApplication(MyConfig.getInstance().getAndroidJar(), appModel.getAppPath());
-        Class<?> clazz = setupApplication.getClass();
-        try {
-            Field callbacksField = clazz.getDeclaredField("callbackMethods");
-            callbacksField.setAccessible(true);
-            callBacks = (MultiMap<SootClass, AndroidCallbackDefinition>) callbacksField.get(setupApplication);
-            Field fragmentClassesField = clazz.getDeclaredField("fragmentClasses");
-            fragmentClassesField.setAccessible(true);
-            fragments = (MultiMap<SootClass, SootClass>) fragmentClassesField.get(setupApplication);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("NoSuchFieldException in soot SetupApplication", e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("IllegalAccessException in soot SetupApplication", e);
-        } catch (ClassCastException e) {
-            throw new RuntimeException("ClassCastException in soot SetupApplication", e);
-        }
+        setupApplication = new MySetupApplication(MyConfig.getInstance().getAndroidJar(), appModel.getAppPath());
+        callBacks = setupApplication.getCallbackMethods();
+        fragments = setupApplication.getFragmentClasses();
+//        Class<?> clazz = setupApplication.getClass();
+//        try {
+//            Field callbacksField = clazz.getDeclaredField("callbackMethods");
+//            callbacksField.setAccessible(true);
+//            callBacks = (MultiMap<SootClass, AndroidCallbackDefinition>) callbacksField.get(setupApplication);
+//            Field fragmentClassesField = clazz.getDeclaredField("fragmentClasses");
+//            fragmentClassesField.setAccessible(true);
+//            fragments = (MultiMap<SootClass, SootClass>) fragmentClassesField.get(setupApplication);
+//        } catch (NoSuchFieldException e) {
+//            throw new RuntimeException("NoSuchFieldException in soot SetupApplication", e);
+//        } catch (IllegalAccessException e) {
+//            throw new RuntimeException("IllegalAccessException in soot SetupApplication", e);
+//        } catch (ClassCastException e) {
+//            throw new RuntimeException("ClassCastException in soot SetupApplication", e);
+//        }
     }
 
     @Override
@@ -110,12 +112,12 @@ public class CgConstructor extends Analyzer {
         setupApplication.getConfig().setCallgraphAlgorithm(CallgraphAlgorithm.AutomaticSelection);
         setupApplication.getConfig().setMergeDexFiles(true);
         try {
-            setupApplication.runInfoflow();
+            setupApplication.runInfoflow_dummy();
         } catch (Exception e) {
-            throw new RuntimeException("Soot Application runInfoflow failed!");
+            throw new RuntimeException("Soot Application runInfoflow_dummy failed!");
         }
-        String summary_app_dir = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
-                + File.separator;
+//        String summary_app_dir = MyConfig.getInstance().getResultFolder() + Global.v().getAppModel().getAppName()
+//                + File.separator;
         FileUtils.delFolder("sootOutput");
     }
 
