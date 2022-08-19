@@ -275,11 +275,12 @@ public class CgModify extends Analyzer {
      * remove a -- a
      */
     private void removeSelfEdge(CallGraph callGraph) {
-        Set<Edge> toBeDeletedSet = new HashSet<Edge>();
-        Iterator<Edge> it = callGraph.iterator();
-        while (it.hasNext()) {
-            Edge edge = it.next();
-            if (edge.getSrc().method() == edge.getTgt().method()) {
+        Set<Edge> toBeDeletedSet = new HashSet<>();
+        for (Edge edge : callGraph) {
+            SootMethod srcMethod = edge.src();
+            SootMethod tgtMethod = edge.tgt();
+            if (srcMethod == null || tgtMethod == null ||
+                    srcMethod == tgtMethod) {
                 toBeDeletedSet.add(edge);
             }
         }
@@ -291,12 +292,16 @@ public class CgModify extends Analyzer {
      * remove same edges
      */
     private void removeSameEdge(CallGraph callGraph) {
-        Set<String> edgeSet = new HashSet<String>();
-        Set<Edge> toBeDeletedSet = new HashSet<Edge>();
-        Iterator<Edge> it = callGraph.iterator();
-        while (it.hasNext()) {
-            Edge edge = it.next();
-            String sig = edge.src().getSignature() + edge.tgt().getSignature();
+        Set<String> edgeSet = new HashSet<>();
+        Set<Edge> toBeDeletedSet = new HashSet<>();
+        for (Edge edge : callGraph) {
+            SootMethod srcMethod = edge.src();
+            SootMethod tgtMethod = edge.tgt();
+            if (srcMethod == null || tgtMethod == null) {
+                toBeDeletedSet.add(edge);
+                continue;
+            }
+            String sig = srcMethod.getSignature() + tgtMethod.getSignature();
             if (edgeSet.contains(sig))
                 toBeDeletedSet.add(edge);
             else
