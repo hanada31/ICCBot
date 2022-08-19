@@ -9,6 +9,21 @@ import java.util.Map.Entry;
 public class CollectionUtils {
 
     /**
+     * MapValueComparator
+     *
+     * @author 79940
+     */
+    static class MapValueComparator implements Comparator<Map.Entry<String, Integer>> {
+
+        @Override
+        public int compare(Entry<String, Integer> me1, Entry<String, Integer> me2) {
+
+            return me2.getValue().compareTo(me1.getValue());
+        }
+
+    }
+
+    /**
      * add New Msg to Map
      *
      * @param mapTo
@@ -195,19 +210,4 @@ public class CollectionUtils {
             result.add(Arrays.asList(stringArray));
         }
     }
-}
-
-/**
- * MapValueComparator
- *
- * @author 79940
- */
-class MapValueComparator implements Comparator<Map.Entry<String, Integer>> {
-
-    @Override
-    public int compare(Entry<String, Integer> me1, Entry<String, Integer> me2) {
-
-        return me2.getValue().compareTo(me1.getValue());
-    }
-
 }
