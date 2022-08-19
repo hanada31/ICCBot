@@ -5,11 +5,49 @@ import com.iscas.iccbot.MyConfig;
 import java.io.*;
 
 public class AndroidUtils {
+    /**
+     * signAPK IO
+     *
+     * @author 79940
+     */
+    private static class ReadStream implements Runnable {
+        String name;
+        InputStream is;
+        Thread thread;
+
+        public ReadStream(String name, InputStream is) {
+            this.name = name;
+            this.is = is;
+        }
+
+        public void start() {
+            thread = new Thread(this);
+            thread.start();
+        }
+
+        @Override
+        public void run() {
+            try {
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr);
+                while (true) {
+                    String s = br.readLine();
+                    if (s == null)
+                        break;
+                    System.out.println("[" + name + "] " + s);
+                }
+                is.close();
+            } catch (Exception ex) {
+                System.out.println("Problem reading stream " + name + "... :" + ex);
+                ex.printStackTrace();
+            }
+        }
+    }
 
     /**
      * sign apk on apkPath
      *
-     * @param apkPath
+     * @param apkPath APK Path
      */
     public static void signAPK(String apkPath) {
         Runtime r = Runtime.getRuntime();
@@ -35,9 +73,9 @@ public class AndroidUtils {
     /**
      * create android project projectName with pkg name on path param_result_dir
      *
-     * @param oldpkg
-     * @param param_result_dir
-     * @param projectName
+     * @param pkg Package name
+     * @param param_result_dir Result directory
+     * @param projectName Project name
      */
     public static void creatProject(String pkg, String param_result_dir, String projectName) {
         ExecuteUtils.exec("android create project --name " + projectName + " --target "
@@ -53,50 +91,11 @@ public class AndroidUtils {
     /**
      * buildApp on path projectPath
      *
-     * @param projectPath
+     * @param projectPath Project path
      */
     public static void buildApp(String projectPath) {
         System.out.println("ant debug -buildfile " + projectPath + "/build.xml");
         ExecuteUtils.exec("ant debug -buildfile " + projectPath + "/build.xml");
     }
 
-}
-
-/**
- * signAPK IO
- *
- * @author 79940
- */
-class ReadStream implements Runnable {
-    String name;
-    InputStream is;
-    Thread thread;
-
-    public ReadStream(String name, InputStream is) {
-        this.name = name;
-        this.is = is;
-    }
-
-    public void start() {
-        thread = new Thread(this);
-        thread.start();
-    }
-
-    @Override
-    public void run() {
-        try {
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            while (true) {
-                String s = br.readLine();
-                if (s == null)
-                    break;
-                System.out.println("[" + name + "] " + s);
-            }
-            is.close();
-        } catch (Exception ex) {
-            System.out.println("Problem reading stream " + name + "... :" + ex);
-            ex.printStackTrace();
-        }
-    }
 }
