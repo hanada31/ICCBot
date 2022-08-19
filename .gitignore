@@ -41,4 +41,8 @@ replay_pid*
 /out/
 /target/
 /utils/
+/result/
+/results/
+/apk/
+!/apk/ICCBotBench.apk
 dependency-reduced-pom.xml
