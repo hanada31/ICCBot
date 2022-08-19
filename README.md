@@ -3,12 +3,12 @@
 ICCBot: A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
 
 <p align="center">
-<img src="overview/ICCBot.png" width="600">
+<img src="overview/ICCBot.png" width="100%">
 </p>
 
 ## Publication ##
 The paper PDF can be found at https://hanada31.github.io/pdf/icse22_iccbot.pdf
-```
+```latex
 @inproceedings{icse22_iccbot,
   author    = {Jiwei Yan and
                Shixin Zhang and
@@ -19,10 +19,11 @@ The paper PDF can be found at https://hanada31.github.io/pdf/icse22_iccbot.pdf
   booktitle = {The 44th International Conference on Software Engineering, {ICSE} 2022 (Demo Track)},
   year      = {2022},
 }
-
 ```
 
-Requirements：
+## Build and run ICCBot
+
+### General Requirements
 
 1. Python 3+
 
@@ -30,24 +31,38 @@ Requirements：
 
 3. Install GraphViz (http://www.graphviz.org/download/) 
 
+### Build ICCBot
 
-build and run *ICCBot* to analyze single apk: : 
+```bash
+# Initialize soot-dev submodule
+git submodule update --init soot-dev
+
+# Use -DskipTests to skip tests of soot (make build faster)
+mvn -f pom.xml clean package -DskipTests
+
+# Copy jar to root directory
+cp target/ICCBot-jar-with-dependencies.jar ICCBot.jar
 ```
-mvn -f pom.xml clean package
 
-cp target/ICCBot.jar ICCBot.jar
+or use the build script provide by us:
 
-java -jar ICCBot.jar  -path apk// -name ICCBotBench.apk -androidJar lib//platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results//output
+```shell
+python scripts/mvn.py
 ```
+
+### Run ICCBot
+
+```bash
+java -jar ICCBot.jar  -path apk/ -name ICCBotBench.apk -androidJar lib/platforms -time 30 -maxPathNumber 100 -client CTGClient -outputDir results/output
+```
+
 or analyze apks under given folder with Python script:
 
+```bash
+python scripts/runICCBot.py [apkPath] [resultPath]
 ```
-python .\scripts\runICCBot.py [apkPath] [resultPath]
-```
 
-
-
-Usage of ICCBot.jar:
+### Usage of ICCBot
 
 ```
 java -jar ICCBot.jar -h
@@ -88,21 +103,25 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir]
  -debug                 -debug: use debug mode.
 ```
 
++ Input: apk file
 
++ Output: ICC resolution results, CTG graph, etc.
+  + CallGraphInfo
+    + Generated extended call graph
+  + ManifestInfo
+    + Extracted AndroidManifest file
+  + FragmentInfo
+    + Generated fragment loading graph
+  + CTGResult
+    + Generated component transition graph
+  + ICCSpecification
+    + Generated ICC specification json file
+  + SootIRInfo
+    + Generated Soot Jimple IR files
 
-Input: apk File
+### Troubleshooting
 
-Output: ICC resolution results, CTG graph, etc.
+Q: ICCBot provides error "`Failed to load analyze config json: File not exist`"
 
-+ CallGraphInfo
-  + Generated extended call graph
-+ ManifestInfo
-  + Extracted AndroidManifest file
-+ FragmentInfo
-  + Generated fragment loading graph
-+ CTGResult
-  + Generated component transition graph
-+ ICCSpecification
-  + Generated ICC specification json file
-+ SootIRInfo
-  + Generated Soot Jimple IR files 
+A: Make sure you have the folder `config` under current directory,
+with `config/config.json` file specifying `excludePackages` and `AndroidCallbacks`.

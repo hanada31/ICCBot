@@ -30,15 +30,9 @@ if __name__ == '__main__' :
     apkPath = sys.argv[1]
     resPath = sys.argv[2]
     jarFile = "ICCBot.jar"
-    
-    os.system("mvn -f pom.xml package -q")
-    if os.path.exists("target/ICCBot.jar"):
-        print("Successfully build! generate jar-with-dependencies in folder target/")
-        shutil.copy("target/ICCBot.jar", jarFile)
-        print("copy jar to the root directory.")
-    else:
-        print("Fail to build! Please run \"mvn -f pom.xml package\" to see the detail info.")
-    
+
+    if not os.path.exists(jarFile):
+        print("ICCBot.jar not found! Please run \"scripts/mvn.py\" to build ICCBot first!")
+
     sdk = "lib/"    
     analyzeApk(apkPath, resPath, sdk)
-    
