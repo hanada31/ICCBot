@@ -29,12 +29,9 @@ public class CgModify extends Analyzer {
     @Override
     public void analyze() {
         addEdgesByOurAnalyze(appModel.getCg());
-        // System.out.println("addEdgesByOurAnalyze");
         removeExlibEdge(appModel.getCg());
-        // removeNotActiveEdge(appModel.getCg());
         removeSameEdge(appModel.getCg());
         removeSelfEdge(appModel.getCg());
-        // System.out.println("removeSelfEdge");
         if (MyConfig.getInstance().getMySwitch().getSummaryStrategy().equals(SummaryLevel.none)) {
             addTopoForSupplySingle();
 
@@ -42,7 +39,7 @@ public class CgModify extends Analyzer {
             // multiple topo queue
             List<CallGraph> cgs = new ArrayList<>();
             List<Set<SootMethod>> methodSets = new ArrayList<>();
-            seperateCG2multiple(appModel.getCg(), methodSets, cgs);
+            separateCG2multiple(appModel.getCg(), methodSets, cgs);
             for (int i = 0; i < cgs.size(); i++) {
                 CallGraph cg = cgs.get(i);
                 Set<SootMethod> methodSet = methodSets.get(i);
@@ -116,7 +113,7 @@ public class CgModify extends Analyzer {
      * @param callGraph
      * @return
      */
-    private void seperateCG2multiple(CallGraph callGraph, List<Set<SootMethod>> methodSets, List<CallGraph> cgs) {
+    private void separateCG2multiple(CallGraph callGraph, List<Set<SootMethod>> methodSets, List<CallGraph> cgs) {
         for (Edge edge : callGraph) {
             int srcId = -1, tgtId = -1;
             SootMethod srcMtd = edge.getSrc().method();
@@ -248,17 +245,15 @@ public class CgModify extends Analyzer {
      */
     private void removeExlibEdge(CallGraph callGraph) {
         if (!MyConfig.getInstance().getMySwitch().allowLibCodeSwitch()) {
-            Set<Edge> toBeDeletedSet = new HashSet<Edge>();
+            Set<Edge> toBeDeletedSet = new HashSet<>();
             for (Edge edge : callGraph) {
-                if (edge.src() == null || edge.tgt() == null)
+                if (!SootUtils.isNonLibClass(Objects.requireNonNull(edge.src()).getDeclaringClass().getName()))
                     toBeDeletedSet.add(edge);
-                else if (!SootUtils.isNonLibClass(edge.src().getDeclaringClass().getName()))
-                    toBeDeletedSet.add(edge);
-                else if (!SootUtils.isNonLibClass(edge.tgt().getDeclaringClass().getName()))
+                else if (!SootUtils.isNonLibClass(Objects.requireNonNull(edge.tgt()).getDeclaringClass().getName()))
                     toBeDeletedSet.add(edge);
             }
             for (Edge tbEdge : toBeDeletedSet)
-                callGraph.removeEdge(tbEdge);
+                callGraph.removeEdge(tbEdge, false);
         }
     }
 
@@ -276,7 +271,7 @@ public class CgModify extends Analyzer {
             }
         }
         for (Edge tbEdge : toBeDeletedSet)
-            callGraph.removeEdge(tbEdge);
+            callGraph.removeEdge(tbEdge, false);
     }
 
     /**
@@ -288,34 +283,15 @@ public class CgModify extends Analyzer {
         for (Edge edge : callGraph) {
             SootMethod srcMethod = edge.src();
             SootMethod tgtMethod = edge.tgt();
-            if (srcMethod == null || tgtMethod == null) {
-                toBeDeletedSet.add(edge);
-                continue;
-            }
             String sig = srcMethod.getSignature() + tgtMethod.getSignature();
             if (edgeSet.contains(sig))
                 toBeDeletedSet.add(edge);
             else
                 edgeSet.add(sig);
         }
-        for (Edge tbEdge : toBeDeletedSet)
-            callGraph.removeEdge(tbEdge);
-    }
-
-    /**
-     * remove same edges
-     *
-     * @param callGraph
-     */
-    private void removeNotActiveEdge(CallGraph callGraph) {
-        Set<Edge> toBeDeletedSet = new HashSet<Edge>();
-        for (Edge edge : callGraph) {
-            SootMethod me = edge.getTgt().method();
-            if (!SootUtils.hasSootActiveBody(me))
-                toBeDeletedSet.add(edge);
+        for (Edge tbEdge : toBeDeletedSet) {
+            callGraph.removeEdge(tbEdge, false);
         }
-        for (Edge tbEdge : toBeDeletedSet)
-            callGraph.removeEdge(tbEdge);
     }
 
     /**
@@ -332,12 +308,7 @@ public class CgModify extends Analyzer {
                 // start from them
                 Stack<SootMethod> stack = new Stack<SootMethod>();
                 stack.add(mcSrc);
-                Map<SootMethod, Integer> nodeStatus = new HashMap<SootMethod, Integer>(); // null
-                // for
-                // new
-                // node,
-                // 1
-                // for
+                Map<SootMethod, Integer> nodeStatus = new HashMap<>();
                 nodeStatus.put(mcSrc, -1);
                 while (!stack.isEmpty()) {
                     SootMethod topMethod = stack.peek();
@@ -363,7 +334,7 @@ public class CgModify extends Analyzer {
             }
         }
         for (Edge tbEdge : toBeDeletedSet)
-            callGraph.removeEdge(tbEdge);
+            callGraph.removeEdge(tbEdge, false);
     }
 
     /**
