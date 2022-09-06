@@ -105,22 +105,22 @@ public class ExtraData implements Serializable, Cloneable {
     @Override
     public String toString() {
         String res = "";
+
 		String extraName = "null";
 		if (getName() != null)
 			extraName = getName();
         // extra value, only send icc has value, receive icc has candidate
 
         if (obtainExtraDataType() == null) {
-			res = "null-" + extraName ;
+			    res = "null-" + extraName ;
         } else if (obtainExtraDataType() instanceof String) {
             if (SootUtils.isParOrSerExtra((String) obtainExtraDataType()))
-//				res = obtainExtraDataType() + "@" + getObjName() + "-" + extraName  + ",";
-				res = obtainExtraDataType() + "-" + extraName;
+				      res = obtainExtraDataType() + "-" + extraName;
             else
-				res = obtainExtraDataType() + "-" + extraName;
+				      res = obtainExtraDataType() + "-" + extraName;
         } else {
             BundleType bt = (BundleType) obtainExtraDataType();
-			res = bt.getType() + "-" + extraName + ",(," + bt.toString() + ")";
+			      res = bt.getType() + "-" + extraName + ",(," + bt.toString() + ")";
         }
         return res;
     }

@@ -154,7 +154,7 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
         res += "ListCategoryValueList:" + PrintUtils.printList(setCategoryValueList) + "\n";
         res += "ListDataValueList:" + PrintUtils.printList(setDataValueList) + "\n";
         res += "ListTypeValueList:" + PrintUtils.printList(setTypeValueList) + "\n";
-		res += "ListExtrasValueList:" + setExtrasValueList.toString() + "\n";
+		    res += "ListExtrasValueList:" + setExtrasValueList.toString() + "\n";
         res += "ListDestinationList:" + PrintUtils.printList(setDestinationList) + "\n";
         res += "ListFlagsList:" + PrintUtils.printList(setFlagsList) + "\n";
         return res;

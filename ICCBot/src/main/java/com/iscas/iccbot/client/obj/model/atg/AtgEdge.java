@@ -22,7 +22,7 @@ public class AtgEdge {
                 SootUtils.getNameofClass(destnation.getName()));
         this.methodSig = methodSig;
         this.instructionId = instructionId;
-		this.intentSummary = new IntentSummaryModel(null);
+		    this.intentSummary = new IntentSummaryModel(null);
         getICCKindById(iCCkindId);
     }
 
@@ -33,7 +33,7 @@ public class AtgEdge {
         setInstructionId(temp.instructionId);
         setMethodSig(temp.methodSig);
         setType(AtgType.Act2Act);
-		setIntentSummary(temp.intentSummary);
+		    setIntentSummary(temp.intentSummary);
     }
 
     public String getDescribtion() {
