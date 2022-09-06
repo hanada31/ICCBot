@@ -29,9 +29,9 @@ public class TestToolEvaluateClient {
         String path;
         path = "apk/";
         String name;
-        name = "CSipSimple";
+        name = "ICCBotBench";
         String client = "CTGClient";
-		client = "ToolEvaluateClient";
+		    client = "ToolEvaluateClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
         MyConfig.getInstance().setAppPath(path + File.separator);
