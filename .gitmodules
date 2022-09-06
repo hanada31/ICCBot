@@ -1,0 +1,4 @@
+[submodule "soot-dev"]
+	path = soot-dev
+	url = https://github.com/LightningRS/soot-dev-iccbot.git
+	branch = develop

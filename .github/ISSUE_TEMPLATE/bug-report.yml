@@ -1,0 +1,77 @@
+name: Bug Report
+description: Submit a bug report of ICCBot
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees:
+  - LightningRS
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dear ICCBot user,
+        Thanks for taking the time to fill out this bug report!
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: email@example.com
+    validations:
+      required: false
+
+  - type: textarea
+    id: command-line
+    attributes:
+      label: ICCBot Command Line
+      description: What parameters are you used for running ICCBot? Please paste it below.
+      placeholder: ICCBot command line arguments
+      value: "java -jar ICCBot.jar -path /path/to/apk/folder -name abc.apk -androidJar lib/platforms -time 60 -client MainClient -outputDir /path/to/output"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Technical Details
+      description: Also tell us, what did you expect to happen? Please describe your operations in detail.
+      placeholder: Tell us what you see!
+      value: "When I using ICCBot to analyze APK [xxx.apk], it crashed and produced error log."
+    validations:
+      required: true
+  
+  - type: input
+    id: apk-file
+    attributes:
+      label: APK File
+      description: Which APK are you analyzing? Please provide a link to it if possible.
+      placeholder: https://example.com/abc.apk
+    validations:
+      required: false
+
+  - type: dropdown
+    id: version-iccbot
+    attributes:
+      label: Version of ICCBot
+      description: What version of ICCBot are you running?
+      options:
+        - 1.1-SNAPSHOT
+        - 1.0-stable
+    validations:
+      required: true
+  
+  - type: input
+    id: version-java
+    attributes:
+      label: Version of Java
+      description: What version of Java are you running?
+      placeholder: OpenJDK 18.0.1
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. It will be automatically formatted.
+      render: shell
