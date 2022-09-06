@@ -3,6 +3,7 @@ package com.iscas.iccbot.analyze.utils;
 import com.iscas.iccbot.MyConfig;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class AndroidUtils {
     /**
@@ -53,8 +54,10 @@ public class AndroidUtils {
         Runtime r = Runtime.getRuntime();
         String keystoreUrl = "template" + File.separator + "debug.keystore";
 
-        String signCmd = String.format("jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass android "
-                + "-keystore %s %s androiddebugkey", keystoreUrl, apkPath);
+        String[] signCmd = Arrays.asList(
+                "jarsigner", "-verbose", "-sigalg", "SHA1withRSA", "-digestalg", "SHA1",
+                "-storepass", "android", "-keystore", keystoreUrl, apkPath, "androiddebugkey"
+            ).toArray(new String[0]);
         try {
             Process p = r.exec(signCmd);
 
