@@ -55,35 +55,34 @@ public class ManifestAnalyzer extends Analyzer {
         appModel.setVersionCode(manifestManager.getVersionCode());
         appModel.setUsesPermissionSet(manifestManager.getPermissions());
 
-        List<AXmlNode> activityNodes = new ArrayList<>();
-        for (BinaryManifestActivity activity : manifestManager.getActivities()) {
-            activityNodes.add(activity.getAXmlNode());
-        }
+        // -------------------------------------------------------------------------------------------------------------
+        // BUGFIX: 09/06/2022 LightningRS
+        // -------------------------------------------------------------------------------------------------------------
+        // We found that EagerComponentContainer (since FlowDroid ~2.10) will filter out the component with the same
+        // name, which will cause multiple AXmlNodes of the same component to be lost. Thus, we use AXmlHandler
+        // to get nodes directly instead of using getXXX() methods provided by ManifestAnalyzer.
+        // -------------------------------------------------------------------------------------------------------------
+        List<AXmlNode> activityNodes = new ArrayList<>(manifestManager.getAXml().getNodesWithTag("activity"));
         parseComponent(activityNodes, "Activity");
 
-        List<AXmlNode> serviceNodes = new ArrayList<>();
-        for (BinaryManifestService service : manifestManager.getServices()) {
-            serviceNodes.add(service.getAXmlNode());
-        }
+        List<AXmlNode> serviceNodes = new ArrayList<>(manifestManager.getAXml().getNodesWithTag("service"));
         parseComponent(serviceNodes, "Service");
 
-        List<AXmlNode> providerNodes = new ArrayList<>();
-        for (BinaryManifestContentProvider provider : manifestManager.getContentProviders()) {
-            providerNodes.add(provider.getAXmlNode());
-        }
+        List<AXmlNode> providerNodes = new ArrayList<>(manifestManager.getAXml().getNodesWithTag("provider"));
         parseComponent(providerNodes, "Provider");
 
-        List<AXmlNode> receiverNodes = new ArrayList<>();
-        for (BinaryManifestBroadcastReceiver receiver : manifestManager.getBroadcastReceivers()) {
-            receiverNodes.add(receiver.getAXmlNode());
-        }
+        List<AXmlNode> receiverNodes = new ArrayList<>(manifestManager.getAXml().getNodesWithTag("receiver"));
         parseComponent(receiverNodes, "Receiver");
 
         mergeAllComponents();
 
         List<AXmlNode> alis = manifestManager.getAliasActivities();
         for (AXmlNode actNode : alis) {
-            String name = actNode.getAttribute("targetActivity").getValue().toString();
+            AXmlNode targetNode = manifestManager.getAliasActivityTarget(actNode);
+            if (targetNode == null) {
+                continue;
+            }
+            String name = targetNode.getAttribute("name").getValue().toString();
             if (appModel.getActivityMap().containsKey(name)) {
                 ActivityModel actModel = (ActivityModel) appModel.getActivityMap().get(name);
                 analyzeIntentFilter(actModel, actNode);
