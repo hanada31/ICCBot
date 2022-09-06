@@ -38,13 +38,15 @@ replay_pid*
 
 # custom
 .settings/
-logs/
+/logs/
+/ICCBotBench/gen/
 /ICCBot/out/
 /ICCBot/target/
 /result/
 /results/
 /target/
 /apk/
-/ICCBot/src/main/generated/
 !/apk/ICCBotBench.apk
+.apt_generated*/
+/ICCBot/src/main/generated/
 dependency-reduced-pom.xml
