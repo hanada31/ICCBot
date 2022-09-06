@@ -426,7 +426,7 @@ public class ATGModel {
         }
         Set<AtgEdge> edges = atgEdges.get(source);
         for (AtgEdge exist : edges) {
-            if (exist.getDescribtion().equals(edge.getDescribtion()))
+			if(exist.getDescribtion().equals(edge.getDescribtion()) && exist.getIntentSummary().toString().equals(edge.getIntentSummary().toString()))
                 return false;
         }
         edges.add(edge);
