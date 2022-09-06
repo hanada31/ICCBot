@@ -12,7 +12,7 @@ import java.io.File;
  * @Date 2022/3/11 15:27
  * @Version 1.0
  */
-public class TestToolEvaluateClient {
+public class TestIRoutputClient {
 
 
     @Test
@@ -27,11 +27,10 @@ public class TestToolEvaluateClient {
 
     private void setArgs() {
         String path;
-        path = "apk/";
+        path = "D:\\SoftwareData\\dataset\\apk\\picked31App\\";
         String name;
-        name = "ICCBotBench";
-        String client = "CTGClient";
-		    client = "ToolEvaluateClient";
+        name = "AntennaPod";
+        String client = "IROutputClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
         MyConfig.getInstance().setAppPath(path + File.separator);

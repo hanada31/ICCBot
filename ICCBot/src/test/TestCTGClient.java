@@ -12,7 +12,7 @@ import java.io.File;
  * @Date 2022/3/11 15:27
  * @Version 1.0
  */
-public class TestToolEvaluateClient {
+public class TestCTGClient {
 
 
     @Test
@@ -29,9 +29,8 @@ public class TestToolEvaluateClient {
         String path;
         path = "apk/";
         String name;
-        name = "ICCBotBench";
+        name = "CSipSimple";
         String client = "CTGClient";
-		    client = "ToolEvaluateClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
         MyConfig.getInstance().setAppPath(path + File.separator);
@@ -73,6 +72,7 @@ public class TestToolEvaluateClient {
         MyConfig.getInstance().getMySwithch().setSummaryStrategy(SummaryLevel.object);
         MyConfig.getInstance().getMySwithch().setVfgStrategy(true);
         MyConfig.getInstance().getMySwithch().setCgAnalyzeGroupedStrategy(false);
+        MyConfig.getInstance().getMySwithch().setSetDesRelatedAttributeOnlyStrategy(false);
     }
 
 }

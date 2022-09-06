@@ -19,15 +19,15 @@ public class BundleType implements Serializable, Cloneable {
     private Set<ExtraData> extraDatas;
 
     public BundleType() {
-        bundle = new HashMap<String, List<ExtraData>>();
-        contentSet = new HashSet<String>();
-        type = "";
+		bundle = new HashMap<>();
+		contentSet = new HashSet<>();
+    type = "";
 
     }
 
     public BundleType(Map<String, List<ExtraData>> bundle2, Set<String> contentSet2, String type2) {
-        bundle = new HashMap<String, List<ExtraData>>(bundle2);
-        contentSet = new HashSet<String>(contentSet2);
+		    bundle = new HashMap<>(bundle2);
+		    contentSet = new HashSet<>(contentSet2);
         type = type2;
     }
 

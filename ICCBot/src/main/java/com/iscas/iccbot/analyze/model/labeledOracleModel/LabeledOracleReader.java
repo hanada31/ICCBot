@@ -117,20 +117,6 @@ public class LabeledOracleReader extends Analyzer {
                             iccTag.setPolymorphic(methodScope.attributeValue("isPolymorphic").equals("true"));
                         }
 
-                        Element objectScope = subEle.element("analyzeScope").element("objectScope");
-                        if (objectScope != null) {
-                            iccTag.setStaticVal(objectScope.attributeValue("isStaticVal").equals("true"));
-                            iccTag.setStringOp(objectScope.attributeValue("isStringOp").equals("true"));
-                            iccTag.setNoExtra(objectScope.attributeValue("isNoExtra").equals("true"));
-                        }
-                        Element sensitivityScope = subEle.element("analyzeScope").element("sensitivityScope");
-                        if (sensitivityScope != null) {
-                            iccTag.setFlowSensitive(sensitivityScope.attributeValue("flow").equals("true"));
-                            iccTag.setPathSensitive(sensitivityScope.attributeValue("path").equals("true"));
-                            iccTag.setContextSensitive(sensitivityScope.attributeValue("context").equals("true"));
-                            iccTag.setObjectSensitive(sensitivityScope.attributeValue("object").equals("true"));
-                            iccTag.setFieldSensitive(sensitivityScope.attributeValue("field").equals("true"));
-                        }
                         //modify the format of labeled oracle
                         Element intentFieldScope = subEle.element("analyzeScope").element("intentFieldScope");
                         if (intentFieldScope != null) {
