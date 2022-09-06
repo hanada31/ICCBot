@@ -310,7 +310,7 @@ public class GetAttributeHandler extends UnitHandler {
             } else if (useUnit.toString().contains("getPath")) {
                 pathSet.addAll(getAttriStr(useUnit, "path"));
             } else if (useUnit.toString().contains("getAuthority")) {
-                pathSet.addAll(getAttriStr(useUnit, "authority"));
+                authoritySet.addAll(getAttriStr(useUnit, "authority"));
             } else if (useUnit.toString().contains("getEncodedPath")) {
                 pathSet.addAll(getAttriStr(useUnit, "path"));
             }
