@@ -75,9 +75,9 @@ public class ManifestAnalyzer extends Analyzer {
 
         List<AXmlNode> receiverNodes = new ArrayList<>();
         for (BinaryManifestBroadcastReceiver receiver : manifestManager.getBroadcastReceivers()) {
-            providerNodes.add(receiver.getAXmlNode());
+            receiverNodes.add(receiver.getAXmlNode());
         }
-        parseComponent(providerNodes, "Provider");
+        parseComponent(receiverNodes, "Receiver");
 
         mergeAllComponents();
 
