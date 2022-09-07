@@ -101,7 +101,7 @@ public class SootUtils {
     /**
      * get Type of ClassName
      *
-     * @param sc
+     * @param className
      * @return
      */
     public static String getTypeofClassName(String className) {
@@ -1237,31 +1237,29 @@ public class SootUtils {
         return false;
     }
 
-    public static int getIdForUnit(String statement, String method) {
-        SootMethod sm = SootUtils.getSootMethodBySignature(method);
-        int id = 0;
-        for (Unit currentUnit : getUnitListFromMethod(sm)) {
-            if (currentUnit.toString().equals(statement)) {
-                return id;
-            }
-            ++id;
-        }
+//    public static int getIdForUnit(String statement, String method) {
+//        SootMethod sm = SootUtils.getSootMethodBySignature(method);
+//        int id = 0;
+//        for (Unit currentUnit : getUnitListFromMethod(sm)) {
+//            if (currentUnit.toString().equals(statement)) {
+//                return id;
+//            }
+//            ++id;
+//        }
+//
+//        return -1;
+//    }
 
-        return -1;
-    }
-
-    public static int getIdForUnit(Unit unit, SootMethod sm) {
+    public static int getIdForUnit(Unit unit, SootMethod method) {
         int id = 0;
-        Body body = getSootActiveBody(sm);
-        if (body == null)
+        if (getSootActiveBody(method) == null)
             return -1;
-        for (Unit currentUnit : getUnitListFromMethod(sm)) {
+        for (Unit currentUnit : method.getActiveBody().getUnits()) {
             if (currentUnit == unit) {
                 return id;
             }
             ++id;
         }
-
         return -1;
     }
 
@@ -1383,7 +1381,7 @@ public class SootUtils {
                     u.toString(); //drop it for a bug in soot.jar
                 }
             } catch (StackOverflowError e) {
-//				e.printStackTrace();
+                units.add(u);
                 continue;
             }
             units.add(u);

@@ -53,9 +53,6 @@ public abstract class UnitHandler {
      * construct dummy context for inner function
      *
      * @param unit
-     * @param id
-     * @param oldObjContext
-     * @param handleTarget
      */
     public Context constructContextObj(int usedLocation, Unit unit) {
         Context objContextInner = new Context();
@@ -99,13 +96,7 @@ public abstract class UnitHandler {
                 for (ParameterSource temp : tempList) {
                     InvokeExpr tempExp = SootUtils.getInvokeExp(temp.getUnit());
                     if (tempExp.getMethod().getSignature().equals(psInTarget.getCurrentMethod().getSignature())) {
-                        if (!temp.getCurrentMethod().getSignature().equals(targetStopMethodSig)) // reach
-                            // the
-                            // top
-                            // unit
-                            // from
-                            // bottom
-                            // up
+                        if (!temp.getCurrentMethod().getSignature().equals(targetStopMethodSig))
                             continue;
                         if (temp.getUseLocationId() == usedLocation) {
                             return collectRealLocationInContext(temp.getContextLocationId(), temp.getUnit(), tempExp

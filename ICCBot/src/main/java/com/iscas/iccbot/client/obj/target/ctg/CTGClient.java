@@ -78,15 +78,10 @@ public class CTGClient extends BaseClient {
     protected void setMySwitch1() {
         MyConfig.getInstance().getMySwitch().setSetDesRelatedAttributeOnlyStrategy(true);
         MyConfig.getInstance().getMySwitch().setSetAttributeStrategy(true);
-        MyConfig.getInstance().getMySwitch().setGetAttributeStrategy(false);
+        MyConfig.getInstance().getMySwitch().setGetAttributeStrategy(true);
         MyConfig.getInstance().getMySwitch().setSummaryStrategy(SummaryLevel.object);
     }
 
-    protected void setMySwitch2() {
-        MyConfig.getInstance().getMySwitch().setSetAttributeStrategy(false);
-        MyConfig.getInstance().getMySwitch().setGetAttributeStrategy(true);
-        MyConfig.getInstance().getMySwitch().setSummaryStrategy(SummaryLevel.path);
-    }
 
     @Override
     public void clientOutput() throws IOException, DocumentException {
@@ -107,39 +102,40 @@ public class CTGClient extends BaseClient {
 
         String ictgFolder = summary_app_dir + ConstantUtils.ICTGFOLDETR;
         String fragFolder = summary_app_dir + ConstantUtils.FRAGFOLDETR;
-        System.out.println("writeComponentModel");
+        log.info("writeComponentModel");
         /** Component **/
         outer.writeComponentModel(ictgFolder, ConstantUtils.COMPONENTMODEL);
         /** Method **/
-        System.out.println("writeMethodSummaryModel");
-        outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ENTRY, true);
+//        log.info("writeMethodSummaryModel");
+//        outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ENTRY, true);
 //		outer.writeMethodSummaryModel(ictgFolder, ConstantUtils.SINGLEMETHOD_ALL, false);
-        if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
+//        if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
 //			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ENTRY);
 //			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEMETHOD_ALL);
-            FileUtils.copyFile(fragFolder + ConstantUtils.SINGLEMETHOD_ENTRY, ictgFolder + ConstantUtils.SINGLEMETHODFRAG_ENTRY);
-        }
+//            FileUtils.copyFile(fragFolder + ConstantUtils.SINGLEMETHOD_ENTRY, ictgFolder + ConstantUtils.SINGLEMETHODFRAG_ENTRY);
+//        }
 
-        /** Path **/
-        System.out.println("writePathSummaryModel");
-        outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ENTRY, true);
+//        /** Path **/
+//        log.info("writePathSummaryModel");
+//        outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ENTRY, true);
 //		outer.writePathSummaryModel(ictgFolder, ConstantUtils.SINGLEPATH_ALL, false);
-        if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
+//        if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
 //			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ENTRY);
 //			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEPATH_ALL);
-            FileUtils.copyFile(fragFolder + ConstantUtils.SINGLEPATH_ENTRY, ictgFolder + ConstantUtils.SINGLEPATHFRAG_ENTRY);
-        }
+//            FileUtils.copyFile(fragFolder + ConstantUtils.SINGLEPATH_ENTRY, ictgFolder + ConstantUtils.SINGLEPATHFRAG_ENTRY);
+//        }
 
         /** Intent **/
-        System.out.println("writeIntentSummaryModel");
-        outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ENTRY, true);
+//        log.info("writeIntentSummaryModel");
+//        outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ENTRY, true);
 //		outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.SINGLEOBJECT_ALL, false);
-        if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
+//        if (MyConfig.getInstance().getMySwitch().isFragmentSwitch()) {
 //			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ENTRY);
 //			outer.appendInfo(ictgFolder, fragFolder, ConstantUtils.SINGLEOBJECT_ALL);
-            FileUtils.copyFile(fragFolder + ConstantUtils.SINGLEOBJECT_ENTRY, ictgFolder + ConstantUtils.SINGLEOBJECTFRAG_ENTRY);
-        }
-
+//            FileUtils.copyFile(fragFolder + ConstantUtils.SINGLEOBJECT_ENTRY, ictgFolder + ConstantUtils.SINGLEOBJECTFRAG_ENTRY);
+//        }
+        log.info("write" + ConstantUtils.ICCBOTOUTPUT);
+        outer.writeIntentSummaryModel(ictgFolder, ConstantUtils.ICCBOTOUTPUT, true);
 
         /** ICTG **/
         // merge frag and component
@@ -147,28 +143,27 @@ public class CTGClient extends BaseClient {
                 .getAtgModel(), Global.v().getiCTGModel().getOptModel());
         ATGModel ictgMergedModel = Global.v().getiCTGModel().getOptModel();
         // ictgMergedModel
-        System.out.println("writeAtgModeTxtFile");
+        log.info("writeAtgModeTxtFile");
         String txtName = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGMERGE + ".txt";
         outer.writeAtgModeTxtFile(ictgFolder, txtName, ictgMergedModel, false);
-        System.out.println("writeDotFile");
+        log.info("writeDotFile");
         String dotname = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGMERGE;
         outer.writeDotFile(ictgFolder, dotname, ictgMergedModel, true);
-//		if (ictgMergedModel.getComp2CompSize() < 1800)
-        System.out.println("writeATGModel");
+        log.info("writeATGModel");
         outer.writeATGModel(ictgFolder, ConstantUtils.ICTGMERGE + ".xml",
                 ictgMergedModel);
 
 //		// ictgOptModel
         Global.v().getiCTGModel().setOptModelwithoutFrag(getIctgOptModel());
         ATGModel ictgOptModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
-        System.out.println("writeAtgModeTxtFile2");
+        log.info("writeAtgModeTxtFile2");
         String txtName2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT + ".txt";
         outer.writeAtgModeTxtFile(ictgFolder, txtName2, ictgOptModel, false);
-        System.out.println("writeDotFile2");
+        log.info("writeDotFile2");
         String dotname2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT;
         outer.writeDotFile(ictgFolder, dotname2, ictgOptModel, false);
 //		if (ictgMergedModel.getComp2CompSize() < 1800)
-        System.out.println("writeATGModel2");
+        log.info("writeATGModel2");
         outer.writeATGModel(ictgFolder, ConstantUtils.ICTGOPT + ".xml", ictgOptModel);
 
         GraphUtils.generateDotFile(ictgFolder + dotname2, "pdf");
@@ -221,8 +216,6 @@ public class CTGClient extends BaseClient {
 
         for (Entry<String, Set<AtgEdge>> entry : mergedIctgModel.getAtgEdges().entrySet()) {
             for (AtgEdge edge : entry.getValue()) {
-                // if(edge.getSource().getClassName().contains("ItemlistFragment"))
-                // System.out.println(edge);
                 switch (edge.getType()) {
                     case Act2Act:
                         ictgOptModel.addAtgEdges(entry.getKey(), edge);
@@ -237,14 +230,6 @@ public class CTGClient extends BaseClient {
                         ictgOptModel.addAtgEdges(entry.getKey(), edge);
                         break;
                     case Frag2Act:
-                        if (desfrag2StratcomMap.containsKey(edge.getSource().getClassName())) {
-                            for (String startCom : desfrag2StratcomMap.get(edge.getSource().getClassName())) {
-                                AtgEdge edgeCopy = new AtgEdge(edge);
-                                edgeCopy.setSource(new AtgNode(startCom));
-                                ictgOptModel.addAtgEdges(startCom, edgeCopy);
-                            }
-                        }
-                        break;
                     case Frag2NonAct:
                         if (desfrag2StratcomMap.containsKey(edge.getSource().getClassName())) {
                             for (String startCom : desfrag2StratcomMap.get(edge.getSource().getClassName())) {

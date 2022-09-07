@@ -92,6 +92,7 @@ public class SootAnalyzer extends Analyzer {
      * packages refuse to be analyzed
      */
     public static void setExcludePackage() {
+        System.out.println(MyConfig.getInstance().getAnalyzeConfig());
         JSONArray excArr = MyConfig.getInstance().getAnalyzeConfig().getJSONArray("SootAnalyzer.excludePackages");
         if (excArr == null) return;
         List<String> excList = excArr.toJavaList(String.class);

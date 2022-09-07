@@ -16,13 +16,13 @@ public interface AnalyzerHelper {
 
     public abstract String getTypeofUnit(SootMethod m, Unit unit);
 
-    public abstract UnitHandler getUnitHandler(Unit u);
+    public abstract UnitHandler getUnitHandler(SootMethod sootMethod, Unit u);
 
     public abstract boolean isCreateMethod(Unit unit);
 
     public abstract boolean isStaticCreateMethod(Unit unit);
 
-    public abstract boolean isReceiveFromParatMethod(Unit unit);
+    public abstract boolean isReceiveFromParaMethod(Unit unit);
 
     public abstract boolean isPassOutMethod(Unit u);
 

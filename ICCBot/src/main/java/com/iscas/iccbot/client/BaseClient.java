@@ -23,10 +23,6 @@ public abstract class BaseClient {
             clientOutput();
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            System.err.println("The analysis is stopped, caused by " + e.getMessage());
-            System.exit(0);
         }
         log.info(String.format("%s took %.2f seconds", this.getClass().getName(),
                 (System.currentTimeMillis() - startMS) / 1000.0));

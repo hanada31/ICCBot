@@ -416,9 +416,6 @@ public class SetIntentExtraHandler extends UnitHandler {
                         res = cast.getCastType().toString();
                 }
             }
-            // else{
-            // System.err.println("no left/right value  "+u.getClass().getName());
-            // }
         }
         return res;
     }

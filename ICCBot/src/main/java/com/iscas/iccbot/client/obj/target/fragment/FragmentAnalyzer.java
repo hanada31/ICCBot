@@ -4,6 +4,7 @@ import com.iscas.iccbot.Global;
 import com.iscas.iccbot.MyConfig;
 import com.iscas.iccbot.analyze.model.analyzeModel.MethodSummaryModel;
 import com.iscas.iccbot.analyze.model.analyzeModel.ObjectSummaryModel;
+import com.iscas.iccbot.analyze.model.analyzeModel.UnitNode;
 import com.iscas.iccbot.analyze.utils.ConstantUtils;
 import com.iscas.iccbot.analyze.utils.SootUtils;
 import com.iscas.iccbot.client.obj.ObjectAnalyzer;
@@ -93,16 +94,15 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
     private void getTargetOfSrc(FragmentSummaryModel singleFrag, String src) {
         SootMethod method = singleFrag.getMethod();
         Unit unit = singleFrag.getSendFragment2Start().iterator().next();
-        int instructionId = SootUtils.getIdForUnit(unit, method);
         for (String des : singleFrag.getSetDestinationList()) {
             ComponentModel comp = appModel.getComponentMap().get(des);
             AtgEdge edge;
-            if (comp != null && SootUtils.getUnitListFromMethod(methodUnderAnalysis).contains(unit)) {
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
+            if (comp != null) {
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -2,
                         comp.getComponentType());
                 Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
             } else {
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -2, "c");
                 Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
             }
 
@@ -123,8 +123,8 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
 
         DoStatistic.updateSummaryStatisticUseSummayMap(model, result);
 
-        DoStatistic.updateXMLStatisticUseSummayMapForFragment(true, model, result);
-        DoStatistic.updateXMLStatisticUseSummayMapForFragment(false, model, result);
+        DoStatistic.updateMLSStatisticUseSummaryMapForFragment(true, model, result);
+        DoStatistic.updateMLSStatisticUseSummaryMapForFragment(false, model, result);
 
     }
 }

@@ -8,6 +8,7 @@ import com.iscas.iccbot.analyze.utils.ValueObtainer;
 import com.iscas.iccbot.client.obj.dataHnadler.DataHandler;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
 import com.iscas.iccbot.client.obj.unitHnadler.UnitHandler;
+import soot.SootMethod;
 import soot.Unit;
 import soot.Value;
 import soot.toolkits.scalar.UnitValueBoxPair;
@@ -44,8 +45,7 @@ public class SetAttributeHandler extends UnitHandler {
     /**
      * calculate the value set of acdt from set stmt
      *
-     * @param unit
-     */
+=     */
     void setAttriAPIAnalyze() {
         if (unit.toString().contains("android.content.Intent: android.content.Intent setAction(java.lang.String)")) {
             addValue2GivenMap(0, this.unit, DataHandler.getDataHandler("setAction"));

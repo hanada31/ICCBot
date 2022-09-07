@@ -1,6 +1,7 @@
 package com.iscas.iccbot.analyze.utils.output;
 
 import com.google.common.io.Files;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -16,12 +17,13 @@ import java.util.*;
  *
  * @author 79940
  */
+@Slf4j
 public class FileUtils {
 
     /**
      * judge whether a file exist or not
      *
-     * @param folder
+     * @param file
      */
     public static boolean isFileExist(String file) {
         File f = new File(file);
@@ -89,7 +91,7 @@ public class FileUtils {
         try {
             Files.copy(f1, f2);
         } catch (IOException e) {
-            System.err.println(oldf + " not exist.");
+            log.error(oldf + " not exist.");
         }
     }
 
@@ -106,8 +108,7 @@ public class FileUtils {
 
             Files.move(f1, f2);
         } catch (IOException e) {
-            System.err.println(oldf);
-            System.err.println(newf);
+            log.error("move " +oldf+" to "+ newf +" error");
             e.printStackTrace();
         }
     }
@@ -411,7 +412,7 @@ public class FileUtils {
             fis.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(file_name + " deserialize fail");
+            log.error(file_name + " deserialize fail");
         }
         return obj;
     }
@@ -431,7 +432,7 @@ public class FileUtils {
             fos.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(file_name + " searilize fail");
+            log.error(file_name + " searilize fail");
         }
     }
 
@@ -524,7 +525,7 @@ public class FileUtils {
             writer.write(content);
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("can not write");
+            log.error("can not write file "+ filename);
         } finally {
             if (writer != null) {
                 try {

@@ -50,3 +50,5 @@ replay_pid*
 .apt_generated*/
 /ICCBot/src/main/generated/
 dependency-reduced-pom.xml
+/ICCBot/src/test/
+/src/main/generated/

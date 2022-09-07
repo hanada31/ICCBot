@@ -69,7 +69,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
             }
         }
 
-        if (isReceiveFromParatMethod(unit)) {
+        if (isReceiveFromParaMethod(unit)) {
             return true;
         } else if (isReceiveFromRetValue(unit)) {
             return true;
@@ -111,7 +111,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
             return "";
 
         // inter-function
-        if (isReceiveFromParatMethod(unit)) {
+        if (isReceiveFromParaMethod(unit)) {
             return "ReceiveIntentFromParatMethod";
         } else if (isReceiveFromRetValue(unit)) {
             return "ReceiveIntentFromRetValue";
@@ -163,25 +163,18 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
                 return "PassOutIntent";
             }
         }
-
         return "";
     }
 
     /**
      * get the correct handler of target unit
-     *
-     * @param methodUnderAnalysis
-     * @param appModel
-     * @param intentSummary
      * @param unit
      * @return
      */
     @Override
-    public UnitHandler getUnitHandler(Unit unit) {
+    public UnitHandler getUnitHandler(SootMethod sootMethod, Unit unit) {
         if (unit == null)
             return null;
-
-
         // set
         if (isCreateMethod(unit)) {
             return new CreateHandler();
@@ -193,27 +186,26 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
             return new SetIntentExtraHandler();
         } else if (isSetContentViewFunction(unit)) {
             return new SetContentFunctionHandler();
-
         }
         // send out
         if (isSendIntent2ActivityMethod(unit)) {
-            return new SendIntent2ActivityHandler();
+            return new SendIntent2ActivityHandler(sootMethod, unit);
         } else if (isSendIntent2ServiceMethod(unit)) {
-            return new SendIntent2ServiceHandler();
+            return new SendIntent2ServiceHandler(sootMethod, unit);
         } else if (isSendIntent2ProviderMethod(unit)) {
-            return new SendIntent2ProviderHandler();
+            return new SendIntent2ProviderHandler(sootMethod, unit);
         } else if (isSendIntent2ReceiverMethod(unit)) {
-            return new SendIntent2ReceiverHandler();
+            return new SendIntent2ReceiverHandler(sootMethod, unit);
         } else if (MyConfig.getInstance().getMySwitch().isWrapperAPISwitch()) {
             if (RAICCUtils.isWrapperMethods(unit))
-                return new SendIntent2UnkownHandler();
+                return new SendIntent2UnkownHandler(sootMethod, unit);
         } else if (RAICCUtils.isIntentSenderCreation(unit)) {
             return new ReceiveFromOutHandler();
         } else if (RAICCUtils.isPendingIntentCreation(unit)) {
             return new ReceiveFromOutHandler();
         }
         // inter-function
-        if (isReceiveFromParatMethod(unit)) {
+        if (isReceiveFromParaMethod(unit)) {
             return new ReceiveFromParaHandler();
         } else if (isReceiveFromRetValue(unit)) {
             return new ReceiveFromRetValueHandler();
@@ -224,9 +216,9 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
         if (isReceiveFromOutMethod(unit)) {
             return new ReceiveFromOutHandler();
         } else if (isGetAttributeMethod(unit)) {
-            return new GetAttributeHandler();
+            return new GetAttributeHandler(sootMethod, unit);
         } else if (isGetIntentExtraMethod(unit)) {
-            return new GetIntentExtraHandler();
+            return new GetIntentExtraHandler(sootMethod, unit);
         }
         return null;
     }
@@ -238,7 +230,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     @Override
-    public boolean isReceiveFromParatMethod(Unit u) {
+    public boolean isReceiveFromParaMethod(Unit u) {
         boolean res = false;
         for (String s : objectIdentifier) {
             String pattern = ".*@parameter\\d+: " + s + ".*";
@@ -349,8 +341,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
                 return false;
             if (u.toString().startsWith("if "))
                 return false;
-            for (int i = 0; i < ConstantUtils.setIntnetExtraMethods.length; i++) {
-                if (u.toString().contains(ConstantUtils.setIntnetExtraMethods[i])) {
+            for (int i = 0; i < ConstantUtils.setIntentExtraMethods.length; i++) {
+                if (u.toString().contains(ConstantUtils.setIntentExtraMethods[i])) {
                     return true;
                 }
             }
@@ -394,15 +386,15 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
         return false;
     }
 
-    /**
-     * judge is_Extra_method
-     *
-     * @param u
-     * @return
-     */
-    public static boolean isExtraMethod(String u) {
-        return isGetBundleExtraMethod(u) || isGetIntentExtraMethod(u);
-    }
+//    /**
+//     * judge is_Extra_method
+//     *
+//     * @param u
+//     * @return
+//     */
+//    public static boolean isExtraMethod(String u) {
+//        return isGetBundleExtraMethod(u) || isGetIntentExtraMethod(u);
+//    }
 
     /**
      * judge is_get_intent_extra_method
@@ -418,8 +410,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
                 return false;
             if (u.toString().startsWith("if "))
                 return false;
-            for (int i = 0; i < ConstantUtils.getIntnetExtraMethods.length; i++) {
-                if (u.toString().contains(ConstantUtils.getIntnetExtraMethods[i]))
+            for (int i = 0; i < ConstantUtils.getIntentExtraMethods.length; i++) {
+                if (u.toString().contains(ConstantUtils.getIntentExtraMethods[i]))
                     return true;
             }
         }
@@ -427,14 +419,14 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
     }
 
     public static boolean isGetIntentExtraMethod(String u) {
-        if (u.toString().contains("android.content.Intent") || u.toString().contains("android.os.Bundle")
-                || u.toString().contains("android.os.BaseBundle")) {
-            if (u.toString().contains("goto ") || u.toString().contains("sgoto "))
+        if (u.contains("android.content.Intent") || u.contains("android.os.Bundle")
+                || u.contains("android.os.BaseBundle")) {
+            if (u.contains("goto ") || u.contains("sgoto "))
                 return false;
-            if (u.toString().startsWith("if "))
+            if (u.startsWith("if "))
                 return false;
-            for (int i = 0; i < ConstantUtils.getIntnetExtraMethods.length; i++) {
-                if (u.toString().contains(ConstantUtils.getIntnetExtraMethods[i]))
+            for (int i = 0; i < ConstantUtils.getIntentExtraMethods.length; i++) {
+                if (u.contains(ConstantUtils.getIntentExtraMethods[i]))
                     return true;
             }
         }
@@ -544,8 +536,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     public static String getTypeOfIntentExtra(String m) {
-        for (int i = 0; i < ConstantUtils.getIntnetExtraMethods.length; i++) {
-            if (m.contains(ConstantUtils.getIntnetExtraMethods[i]))
+        for (int i = 0; i < ConstantUtils.getIntentExtraMethods.length; i++) {
+            if (m.contains(ConstantUtils.getIntentExtraMethods[i]))
                 return ConstantUtils.intentExtraMethodTypes[i];
         }
         return null;
