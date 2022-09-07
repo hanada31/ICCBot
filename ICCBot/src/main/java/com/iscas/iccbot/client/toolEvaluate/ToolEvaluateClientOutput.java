@@ -65,10 +65,9 @@ public class ToolEvaluateClientOutput {
             for (String component : Global.v().getAppModel().getRecieverMap().keySet()) {
                 writeWithColor(writer, component, rColor);
             }
-            // for (String component :
-            // Global.v().getAppModel().getProviderMap().keySet()) {
-            // writeWithColor(writer, component, pColor);
-            // }
+             for (String component :  Global.v().getAppModel().getProviderMap().keySet()) {
+                writeWithColor(writer, component, pColor);
+             }
             if (drawFragment)
                 for (String component : Global.v().getAppModel().getFragmentClasses()) {
                     writeWithColor(writer, component, fColor);

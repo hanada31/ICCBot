@@ -8,6 +8,7 @@ import com.iscas.iccbot.analyze.utils.ValueObtainer;
 import com.iscas.iccbot.client.obj.model.component.BundleType;
 import com.iscas.iccbot.client.obj.model.component.ExtraData;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
+import com.iscas.iccbot.client.obj.model.ctg.SendOrReceiveICCInfo;
 import com.iscas.iccbot.client.obj.target.ctg.CTGAnalyzerHelper;
 import com.iscas.iccbot.client.obj.unitHnadler.UnitHandler;
 import soot.SootMethod;
@@ -33,34 +34,25 @@ public class GetIntentExtraHandler extends UnitHandler {
     public void handleSingleObject(ObjectSummaryModel singleObject) {
         this.intentSummary = (IntentSummaryModel) singleObject;
         this.intentSummary.getDataHandleList().add(unit);
-        getExtraAPIAnalyze(unit); // extra
+        getExtraAPIAnalyze(); // extra
     }
 
     /**
-     * get key value pair of extra stmts
+     * getExtraAPIAnalyze
      *
-     * @param uses
-     * @param defs
-     * @param eug
-     * @param eug
-     * @param sm
-     * @param extra_unit_list
-     * @param clsSet
      */
-    void getExtraAPIAnalyze(Unit u) {
+    void getExtraAPIAnalyze() {
         // for each unit contains extras
-
-        String type = CTGAnalyzerHelper.getTypeOfIntentExtra(u.toString());
+        String type = CTGAnalyzerHelper.getTypeOfIntentExtra(unit.toString());
         Map<String, List<ExtraData>> param_list;
-        param_list = getParamList(u);
+        param_list = getParamList(unit);
         if (param_list == null)
             return;
         if (SootUtils.isBundleExtra(type)) {
             for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
                 for (ExtraData ed : en.getValue()) {
-                    BundleType bundle_type = genBundleType(u, ed, 0);
+                    BundleType bundle_type = genBundleType(unit, ed, 0);
                     if (bundle_type == null) {
-                        param_list = null;
                         return;
                     }
                     bundle_type.setType(type);
@@ -70,22 +62,21 @@ public class GetIntentExtraHandler extends UnitHandler {
         } else if (SootUtils.isExtrasExtra(type)) {
             BundleType bundle_type = null;
             try {
-                bundle_type = genBundleType(u, null, 0);
+                bundle_type = genBundleType(unit, null, 0);
             } catch (Exception e) {
                 e.printStackTrace();
                 return;
             }
             if (bundle_type == null) {
-                param_list = null;
                 return;
             }
             List<ExtraData> bundleList = new ArrayList<ExtraData>(bundle_type.getExtraDatas());
-            param_list.put(u.toString(), bundleList);
+            param_list.put(unit.toString(), bundleList);
         } else if (SootUtils.isParOrSerExtra(type)) {
             for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
                 for (ExtraData ed : en.getValue()) {
                     ed.setType(type);
-                    ed.setObjName(getObjectNameforReflection(u));
+                    ed.setObjName(getObjectNameforReflection(unit));
                 }
             }
         } else {
@@ -96,9 +87,7 @@ public class GetIntentExtraHandler extends UnitHandler {
             }
         }
         // entry class
-        // appModel.ops.addReceivedExtraDataItemToMap(methodName, u, className,
-        // param_list);
-        addExtraValue2Set(methodUnderAnalyze, u, methodSig, param_list, intentSummary.getGetExtrasCandidateList());
+        addExtraValue2Set( param_list, intentSummary.getGetExtrasCandidateList());
     }
 
     /**
@@ -115,11 +104,10 @@ public class GetIntentExtraHandler extends UnitHandler {
             e.printStackTrace();
             return null;
         }
-
         Map<String, List<ExtraData>> param_list = new HashMap<String, List<ExtraData>>();
         try {
             ValueObtainer vo = new ValueObtainer(methodSig, "");
-            param_list = new HashMap<String, List<ExtraData>>();
+            param_list = new HashMap<>();
             // same u -->multiple str
             List<ExtraData> eds = new ArrayList<ExtraData>();
             param_list.put(u.toString(), eds);
@@ -129,6 +117,9 @@ public class GetIntentExtraHandler extends UnitHandler {
                     ExtraData ed = new ExtraData();
                     ed.setName(res);
                     eds.add(ed);
+                    SendOrReceiveICCInfo getTriple = new SendOrReceiveICCInfo(u, methodUnderAnalyze.getSignature(), SootUtils.getIdForUnit(u, methodUnderAnalyze));
+                    getTriple.setKey(res);
+                    intentSummary.getReceiveTriple().add(getTriple);
                 }
             } else {
                 ExtraData ed = new ExtraData();
@@ -165,9 +156,6 @@ public class GetIntentExtraHandler extends UnitHandler {
                         res = cast.getCastType().toString();
                 }
             }
-            // else{
-            // System.err.println("no left/right value  "+u.getClass().getName());
-            // }
         }
         return res;
     }
@@ -241,7 +229,6 @@ public class GetIntentExtraHandler extends UnitHandler {
                 BundleType bundle_type = null;
                 bundle_type = genBundleType(useUnit, parent, depth + 1);
                 if (bundle_type == null) {
-                    param_list = null;
                     continue;
                 }
                 bundle_type.setType(type);
@@ -257,7 +244,7 @@ public class GetIntentExtraHandler extends UnitHandler {
         return bt;
     }
 
-    public void addExtraValue2Set(SootMethod sm, Unit u, String act_name, Map<String, List<ExtraData>> param_list,
+    public void addExtraValue2Set( Map<String, List<ExtraData>> param_list,
                                   BundleType bundleType) {
         String res = "";
         for (Entry<String, List<ExtraData>> en : param_list.entrySet()) {
@@ -269,7 +256,7 @@ public class GetIntentExtraHandler extends UnitHandler {
         if (res.endsWith(","))
             res = res.substring(0, res.length() - 1);
         // key and value
-        Attribute attr = new Attribute(sm.getSignature() + "," + u.toString() + "," + u.hashCode(), "extra", res,
+        Attribute attr = new Attribute(methodUnderAnalyze.getSignature() + "," + unit.toString() + "," +unit.hashCode(), "extra", res,
                 "equals");
         CollectionUtils.add_attribute_to_map(attr.getId(), attr, appModel.getUnit2Attribute());
     }

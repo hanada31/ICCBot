@@ -191,9 +191,9 @@ public class CTGClientOutput {
     /**
      * writeATGModel
      *
-     * @param string
-     * @param atg
-     * @param atgEdges
+     * @param dir
+     * @param file
+     * @param atgModel
      * @throws DocumentException
      * @throws IOException
      */
@@ -210,12 +210,14 @@ public class CTGClientOutput {
                 if (!atgModel.getAtgEdges().containsKey(className)) continue;
                 Set<AtgEdge> edges = atgModel.getAtgEdges().get(className);
                 for (AtgEdge edge : edges) {
+                    System.out.println(edge.toString());
                     Element desEle = new DefaultElement("destination");
                     desEle.addAttribute("name", edge.getDestnation().getName());
                     desEle.addAttribute("type", edge.getType().name());
                     desEle.addAttribute("method", edge.getMethodSig());
-                    //				desEle.addAttribute("InstructionId", edge.getInstructionId() + "");
-                    if (edge.getIntentSummary() != null) {
+                    desEle.addAttribute("instructionId", edge.getInstructionId()+"");
+                    if(edge.getIntentSummary().getSendIntent2ICCList()!=null && edge.getIntentSummary().getSendIntent2ICCList().size()>0)
+                        desEle.addAttribute("unit", edge.getIntentSummary().getSendIntent2ICCList().get(0)+"");if (edge.getIntentSummary() != null) {
                         if (edge.getIntentSummary().getSetActionValueList().size() > 0)
                             desEle.addAttribute("action",
                                     PrintUtils.printList(edge.getIntentSummary().getSetActionValueList()));
@@ -420,9 +422,8 @@ public class CTGClientOutput {
      *
      * @param dir
      * @param file
-     * @param map
-     * @param b
-     * @param AppModel .getInstance()
+     * @param atgModel
+     * @param drawFragNode
      */
     public void writeDotFile(String dir, String file, ATGModel atgModel, boolean drawFragNode) {
         Set<String> histroy = new HashSet<String>();
@@ -468,10 +469,9 @@ public class CTGClientOutput {
             for (String component : Global.v().getAppModel().getRecieverMap().keySet()) {
                 writeWithColor(writer, component, rColor);
             }
-            // for (String component :
-            // Global.v().getAppModel().getProviderMap().keySet()) {
-            // writeWithColor(writer, component, pColor);
-            // }
+             for (String component : Global.v().getAppModel().getProviderMap().keySet()) {
+                writeWithColor(writer, component, pColor);
+             }
             if (drawFragNode)
                 for (String component : Global.v().getAppModel().getFragmentClasses()) {
                     writeWithColor(writer, component, fColor);
@@ -578,7 +578,6 @@ public class CTGClientOutput {
     /**
      * generate json file for an component
      *
-     * @param component
      */
     public void writeComponentModelJson(String dir, String file) {
         JSONObject rootElement = new JSONObject(new LinkedHashMap<>());

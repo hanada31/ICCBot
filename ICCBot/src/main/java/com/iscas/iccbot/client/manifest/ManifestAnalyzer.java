@@ -178,7 +178,7 @@ public class ManifestAnalyzer extends Analyzer {
     private void mergeAllComponents() {
         appModel.setComponentMap(appModel.getActivityMap());
         appModel.setComponentMap(appModel.getServiceMap());
-        // appModel.setComponentMap(appModel.getProviderMap());
+        appModel.setComponentMap(appModel.getProviderMap());
         appModel.setComponentMap(appModel.getRecieverMap());
     }
 
@@ -225,10 +225,10 @@ public class ManifestAnalyzer extends Analyzer {
                 if (appModel.getRecieverMap().containsKey(componentName))
                     return appModel.getRecieverMap().get(componentName);
                 return new BroadcastReceiverModel(appModel);
-            case "Provider":
-                if (appModel.getProviderMap().containsKey(componentName))
-                    return appModel.getProviderMap().get(componentName);
-                return new ContentProviderModel(appModel);
+//            case "Provider": //do not add coontent provider
+//                if (appModel.getProviderMap().containsKey(componentName))
+//                    return appModel.getProviderMap().get(componentName);
+//                return new ContentProviderModel(appModel);
         }
         return null;
     }

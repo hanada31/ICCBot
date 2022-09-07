@@ -3,6 +3,7 @@ package com.iscas.iccbot.client.obj.model.atg;
 import com.iscas.iccbot.Global;
 import com.iscas.iccbot.analyze.utils.SootUtils;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
+import soot.Unit;
 
 import java.util.Set;
 
@@ -15,11 +16,11 @@ public class AtgEdge {
     private int instructionId;
     private String iCCkind;
 
-    public AtgEdge(AtgNode source, AtgNode destnation, String methodSig, int instructionId, String iCCkindId) {
+    public AtgEdge(AtgNode source, AtgNode destination, String methodSig, int instructionId, String iCCkindId) {
         this.source = source;
-        this.destnation = destnation;
+        this.destnation = destination;
         this.type = getTypeofATG(SootUtils.getNameofClass(source.getName()),
-                SootUtils.getNameofClass(destnation.getName()));
+                SootUtils.getNameofClass(destination.getName()));
         this.methodSig = methodSig;
         this.instructionId = instructionId;
 		    this.intentSummary = new IntentSummaryModel(null);
@@ -33,7 +34,7 @@ public class AtgEdge {
         setInstructionId(temp.instructionId);
         setMethodSig(temp.methodSig);
         setType(AtgType.Act2Act);
-		    setIntentSummary(temp.intentSummary);
+        setIntentSummary(temp.intentSummary);
     }
 
     public String getDescribtion() {

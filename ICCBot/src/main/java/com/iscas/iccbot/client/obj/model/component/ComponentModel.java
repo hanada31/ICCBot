@@ -102,7 +102,7 @@ public class ComponentModel implements Serializable {
     }
 
     public String getComponentType() {
-        return "unkown";
+        return "unknown";
     }
 
     public void setComponentType(String type) {
