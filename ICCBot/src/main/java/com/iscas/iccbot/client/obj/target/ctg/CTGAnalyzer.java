@@ -130,18 +130,17 @@ public class CTGAnalyzer extends ObjectAnalyzer {
     private void getTargetOfSrc(IntentSummaryModel intentSummary, String src) {
         SootMethod method = intentSummary.getMethod();
         UnitNode lastNode = intentSummary.getNodes().get(intentSummary.getNodes().size() - 1);
-        int instructionId = SootUtils.getIdForUnit(lastNode.getUnit(),lastNode.getMethod());
         for (String des : intentSummary.getSetDestinationList()) {
             ComponentModel comp = appModel.getComponentMap().get(des);
             AtgEdge edge;
             if (comp != null ) {
                 //TODO create method & the sendout method
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), intentSummary.getSendTriple().getInstructionId(),
                         comp.getComponentType());
                 edge.setIntentSummary(intentSummary);
                 Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
             } else {
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId, "c");
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), intentSummary.getSendTriple().getInstructionId(), "c");
                 edge.setIntentSummary(intentSummary);
                 Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
             }

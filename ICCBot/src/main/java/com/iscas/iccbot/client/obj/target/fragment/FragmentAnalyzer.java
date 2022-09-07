@@ -94,17 +94,15 @@ public class FragmentAnalyzer extends ObjectAnalyzer {
     private void getTargetOfSrc(FragmentSummaryModel singleFrag, String src) {
         SootMethod method = singleFrag.getMethod();
         Unit unit = singleFrag.getSendFragment2Start().iterator().next();
-        UnitNode lastNode = singleFrag.getNodes().get(singleFrag.getNodes().size() - 1);
-        int instructionId = SootUtils.getIdForUnit(lastNode.getUnit(),lastNode.getMethod());
         for (String des : singleFrag.getSetDestinationList()) {
             ComponentModel comp = appModel.getComponentMap().get(des);
             AtgEdge edge;
             if (comp != null) {
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -2,
                         comp.getComponentType());
                 Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
             } else {
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId, "c");
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -2, "c");
                 Global.v().getFragmentModel().getAtgModel().addAtgEdges(src, edge);
             }
 

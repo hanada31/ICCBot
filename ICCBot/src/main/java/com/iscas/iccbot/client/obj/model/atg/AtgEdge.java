@@ -23,7 +23,7 @@ public class AtgEdge {
                 SootUtils.getNameofClass(destination.getName()));
         this.methodSig = methodSig;
         this.instructionId = instructionId;
-		    this.intentSummary = new IntentSummaryModel(null);
+        this.intentSummary = new IntentSummaryModel(null);
         getICCKindById(iCCkindId);
     }
 

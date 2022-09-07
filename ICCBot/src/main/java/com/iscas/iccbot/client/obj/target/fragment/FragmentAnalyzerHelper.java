@@ -135,14 +135,11 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
     /**
      * get the correct handler of target unit
      *
-     * @param methodUnderAnalysis
-     * @param appModel
-     * @param intentSummary
      * @param unit
      * @return
      */
     @Override
-    public UnitHandler getUnitHandler(Unit unit) {
+    public UnitHandler getUnitHandler(SootMethod sootMethod, Unit unit) {
         if (unit == null)
             return null;
         if (isCreateMethod(unit)) {

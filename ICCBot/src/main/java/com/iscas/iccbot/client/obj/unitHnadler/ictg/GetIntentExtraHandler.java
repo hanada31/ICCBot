@@ -29,6 +29,14 @@ import java.util.Map.Entry;
 
 public class GetIntentExtraHandler extends UnitHandler {
     IntentSummaryModel intentSummary;
+    SootMethod sootMethod;
+    Unit unit;
+    public GetIntentExtraHandler(SootMethod sootMethod, Unit unit) {
+        super();
+        this.sootMethod = sootMethod;
+        this.unit = unit;
+    }
+
 
     @Override
     public void handleSingleObject(ObjectSummaryModel singleObject) {
@@ -117,7 +125,7 @@ public class GetIntentExtraHandler extends UnitHandler {
                     ExtraData ed = new ExtraData();
                     ed.setName(res);
                     eds.add(ed);
-                    SendOrReceiveICCInfo getTriple = new SendOrReceiveICCInfo(u, methodUnderAnalyze.getSignature(), SootUtils.getIdForUnit(u, methodUnderAnalyze));
+                    SendOrReceiveICCInfo getTriple = new SendOrReceiveICCInfo(u, sootMethod.getSignature(), SootUtils.getIdForUnit(u, sootMethod));
                     getTriple.setKey(res);
                     intentSummary.getReceiveTriple().add(getTriple);
                 }
