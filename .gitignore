@@ -51,3 +51,4 @@ replay_pid*
 /ICCBot/src/main/generated/
 dependency-reduced-pom.xml
 /ICCBot/src/test/
+/src/main/generated/
