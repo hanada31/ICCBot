@@ -172,7 +172,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     @Override
-    public UnitHandler getUnitHandler(Unit unit) {
+    public UnitHandler getUnitHandler(SootMethod sootMethod, Unit unit) {
         if (unit == null)
             return null;
         // set
@@ -189,16 +189,16 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
         }
         // send out
         if (isSendIntent2ActivityMethod(unit)) {
-            return new SendIntent2ActivityHandler();
+            return new SendIntent2ActivityHandler(sootMethod, unit);
         } else if (isSendIntent2ServiceMethod(unit)) {
-            return new SendIntent2ServiceHandler();
+            return new SendIntent2ServiceHandler(sootMethod, unit);
         } else if (isSendIntent2ProviderMethod(unit)) {
-            return new SendIntent2ProviderHandler();
+            return new SendIntent2ProviderHandler(sootMethod, unit);
         } else if (isSendIntent2ReceiverMethod(unit)) {
-            return new SendIntent2ReceiverHandler();
+            return new SendIntent2ReceiverHandler(sootMethod, unit);
         } else if (MyConfig.getInstance().getMySwitch().isWrapperAPISwitch()) {
             if (RAICCUtils.isWrapperMethods(unit))
-                return new SendIntent2UnkownHandler();
+                return new SendIntent2UnkownHandler(sootMethod, unit);
         } else if (RAICCUtils.isIntentSenderCreation(unit)) {
             return new ReceiveFromOutHandler();
         } else if (RAICCUtils.isPendingIntentCreation(unit)) {
@@ -216,9 +216,9 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
         if (isReceiveFromOutMethod(unit)) {
             return new ReceiveFromOutHandler();
         } else if (isGetAttributeMethod(unit)) {
-            return new GetAttributeHandler();
+            return new GetAttributeHandler(sootMethod, unit);
         } else if (isGetIntentExtraMethod(unit)) {
-            return new GetIntentExtraHandler();
+            return new GetIntentExtraHandler(sootMethod, unit);
         }
         return null;
     }

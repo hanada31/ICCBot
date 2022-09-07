@@ -37,7 +37,7 @@ public class IROutputClientTest {
         String path;
         path = "../apk";
         String name;
-        name = "ICCBotBench";
+        name = "CSipsimple";
         String client = "IROutputClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
