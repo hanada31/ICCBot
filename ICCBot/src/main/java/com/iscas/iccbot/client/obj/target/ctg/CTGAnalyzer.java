@@ -17,7 +17,6 @@ import com.iscas.iccbot.client.statistic.model.StatisticResult;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
-import soot.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +77,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
     /**
      * generateATGInfo
      *
-     * @param model
+     * @param methodSummary
      */
     private void generateATGInfo(MethodSummaryModel methodSummary) {
         SootMethod sootMtd = methodSummary.getMethod();
@@ -130,23 +129,21 @@ public class CTGAnalyzer extends ObjectAnalyzer {
      */
     private void getTargetOfSrc(IntentSummaryModel intentSummary, String src) {
         SootMethod method = intentSummary.getMethod();
-        Unit unit = intentSummary.getSendIntent2ICCList().iterator().next();
-        int instructionId = SootUtils.getIdForUnit(unit, method);
+        UnitNode lastNode = intentSummary.getNodes().get(intentSummary.getNodes().size() - 1);
         for (String des : intentSummary.getSetDestinationList()) {
             ComponentModel comp = appModel.getComponentMap().get(des);
             AtgEdge edge;
-            if (comp != null && SootUtils.getUnitListFromMethod(methodUnderAnalysis).contains(unit)) {
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), instructionId,
+            if (comp != null ) {
+                //TODO create method & the sendout method
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), intentSummary.getSendTriple().getInstructionId(),
                         comp.getComponentType());
                 edge.setIntentSummary(intentSummary);
                 Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
             } else {
-                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), -1, "c");
+                edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), intentSummary.getSendTriple().getInstructionId(), "c");
                 edge.setIntentSummary(intentSummary);
                 Global.v().getiCTGModel().getOptModel().addAtgEdges(src, edge);
             }
-
-
             String name = SootUtils.getNameofClass(src);
             ComponentModel sourceComponent = Global.v().getAppModel().getComponentMap().get(name);
             if (sourceComponent != null) {
@@ -158,7 +155,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
     /**
      * implicitDestinationAnalyze
      *
-     * @param intentSummary
+     * @param methodSummary
      */
     private void implicitDestinationAnalyze(MethodSummaryModel methodSummary) {
         for (ObjectSummaryModel singleObject : methodSummary.getSingleObjects()) {
@@ -183,8 +180,6 @@ public class CTGAnalyzer extends ObjectAnalyzer {
      * for implicit ICC destination match ICC-intent filter match rule
      *
      * @param intentSummary
-     * @param acdtSet
-     * @param set
      */
     private void analyzeDesinationByACDT(IntentSummaryModel intentSummary) {
         List<String> summaryActionSet = intentSummary.getSetActionValueList();
@@ -293,8 +288,8 @@ public class CTGAnalyzer extends ObjectAnalyzer {
         DoStatistic.updateICCStatisticUseSummayMap(true, model, result);
 
         DoStatistic.updateSummaryStatisticUseSummayMap(model, result);
-        DoStatistic.updateXMLStatisticUseSummayMap(true, model, result);
-        DoStatistic.updateXMLStatisticUseSummayMap(false, model, result);
+        DoStatistic.updateMLSStatisticUseSummaryMap(true, model, result);
+        DoStatistic.updateMLSStatisticUseSummaryMap(false, model, result);
 
     }
 

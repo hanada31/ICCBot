@@ -8,7 +8,9 @@ import com.iscas.iccbot.analyze.utils.*;
 import com.iscas.iccbot.analyze.utils.output.PrintUtils;
 import com.iscas.iccbot.client.obj.dataHnadler.DataHandler;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
+import com.iscas.iccbot.client.obj.model.ctg.SendOrReceiveICCInfo;
 import com.iscas.iccbot.client.obj.unitHnadler.UnitHandler;
+import soot.SootMethod;
 import soot.Unit;
 import soot.Value;
 import soot.jimple.internal.AbstractInstanceInvokeExpr;
@@ -24,6 +26,14 @@ import java.util.Map.Entry;
 public class GetAttributeHandler extends UnitHandler {
     Context context;
     IntentSummaryModel intentSummary;
+    SootMethod sootMethod;
+    Unit unit;
+    public GetAttributeHandler(SootMethod sootMethod, Unit unit) {
+        super();
+        this.sootMethod = sootMethod;
+        this.unit = unit;
+    }
+
 
     @Override
     public void handleSingleObject(ObjectSummaryModel singleObject) {
@@ -39,9 +49,8 @@ public class GetAttributeHandler extends UnitHandler {
     }
 
     /**
-     * get attributes of acdt
+     * getAttriAPIAnalyze
      *
-     * @param unit
      */
     void getAttriAPIAnalyze() {
         Set<String> resSet = new HashSet<String>();
@@ -49,22 +58,34 @@ public class GetAttributeHandler extends UnitHandler {
             DataHandler handler = DataHandler.getDataHandler("getAction");
             resSet = getAttriStr(unit, "action");
             generatehandler(handler, resSet);
-
-        } else if (unit.toString().contains("getCategories(")) {
+            SendOrReceiveICCInfo info = new SendOrReceiveICCInfo(unit, sootMethod.getSignature(), SootUtils.getIdForUnit(unit, sootMethod));
+            info.setKeyAndValue("action",resSet);
+            intentSummary.getReceiveTriple().add(info);
+        }
+        else if (unit.toString().contains("getCategories(")) {
             DataHandler handler = DataHandler.getDataHandler("getCategory");
             resSet.addAll(getAttriStr(unit, "category"));
             generatehandler(handler, resSet);
-
-        } else if (unit.toString().contains("getData(") || unit.toString().contains("getDataString(")) {
+            SendOrReceiveICCInfo info = new SendOrReceiveICCInfo(unit, sootMethod.getSignature(), SootUtils.getIdForUnit(unit, sootMethod));
+            info.setKeyAndValue("category",resSet);
+            intentSummary.getReceiveTriple().add(info);
+        }
+        else if (unit.toString().contains("getData(") || unit.toString().contains("getDataString(")) {
             DataHandler handler = DataHandler.getDataHandler("getData");
             resSet = getAttriStr(unit, "data");
             resSet.addAll(getSubAttriofData(unit));
             generatehandler(handler, resSet);
-
-        } else if (unit.toString().contains("getType(")) {
+            SendOrReceiveICCInfo info = new SendOrReceiveICCInfo(unit, sootMethod.getSignature(), SootUtils.getIdForUnit(unit, sootMethod));
+            info.setKeyAndValue("data",resSet);
+            intentSummary.getReceiveTriple().add(info);
+        }
+        else if (unit.toString().contains("getType(")) {
             DataHandler handler = DataHandler.getDataHandler("getType");
             resSet = getAttriStr(unit, "type");
             generatehandler(handler, resSet);
+            SendOrReceiveICCInfo info = new SendOrReceiveICCInfo(unit, sootMethod.getSignature(), SootUtils.getIdForUnit(unit, sootMethod));
+            info.setKeyAndValue("type",resSet);
+            intentSummary.getReceiveTriple().add(info);
         }
     }
 

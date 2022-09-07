@@ -223,7 +223,6 @@ public class dynamicResultAnalyzer extends Analyzer {
                 String methodName = content.split(";--->")[1].split("\\(")[0];
                 thisMethod = className + " " + methodName;
                 if (cgMap.containsKey(thisMethod) && cgMap.get(thisMethod).contains(lastMethod)) {
-                    // System.err.println(lastMethod+ " --> " +thisMethod);
                     father = lastMethod.split(" ")[0];
                     son = className;
                     String temp = res.get(res.size() - 1);

@@ -13,6 +13,7 @@ import com.iscas.iccbot.client.obj.model.component.ComponentModel;
 import com.iscas.iccbot.client.obj.model.ctg.IntentRecieveModel;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryFeatureExtractor;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
+import com.iscas.iccbot.client.obj.model.ctg.SendOrReceiveICCInfo;
 import com.iscas.iccbot.client.obj.model.fragment.FragmentSummaryModel;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
@@ -26,8 +27,8 @@ import java.util.Map.Entry;
 
 public class DoStatistic {
 
-    public static void updateXMLStatisticUseSummayMapForFragment(boolean entryMethod, MethodSummaryModel methodSummary,
-                                                                 StatisticResult result) {
+    public static void updateMLSStatisticUseSummaryMapForFragment(boolean entryMethod, MethodSummaryModel methodSummary,
+                                                                  StatisticResult result) {
         XmlStatistic statistic = result.getXmlStatistic();
         if (entryMethod) {
             SootMethod sm = methodSummary.getMethod();
@@ -44,8 +45,8 @@ public class DoStatistic {
         }
     }
 
-    public static void updateXMLStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel methodSummary,
-                                                      StatisticResult result) {
+    public static void updateMLSStatisticUseSummaryMap(boolean entryMethod, MethodSummaryModel methodSummary,
+                                                       StatisticResult result) {
         XmlStatistic statistic = result.getXmlStatistic();
 
         if (entryMethod) {
@@ -81,8 +82,6 @@ public class DoStatistic {
             IntentSummaryModel intentSummary = (IntentSummaryModel) singleObject;
             if (history.contains(intentSummary))
                 continue;
-//			if (intentSummary.getSendIntent2ICCList().size() == 0 && intentSummary.getSetDestinationList().size() == 0)
-//				continue;
             history.add(intentSummary);
             writeIntentSummary(intentSummary, intentSummaryEle, singleObject.getPathSummary(), methodSummary);
         }
@@ -112,7 +111,6 @@ public class DoStatistic {
             if (history.contains(Singlefrag))
                 continue;
 //			if (Singlefrag.getSendFragment2Start().size() == 0)
-//				continue;
             history.add(Singlefrag);
             writeFragmentSummary(Singlefrag, intentSummaryEle, singleObject.getPathSummary(), methodSummary);
         }
@@ -176,11 +174,8 @@ public class DoStatistic {
     /**
      * write Single Node Xml in IntentSummaryModel
      *
-     * @param stack
      * @param path
      * @param methodSummary
-     * @param topSummary
-     * @param i
      */
     private static void writeMethodSummary(Element path, MethodSummaryModel methodSummary) {
         List<UnitNode> list = methodSummary.getNodePathList();
@@ -223,13 +218,13 @@ public class DoStatistic {
                                            MethodSummaryModel methodSummary) {
         Element icc = new DefaultElement("intentSummary");
         // writeICCType(intentSummary, icc);
-        writeMethod(icc, intentSummary, pathSummary, methodSummary);
+
         writeSource(intentSummary, icc, methodSummary);
         writeDestnition(intentSummary, icc);
         writeICCSendReceive(intentSummary, icc);
+        writeMethod(icc, intentSummary, pathSummary, methodSummary);
 //		writeICCFlow(intentSummary, icc);
         writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
-//		if (icc.element("destinition") != null)
         if (icc.element("source") != null)
             summary.add(icc);
     }
@@ -244,8 +239,8 @@ public class DoStatistic {
         writeDestnition(singlefrag, frag);
 //	    writeFragmentFlow(singlefrag, frag);
         writeSingleObjectICCNode(new ArrayList<String>(), singlefrag, frag);
-//		if (frag.element("destinition") != null)
-        intentSummaryEle.add(frag);
+		if (frag.element("source") != null)
+            intentSummaryEle.add(frag);
 
     }
 
@@ -438,7 +433,7 @@ public class DoStatistic {
         if (actions.size() + category.size() + data.size() + type.size() + extras.getExtraDatas().size() > 0) {
             //ICTG construct
             if (MyConfig.getInstance().getMySwitch().isSetAttributeStrategy()) {
-                Element sender = new DefaultElement("sender");
+                Element sender = new DefaultElement("sendICCInfo");
                 if (actions.size() > 0)
                     sender.addAttribute("action", PrintUtils.printList(actions));
                 if (category.size() > 0)
@@ -453,10 +448,17 @@ public class DoStatistic {
                     sender.addAttribute("flags", PrintUtils.printList(flags));
                 if (finish)
                     sender.addAttribute("componentFinish", "true");
+                if (intentSummary.getSendTriple()!=null) {
+                    Element tripleElement =  sender.addElement("info");
+                    tripleElement.addAttribute("unit", intentSummary.getSendTriple().getUnit().toString());
+                    tripleElement.addAttribute("methodSig", intentSummary.getSendTriple().getMethodSig());
+                    tripleElement.addAttribute("instructionId", intentSummary.getSendTriple().getInstructionId()+"");
+                }
                 if (sender.attributeCount() > 0)
                     icc.add(sender);
-                if (icc.element("destinition") != null) {
-                    Attribute attr = icc.element("destinition").attribute("name");
+
+                if (icc.element("destination") != null) {
+                    Attribute attr = icc.element("destination").attribute("name");
                     if (attr != null && Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())) {
                         ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
                         IntentRecieveModel receiveModel = component.getReceiveModel();
@@ -473,7 +475,7 @@ public class DoStatistic {
             List<String> type2 = intentSummary.getGetTypeCandidateList();
             BundleType extras2 = intentSummary.getGetExtrasCandidateList();
             if (actions2.size() + category2.size() + data2.size() + type2.size() + extras2.getExtraDatas().size() > 0) {
-                Element receiver = new DefaultElement("receiver");
+                Element receiver = new DefaultElement("receiveICCInfo");
                 if (actions2.size() > 0)
                     receiver.addAttribute("action", PrintUtils.printList(actions2));
                 if (category2.size() > 0)
@@ -484,8 +486,21 @@ public class DoStatistic {
                     receiver.addAttribute("type", PrintUtils.printList(type2));
                 if (extras2.getExtraDatas().size() > 0)
                     receiver.addAttribute("extras", extras2.toString());
+                if (intentSummary.getReceiveTriple().size()>0) {
+                    for(SendOrReceiveICCInfo SendOrReceiveICCInfo : intentSummary.getReceiveTriple()) {
+                        if (intentSummary.getReceiveTriple()!=null) {
+                            Element tripleElement =  receiver.addElement("info");
+                            tripleElement.addAttribute("unit", SendOrReceiveICCInfo.getUnit().toString());
+                            tripleElement.addAttribute("methodSig", SendOrReceiveICCInfo.getMethodSig());
+                            tripleElement.addAttribute("instructionId", SendOrReceiveICCInfo.getInstructionId()+"");
+                            tripleElement.addAttribute("key", SendOrReceiveICCInfo.getKey()+"");
+                            tripleElement.addAttribute("value", SendOrReceiveICCInfo.getValue()+"");
+                        }
+                    }
+                }
                 if (receiver.attributeCount() > 0)
                     icc.add(receiver);
+
                 Attribute attr = icc.element("source").attribute("name");
                 if (attr != null && Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())) {
                     ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
@@ -510,12 +525,12 @@ public class DoStatistic {
         if (singleObj instanceof FragmentSummaryModel)
             des = ((FragmentSummaryModel) singleObj).getSetDestinationList();
         if (des.size() > 0) {
-            Element desElement = icc.addElement("destinition");
+            Element desElement = icc.addElement("destination");
             desElement.addAttribute("name", PrintUtils.printList(des));
         }
     }
 
-    private static void writeICCType(IntentSummaryModel intentSummary, Element icc) {
+    private static void writeDestination(IntentSummaryModel intentSummary, Element icc) {
         Element typeElement = new DefaultElement("summaryType");
         String summaryType = IntentSummaryFeatureExtractor.getSummaryStr(intentSummary);
         if (summaryType.length() > 0)
@@ -537,33 +552,13 @@ public class DoStatistic {
             typeElement.addAttribute("sendType", summarySendType);
         if (typeElement.attributeCount() > 0)
             icc.add(typeElement);
-
     }
 
-    /**
-     * countICCNumber
-     *
-     * @param AppModel    .getInstance()
-     * @param entryMethod only count entry method
-     */
-    public static int countICCRelatedMethodNumber(boolean entryMethod, Map<String, MethodSummaryModel> summaryMap) {
-        int sum = 0;
-        for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
-            if (entryMethod) {
-                SootMethod sm = SootUtils.getSootMethodBySignature(en.getKey());
-                boolean flag = Global.v().getAppModel().getEntryMethod2Component().containsKey(sm);
-                if (flag == false)
-                    continue;
-            }
-            sum++;
-        }
-        return sum;
-    }
 
     /**
      * updateSummaryStatisticUseSummayMap
      *
-     * @param summaryMap
+     * @param model
      * @param result
      * @return
      */
@@ -582,42 +577,11 @@ public class DoStatistic {
     }
 
     /**
-     * updateTraceStatisticUseSummayMap
-     *
-     * @param entryMethod
-     * @param summaryMap
-     * @param result
-     */
-    public static void updateTraceStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel intentSummary,
-                                                        StatisticResult result) {
-        TraceStatistic statistic;
-        if (entryMethod) {
-            statistic = result.getEntryTraceStatistic();
-        } else {
-            statistic = result.getAllTraceStatistic();
-        }
-
-        int traceNum = 0, traceNumSum = 0;
-        int traceDepth = 0;
-        if (entryMethod) {
-            SootMethod sm = intentSummary.getMethod();
-            boolean flag = Global.v().getAppModel().getEntryMethod2Component().containsKey(sm);
-            if (flag == false)
-                return;
-        }
-        traceDepth += intentSummary.getMaxMethodTraceDepth();
-        for (PathSummaryModel si : intentSummary.getPathSet()) {
-            traceNum += si.getMethodTrace().size() - 1;
-            traceNumSum++;
-        }
-    }
-
-    /**
      * updateICCStatisticUseSummayMap add entry and non-entry node information
      * to statistic xml file
      *
      * @param entryMethod
-     * @param summaryMap
+     * @param methodSummary
      * @param result
      */
     public static void updateICCStatisticUseSummayMap(boolean entryMethod, MethodSummaryModel methodSummary,
@@ -628,10 +592,6 @@ public class DoStatistic {
         } else {
             statistic = result.getAllICCStatistic();
         }
-
-        // int entryNumber = countICCRelatedMethodNumber(entryMethod,
-        // summaryMap);
-        // statistic.addICCFlowNum(entryNumber);
 
         SootMethod sm = methodSummary.getMethod();
         if (entryMethod) {

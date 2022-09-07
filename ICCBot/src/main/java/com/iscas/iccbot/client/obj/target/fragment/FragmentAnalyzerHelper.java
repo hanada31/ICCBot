@@ -63,7 +63,7 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
             return true;
         } else if (isStaticCreateMethod(unit)) {
             return true;
-        } else if (isReceiveFromParatMethod(unit)) {
+        } else if (isReceiveFromParaMethod(unit)) {
             return true;
         } else if (isReceiveFromRetValue(unit)) {
             return true;
@@ -94,7 +94,7 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
             return "CreateMethod";
         } else if (isStaticCreateMethod(unit)) {
             return "StaticCreateMethod";
-        } else if (isReceiveFromParatMethod(unit)) {
+        } else if (isReceiveFromParaMethod(unit)) {
             return "ReceiveFromParatMethod";
         } else if (isReceiveFromRetValue(unit)) {
             return "ReceiveFromRetValue";
@@ -135,19 +135,16 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
     /**
      * get the correct handler of target unit
      *
-     * @param methodUnderAnalysis
-     * @param appModel
-     * @param intentSummary
      * @param unit
      * @return
      */
     @Override
-    public UnitHandler getUnitHandler(Unit unit) {
+    public UnitHandler getUnitHandler(SootMethod sootMethod, Unit unit) {
         if (unit == null)
             return null;
         if (isCreateMethod(unit)) {
             return new CreateHandler();
-        } else if (isReceiveFromParatMethod(unit)) {
+        } else if (isReceiveFromParaMethod(unit)) {
             return new ReceiveFromParaHandler();
         } else if (isReceiveFromRetValue(unit)) {
             return new ReceiveFromRetValueHandler();
@@ -310,7 +307,7 @@ public class FragmentAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     @Override
-    public boolean isReceiveFromParatMethod(Unit u) {
+    public boolean isReceiveFromParaMethod(Unit u) {
         boolean res = false;
         for (String s : objectIdentier) {
             String pattern = ".*@parameter\\d+: " + s + ".*";

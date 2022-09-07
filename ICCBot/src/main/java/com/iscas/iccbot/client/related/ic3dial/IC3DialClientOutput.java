@@ -140,11 +140,6 @@ public class IC3DialClientOutput {
                 Set<AtgEdge> resList = en.getValue();
                 for (AtgEdge edge : resList) {
                     String edgeStr = "";
-                    // edu.mit.icc_componentname_class_constant:
-                    // <edu.mit.icc_componentname_class_constant.OutFlowActivity:
-                    // void onCreate(android.os.Bundle)> [19-a]
-                    // edu.mit.icc_componentname_class_constant.InFlowActivity
-                    // {19}
                     String pkg = Global.v().getAppModel().getPackageName();
                     String method = edge.getMethodSig();
                     String instuction = edge.getInstructionId() + "-" + edge.getiCCkind();

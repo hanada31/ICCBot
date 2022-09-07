@@ -68,6 +68,7 @@ public class ConstantUtils {
     public static final String SINGLEPATH_ENTRY = "pathSummary_entry.xml";
     public static final String SINGLEPATHFRAG_ENTRY = "pathSummary_entry.xml";
     public static final String SINGLEPATH_ALL = "pathSummary_all.xml";
+    public static final String ICCBOTOUTPUT = "ICCBotResult.xml";
     public static final String SINGLEOBJECT_ENTRY = "objectSummary_entry.xml";
     public static final String SINGLEOBJECTFRAG_ENTRY = "objectSummary_frag_entry.xml";
     public static final String SINGLEOBJECT_ALL = "objectSummary_all.xml";
@@ -215,18 +216,18 @@ public class ConstantUtils {
             "void sendStickyOrderedBroadcastAsUser(",};
     // send intent method
     public static final String[] sendIntent2ProviderMethods = {
-            // "int update(",
-            // "android.database.Cursor query(",
-            // "android.net.Uri insert(",
-            // "void notifyChange(",
-            // "void registerContentObserver(",
-            // "int delete(",
+             "int update(",
+             "android.database.Cursor query(",
+             "android.net.Uri insert(",
+             "void notifyChange(",
+             "void registerContentObserver(",
+             "int delete(",
     };
     // component op methods
     public static final String[] componentOpMethods = {"void finish()"};
 
     // get intent extra method
-    public static final String[] getIntnetExtraMethods = {"getDoubleArrayExtra", "getDoubleExtra",
+    public static final String[] getIntentExtraMethods = {"getDoubleArrayExtra", "getDoubleExtra",
             "getFloatArrayExtra", "getFloatExtra", "getIntArrayExtra", "getIntExtra", "getIntegerArrayListExtra",
             "getLongArrayExtra", "getLongExtra", "getParcelableArrayExtra", "getParcelableArrayListExtra",
             "getParcelableExtra", "getSerializableExtra", "getShortExtra", "getShortArrayExtra", "getStringArrayExtra",
@@ -236,7 +237,7 @@ public class ConstantUtils {
             "android.os.Bundle: java.lang.Object get"};
 
     // get intent extra method
-    public static final String[] setIntnetExtraMethods = {"putExtra", "putIntegerArrayListExtra",
+    public static final String[] setIntentExtraMethods = {"putExtra", "putIntegerArrayListExtra",
             "putCharSequenceArrayListExtra", "putExtras", "putParcelableArrayListExtra", "putStringArrayListExtra"};
 
     // extra intent method types

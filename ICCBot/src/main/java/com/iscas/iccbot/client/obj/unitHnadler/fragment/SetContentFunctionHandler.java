@@ -9,6 +9,7 @@ import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
 import com.iscas.iccbot.client.obj.model.fragment.FragmentSummaryModel;
 import com.iscas.iccbot.client.obj.unitHnadler.UnitHandler;
 import soot.SootClass;
+import soot.SootMethod;
 import soot.Unit;
 import soot.Value;
 import soot.jimple.infoflow.android.resources.ARSCFileParser;

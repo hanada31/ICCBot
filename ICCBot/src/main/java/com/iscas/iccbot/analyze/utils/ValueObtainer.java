@@ -186,7 +186,7 @@ public class ValueObtainer {
                             try {
                                 resList.setValues(getValueOfVar(val, defUnit, depth + 1).getValues());
                             } catch (StackOverflowError e) {
-                                System.err.println("StackOverflowError");
+                                log.error("StackOverflowError");
                             }
                         } else if (val instanceof JCastExpr) {
                             JCastExpr jc = (JCastExpr) val;

@@ -65,8 +65,8 @@ public class IC3DialReader extends Analyzer {
 
     private void makeStatistic() {
         for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
-            DoStatistic.updateXMLStatisticUseSummayMap(true, en.getValue(), result);
-            DoStatistic.updateXMLStatisticUseSummayMap(false, en.getValue(), result);
+            DoStatistic.updateMLSStatisticUseSummaryMap(true, en.getValue(), result);
+            DoStatistic.updateMLSStatisticUseSummaryMap(false, en.getValue(), result);
         }
     }
 
@@ -212,7 +212,7 @@ public class IC3DialReader extends Analyzer {
         } else if (isSendIntent2ReceiverMethod(statement)) {
             return ConstantUtils.RECEIVER;
         }
-        return "unkown";
+        return "unknown";
     }
 
     public static boolean isSendIntent2ActivityMethod(String u) {

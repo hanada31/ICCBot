@@ -12,10 +12,7 @@ public abstract class DataHandler {
     /**
      * get the correct handler of target unit
      *
-     * @param m
-     * @param appModel
-     * @param intentSummary
-     * @param u
+     * @param dataType
      * @return
      */
     public static DataHandler getDataHandler(String dataType) {
@@ -42,7 +39,6 @@ public abstract class DataHandler {
         } else if (dataType.equals("getType")) {
             return new GetTypeHandler();
         }
-
         return null;
     }
 

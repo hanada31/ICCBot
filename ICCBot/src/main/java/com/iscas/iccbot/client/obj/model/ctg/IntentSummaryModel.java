@@ -49,6 +49,9 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
     @JSONField(serialize = false)
     private String targetType;
 
+    private SendOrReceiveICCInfo sendTriple;
+    private List<SendOrReceiveICCInfo> receiveTriple = new ArrayList<>();
+
     public IntentSummaryModel(PathSummaryModel pathSummary) {
         super(pathSummary);
         setReceiveFromOutList(new ArrayList<Unit>());
@@ -70,6 +73,24 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
         setListFlagsList(new ArrayList<String>());
         setListExtrasValueList(new BundleType());
     }
+
+
+    public SendOrReceiveICCInfo getSendTriple() {
+        return sendTriple;
+    }
+
+    public void setSendTriple(SendOrReceiveICCInfo sendTriple) {
+        this.sendTriple = sendTriple;
+    }
+
+    public List<SendOrReceiveICCInfo> getReceiveTriple() {
+        return receiveTriple;
+    }
+
+    public void setReceiveTriple(List<SendOrReceiveICCInfo> receiveTriple) {
+        this.receiveTriple = receiveTriple;
+    }
+
 
     public void copy(IntentSummaryModel temp) {
         super.copy(temp);

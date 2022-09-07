@@ -432,7 +432,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
             }
             if (!pathSummary.getNodes().contains(pointedToMeNode))
                 continue;
-            UnitHandler handler = helper.getUnitHandler(pointedToMeNode.getUnit());
+            UnitHandler handler = helper.getUnitHandler(pointedToMeNode.getMethod(),pointedToMeNode.getUnit());
             if (handler != null) {
                 handler.init(methodUnderAnalysis, pointedToMeNode.getUnit());
                 handler.handleSingleObject(singleObject);
@@ -461,10 +461,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
         Context objContext = vo.getContextValue(targetUnit, targetInv, targetMethod, targetMethodSig, 0);
         if (objContext.isEmpty())
             return false;
-        if (helper.getUnitHandler(handleTarget.getUnit()) != null)
+        if (helper.getUnitHandler(handleTarget.getMethod(),handleTarget.getUnit()) != null)
             return false;
         Set<Unit> targetHistory = new HashSet<>();
-        while (helper.getUnitHandler(handleTarget.getUnit()) == null) {
+        while (helper.getUnitHandler(handleTarget.getMethod(),handleTarget.getUnit()) == null) {
             if (targetHistory.contains(handleTarget.getUnit()))
                 break;
             targetHistory.add(handleTarget.getUnit());
@@ -479,7 +479,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
                     findPs = true;
                     handleTarget = innerNode;
                     if (pathSummary.getNodes().contains(handleTarget)) {
-                        UnitHandler handler2 = helper.getUnitHandler(handleTarget.getUnit());
+                        UnitHandler handler2 = helper.getUnitHandler(handleTarget.getMethod(),handleTarget.getUnit());
                         if (handler2 != null) {
                             handler2.init(handleTarget.getMethod(), handleTarget.getUnit());
                             handler2.handleSingleObject(objContext, singleObject, targetUnit);
@@ -502,6 +502,7 @@ public abstract class ObjectAnalyzer extends Analyzer {
      */
     private void handleStaticFieldInitUnits(Unit u, ObjectSummaryModel singleObject) {
         List<Unit> useList = new ArrayList<>();
+        List<SootMethod> useMethodList = new ArrayList<>();
         JAssignStmt jas = (JAssignStmt) u;
         if (jas.containsFieldRef()) {
             SootField field = jas.getFieldRef().getField();
@@ -515,16 +516,19 @@ public abstract class ObjectAnalyzer extends Analyzer {
                         Value value = valBox.getValue();
                         if (value == info.getValue()) {
                             useList.add(unit);
+                            useMethodList.add(info.getSootMethod());
                         }
                     }
                 }
             }
-            for (Unit useUnit : useList) {
+            for (int i=0; i< useList.size(); i++) {
+                Unit useUnit = useList.get(i);
+                SootMethod useMethod = useMethodList.get(i);
                 if (helper.getTypeofUnit(methodUnderAnalysis, useUnit).length() == 0)
                     continue;
                 UnitNode node = new UnitNode(useUnit, methodUnderAnalysis, helper.getTypeofUnit(methodUnderAnalysis,
                         useUnit));
-                UnitHandler handler = helper.getUnitHandler(useUnit);
+                UnitHandler handler = helper.getUnitHandler(useMethod, useUnit);
                 if (handler != null) {
                     handler.init(methodUnderAnalysis, useUnit);
                     handler.handleSingleObject(singleObject);
