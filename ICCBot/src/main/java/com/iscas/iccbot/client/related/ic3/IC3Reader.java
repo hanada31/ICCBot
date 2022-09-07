@@ -63,8 +63,8 @@ public class IC3Reader extends Analyzer {
 
     private void makeStatistic() {
         for (Entry<String, MethodSummaryModel> en : summaryMap.entrySet()) {
-            DoStatistic.updateXMLStatisticUseSummayMap(true, en.getValue(), result);
-            DoStatistic.updateXMLStatisticUseSummayMap(false, en.getValue(), result);
+            DoStatistic.updateMLSStatisticUseSummaryMap(true, en.getValue(), result);
+            DoStatistic.updateMLSStatisticUseSummaryMap(false, en.getValue(), result);
         }
     }
 

@@ -22,7 +22,7 @@ public interface AnalyzerHelper {
 
     public abstract boolean isStaticCreateMethod(Unit unit);
 
-    public abstract boolean isReceiveFromParatMethod(Unit unit);
+    public abstract boolean isReceiveFromParaMethod(Unit unit);
 
     public abstract boolean isPassOutMethod(Unit u);
 

@@ -147,10 +147,6 @@ public class IccTag {
                 && !isContextSensitive && !isNonActivity && !isLibraryInvocation && !isAsyncInvocation
                 && !isPolymorphic)
             isStringOpOnly = true;
-
-//		if(isAsynconly){
-//			System.err.println("!!! "+source+"   " +destination);
-//		}
     }
 
     @Override
