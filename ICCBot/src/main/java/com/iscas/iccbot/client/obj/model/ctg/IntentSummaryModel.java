@@ -45,11 +45,13 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
     private BundleType setExtrasValueList;
     @JSONField(serialize = false)
     private List<String> setDestinationList;
+    @JSONField(serialize = false)
     private List<String> setFlagsList;
     @JSONField(serialize = false)
     private String targetType;
-
+    @JSONField(serialize = false)
     private SendOrReceiveICCInfo sendTriple;
+    @JSONField(serialize = false)
     private List<SendOrReceiveICCInfo> receiveTriple = new ArrayList<>();
 
     public IntentSummaryModel(PathSummaryModel pathSummary) {
