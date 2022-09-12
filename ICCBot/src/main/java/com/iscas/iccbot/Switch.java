@@ -37,7 +37,6 @@ public class Switch {
     //other
     private boolean getAttributeStrategy;
     private boolean setAttributeStrategy;
-    private boolean setDesRelatedAttributeOnlyStrategy;
     private boolean scenario_stack;
 
     public Switch() {
@@ -197,8 +196,8 @@ public class Switch {
     /**
      * @param functionExpandSwitch the functionExpandSwitch to set
      */
-    public void setFunctionExpandSwitch(boolean contextSensiSwitch) {
-        this.functionExpandSwitch = contextSensiSwitch;
+    public void setFunctionExpandSwitch(boolean functionExpandSwitch) {
+        this.functionExpandSwitch = functionExpandSwitch;
     }
 
     /**
@@ -369,17 +368,4 @@ public class Switch {
         this.setAttributeStrategy = setAttributeStrategy;
     }
 
-    /**
-     * @return the setDesRelatedAttributeOnlyStrategy
-     */
-    public boolean isSetDesRelatedAttributeOnlyStrategy() {
-        return setDesRelatedAttributeOnlyStrategy;
-    }
-
-    /**
-     * @param setDesRelatedAttributeOnlyStrategy the setDesRelatedAttributeOnlyStrategy to set
-     */
-    public void setSetDesRelatedAttributeOnlyStrategy(boolean setDesRelatedAttributeOnlyStrategy) {
-        this.setDesRelatedAttributeOnlyStrategy = setDesRelatedAttributeOnlyStrategy;
-    }
 }

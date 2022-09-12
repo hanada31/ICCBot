@@ -110,7 +110,6 @@ public class DoStatistic {
             FragmentSummaryModel Singlefrag = (FragmentSummaryModel) singleObject;
             if (history.contains(Singlefrag))
                 continue;
-//			if (Singlefrag.getSendFragment2Start().size() == 0)
             history.add(Singlefrag);
             writeFragmentSummary(Singlefrag, intentSummaryEle, singleObject.getPathSummary(), methodSummary);
         }
@@ -218,13 +217,12 @@ public class DoStatistic {
                                            MethodSummaryModel methodSummary) {
         Element icc = new DefaultElement("intentSummary");
         // writeICCType(intentSummary, icc);
-
         writeSource(intentSummary, icc, methodSummary);
         writeDestnition(intentSummary, icc);
-        writeICCSendReceive(intentSummary, icc);
+        if(!writeICCSendReceive(intentSummary, icc)) return;
         writeMethod(icc, intentSummary, pathSummary, methodSummary);
-//		writeICCFlow(intentSummary, icc);
-        writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
+        //ICCNodes write or not
+//        writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
         if (icc.element("source") != null)
             summary.add(icc);
     }
@@ -422,7 +420,8 @@ public class DoStatistic {
 
     }
 
-    private static void writeICCSendReceive(IntentSummaryModel intentSummary, Element icc) {
+    private static boolean writeICCSendReceive(IntentSummaryModel intentSummary, Element icc) {
+        boolean sendOrReceive = false;
         List<String> actions = intentSummary.getSetActionValueList();
         List<String> category = intentSummary.getSetCategoryValueList();
         List<String> data = intentSummary.getSetDataValueList();
@@ -430,85 +429,86 @@ public class DoStatistic {
         BundleType extras = intentSummary.getSetExtrasValueList();
         List<String> flags = intentSummary.getSetFlagsList();
         boolean finish = intentSummary.isFinishFlag();
-        if (actions.size() + category.size() + data.size() + type.size() + extras.getExtraDatas().size() > 0) {
-            //ICTG construct
-            if (MyConfig.getInstance().getMySwitch().isSetAttributeStrategy()) {
-                Element sender = new DefaultElement("sendICCInfo");
-                if (actions.size() > 0)
-                    sender.addAttribute("action", PrintUtils.printList(actions));
-                if (category.size() > 0)
-                    sender.addAttribute("category", PrintUtils.printList(category));
-                if (data.size() > 0)
-                    sender.addAttribute("data", PrintUtils.printList(data));
-                if (type.size() > 0)
-                    sender.addAttribute("type", PrintUtils.printList(type));
-                if (extras.getExtraDatas().size() > 0)
-                    sender.addAttribute("extras", extras.toString());
-                if (flags.size() > 0)
-                    sender.addAttribute("flags", PrintUtils.printList(flags));
-                if (finish)
-                    sender.addAttribute("componentFinish", "true");
-                if (intentSummary.getSendTriple()!=null) {
-                    Element tripleElement =  sender.addElement("info");
-                    tripleElement.addAttribute("unit", intentSummary.getSendTriple().getUnit().toString());
-                    tripleElement.addAttribute("methodSig", intentSummary.getSendTriple().getMethodSig());
-                    tripleElement.addAttribute("instructionId", intentSummary.getSendTriple().getInstructionId()+"");
-                }
-                if (sender.attributeCount() > 0)
-                    icc.add(sender);
+        //ICTG construct
+        Element sender = new DefaultElement("sendICCInfo");
+        if (actions.size() > 0)
+            sender.addAttribute("action", PrintUtils.printList(actions));
+        if (category.size() > 0)
+            sender.addAttribute("category", PrintUtils.printList(category));
+        if (data.size() > 0)
+            sender.addAttribute("data", PrintUtils.printList(data));
+        if (type.size() > 0)
+            sender.addAttribute("type", PrintUtils.printList(type));
+        if (extras.getExtraDatas().size() > 0)
+            sender.addAttribute("extras", extras.toString());
+        if (flags.size() > 0)
+            sender.addAttribute("flags", PrintUtils.printList(flags));
+        if (finish)
+            sender.addAttribute("componentFinish", "true");
+        if (intentSummary.getSendTriple()!=null) {
+            Element tripleElement =  sender.addElement("info");
+            tripleElement.addAttribute("unit", intentSummary.getSendTriple().getUnit().toString());
+            tripleElement.addAttribute("methodSig", intentSummary.getSendTriple().getMethodSig());
+            tripleElement.addAttribute("instructionId", intentSummary.getSendTriple().getInstructionId()+"");
+        }
+        if (sender.attributeCount() > 0) {
+            icc.add(sender);
+            sendOrReceive = true;
+        }
 
-                if (icc.element("destination") != null) {
-                    Attribute attr = icc.element("destination").attribute("name");
-                    if (attr != null && Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())) {
-                        ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
-                        IntentRecieveModel receiveModel = component.getReceiveModel();
-                        receiveModel.getIntentObjsbyICCMsg().add(intentSummary);
+        if (icc.element("destination") != null) {
+            Attribute attr = icc.element("destination").attribute("name");
+            if (attr != null && Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())) {
+                ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
+                IntentRecieveModel receiveModel = component.getReceiveModel();
+                receiveModel.getIntentObjsbyICCMsg().add(intentSummary);
+            }
+        }
+
+    //Receive model construct
+        List<String> actions2 = intentSummary.getGetActionCandidateList();
+        List<String> category2 = intentSummary.getGetCategoryCandidateList();
+        List<String> data2 = intentSummary.getGetDataCandidateList();
+        List<String> type2 = intentSummary.getGetTypeCandidateList();
+        BundleType extras2 = intentSummary.getGetExtrasCandidateList();
+        if (actions2.size() + category2.size() + data2.size() + type2.size() + extras2.getExtraDatas().size() > 0) {
+            Element receiver = new DefaultElement("receiveICCInfo");
+            if (actions2.size() > 0)
+                receiver.addAttribute("action", PrintUtils.printList(actions2));
+            if (category2.size() > 0)
+                receiver.addAttribute("category", PrintUtils.printList(category2));
+            if (data2.size() > 0)
+                receiver.addAttribute("data", PrintUtils.printList(data2));
+            if (type2.size() > 0)
+                receiver.addAttribute("type", PrintUtils.printList(type2));
+            if (extras2.getExtraDatas().size() > 0)
+                receiver.addAttribute("extras", extras2.toString());
+            if (intentSummary.getReceiveTriple().size()>0) {
+                for(SendOrReceiveICCInfo SendOrReceiveICCInfo : intentSummary.getReceiveTriple()) {
+                    if (intentSummary.getReceiveTriple()!=null) {
+                        Element tripleElement =  receiver.addElement("info");
+                        tripleElement.addAttribute("unit", SendOrReceiveICCInfo.getUnit().toString());
+                        tripleElement.addAttribute("methodSig", SendOrReceiveICCInfo.getMethodSig());
+                        tripleElement.addAttribute("instructionId", SendOrReceiveICCInfo.getInstructionId()+"");
+                        tripleElement.addAttribute("key", SendOrReceiveICCInfo.getKey()+"");
+                        tripleElement.addAttribute("value", SendOrReceiveICCInfo.getValue()+"");
                     }
                 }
             }
-        }
-        //Receive model construct
-        if (MyConfig.getInstance().getMySwitch().isGetAttributeStrategy()) {
-            List<String> actions2 = intentSummary.getGetActionCandidateList();
-            List<String> category2 = intentSummary.getGetCategoryCandidateList();
-            List<String> data2 = intentSummary.getGetDataCandidateList();
-            List<String> type2 = intentSummary.getGetTypeCandidateList();
-            BundleType extras2 = intentSummary.getGetExtrasCandidateList();
-            if (actions2.size() + category2.size() + data2.size() + type2.size() + extras2.getExtraDatas().size() > 0) {
-                Element receiver = new DefaultElement("receiveICCInfo");
-                if (actions2.size() > 0)
-                    receiver.addAttribute("action", PrintUtils.printList(actions2));
-                if (category2.size() > 0)
-                    receiver.addAttribute("category", PrintUtils.printList(category2));
-                if (data2.size() > 0)
-                    receiver.addAttribute("data", PrintUtils.printList(data2));
-                if (type2.size() > 0)
-                    receiver.addAttribute("type", PrintUtils.printList(type2));
-                if (extras2.getExtraDatas().size() > 0)
-                    receiver.addAttribute("extras", extras2.toString());
-                if (intentSummary.getReceiveTriple().size()>0) {
-                    for(SendOrReceiveICCInfo SendOrReceiveICCInfo : intentSummary.getReceiveTriple()) {
-                        if (intentSummary.getReceiveTriple()!=null) {
-                            Element tripleElement =  receiver.addElement("info");
-                            tripleElement.addAttribute("unit", SendOrReceiveICCInfo.getUnit().toString());
-                            tripleElement.addAttribute("methodSig", SendOrReceiveICCInfo.getMethodSig());
-                            tripleElement.addAttribute("instructionId", SendOrReceiveICCInfo.getInstructionId()+"");
-                            tripleElement.addAttribute("key", SendOrReceiveICCInfo.getKey()+"");
-                            tripleElement.addAttribute("value", SendOrReceiveICCInfo.getValue()+"");
-                        }
-                    }
-                }
-                if (receiver.attributeCount() > 0)
-                    icc.add(receiver);
+            if (receiver.attributeCount() > 0) {
+                icc.add(receiver);
+                sendOrReceive = true;
+            }
 
                 Attribute attr = icc.element("source").attribute("name");
-                if (attr != null && Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())) {
-                    ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
-                    IntentRecieveModel receiveModel = component.getReceiveModel();
-                    receiveModel.getIntentObjsbySpec().add(intentSummary);
-                }
+            if (attr != null && Global.v().getAppModel().getComponentMap().containsKey(attr.getValue())) {
+                ComponentModel component = Global.v().getAppModel().getComponentMap().get(attr.getValue());
+                IntentRecieveModel receiveModel = component.getReceiveModel();
+                receiveModel.getIntentObjsbySpec().add(intentSummary);
             }
         }
+
+        return sendOrReceive;
     }
 
     private static void writeSource(ObjectSummaryModel singleObj, Element icc, MethodSummaryModel methodSummary) {

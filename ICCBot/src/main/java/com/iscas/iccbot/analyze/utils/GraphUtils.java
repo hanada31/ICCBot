@@ -15,7 +15,7 @@ public class GraphUtils {
     /**
      * record the condition of each bloack could be described in paper
      *
-     * @param g1
+     * @param briefGraph
      * @return
      */
     public static Map<Block, Condition> getConditionOfCFG(BlockGraph briefGraph) {
@@ -40,8 +40,10 @@ public class GraphUtils {
      * add2ConditionMap
      *
      * @param conditionMap
-     * @param subsucc
-     * @param pair
+     * @param block
+     * @param ifUnit
+     * @param satisfy
+     * @param operation
      */
     public static void add2ConditionMap(Map<Block, Condition> conditionMap, Block block, JIfStmt ifUnit,
                                         boolean satisfy, String operation) {
@@ -71,9 +73,8 @@ public class GraphUtils {
     /**
      * generateDotPng use graphviz
      *
-     * @param input
-     * @param output
-     * @param allowNonComponentNode
+     * @param name
+     * @param type
      */
     public static void generateDotFile(String name, String type) {
         String command = "dot -T" + type + " " + name + ".dot" + " -o " + name + "." + type;

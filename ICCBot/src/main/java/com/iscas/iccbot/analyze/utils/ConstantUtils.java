@@ -109,7 +109,7 @@ public class ConstantUtils {
     // Constant number
     public static final int UPLIMIT = 500;
     public static final int INTERCALLLIMIT = 1000;
-    public static final int GETVALUELIMIT = 1000;
+    public static final int GETVALUELIMIT = 100;
 
     // Android project build
     public static final String SRC = "src";
@@ -248,7 +248,7 @@ public class ConstantUtils {
             "CharSequence", "Bundle", "Extras", "String"};
 
     // put extra method
-    public static final String[] putBundlleExtraMethods = {
+    public static final String[] putBundleExtraMethods = {
             "putDoubleArray(", "putDouble(", "putFloatArray(", "putFloat(", "putIntArray(", "putInt(", "putIntegerArrayList(",
             "putLongArray(", "putLong(", "putParcelableArray(", "putParcelableArrayList(", "putParcelable(",
             "putSerializable(", "putShort(", "putShortArray(", "putStringArray(", "putStringArrayList(", "putString(",
@@ -257,8 +257,7 @@ public class ConstantUtils {
             "android.os.Bundle: java.lang.Object put"};
 
     // get extra method
-    public static final String[] getBundlleExtraMethods = {
-
+    public static final String[] getBundleExtraMethods = {
             "getDoubleArray(", "getDouble(", "getFloatArray(", "getFloat(", "getIntArray(", "getInt(", "getIntegerArrayList(",
             "getLongArray(", "getLong(", "getParcelableArray(", "getParcelableArrayList(", "getParcelable(",
             "getSerializable(", "getShort(", "getShortArray(", "getStringArray(", "getStringArrayList(", "getString(",
@@ -268,8 +267,7 @@ public class ConstantUtils {
 
     // extra method types
     public static final String[] bundleExtraMethodTypes = {
-
-            "doubleArray", "double", "floatArray", "dloat", "intArray", "int", "IntegerArrayList", "longArray", "long",
+            "doubleArray", "double", "floatArray", "float", "intArray", "int", "IntegerArrayList", "longArray", "long",
             "ParcelableArray", "ParcelableArrayList", "Parcelable", "Serializable", "short", "shortArray",
             "StringArray", "StringArrayList", "String", "booleanArray", "boolean", "byteArray", "byte", "charArray",
             "char", "CharSequenceArray", "CharSequenceArrayList", "CharSequence", "Bundle", "Extras", "String"};
