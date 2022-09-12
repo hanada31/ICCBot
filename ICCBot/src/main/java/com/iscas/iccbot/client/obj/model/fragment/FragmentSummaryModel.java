@@ -16,7 +16,7 @@ public class FragmentSummaryModel extends ObjectSummaryModel {
     // value
     private List<String> addValueList;
     private List<String> replaceValueList;
-    private List<String> ListDestinationValueList;
+    private List<String> setDestinationValueList;
 
     public FragmentSummaryModel(PathSummaryModel pathSummary) {
         super(pathSummary);
@@ -47,7 +47,7 @@ public class FragmentSummaryModel extends ObjectSummaryModel {
 
         getAddList().addAll(temp2.getAddList());
         getReplaceList().addAll(temp2.getReplaceList());
-        getSetDestinationList().addAll(temp2.getSetDestinationList());
+        addSetDestinationList(temp2.getSetDestinationList());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class FragmentSummaryModel extends ObjectSummaryModel {
         res += sendFragment2Start.size();
         res += addValueList.size();
         res += replaceValueList.size();
-        res += PrintUtils.printList(ListDestinationValueList);
+        res += PrintUtils.printList(setDestinationValueList);
 
         return res;
     }
@@ -69,7 +69,7 @@ public class FragmentSummaryModel extends ObjectSummaryModel {
         res += "sendFragment2Start:" + PrintUtils.printList(sendFragment2Start) + "\n";
         res += "addList:" + PrintUtils.printList(addValueList) + "\n";
         res += "replaceList:" + PrintUtils.printList(replaceValueList) + "\n";
-        res += "ListDestinationList:" + PrintUtils.printList(ListDestinationValueList) + "\n";
+        res += "ListDestinationList:" + PrintUtils.printList(setDestinationValueList) + "\n";
         return res;
     }
 
@@ -119,14 +119,25 @@ public class FragmentSummaryModel extends ObjectSummaryModel {
      * @return the ListDestinationList
      */
     public List<String> getSetDestinationList() {
-        return ListDestinationValueList;
+        return setDestinationValueList;
+    }
+
+    public void addSetDestinationList(String string) {
+        if(!setDestinationValueList.contains(string))
+            setDestinationValueList.add(string);
+    }
+    public void addSetDestinationList(List <String> list) {
+        for(String string: list){
+            if(!setDestinationValueList.contains(string))
+                setDestinationValueList.add(string);
+        }
     }
 
     /**
      * @param ListDestinationList the ListDestinationList to List
      */
     public void setSetDestinationList(List<String> ListDestinationList) {
-        this.ListDestinationValueList = ListDestinationList;
+        this.setDestinationValueList = ListDestinationList;
     }
 
     /**

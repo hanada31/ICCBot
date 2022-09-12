@@ -134,12 +134,12 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
         for (Entry<String, List<ExtraData>> entry : temp2.getGetExtrasCandidateList().obtainBundle().entrySet())
             getGetExtrasCandidateList().obtainBundle().put(entry.getKey(), entry.getValue());
 
-        getSetActionValueList().addAll(temp2.getSetActionValueList());
-        getSetCategoryValueList().addAll(temp2.getSetCategoryValueList());
-        getSetDataValueList().addAll(temp2.getSetDataValueList());
-        getSetTypeValueList().addAll(temp2.getSetTypeValueList());
-        getSetDestinationList().addAll(temp2.getSetDestinationList());
-        getSetFlagsList().addAll(temp2.getSetFlagsList());
+        addSetActionValueList(temp2.getSetActionValueList());
+        addSetCategoryValueList(temp2.getSetCategoryValueList());
+        addSetDataValueList(temp2.getSetDataValueList());
+        addSetTypeValueList(temp2.getSetTypeValueList());
+        addSetDestinationList(temp2.getSetDestinationList());
+        addSetFlagsList(temp2.getSetFlagsList());
         for (Entry<String, List<ExtraData>> entry : temp2.getSetExtrasValueList().obtainBundle().entrySet())
             getSetExtrasValueList().obtainBundle().put(entry.getKey(), entry.getValue());
         setTargetType(temp2.getTargetType());
@@ -240,13 +240,33 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
     public List<String> getSetActionValueList() {
         return setActionValueList;
     }
-
+    public void addSetActionValueList(String string) {
+        if(!setActionValueList.contains(string))
+            setActionValueList.add(string);
+    }
+    public void addSetActionValueList(List <String> list) {
+        for(String string: list){
+            if(!setActionValueList.contains(string))
+                setActionValueList.add(string);
+        }
+    }
     public void setListActionValueList(List<String> setActionValueList) {
         this.setActionValueList = setActionValueList;
     }
 
     public List<String> getSetCategoryValueList() {
         return setCategoryValueList;
+    }
+
+    public void addSetCategoryValueList(String string) {
+        if(!setCategoryValueList.contains(string))
+            setCategoryValueList.add(string);
+    }
+    public void addSetCategoryValueList(List <String> list) {
+        for(String string: list){
+            if(!setCategoryValueList.contains(string))
+                setCategoryValueList.add(string);
+        }
     }
 
     public void setListCategoryValueList(List<String> setCategoryValueList) {
@@ -257,6 +277,16 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
         return setDataValueList;
     }
 
+    public void addSetDataValueList(String string) {
+        if(!setDataValueList.contains(string))
+            setDataValueList.add(string);
+    }
+    public void addSetDataValueList(List <String> list) {
+        for(String string: list){
+            if(!setDataValueList.contains(string))
+                setDataValueList.add(string);
+        }
+    }
     public void setListDataValueList(List<String> setDataValueList) {
         this.setDataValueList = setDataValueList;
     }
@@ -265,6 +295,16 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
         return setTypeValueList;
     }
 
+    public void addSetTypeValueList(String string) {
+        if(!setTypeValueList.contains(string))
+            setTypeValueList.add(string);
+    }
+    public void addSetTypeValueList(List <String> list) {
+        for(String string: list){
+            if(!setTypeValueList.contains(string))
+                setTypeValueList.add(string);
+        }
+    }
     public void setListTypeValueList(List<String> setTypeValueList) {
         this.setTypeValueList = setTypeValueList;
     }
@@ -281,6 +321,17 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
         return setDestinationList;
     }
 
+    public void addSetDestinationList(String string) {
+        if(!setDestinationList.contains(string))
+            setDestinationList.add(string);
+    }
+    public void addSetDestinationList(List <String> list) {
+        for(String string: list){
+            if(!setDestinationList.contains(string))
+                setDestinationList.add(string);
+        }
+    }
+
     public void setListDestinationList(List<String> setDestinationList) {
         this.setDestinationList = setDestinationList;
     }
@@ -295,6 +346,18 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
 
     public List<String> getSetFlagsList() {
         return setFlagsList;
+    }
+
+
+    public void addSetFlagsList(String string) {
+        if(!setFlagsList.contains(string))
+            setFlagsList.add(string);
+    }
+    public void addSetFlagsList(List <String> list) {
+        for(String string: list){
+            if(!setFlagsList.contains(string))
+                setFlagsList.add(string);
+        }
     }
 
     public void setListFlagsList(List<String> setFlagsList) {
@@ -322,5 +385,6 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
     public void setTargetType(String targetType) {
         this.targetType = targetType;
     }
+
 
 }

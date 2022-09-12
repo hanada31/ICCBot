@@ -264,15 +264,15 @@ public class IC3DialReader extends Analyzer {
             String value = attribute.getString("value");
             if (kind.equals("0") || kind.equals("ACTION")) {// ACTION
                 for (int n = 0; n < values.size(); n++)
-                    intentSummary.getSetActionValueList().add(values.getString(n));
+                    intentSummary.addSetActionValueList(values.getString(n));
             } else if (kind.equals("1") || kind.equals("CATEGORY")) {// CATEGORY
                 for (int n = 0; n < values.size(); n++)
-                    intentSummary.getSetCategoryValueList().add(values.getString(n));
+                    intentSummary.addSetCategoryValueList(values.getString(n));
             } else if (kind.equals("2") || kind.equals("PACKAGE")) {// CLASS
             } else if (kind.equals("3") || kind.equals("CLASS")) {// CLASS
                 String des = values.getString(0).replace("/", ".");
                 if (Global.v().getAppModel().getComponentMap().containsKey(des)) {
-                    intentSummary.getSetDestinationList().add(des);
+                    intentSummary.addSetDestinationList(des);
                     AtgEdge edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method, instructionId, iCCkind);
                     model.getIC3AtgModel().addAtgEdges(src, edge);
                     addToSummaryMap(src, method, intentSummary);
@@ -301,7 +301,7 @@ public class IC3DialReader extends Analyzer {
             else if (kind.equals("11") || kind.equals("PORT"))
                 data += value;
             if (data.toString().length() > 0) {
-                intentSummary.getSetDataValueList().add(data);
+                intentSummary.addSetDataValueList(data);
             }
         }
         if (hasDes)
