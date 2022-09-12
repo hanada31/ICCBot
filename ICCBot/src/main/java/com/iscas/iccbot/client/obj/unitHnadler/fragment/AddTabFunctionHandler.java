@@ -58,7 +58,7 @@ public class AddTabFunctionHandler extends UnitHandler {
         String className = vo.getValueOfVar(inputVar, unit, 0).getValues().get(0);
         className = className.replace("/", ".").replace("class L", "").replace(";", "");
         className = className.split("@")[0];
-        this.singleFrag.getSetDestinationList().add(className);
+        this.singleFrag.addSetDestinationList(className);
     }
 
 }

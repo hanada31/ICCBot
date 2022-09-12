@@ -53,7 +53,7 @@ public class LoadFunctionHandler extends UnitHandler {
         if (Global.v().getFragmentModel().getXmlFragmentMap().containsKey(resource.toString())) {
             List<SootClass> scs = Global.v().getFragmentModel().getXmlFragmentMap().get(resource.toString());
             for (SootClass sc : scs)
-                this.singleFrag.getSetDestinationList().add(sc.getName());
+                this.singleFrag.addSetDestinationList(sc.getName());
         }
 
     }

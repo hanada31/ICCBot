@@ -58,7 +58,7 @@ public class AddFunctionHandler extends UnitHandler {
             if (!sc.getName().equals(res))
                 continue;
             singleFrag.getAddList().add(sc.getName());
-            singleFrag.getSetDestinationList().add(sc.getName());
+            singleFrag.addSetDestinationList(sc.getName());
         }
         return;
 
