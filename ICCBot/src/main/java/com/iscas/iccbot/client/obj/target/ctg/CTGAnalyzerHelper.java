@@ -131,7 +131,7 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
                 return "StaticCreateMethod";
             } else if (isSetAttributeMethod(unit)) {
                 return "SetAttribute";
-            } else if (!MyConfig.getInstance().getMySwitch().isSetDesRelatedAttributeOnlyStrategy() && isSetIntentExtraMethod(unit)) {
+            } else if (isSetIntentExtraMethod(unit)) {
                 return "SetIntentExtra";
             } else if (isInitIntentMethod(unit)) {
                 return "InitIntent";
@@ -351,14 +351,14 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
     }
 
     public static boolean isSetIntentExtraMethod(String u) {
-        if (u.toString().contains("android.content.Intent") || u.toString().contains("android.os.Bundle")
-                || u.toString().contains("android.os.BaseBundle")) {
-            if (u.toString().contains("goto ") || u.toString().contains("sgoto "))
+        if (u.contains("android.content.Intent") || u.contains("android.os.Bundle")
+                || u.contains("android.os.BaseBundle")) {
+            if (u.contains("goto ") || u.contains("sgoto "))
                 return false;
-            if (u.toString().startsWith("if "))
+            if (u.startsWith("if "))
                 return false;
-            for (int i = 0; i < ConstantUtils.putBundlleExtraMethods.length; i++) {
-                if (u.toString().contains(ConstantUtils.putBundlleExtraMethods[i])) {
+            for (int i = 0; i < ConstantUtils.putBundleExtraMethods.length; i++) {
+                if (u.contains(ConstantUtils.putBundleExtraMethods[i])) {
                     return true;
                 }
             }
@@ -373,13 +373,13 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     public static boolean isGetBundleExtraMethod(String u) {
-        if (u.toString().contains("android.content.Intent") || u.toString().contains("android.os.Bundle")) {
-            if (u.toString().contains("goto ") || u.toString().contains("sgoto "))
+        if (u.contains("android.content.Intent") || u.contains("android.os.Bundle")) {
+            if (u.contains("goto ") || u.contains("sgoto "))
                 return false;
-            if (u.toString().startsWith("if "))
+            if (u.startsWith("if "))
                 return false;
-            for (int i = 0; i < ConstantUtils.getBundlleExtraMethods.length; i++) {
-                if (u.toString().contains(ConstantUtils.getBundlleExtraMethods[i]))
+            for (int i = 0; i < ConstantUtils.getBundleExtraMethods.length; i++) {
+                if (u.contains(ConstantUtils.getBundleExtraMethods[i]))
                     return true;
             }
         }
@@ -550,8 +550,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     public static String getTypeOfGetBundleExtra(String m) {
-        for (int i = 0; i < ConstantUtils.getBundlleExtraMethods.length; i++) {
-            if (m.contains(ConstantUtils.getBundlleExtraMethods[i]))
+        for (int i = 0; i < ConstantUtils.getBundleExtraMethods.length; i++) {
+            if (m.contains(ConstantUtils.getBundleExtraMethods[i]))
                 return ConstantUtils.bundleExtraMethodTypes[i];
         }
         return null;
@@ -564,8 +564,8 @@ public class CTGAnalyzerHelper implements AnalyzerHelper {
      * @return
      */
     public static String getTypeOfSetBundleExtra(String m) {
-        for (int i = 0; i < ConstantUtils.putBundlleExtraMethods.length; i++) {
-            if (m.contains(ConstantUtils.putBundlleExtraMethods[i]))
+        for (int i = 0; i < ConstantUtils.putBundleExtraMethods.length; i++) {
+            if (m.contains(ConstantUtils.putBundleExtraMethods[i]))
                 return ConstantUtils.bundleExtraMethodTypes[i];
         }
         return null;

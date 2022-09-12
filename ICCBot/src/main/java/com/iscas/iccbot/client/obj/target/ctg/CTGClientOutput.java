@@ -124,7 +124,6 @@ public class CTGClientOutput {
      *
      * @param dir
      * @param file
-     * @param AppModel    .getInstance()
      * @param entryMethod
      */
     public void writePathSummaryModel(String dir, String file, boolean entryMethod) {
@@ -199,49 +198,27 @@ public class CTGClientOutput {
      */
     public void writeATGModel(String dir, String file, ATGModel atgModel) {
         Document document;
+        Set<AtgEdge> history = new HashSet<>();
         try {
             document = FileUtils.xmlWriterBegin(dir, file, false);
-
             Element root = document.getRootElement();
             for (String className : Global.v().getAppModel().getComponentMap().keySet()) {
                 Element source = root.addElement("source");
                 source.addAttribute("name", className);
-                Set<String> addedEdgeStr = new HashSet<String>();
+                source.addAttribute("type", Global.v().getAppModel().getComponentMap().get(className).getComponentType());
+
                 if (!atgModel.getAtgEdges().containsKey(className)) continue;
                 Set<AtgEdge> edges = atgModel.getAtgEdges().get(className);
-                for (AtgEdge edge : edges) {
-                    System.out.println(edge.toString());
-                    Element desEle = new DefaultElement("destination");
-                    desEle.addAttribute("name", edge.getDestnation().getName());
-                    desEle.addAttribute("type", edge.getType().name());
-                    desEle.addAttribute("method", edge.getMethodSig());
-                    desEle.addAttribute("instructionId", edge.getInstructionId()+"");
-                    if(edge.getIntentSummary().getSendIntent2ICCList()!=null && edge.getIntentSummary().getSendIntent2ICCList().size()>0)
-                        desEle.addAttribute("unit", edge.getIntentSummary().getSendIntent2ICCList().get(0)+"");if (edge.getIntentSummary() != null) {
-                        if (edge.getIntentSummary().getSetActionValueList().size() > 0)
-                            desEle.addAttribute("action",
-                                    PrintUtils.printList(edge.getIntentSummary().getSetActionValueList()));
-                        if (edge.getIntentSummary().getSetCategoryValueList().size() > 0)
-                            desEle.addAttribute("category",
-                                    PrintUtils.printList(edge.getIntentSummary().getSetCategoryValueList()));
-                        if (edge.getIntentSummary().getSetDataValueList().size() > 0)
-                            desEle.addAttribute("data", PrintUtils.printList(edge.getIntentSummary().getSetDataValueList()));
-                        if (edge.getIntentSummary().getSetTypeValueList().size() > 0)
-                            desEle.addAttribute("type", PrintUtils.printList(edge.getIntentSummary().getSetTypeValueList()));
-                        if (edge.getIntentSummary().getSetExtrasValueList() != null)
-                            desEle.addAttribute("extras", edge.getIntentSummary().getSetExtrasValueList().toString());
-                        if (edge.getIntentSummary().getSetFlagsList() != null)
-                            desEle.addAttribute("flags", PrintUtils.printList(edge.getIntentSummary().getSetFlagsList()));
-                        // single intent has finish, atg do not has finish
-                        if (edge.getIntentSummary().isFinishFlag())
-                            desEle.addAttribute("finish", "true");
-                    }
-
-                    if (!addedEdgeStr.contains(desEle.asXML())) {
-                        source.add(desEle);
-                        addedEdgeStr.add(desEle.asXML());
-                    }
-                }
+                addEdges2ATGModel(source, edges, history);
+            }
+            for(String sourceName: atgModel.getAtgEdges().keySet()){
+                if(Global.v().getAppModel().getComponentMap().keySet().contains(sourceName))
+                    continue;
+                Element source = root.addElement("source");
+                source.addAttribute("name", sourceName);
+                source.addAttribute("type", "NotComponentSource");
+                Set<AtgEdge> edges = atgModel.getAtgEdges().get(sourceName);
+                addEdges2ATGModel(source, edges, history);
             }
             FileUtils.xmlWriteEnd(dir, file, document);
         } catch (DocumentException | IOException e) {
@@ -249,58 +226,48 @@ public class CTGClientOutput {
         }
     }
 
-    public void writeIccLinksConfigFile(String dir, String linkfile, ATGModel aAtgModel) {
-        FileUtils.createFolder(dir);
-        File f = new File(dir + linkfile);
-        BufferedWriter writer = null;
-        Set<String> histroy = new HashSet<String>();
-        try {
-            writer = new BufferedWriter(new FileWriter(f));
-            if (aAtgModel == null)
-                return;
-            for (Entry<String, Set<AtgEdge>> en : aAtgModel.getAtgEdges().entrySet()) {
-                Set<AtgEdge> resList = en.getValue();
-                for (AtgEdge edge : resList) {
-                    String edgeStr = "";
-                    String pkg = Global.v().getAppModel().getPackageName();
-                    String method = edge.getMethodSig();
-                    String instuction = edge.getInstructionId() + "-" + edge.getiCCkind();
-                    String dest = edge.getDestnation().getClassName();
-                    String instructions = Global.v().getAppModel().getMethod2InstructionMap().get(method);
-                    if (instructions != null) {
-                        edgeStr = pkg + ": " + method + " [" + instuction + "] " + dest + " {" + instructions + "}\n";
-                        if (!histroy.contains(edgeStr)) {
-                            writer.write(edgeStr);
-                            histroy.add(edgeStr);
-                        }
-                    }
-                }
+    private void addEdges2ATGModel(Element source, Set<AtgEdge> edges, Set<AtgEdge> history) {
+        Set<String> addedEdgeStr = new HashSet<String>();
+        for (AtgEdge edge : edges) {
+            history.add(edge);
+            Element desEle = new DefaultElement("destination");
+            if(edge.getDestnation().getName().contains("interICC_")){
+                desEle.addAttribute("ICCType", "implicit");
+            }else{
+                desEle.addAttribute("ICCType", "explicit");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            desEle.addAttribute("name", edge.getDestnation().getName().replace("interICC_",""));
+            desEle.addAttribute("edgeType", edge.getType().name());
+            desEle.addAttribute("method", edge.getMethodSig());
+            desEle.addAttribute("instructionId", edge.getInstructionId()+"");
+            if(edge.getIntentSummary().getSendIntent2ICCList()!=null && edge.getIntentSummary().getSendIntent2ICCList().size()>0)
+                desEle.addAttribute("unit", edge.getIntentSummary().getSendIntent2ICCList().get(0)+"");if (edge.getIntentSummary() != null) {
+                if (edge.getIntentSummary().getSetActionValueList().size() > 0)
+                    desEle.addAttribute("action",
+                            PrintUtils.printList(edge.getIntentSummary().getSetActionValueList()));
+                if (edge.getIntentSummary().getSetCategoryValueList().size() > 0)
+                    desEle.addAttribute("category",
+                            PrintUtils.printList(edge.getIntentSummary().getSetCategoryValueList()));
+                if (edge.getIntentSummary().getSetDataValueList().size() > 0)
+                    desEle.addAttribute("data", PrintUtils.printList(edge.getIntentSummary().getSetDataValueList()));
+                if (edge.getIntentSummary().getSetTypeValueList().size() > 0)
+                    desEle.addAttribute("type", PrintUtils.printList(edge.getIntentSummary().getSetTypeValueList()));
+                if (edge.getIntentSummary().getSetExtrasValueList() != null)
+                    desEle.addAttribute("extras", edge.getIntentSummary().getSetExtrasValueList().toString());
+                if (edge.getIntentSummary().getSetFlagsList() != null)
+                    desEle.addAttribute("flags", PrintUtils.printList(edge.getIntentSummary().getSetFlagsList()));
+                // single intent has finish, atg do not has finish
+                if (edge.getIntentSummary().isFinishFlag())
+                    desEle.addAttribute("finish", "true");
+            }
+
+            if (!addedEdgeStr.contains(desEle.asXML())) {
+                source.add(desEle);
+                addedEdgeStr.add(desEle.asXML());
             }
         }
     }
 
-    /**
-     * addElementInICC
-     *
-     * @param icc
-     * @param key
-     * @param map
-     */
-    private void addElementInICC(Element icc, String key, Map<String, Set<IntentSummaryModel>> map) {
-        Element ele = icc.addElement(key);
-        for (Entry<String, Set<IntentSummaryModel>> en : map.entrySet())
-            ele.addAttribute(en.getKey(), en.getValue().size() + "");
-    }
 
     private static void writeReceiveNode(ComponentModel componentInstance, Element component) {
         Element receiver = new DefaultElement("receive");
@@ -393,7 +360,6 @@ public class CTGClientOutput {
      *
      * @param dir
      * @param file
-     * @param AppModel .getInstance()
      */
     public static void writeInstr(String dir, String file) {
         FileUtils.createFolder(dir);
@@ -625,7 +591,6 @@ public class CTGClientOutput {
      *
      * @param componenetMap
      * @param component
-     * @param attri
      */
     private void putAttributeValue2componenetMap(Map<String, Object> componenetMap, ComponentModel component) {
         Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
@@ -642,7 +607,6 @@ public class CTGClientOutput {
      *
      * @param componenetMap
      * @param component
-     * @param attri
      */
     private void putAttributeSeed2componenetMap(Map<String, Object> componenetMap, ComponentModel component) {
         Map<String, Object> attriMap = new LinkedHashMap<String, Object>();
@@ -939,7 +903,7 @@ public class CTGClientOutput {
     /**
      * put value into set if value is not null
      *
-     * @param port
+     * @param value
      * @param res
      */
     private boolean addToSetIfNotNull(Object value, Set res) {

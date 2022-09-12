@@ -59,7 +59,6 @@ public class SetIntentExtraHandler extends UnitHandler {
      * calculate the value set of extra from set stmt
      *
      * @param u
-     * @param singleFrag
      * @throws Exception
      */
     void setExtraAPIAnalyze(Unit u) {

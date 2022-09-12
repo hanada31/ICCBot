@@ -94,10 +94,10 @@ public abstract class ObjectAnalyzer extends Analyzer {
         this.methodUnderAnalysis = methodUnderAnalysis;
 
         String className = methodUnderAnalysis.getDeclaringClass().getName();
-        MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
+//        if(!className.contains("ProcessRadiusSearchRequest")) return null;
 
+        MethodSummaryModel methodSummary = new MethodSummaryModel(className, methodUnderAnalysis);
         if (methodUnderAnalysis.getSignature().contains(ConstantUtils.DUMMYMAIN)) {
-//			analyzeDummyMain(methodSummary);
             return methodSummary;
         }
 
@@ -106,49 +106,19 @@ public abstract class ObjectAnalyzer extends Analyzer {
         if (targetMap.size() == 0)
             return methodSummary;
 
-        // System.out.println("getPathSummary");
-
         // analyze pathSummarys
         UnitNode treeRoot = getNodeTreeByCFGAnalysis(targetMap);
         Set<List<UnitNode>> nodeListSet = getUnitNodePaths(treeRoot);
         getPathSummary(methodSummary, nodeListSet);
-        // System.out.println("getSingleObject");
 
         // analyze SingleObject
         getSingleObject(methodSummary);
-        // System.out.println("getSingleComponent");
 
         // analyze SingleClass
         getSingleComponent(methodSummary);
-
         return methodSummary;
     }
 
-    /**
-     * do not expand dummy method
-     *
-     * @param methodSummary
-     */
-    private void analyzeDummyMain(MethodSummaryModel methodSummary) {
-        List<Unit> units = SootUtils.getUnitListFromMethod(methodUnderAnalysis);
-        for (Unit u : units) {
-            InvokeExpr exp = SootUtils.getInvokeExp(u);
-            if (exp == null)
-                continue;
-            SootMethod invokedMethod = exp.getMethod();
-            if (hasAnalyzeResutltOfCurrentMehtod(invokedMethod)) {
-                Set<PathSummaryModel> paths = currentSummaryMap.get(invokedMethod.getSignature()).getPathSet();
-                if (paths.size() > 0) {
-                    methodSummary.getPathSet().addAll(paths);
-                }
-            }
-        }
-
-        if (methodSummary.getPathSet().size() > 0) {
-            if (!MyConfig.getInstance().getMySwitch().getSummaryStrategy().equals(SummaryLevel.none))
-                currentSummaryMap.put(methodUnderAnalysis.getSignature(), methodSummary);
-        }
-    }
 
     /**
      * getNodeTreeByCFGAnalysis

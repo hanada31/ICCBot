@@ -1,4 +1,4 @@
-package com.iscas.iccbot.client.soot;
+package com.iscas.iccbot.client.obj.target.ctg;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -14,15 +14,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @Author hanada
  * @Date 2022/3/11 15:27
  * @Version 1.0
  */
 @Slf4j
-public class IROutputClientTest {
+public class CTGClientTest {
 
     @Test
     public void testConfig() {
@@ -37,8 +35,9 @@ public class IROutputClientTest {
         String path;
         path = "../apk";
         String name;
-        name = "EAInputTest";
-        String client = "IROutputClient";
+        name = "CSipSimple";
+        name = "org.woheller69.weather_54";
+        String client = "CTGClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
         MyConfig.getInstance().setAppPath(path + File.separator);

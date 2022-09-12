@@ -76,7 +76,6 @@ public class CTGClient extends BaseClient {
     }
 
     protected void setMySwitch1() {
-        MyConfig.getInstance().getMySwitch().setSetDesRelatedAttributeOnlyStrategy(true);
         MyConfig.getInstance().getMySwitch().setSetAttributeStrategy(true);
         MyConfig.getInstance().getMySwitch().setGetAttributeStrategy(true);
         MyConfig.getInstance().getMySwitch().setSummaryStrategy(SummaryLevel.object);
@@ -149,22 +148,26 @@ public class CTGClient extends BaseClient {
         log.info("writeDotFile");
         String dotname = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGMERGE;
         outer.writeDotFile(ictgFolder, dotname, ictgMergedModel, true);
-        log.info("writeATGModel");
-        outer.writeATGModel(ictgFolder, ConstantUtils.ICTGMERGE + ".xml",
-                ictgMergedModel);
+//        log.info("writeATGModel");
+//        outer.writeATGModel(ictgFolder, ConstantUtils.ICTGMERGE + ".xml",
+//                ictgMergedModel);
+
 
 //		// ictgOptModel
-        Global.v().getiCTGModel().setOptModelwithoutFrag(getIctgOptModel());
+        log.info("writeATGModel2");
+        outer.writeATGModel(ictgFolder, ConstantUtils.ICTGOPT + ".xml", getIctgOptModel(false));
+
+        Global.v().getiCTGModel().setOptModelwithoutFrag(getIctgOptModel(true));
         ATGModel ictgOptModel = Global.v().getiCTGModel().getOptModelwithoutFrag();
         log.info("writeAtgModeTxtFile2");
         String txtName2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT + ".txt";
         outer.writeAtgModeTxtFile(ictgFolder, txtName2, ictgOptModel, false);
+
         log.info("writeDotFile2");
         String dotname2 = Global.v().getAppModel().getAppName() + "_" + ConstantUtils.ICTGOPT;
         outer.writeDotFile(ictgFolder, dotname2, ictgOptModel, false);
 //		if (ictgMergedModel.getComp2CompSize() < 1800)
-        log.info("writeATGModel2");
-        outer.writeATGModel(ictgFolder, ConstantUtils.ICTGOPT + ".xml", ictgOptModel);
+
 
         GraphUtils.generateDotFile(ictgFolder + dotname2, "pdf");
         GraphUtils.generateDotFile(ictgFolder + dotname, "pdf");
@@ -174,7 +177,7 @@ public class CTGClient extends BaseClient {
     }
 
 
-    private ATGModel getIctgOptModel() {
+    private ATGModel getIctgOptModel(boolean removeClassEdges) {
         ATGModel ictgOptModel = new ATGModel();
         ATGModel mergedIctgModel = Global.v().getiCTGModel().getOptModel();
         Map<String, Set<String>> desfrag2StratcomMap = new HashMap<String, Set<String>>();
@@ -238,6 +241,12 @@ public class CTGClient extends BaseClient {
                                 ictgOptModel.addAtgEdges(startCom, edgeCopy);
                             }
                         }
+                        break;
+                    case Act2Class:
+                    case NonAct2Class:
+                    case Class2Any:
+                        if(!removeClassEdges)
+                            ictgOptModel.addAtgEdges(entry.getKey(), edge);
                         break;
                     default:
                         break;
