@@ -91,7 +91,7 @@ public class BundleType implements Serializable, Cloneable {
         String res = "";
         for (Entry<String, List<ExtraData>> en : bundle.entrySet()) {
             for (ExtraData ed : en.getValue()) {
-                if (!res.contains(ed.toString()))
+                if (!res.contains(ed.toString()+","))
                     res += ed.toString() + ",";
             }
         }

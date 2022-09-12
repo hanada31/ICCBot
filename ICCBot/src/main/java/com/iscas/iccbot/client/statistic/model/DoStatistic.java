@@ -224,7 +224,7 @@ public class DoStatistic {
         writeICCSendReceive(intentSummary, icc);
         writeMethod(icc, intentSummary, pathSummary, methodSummary);
 //		writeICCFlow(intentSummary, icc);
-        writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
+//        writeSingleObjectICCNode(new ArrayList<String>(), intentSummary, icc);
         if (icc.element("source") != null)
             summary.add(icc);
     }
