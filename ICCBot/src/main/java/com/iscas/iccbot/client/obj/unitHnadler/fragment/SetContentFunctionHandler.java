@@ -79,9 +79,9 @@ public class SetContentFunctionHandler extends UnitHandler {
                 for (SootClass sc : scs) {
                     if (sc == null) continue;
                     if (objectModel instanceof FragmentSummaryModel)
-                        ((FragmentSummaryModel) objectModel).getSetDestinationList().add(sc.getName());
+                        ((FragmentSummaryModel) objectModel).addSetDestinationList(sc.getName());
                     else {
-                        ((IntentSummaryModel) objectModel).getSetDestinationList().add(sc.getName());
+                        ((IntentSummaryModel) objectModel).addSetDestinationList(sc.getName());
                     }
                     findTarget = true;
                 }

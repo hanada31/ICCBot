@@ -5,6 +5,7 @@ import com.iscas.iccbot.client.obj.dataHnadler.DataHandler;
 import com.iscas.iccbot.client.obj.model.component.Flag;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +26,6 @@ public class SetFlagHandler extends DataHandler {
                 newDataSet.add(data);
             }
         }
-        intentSummary.getSetFlagsList().addAll(newDataSet);
+        intentSummary.addSetFlagsList(new ArrayList<>(newDataSet));
     }
 }

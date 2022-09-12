@@ -3,6 +3,7 @@ package com.iscas.iccbot.client.obj.dataHnadler.ictg;
 import com.iscas.iccbot.client.obj.dataHnadler.DataHandler;
 import com.iscas.iccbot.client.obj.model.ctg.IntentSummaryModel;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class SetTypeHandler extends DataHandler {
         Set<String> newDataSet = new HashSet<String>();
         for (String data : dataSet)
             newDataSet.add(data.replace("\"", ""));
-        intentSummary.getSetTypeValueList().addAll(newDataSet);
+        intentSummary.addSetTypeValueList(new ArrayList<>(newDataSet));
         return;
     }
 
