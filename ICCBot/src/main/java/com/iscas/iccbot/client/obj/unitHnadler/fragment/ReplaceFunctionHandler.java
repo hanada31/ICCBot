@@ -58,7 +58,7 @@ public class ReplaceFunctionHandler extends UnitHandler {
             if (!sc.getName().equals(res))
                 continue;
             singleFrag.getReplaceList().add(sc.getName());
-            singleFrag.getSetDestinationList().add(sc.getName());
+            singleFrag.addSetDestinationList(sc.getName());
         }
         return;
     }
