@@ -133,6 +133,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
         for (String des : intentSummary.getSetDestinationList()) {
             ComponentModel comp = appModel.getComponentMap().get(des);
             AtgEdge edge;
+            if(intentSummary.getSendTriple()==null) continue;
             if (comp != null ) {
                 //TODO create method & the sendout method
                 edge = new AtgEdge(new AtgNode(src), new AtgNode(des), method.getSignature(), intentSummary.getSendTriple().getInstructionId(),
