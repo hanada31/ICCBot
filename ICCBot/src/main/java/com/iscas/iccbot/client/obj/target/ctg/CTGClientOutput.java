@@ -237,6 +237,9 @@ public class CTGClientOutput {
                 desEle.addAttribute("ICCType", "explicit");
             }
             desEle.addAttribute("name", edge.getDestnation().getName().replace("interICC_",""));
+            ComponentModel desComponent = Global.v().getAppModel().getComponentMap().get(edge.getDestnation().getName());
+            if(desComponent!=null)
+            desEle.addAttribute("desType", desComponent.getComponentType());
             desEle.addAttribute("edgeType", edge.getType().name());
             desEle.addAttribute("method", edge.getMethodSig());
             desEle.addAttribute("instructionId", edge.getInstructionId()+"");
