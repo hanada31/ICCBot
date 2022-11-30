@@ -231,12 +231,15 @@ public class CTGClientOutput {
         for (AtgEdge edge : edges) {
             history.add(edge);
             Element desEle = new DefaultElement("destination");
-            if(edge.getDestnation().getName().contains("interICC_")){
+            if(edge.getDestnation().getName().contains("interICC_") || edge.getIntentSummary().isImplicit()){
                 desEle.addAttribute("ICCType", "implicit");
             }else{
                 desEle.addAttribute("ICCType", "explicit");
             }
             desEle.addAttribute("name", edge.getDestnation().getName().replace("interICC_",""));
+            ComponentModel desComponent = Global.v().getAppModel().getComponentMap().get(edge.getDestnation().getName());
+            if(desComponent!=null)
+            desEle.addAttribute("desType", desComponent.getComponentType());
             desEle.addAttribute("edgeType", edge.getType().name());
             desEle.addAttribute("method", edge.getMethodSig());
             desEle.addAttribute("instructionId", edge.getInstructionId()+"");
