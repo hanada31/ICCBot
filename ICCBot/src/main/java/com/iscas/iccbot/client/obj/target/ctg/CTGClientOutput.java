@@ -231,7 +231,7 @@ public class CTGClientOutput {
         for (AtgEdge edge : edges) {
             history.add(edge);
             Element desEle = new DefaultElement("destination");
-            if(edge.getDestnation().getName().contains("interICC_")){
+            if(edge.getDestnation().getName().contains("interICC_") || edge.getIntentSummary().isImplicit()){
                 desEle.addAttribute("ICCType", "implicit");
             }else{
                 desEle.addAttribute("ICCType", "explicit");

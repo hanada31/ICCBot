@@ -53,7 +53,8 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
     private SendOrReceiveICCInfo sendTriple;
     @JSONField(serialize = false)
     private List<SendOrReceiveICCInfo> receiveTriple = new ArrayList<>();
-
+    @JSONField(serialize = false)
+    private boolean isImplicit = false;
     public IntentSummaryModel(PathSummaryModel pathSummary) {
         super(pathSummary);
         setReceiveFromOutList(new ArrayList<Unit>());
@@ -387,4 +388,11 @@ public class IntentSummaryModel extends ObjectSummaryModel implements Serializab
     }
 
 
+    public boolean isImplicit() {
+        return isImplicit;
+    }
+
+    public void setImplicit(boolean implicit) {
+        isImplicit = implicit;
+    }
 }
