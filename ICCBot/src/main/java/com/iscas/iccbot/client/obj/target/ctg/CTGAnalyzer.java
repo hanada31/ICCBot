@@ -262,6 +262,7 @@ public class CTGAnalyzer extends ObjectAnalyzer {
                 if (flag1) {
                     if (component.getComponentType().contains(intentSummary.getTargetType())) {
                         findTarget = true;
+                        intentSummary.setImplicit(true);
                         resSet.add(component.getComponetName());
                     }
                 }
