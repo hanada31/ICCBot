@@ -108,8 +108,8 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir]
 + Output: ICC resolution results, CTG graph, etc.
   + CallGraphInfo
     + Generated extended call graph
-      + [appName]_cg.txt: the origin call graph edges.
-      + cg.txt: the origin call graph edges.
+      + [appName]_cg.txt: the original call graph edges.
+      + cg.txt: the formatted call graph edges.
   + ManifestInfo
     + Extracted AndroidManifest file
       + AndroidManifest.txt
