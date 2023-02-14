@@ -108,9 +108,6 @@ public class CgConstructor extends Analyzer {
      * dummy constuct, call back collect, fragment collect
      */
     private void constructDummyMainMethods() {
-        setupApplication.getConfig().getCallbackConfig().setCallbackAnalysisTimeout(120);
-        setupApplication.getConfig().setCallgraphAlgorithm(CallgraphAlgorithm.AutomaticSelection);
-        setupApplication.getConfig().setMergeDexFiles(true);
         try {
             setupApplication.runInfoflow_dummy();
         } catch (Exception e) {
