@@ -65,10 +65,16 @@ public class MySetupApplication extends SetupApplication {
     }
 
     public void runInfoflow_dummy() throws InvocationTargetException, IllegalAccessException, InstantiationException {
-        runInfoflow_dummy(null);
-        config.setCallgraphAlgorithm(InfoflowConfiguration.CallgraphAlgorithm.SPARK);
+        config.setCallgraphAlgorithm(InfoflowConfiguration.CallgraphAlgorithm.AutomaticSelection);
+//        config.setCallgraphAlgorithm(InfoflowConfiguration.CallgraphAlgorithm.SPARK);
+        config.setMergeDexFiles(true);
         config.setOneComponentAtATime(false);
+        //modify the setting of CallbackAnalyzer if the flowdroid can not finish.
+//        config.getCallbackConfig().setCallbackAnalyzer(InfoflowAndroidConfiguration.CallbackAnalyzer.Fast);
         config.getCallbackConfig().setCallbackAnalyzer(InfoflowAndroidConfiguration.CallbackAnalyzer.Default);
+        config.getCallbackConfig().setCallbackAnalysisTimeout(120);
+
+        runInfoflow_dummy(null);
     }
 
     public void runInfoflow_dummy(ISourceSinkDefinitionProvider sourcesAndSinks)
