@@ -37,8 +37,6 @@ public class CTGClientTest {
         String name;
         name = "CSipSimple";
 //        name = "ICCBotBench";
-        name = "icc_implicit_data1";
-//        name = "icc_implicit_data2";
         String client = "CTGClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
