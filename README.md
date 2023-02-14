@@ -108,14 +108,31 @@ usage: java -jar ICCBot.jar [options] [-path] [-name] [-androidJar] [-outputDir]
 + Output: ICC resolution results, CTG graph, etc.
   + CallGraphInfo
     + Generated extended call graph
+      + [appName]_cg.txt: the origin call graph edges.
+      + cg.txt: the origin call graph edges.
   + ManifestInfo
     + Extracted AndroidManifest file
+      + AndroidManifest.txt
   + FragmentInfo
     + Generated fragment loading graph
+      + [appName]_fragLoad.dot: the fragment loading graph in dot format
+      + [appName]_fragLoad.pdf: the fragment loading graph
   + CTGResult
     + Generated component transition graph
+      + [appName]_CTG.dot: the component transition graph in dot format
+      + [appName]_CTG.pdf: the component transition graph
+      + [appName]_CTGwithFragment.dot: the component transition and fragment loading graph in dot format
+      + [appName]_CTGwithFragmentG.pdf: the component transition and fragment loading graph
+      + componentInfo.xml: the information for each component, including, how the component is declared in the manifest file (<manifest>), the sent ICC information from current component (<sender>), and the received ICC information by current component (<receiver>).
+      + CTG.xml: give the destination list for each source component.
+      + ICCBotResult.xml: for each component, give a list of intent summaries. Each intentSummary corresponds to an intent object. This file gives its source, destination and other ICC data (<sendICCInfo>), the method that the ICC is sent out, the ICC-sending-related method call trace (<methodtrace>) and each ICC-sending-related unit (<nodes>).
   + ICCSpecification
-    + Generated ICC specification json file
+    + Generated ICC specification JSON file
+
+      + ComponentModel.json: Give a list of components. For each one, it lists the className, the type of the component (a for Activity, s for Service, p for ContentProvider, and r for BroadcastReceiver), and the fullValueSet. The fullValueSet gives all the ICC data we obtained by static analysis, for each ICC data (e.g., action, category, and other extra data items), we give the declared data value in the manifest file (<manifest>), the ICC-related values that will be created and sent to the current component by other components (<sendIntent>), and the data values that will be used in comparison with the received ICC message form outside (<recvIntent>).
+      + ComponentModel_typeValue.json: the values for each type that can be used for further test generation.
+      + objectSummary_entry.xml: for each component, give a list of intent summaries. Each intentSummary corresponds to an intent object. This file gives its source, destination, and other ICC data (<sendICCInfo>), the method that the ICC is sent out, the ICC-sending-related method call trace (<methodtrace>), and each ICC-sending-related unit (<nodes>).
+      + pathSummary_entry.xml: for each component, give a list of path summaries. Each pathSummary corresponds to a path and may involve more than one intent object.  Just using the file objectSummary_entry.xml is fine.
   + SootIRInfo
     + Generated Soot Jimple IR files
 
@@ -125,3 +142,6 @@ Q: ICCBot provides error "`Failed to load analyze config json: File not exist`"
 
 A: Make sure you have the folder `config` under current directory,
 with `config/config.json` file specifying `excludePackages` and `AndroidCallbacks`.
+
+
+

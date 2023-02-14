@@ -36,7 +36,9 @@ public class CTGClientTest {
         path = "../apk";
         String name;
         name = "CSipSimple";
-        name = "org.woheller69.weather_54";
+//        name = "ICCBotBench";
+        name = "icc_implicit_data1";
+//        name = "icc_implicit_data2";
         String client = "CTGClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
