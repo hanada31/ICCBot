@@ -24,7 +24,6 @@ public class CgClientOutput {
      * @param dir
      * @param file
      * @param cg
-     * @param AppModel .getInstance()
      */
     public static void writeCG(String dir, String file, CallGraph cg) {
         FileUtils.createFolder(dir);
@@ -91,7 +90,6 @@ public class CgClientOutput {
      * @param dir
      * @param file
      * @param topoMethodQueue
-     * @param AppModel        .getInstance()
      */
     public static void writeTopoMethodFile(String dir, String file, List<SootMethod> topoMethodQueue) {
         File f = new File(dir + file);

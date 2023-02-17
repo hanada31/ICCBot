@@ -217,7 +217,10 @@ public class CTGClient extends BaseClient {
                 break;
         }
 
-        for (Entry<String, Set<AtgEdge>> entry : mergedIctgModel.getAtgEdges().entrySet()) {
+        List<Entry<String, Set<AtgEdge>>> entryList = new ArrayList<>(mergedIctgModel.getAtgEdges().entrySet());
+        int i = 0;
+        while (i < entryList.size()) {
+            Entry<String, Set<AtgEdge>> entry = entryList.get(i);
             for (AtgEdge edge : entry.getValue()) {
                 switch (edge.getType()) {
                     case Act2Act:
@@ -252,7 +255,44 @@ public class CTGClient extends BaseClient {
                         break;
                 }
             }
+            i++;
         }
+//        for (Entry<String, Set<AtgEdge>> entry : mergedIctgModel.getAtgEdges().entrySet()) {
+//            for (AtgEdge edge : entry.getValue()) {
+//                switch (edge.getType()) {
+//                    case Act2Act:
+//                        ictgOptModel.addAtgEdges(entry.getKey(), edge);
+//                        break;
+//                    case NonAct2Act:
+//                        ictgOptModel.addAtgEdges(entry.getKey(), edge);
+//                        break;
+//                    case Act2NonAct:
+//                        ictgOptModel.addAtgEdges(entry.getKey(), edge);
+//                        break;
+//                    case NonAct2NonAct:
+//                        ictgOptModel.addAtgEdges(entry.getKey(), edge);
+//                        break;
+//                    case Frag2Act:
+//                    case Frag2NonAct:
+//                        if (desfrag2StratcomMap.containsKey(edge.getSource().getClassName())) {
+//                            for (String startCom : desfrag2StratcomMap.get(edge.getSource().getClassName())) {
+//                                AtgEdge edgeCopy = new AtgEdge(edge);
+//                                edgeCopy.setSource(new AtgNode(startCom));
+//                                ictgOptModel.addAtgEdges(startCom, edgeCopy);
+//                            }
+//                        }
+//                        break;
+//                    case Act2Class:
+//                    case NonAct2Class:
+//                    case Class2Any:
+//                        if(!removeClassEdges)
+//                            ictgOptModel.addAtgEdges(entry.getKey(), edge);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
 
         return ictgOptModel;
     }
