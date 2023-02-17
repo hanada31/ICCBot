@@ -417,7 +417,7 @@ public class ATGModel {
      * ATG Construction
      *
      * @param source
-     * @param destination
+     * @param edge
      */
     public boolean addAtgEdges(String source, AtgEdge edge) {
         source = SootUtils.getNameofClass(source);
