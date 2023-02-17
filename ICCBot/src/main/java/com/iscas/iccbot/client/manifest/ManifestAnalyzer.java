@@ -115,6 +115,7 @@ public class ManifestAnalyzer extends Analyzer {
             }
 
             // new ActivityData instance
+            if(!componentNode.hasAttribute("name")) continue;
             String componentName = componentNode.getAttribute("name").getValue().toString();
             if (!Global.v().getAppModel().getApplicationClassNames().contains(componentName)) {
                 if (!componentName.contains(appModel.getPackageName())) {
