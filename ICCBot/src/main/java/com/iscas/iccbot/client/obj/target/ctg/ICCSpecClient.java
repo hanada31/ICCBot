@@ -66,18 +66,22 @@ public class ICCSpecClient extends BaseClient {
             }
         }
         log.info("Analyzing ICC sending...");
-        setMySwitch1();
-        for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
-            ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
-            analyzer.start();
-        }
-        log.info("ICC sending analyze finished, analyzing ICC receiving...");
+        //rev attributes
         setMySwitch2();
         for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
             ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
             analyzer.start();
         }
         log.info("Successfully analyze with ICCSpecClient");
+
+        //send attributes
+        setMySwitch1();
+        for (List<SootMethod> topoQueue : Global.v().getAppModel().getTopoMethodQueueSet()) {
+            ObjectAnalyzer analyzer = new CTGAnalyzer(topoQueue, result);
+            analyzer.start();
+        }
+        log.info("ICC sending analyze finished, analyzing ICC receiving...");
+
     }
 
     protected void setMySwitch1() {
