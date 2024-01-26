@@ -31,6 +31,10 @@ public class StaticValueAnalyzer extends Analyzer {
     @Override
     public void analyze() {
         for (SootClass sc : Scene.v().getApplicationClasses()) {
+            if (!MyConfig.getInstance().getMySwitch().allowLibCodeSwitch()) {
+                if (!SootUtils.isNonLibClass(sc.getName()))
+                    continue;
+            }
             for (SootField field : sc.getFields()) {
                 for (Tag tag : field.getTags()) {
                     if (tag instanceof ConstantValueTag) {
@@ -43,10 +47,7 @@ public class StaticValueAnalyzer extends Analyzer {
             }
             for (SootMethod sm : sc.getMethods()) {
                 if (!SootUtils.hasSootActiveBody(sm)) continue;
-                if (!MyConfig.getInstance().getMySwitch().allowLibCodeSwitch()) {
-                    if (!SootUtils.isNonLibClass(sm.getDeclaringClass().getName()))
-                        continue;
-                }
+
                 List<Unit> units = SootUtils.getUnitListFromMethod(sm);
                 for (Unit u : units) {
                     if (u instanceof JAssignStmt) {

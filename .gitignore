@@ -52,3 +52,4 @@ replay_pid*
 dependency-reduced-pom.xml
 /ICCBot/src/test/
 /src/main/generated/
+/ICCBot/src/test/com/iscas/iccbot/client/

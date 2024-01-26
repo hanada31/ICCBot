@@ -37,7 +37,11 @@ public class IROutputClientTest {
         String path;
         path = "../apk";
         String name;
-        name = "EAInputTest";
+        name = "yokuu";
+        name = "appinventor.ai_jorgeguimaraesnet.ccsantosferreira_8.0";
+        name = "com.lifeplus.diveplus_20.0";
+        name = "com.whatsapp.w4b_220572003.0";
+
         String client = "IROutputClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");

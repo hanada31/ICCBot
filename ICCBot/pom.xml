@@ -100,7 +100,7 @@
         <dependency>
             <groupId>org.soot-oss</groupId>
             <artifactId>soot</artifactId>
-            <version>4.4.0-SNAPSHOT-ICCBot</version>
+            <version>4.5.0-SNAPSHOT-ICCBot</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.smali</groupId>

@@ -37,17 +37,21 @@ public class CTGClientTest {
         String name;
         name = "CSipSimple";
 //        name = "ICCBotBench";
+        name = "com.voatz.vma_203.0";//soot
+//        name = "appinventor.ai_jorgeguimaraesnet.ccsantosferreira_8.0";//may packed
+//        name = "com.lifeplus.diveplus_20.0";//packed
+//        name = "com.whatsapp.w4b_220572003.0";//timeout
         String client = "CTGClient";
 
         MyConfig.getInstance().setAppName(name + ".apk");
         MyConfig.getInstance().setAppPath(path + File.separator);
         MyConfig.getInstance().setClient(client);
-        MyConfig.getInstance().setMaxPathNumber(30);
-        MyConfig.getInstance().setMaxFunctionExpandNumber(5); //10?
-        MyConfig.getInstance().setMaxObjectSummarySize(100);
+        MyConfig.getInstance().setMaxPathNumber(100);
+        MyConfig.getInstance().setMaxFunctionExpandNumber(10); //10?
+        MyConfig.getInstance().setMaxObjectSummarySize(1000);
+        MyConfig.getInstance().setTimeLimit(90);
         MyConfig.getInstance().setResultWrapperFolder("../results/" + File.separator);
         MyConfig.getInstance().setResultFolder(MyConfig.getInstance().getResultWrapperFolder()+ "output" + File.separator);
-        MyConfig.getInstance().setTimeLimit(10);
         MyConfig.getInstance().setAndroidJar("../lib/platforms");
 
 
@@ -80,7 +84,7 @@ public class CTGClientTest {
         MyConfig.getInstance().getMySwitch().setStaticFieldSwitch(true);
 
         MyConfig.getInstance().getMySwitch().setFragmentSwitch(true);
-        MyConfig.getInstance().getMySwitch().setLibCodeSwitch(true);
+        MyConfig.getInstance().getMySwitch().setLibCodeSwitch(false);
         MyConfig.getInstance().getMySwitch().setWrapperAPISwitch(true);
 
         MyConfig.getInstance().getMySwitch().setImplicitLaunchSwitch(true);

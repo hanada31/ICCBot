@@ -3,6 +3,7 @@ package com.iscas.iccbot.client.cg;
 import com.iscas.iccbot.Analyzer;
 import com.iscas.iccbot.MyConfig;
 import com.iscas.iccbot.SummaryLevel;
+import com.iscas.iccbot.analyze.utils.ConstantUtils;
 import com.iscas.iccbot.analyze.utils.SootUtils;
 import lombok.extern.slf4j.Slf4j;
 import soot.Scene;
@@ -64,6 +65,7 @@ public class CgModify extends Analyzer {
      * addTopoForSupplyMulti
      */
     private void addTopoForSupplyMulti() {
+        log.info("addTopoForSupplyMulti");
         List<SootMethod> subTopo = new ArrayList<SootMethod>();
         appModel.getTopoMethodQueueSet().add(subTopo);
         for (SootClass sc : Scene.v().getApplicationClasses()) {
@@ -86,6 +88,7 @@ public class CgModify extends Analyzer {
      * addTopoForSupplyMulti
      */
     private void addTopoForSupplySingle() {
+        log.info("addTopoForSupplySingle");
         if (appModel.getTopoMethodQueueSet().size() == 0)
             appModel.getTopoMethodQueueSet().add(new ArrayList<SootMethod>());
         for (List<SootMethod> subTopo : appModel.getTopoMethodQueueSet()) {
@@ -244,6 +247,7 @@ public class CgModify extends Analyzer {
      * if an edge not in package, remove it
      */
     private void removeExlibEdge(CallGraph callGraph) {
+        log.info("Remove external lib edges");
         if (!MyConfig.getInstance().getMySwitch().allowLibCodeSwitch()) {
             Set<Edge> toBeDeletedSet = new HashSet<>();
             for (Edge edge : callGraph) {
@@ -261,6 +265,7 @@ public class CgModify extends Analyzer {
      * remove a -- a
      */
     private void removeSelfEdge(CallGraph callGraph) {
+        log.info("Remove self edges");
         Set<Edge> toBeDeletedSet = new HashSet<>();
         for (Edge edge : callGraph) {
             SootMethod srcMethod = edge.src();
@@ -278,6 +283,7 @@ public class CgModify extends Analyzer {
      * remove same edges
      */
     private void removeSameEdge(CallGraph callGraph) {
+        log.info("remove same edges");
         Set<String> edgeSet = new HashSet<>();
         Set<Edge> toBeDeletedSet = new HashSet<>();
         for (Edge edge : callGraph) {
@@ -301,6 +307,7 @@ public class CgModify extends Analyzer {
      * @param callGraph call graph
      */
     private void removeCircleFromCG(Map<SootMethod, Integer> inDegreeMap, CallGraph callGraph) {
+        log.info("removeCircleFromCG");
         Set<Edge> toBeDeletedSet = new HashSet<Edge>();
         Set<SootMethod> mcSrcs = new HashSet<SootMethod>(inDegreeMap.keySet());
         for (SootMethod mcSrc : mcSrcs) {
@@ -314,6 +321,7 @@ public class CgModify extends Analyzer {
                     SootMethod topMethod = stack.peek();
                     Iterator<Edge> it = callGraph.edgesOutOf(topMethod);
                     boolean allVisited = true;
+                    //for all the callees of the peek method
                     while (it.hasNext()) {
                         Edge edge = it.next();
                         SootMethod nextMethod = edge.getTgt().method();
@@ -332,9 +340,9 @@ public class CgModify extends Analyzer {
                     }
                 }
             }
+            for (Edge tbEdge : toBeDeletedSet)
+                callGraph.removeEdge(tbEdge, false);
         }
-        for (Edge tbEdge : toBeDeletedSet)
-            callGraph.removeEdge(tbEdge, false);
     }
 
     /**
@@ -345,6 +353,7 @@ public class CgModify extends Analyzer {
      * @param callGraph
      */
     private void sortCG(Map<SootMethod, Integer> outDegreeMap, CallGraph callGraph) {
+        log.info("call graph sorting......");
         if (callGraph == null)
             return;
         Set<SootMethod> queueSet = new HashSet<SootMethod>();
@@ -353,7 +362,14 @@ public class CgModify extends Analyzer {
 
         // put node whose outdegree is 0 to queue
         int lastTurn = 0;
+        long startTime = System.currentTimeMillis();
+        long endTime;
         while (true) {
+            endTime = System.currentTimeMillis();
+            if(((endTime - startTime) / 1000) > ConstantUtils.CGSORTTIME) {
+                log.info("incomplete call graph sorting");
+                break;
+            }
             Set<SootMethod> mcTars = new HashSet<SootMethod>(outDegreeMap.keySet());
             for (SootMethod mcTar : mcTars) {
                 if (outDegreeMap.get(mcTar) == 0) {// for nodes whose outdegree
@@ -387,7 +403,6 @@ public class CgModify extends Analyzer {
      * constructOutDregreeMap
      *
      * @param callGraph
-     * @param methodSet
      * @return
      */
     private Map<SootMethod, Integer> constructOutDegreeMap(CallGraph callGraph) {
