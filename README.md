@@ -1,3 +1,6 @@
+# News： 
+This project has been transferred to https://github.com/SQUARE-RG/ICCBot.
+
 # ICCBot
 
 ICCBot: A Fragment-Aware and Context-Sensitive ICC Resolution Tool for Android Applications.
